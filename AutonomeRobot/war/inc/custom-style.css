@@ -1,0 +1,60 @@
+.ui-collapsible-set.custom-css{
+	margin-top: -15px;
+}
+
+.ui-progressbar.list-edited{
+	height: initial;
+}
+
+.ui-progressbar.custom-css .ui-progressbar-value{
+	background: #5f9cc5;
+	background: -webkit-linear-gradient( #5f9cc5,#396b9e );
+	opacity: 0.5;
+}
+
+.ui-progressbar.list-edited .ui-progressbar-value{
+	border: 0;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	position: absolute;
+	height: initial;
+	margin: initial;
+	z-index: 1;
+}
+
+.ui-progressbar.custom-css.unstarted{
+	background: #d0d0d0;
+	background: -webkit-linear-gradient( #d0d0d0, #dfdfdf );
+}
+
+.ui-progressbar.custom-css.completed .ui-progressbar-value{
+	background: #ffefaa;
+	background: -webkit-linear-gradient( #ffefaa,#ffe155 );
+}
+
+.textinachievement{
+	text-shadow: 0px 0px #000000;
+	position: absolute; 
+	z-index: 2;
+}
+
+.ui-btn-inner{
+	border-top: 0;
+}
+
+.ui-btn-text{
+	height: 100%;
+}
+
+.ui-li-icon.custom-css{
+	max-height: 32px;
+	max-width: 32px;
+	left: 5px;
+	top: .3em;
+}
+
+.ui-tooltip{
+	max-width: initial;
+}
