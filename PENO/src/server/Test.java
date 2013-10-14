@@ -1,9 +1,14 @@
 package server;
 
 
+import java.io.BufferedReader;
+import java.io.FileReader;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.InetSocketAddress;
+import java.net.URL;
+import java.util.Scanner;
 
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
@@ -22,13 +27,25 @@ public class Test {
 
     static class MyHandler implements HttpHandler {
         public void handle(HttpExchange t) throws IOException {
-            String response = "Hey! :):):)";
+        	URL url = Test.class.getClassLoader().getResource("server/test.txt");
+        	InputStream stream = url.openStream();
+        	Scanner scanner = new Scanner(stream);
+    		Scanner scanner2 = scanner.useDelimiter("\\A");
+    		String response = "";
+    		while(scanner.hasNext()){
+    			response = response + scanner.next();
+    		}
+    		scanner.close();
+    		scanner2.close();
+        	
             t.sendResponseHeaders(200, response.length());
             OutputStream os = t.getResponseBody();
             os.write(response.getBytes());
             os.close();
         }
     }
+    
+    
     
     static class UpHandler implements HttpHandler {
         public void handle(HttpExchange t) throws IOException {
@@ -39,7 +56,4 @@ public class Test {
             os.close();
         }
     }
-    
-    
-    
 }
