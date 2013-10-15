@@ -2,7 +2,7 @@
 
 #The top level zeppelin code. 
 
-from modules.hardware import distSensor
+import distSensor
 
 #testcode to check the distSensor code
 
