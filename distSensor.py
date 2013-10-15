@@ -8,7 +8,7 @@ class DistanceSensor :
     trig_gpio = 4
     TRIG_DURATION = 0.0001
     SPEED_OF_SOUND = 340.29
-    TIMEOUT = 2100
+    TIMEOUT = 5000
     
     def __init__(self):   
         global echo_gpio, trig_gpio, TRIG_DURATION, SPEED_OF_SOUND, TIMEOUT
@@ -45,7 +45,7 @@ class DistanceSensor :
         if countdown > 0:
             starttime = time.time()
             countdown = TIMEOUT
-            while(GPIO.input(echo_gpio) == 0 and countdown > 0):
+            while(GPIO.input(echo_gpio) == 1 and countdown > 0):
                 countdown -=1
             
             if(countdown > 0):
