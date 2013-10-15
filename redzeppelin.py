@@ -8,14 +8,17 @@ import distSensor
 
 continuebool = True
 distSensor = distSensor.FakeDistanceSensor()
+counter = 1
 
 
 while continuebool:
     height = distSensor.getHeight()
-    print height
+    print str(counter) + ": " + str(height)
+    counter += 1
     cont = raw_input("continue? ('n' to stop): ")
     if(cont == "n"):
         continuebool = False
     
     
         
+    

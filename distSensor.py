@@ -1,28 +1,50 @@
 #Distance Sensor
-#import time
-#import RPi.GPIO as GPIO 
+#
+#This file contains two similar classes, one which actively controls the distance sensor and one which
+#emulates a distance sensor using empirical data for testing purposes.
+#Although not explicitly defined, both classes have the exact same methods. Implementing code should
+#see no difference between the opperation of these classes.
 
+import time
+import numpy
+import RPi.GPIO as GPIO 
+
+#This class emulates a distance sensor based on real data.
 class FakeDistanceSensor:
     data = None
     
     def __init__(self):
         global data
         try:
-            data = open("data/exp3-73cm.csv","r")
+            data = open("data/exp4-190cm.csv","r")
         except IOError:
             print "IOError happened :("
     
     def measure(self):
         string = data.readline()
-        string = string[0:7]
+        #cut off line delimiters and semicolons.
+        string = string[:-3]
     
         return float(string)
         
-    def getHeight(self):
-        return self.measure()
+    def getHeight(self, nopoints = 10):
+        points = []
+        triesleft = 2*nopoints
+        while len(points) < nopoints and triesleft > 0:
+            point = self.measure()
+            if point == -1:
+                triesleft -= 1
+            else:         
+                points.append(self.measure())
+            
+        if triesleft <= 0:
+            return -1
+        else:
+            return numpy.median(points)
+            
     
     
-"""
+
 class DistanceSensor :
     #setup pins: BCM noation. 17 means GPIO17, 4 means GPIO4
     echo_gpio = 17
@@ -31,6 +53,7 @@ class DistanceSensor :
     SPEED_OF_SOUND = 340.29
     TIMEOUT = 5000
     
+    #Constructor
     def __init__(self):   
         global echo_gpio, trig_gpio, TRIG_DURATION, SPEED_OF_SOUND, TIMEOUT
         echo_gpio = 17
@@ -50,8 +73,22 @@ class DistanceSensor :
     
     #Returns the height of the sensor in meters. This value should be accurate.
     #This means: two consecutive invocations of the function should return close results.
-    def getHeigth(self):
-        return
+    #This is implemented by calculating the median of (nopoints = 10) measurements. 
+    #Returns -1 when measure function fails too often.
+    def getHeight(self, nopoints = 10):
+        points = []
+        triesleft = 2*nopoints
+        while len(points) < nopoints and triesleft > 0:
+            point = self.measure()
+            if point == -1:
+                triesleft -= 1
+            else:         
+                points.append(self.measure())
+            
+        if triesleft <= 0:
+            return -1
+        else:
+            return numpy.median(points)
     
     #Perform one instantaneous measurement (not accurate)
     #Timeout places bounds on the wait. If -1 is returned regularly consider increasing the timeout
@@ -81,7 +118,7 @@ class DistanceSensor :
             distance = (endtime - starttime) * SPEED_OF_SOUND * 100/2
             
         return distance
- """   
+   
             
             
             
