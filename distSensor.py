@@ -11,7 +11,12 @@ class DistanceSensor :
     TIMEOUT = 2100
     
     def __init__(self):   
-        global echo_gpio, trig_gpio
+        global echo_gpio, trig_gpio, TRIG_DURATION, SPEED_OF_SOUND, TIMEOUT
+        echo_gpio = 17
+        trig_gpio = 4
+        TRIG_DURATION = 0.0001
+        SPEED_OF_SOUND = 340.29
+        TIMEOUT = 2100
         #Init GPIO
         #Adressingmode
         GPIO.setmode(GPIO.BCM)
