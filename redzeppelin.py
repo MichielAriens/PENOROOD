@@ -7,7 +7,7 @@ import distSensor
 #testcode to check the distSensor code
 
 continuebool = True
-distSensor = distSensor.DistanceSensor()
+distSensor = distSensor.FakeDistanceSensor()
 
 
 while continuebool:
