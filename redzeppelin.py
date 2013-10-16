@@ -11,12 +11,12 @@ import distSensor
 
 def testDistSens():
     continuebool = True
-    distSensor = distSensor.FakeDistanceSensor()
+    distSensor1 = distSensor.DistanceSensor()
     counter = 1
     
     
     while continuebool:
-        height = distSensor.getHeight()
+        height = distSensor1.getHeight()
         print str(counter) + ": " + str(height)
         counter += 1
         cont = raw_input("continue? ('n' to stop): ")
