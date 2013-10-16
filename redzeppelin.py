@@ -33,7 +33,7 @@ def testCamera():
         if cont == "n":
             continuebool = False
             
-testCamera()
+testDistSens()
     
     
         
