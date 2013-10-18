@@ -64,7 +64,7 @@ class DistanceSensor :
     
     #Constructor
     def __init__(self):   
-        global echo_gpio, trig_gpio, TRIG_DURATION, SPEED_OF_SOUND, TIMEOUT
+        global echo_gpio, trig_gpio, TRIG_DURATION, SPEED_OF_SOUND, TIMEOUT, offset, scalefactor
         echo_gpio = 17
         trig_gpio = 4
         TRIG_DURATION = 0.0001
@@ -78,6 +78,10 @@ class DistanceSensor :
         GPIO.setup(trig_gpio,GPIO.OUT)
         GPIO.output(trig_gpio,False)
         time.sleep(0.5)
+        
+        #initial calibration
+        offset = 0
+        scalefactor = 1
         
     
     #Returns the height of the sensor in meters. This value should be accurate.
