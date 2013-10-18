@@ -21,7 +21,7 @@ def testDistSens():
         command = raw_input("> ")
         if(command == "q"):
             continuebool = False
-        else if(command = "c"):
+        elif(command = "c"):
             command = raw_input("Set height: ")
             distSensor1.calibrate(float(command))
         else:
