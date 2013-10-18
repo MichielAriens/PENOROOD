@@ -41,6 +41,12 @@ class FakeDistanceSensor:
             return -1
         else:
             return numpy.median(points)
+
+    def calibrate(self):
+        return
+
+    def getHeightRaw(self):
+        return
             
     
     
@@ -52,6 +58,9 @@ class DistanceSensor :
     TRIG_DURATION = 0.0001
     SPEED_OF_SOUND = 340.29
     TIMEOUT = 5000
+
+    scalefactor = 0
+    offset = 0
     
     #Constructor
     def __init__(self):   
@@ -76,6 +85,9 @@ class DistanceSensor :
     #This is implemented by calculating the median of (nopoints = 10) measurements. 
     #Returns -1 when measure function fails too often.
     def getHeight(self, nopoints = 10):
+        return offset + getHeightRaw(nopoints)*scalefactor
+
+    def getHeightRaw(seld, nopoints = 10):
         points = []
         triesleft = 2*nopoints
         while len(points) < nopoints and triesleft > 0:
@@ -89,6 +101,12 @@ class DistanceSensor :
             return -1
         else:
             return numpy.median(points)
+
+    def calibrate(self, height=0):
+        if(height == 0):
+            offset = -getHeightRaw(50)
+        else:
+            scalefactor height/getHeightRaw(50)
     
     #Perform one instantaneous measurement (not accurate)
     #Timeout places bounds on the wait. If -1 is returned regularly consider increasing the timeout

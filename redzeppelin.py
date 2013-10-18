@@ -13,16 +13,20 @@ import camera
 def testDistSens():
     continuebool = True
     distSensor1 = distSensor.DistanceSensor()
-    counter = 1
+
+    print "commands: \n q: quit \n m:measure \n c: calibrate"
     
     
     while continuebool:
-        height = distSensor1.getHeight()
-        print str(counter) + ": " + str(height)
-        counter += 1
-        cont = raw_input("continue? ('n' to stop): ")
-        if(cont == "n"):
+        command = raw_input("> ")
+        if(command == "q"):
             continuebool = False
+        else if(command = "c"):
+            command = raw_input("Set height: ")
+            distSensor1.calibrate(float(command))
+        else:
+            height = distSensor1.getHeight()
+            print str(counter) + ": " + str(height)
             
 def testCamera():
     continuebool = True
