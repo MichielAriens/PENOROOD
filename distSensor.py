@@ -84,14 +84,18 @@ class DistanceSensor :
         scalefactor = 1
         
     
-    #Returns the height of the sensor in meters. This value should be accurate.
+    #Returns the height of the sensor in meters applying calibration data. This value should be accurate.
     #This means: two consecutive invocations of the function should return close results.
     #This is implemented by calculating the median of (nopoints = 10) measurements. 
     #Returns -1 when measure function fails too often.
     def getHeight(self, nopoints = 10):
         global offset, scalefactor
         return offset + self.getHeightRaw(nopoints)*scalefactor
-
+    
+    #Returns the height of the sensor in meters NOT applying calibration data. This value should be accurate.
+    #This means: two consecutive invocations of the function should return close results.
+    #This is implemented by calculating the median of (nopoints = 10) measurements. 
+    #Returns -1 when measure function fails too often.
     def getHeightRaw(self, nopoints = 10):
         points = []
         triesleft = 2*nopoints
@@ -106,13 +110,15 @@ class DistanceSensor :
             return -1
         else:
             return numpy.median(points)
-
+    
+    #Calibration of the sensor. Calibration is linear. Allows two inputs: Point zero calibration translates the output. For other inputs
+    #scaling is applied (not yet working)
     def calibrate(self, height=0):
         global offset, scalefactor
         if(height == 0):
             offset = -self.getHeightRaw(50)
         else:
-            scalefactor = height/self.getHeightRaw(50)
+            scalefactor = self.getHeightRaw(50)/height
     
     #Perform one instantaneous measurement (not accurate)
     #Timeout places bounds on the wait. If -1 is returned regularly consider increasing the timeout
