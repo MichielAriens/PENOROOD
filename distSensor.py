@@ -90,7 +90,7 @@ class DistanceSensor :
     #Returns -1 when measure function fails too often.
     def getHeight(self, nopoints = 10):
         global offset, scalefactor
-        return offset + self.getHeightRaw(nopoints)*scalefactor
+        return (offset + self.getHeightRaw(nopoints))*scalefactor
     
     #Returns the height of the sensor in meters NOT applying calibration data. This value should be accurate.
     #This means: two consecutive invocations of the function should return close results.
