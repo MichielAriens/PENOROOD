@@ -85,9 +85,10 @@ class DistanceSensor :
     #This is implemented by calculating the median of (nopoints = 10) measurements. 
     #Returns -1 when measure function fails too often.
     def getHeight(self, nopoints = 10):
-        return offset + getHeightRaw(nopoints)*scalefactor
+        global offset, scalefactor
+        return offset + self.getHeightRaw(nopoints)*scalefactor
 
-    def getHeightRaw(seld, nopoints = 10):
+    def getHeightRaw(self, nopoints = 10):
         points = []
         triesleft = 2*nopoints
         while len(points) < nopoints and triesleft > 0:
@@ -103,10 +104,11 @@ class DistanceSensor :
             return numpy.median(points)
 
     def calibrate(self, height=0):
+        global offset, scalefactor
         if(height == 0):
-            offset = -getHeightRaw(50)
+            offset = -self.getHeightRaw(50)
         else:
-            scalefactor = height/getHeightRaw(50)
+            scalefactor = height/self.getHeightRaw(50)
     
     #Perform one instantaneous measurement (not accurate)
     #Timeout places bounds on the wait. If -1 is returned regularly consider increasing the timeout
