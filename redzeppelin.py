@@ -5,7 +5,7 @@
 #The top level zeppelin code. 
 
 import distSensor
-import camera
+#import camera
 
 #testcode to check the distSensor code
 
@@ -27,7 +27,7 @@ def testDistSens():
         else:
             height = distSensor1.getHeight()
             print str(height)
-            
+"""        
 def testCamera():
     continuebool = True
     cam = camera.Camera()
@@ -35,7 +35,7 @@ def testCamera():
         print str(cam.detectMovement())
         cont = raw_input("continue? ('n' to stop): ")
         if cont == "n":
-            continuebool = False
+            continuebool = False"""
             
 testDistSens()
     
