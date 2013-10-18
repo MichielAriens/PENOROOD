@@ -1,21 +1,46 @@
-import sys
-import BaseHTTPServer
-from SimpleHTTPServer import SimpleHTTPRequestHandler
+#Bottle allows explicit linking of a URL request (GET, POST, ...) to python methods. 
+from bottle import *
 
+#placeholder method
+def check_login(user,passw):
+    return True
 
-HandlerClass = SimpleHTTPRequestHandler
-ServerClass  = BaseHTTPServer.HTTPServer
-Protocol     = "HTTP/1.0"
+#Homepage. 
+@route('/')
+def home():
+    return static_file("index.html",root="")
 
-if sys.argv[1:]:
-    port = int(sys.argv[1])
-else:
-    port = 8000
-server_address = ('127.0.0.1', port)
+#Images must be loaded explicitely from the images folder.
+@route('/images/<filename:re:.*\.png>')
+def send_image(filename):
+    return static_file(filename, root='images/', mimetype='image/png')
 
-HandlerClass.protocol_version = Protocol
-httpd = ServerClass(server_address, HandlerClass)
+#CSS, must be loaded from the css folder.
+@route('/css/<filename:re:.*\.css>')
+def send_css(filename):
+    return static_file(filename, root='css/', mimetype='text/css')
 
-sa = httpd.socket.getsockname()
-print "Serving HTTP on", sa[0], "port", sa[1], "..."
-httpd.serve_forever()
+@route('/scripts/<filename:re:.*\.js')
+def send_javascript(filename):
+    return static_file(filename, root='scripts/', mimetype='text/javascript')
+    
+@get('/login') # or @route('/login')
+def login():
+    return '''
+        <form action="/login" method="post">
+            Username: <input name="username" type="text" />
+            Password: <input name="password" type="password" />
+            <input value="Login" type="submit" />
+        </form>
+    '''
+
+@post('/login') # or @route('/login', method='POST')
+def do_login():
+    username = request.forms.get('username')
+    password = request.forms.get('password')
+    if check_login(username, password):
+        return "<p>Your login information was correct.</p>"
+    else:
+        return "<p>Login failed.</p>"
+
+run(host='localhost', port=8080, debug=True)
