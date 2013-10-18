@@ -4,7 +4,7 @@
 
 #The top level zeppelin code. 
 
-import distSensor
+import modules.hardware.distSensor as distSensor
 #import camera
 
 #testcode to check the distSensor code
