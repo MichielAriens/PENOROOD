@@ -106,7 +106,7 @@ class DistanceSensor :
         if(height == 0):
             offset = -getHeightRaw(50)
         else:
-            scalefactor height/getHeightRaw(50)
+            scalefactor = height/getHeightRaw(50)
     
     #Perform one instantaneous measurement (not accurate)
     #Timeout places bounds on the wait. If -1 is returned regularly consider increasing the timeout
