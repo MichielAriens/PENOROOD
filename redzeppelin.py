@@ -26,7 +26,7 @@ def testDistSens():
             distSensor1.calibrate(float(command))
         else:
             height = distSensor1.getHeight()
-            print str(counter) + ": " + str(height)
+            print str(height)
             
 def testCamera():
     continuebool = True
