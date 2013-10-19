@@ -7,7 +7,7 @@
 
 import time
 import numpy
-import RPi.GPIO as GPIO 
+#import RPi.GPIO as GPIO 
 
 #This class emulates a distance sensor based on real data.
 class FakeDistanceSensor:
@@ -16,7 +16,7 @@ class FakeDistanceSensor:
     def __init__(self):
         global data
         try:
-            data = open("../../data/exp4-190cm.csv","r")
+            data = open("./data/exp4-190cm.csv","r")
         except IOError:
             print "IOError happened :("
     

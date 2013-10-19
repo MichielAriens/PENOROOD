@@ -4,15 +4,18 @@
 
 #--------------------------------------
 
-#Primary declarations.
-#Motors:
-lift = None
-thust = None
-rudder = None
-
-#Altimeter
-altimeter = None
-
-#Camera
-camera = None
+import hardware.distSensor as ds
+class LowLevelController:
+    def __init__(self):
+        #Primary declarations.
+        #Motors:
+        self.lift = None
+        self.thust = None
+        self.rudder = None
+        
+        #Altimeter
+        self.altimeter = ds.FakeDistanceSensor()
+        
+        #Camera
+        self.camera = None
 
