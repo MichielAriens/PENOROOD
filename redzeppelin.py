@@ -2,7 +2,7 @@
 
 #set up zeppelin (temp)
 import modules.lowLevelCotroller as llcp
-llc = llcp.LowLevelController
+llc = llcp.LowLevelController()
 
 
 #Bottle allows explicit linking of a URL request (GET, POST, ...) to python methods. 
