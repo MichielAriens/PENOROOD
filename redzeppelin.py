@@ -41,6 +41,13 @@ def send_javascript(filename):
 def send_height():
     global llc
     return str(llc.altimeter.getHeight())
+    
+import modules.srv.server
+
+run(host='localhost', port=8080, debug=True)
+
+
+#Old testing code below
 =======
 """
 def testDistSens():
@@ -72,7 +79,7 @@ def testCamera():
             
 testDistSens()"""
 
-import modules.srv.server
+
     
     
         
@@ -99,4 +106,4 @@ def do_login():
         return "<p>Login failed.</p>"
 """
 
-run(host='localhost', port=8080, debug=True)
+
