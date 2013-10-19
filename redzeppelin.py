@@ -5,13 +5,19 @@ import modules.lowLevelCotroller as llcp
 llc = llcp.LowLevelController()
 
 
+<<<<<<< HEAD
 #Bottle allows explicit linking of a URL request (GET, POST, ...) to python methods. 
 from modules.srv.bottle import *
+=======
+#import modules.hardware.distSensor as distSensor
+#import camera
+>>>>>>> Python-branch
 
 #placeholder method
 def check_login(user,passw):
     return True
 
+<<<<<<< HEAD
 #Homepage. 
 @route('/')
 def home():
@@ -35,6 +41,42 @@ def send_javascript(filename):
 def send_height():
     global llc
     return str(llc.altimeter.getHeight())
+=======
+"""
+def testDistSens():
+    continuebool = True
+    distSensor1 = distSensor.DistanceSensor()
+
+    print "commands: \n q: quit \n m:measure \n c: calibrate"
+    
+    
+    while continuebool:
+        command = raw_input("> ")
+        if(command == "q"):
+            continuebool = False
+        elif(command == "c"):
+            command = raw_input("Set height: ")
+            distSensor1.calibrate(float(command))
+        else:
+            height = distSensor1.getHeight()
+            print str(height)
+     
+def testCamera():
+    continuebool = True
+    cam = camera.Camera()
+    while continuebool:
+        print str(cam.detectMovement())
+        cont = raw_input("continue? ('n' to stop): ")
+        if cont == "n":
+            continuebool = False
+            
+testDistSens()"""
+
+import modules.srv.server
+    
+    
+        
+>>>>>>> Python-branch
     
 """
 @get('/login') # or @route('/login')
