@@ -18,7 +18,7 @@ class LowLevelController:
         self.rudder = None
         
         #Altimeter
-        self.altimeter = ds.FakeDistanceSensor()
+        self.altimeter = ds.DistanceSensor()
         self.dHeight = 0
         
         #Camera
@@ -38,6 +38,7 @@ class LowLevelController:
             time.sleep(0.250)
     
     #Starts running background threads
+    #    _keepHeight
     def start(self):
         thread.start_new(self._keepHeight, ())
         

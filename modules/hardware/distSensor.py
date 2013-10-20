@@ -7,7 +7,7 @@
 
 import time
 import numpy
-#import RPi.GPIO as GPIO 
+import RPi.GPIO as GPIO 
 
 #This class emulates a distance sensor based on real data.
 class FakeDistanceSensor:
