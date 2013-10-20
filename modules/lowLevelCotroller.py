@@ -5,7 +5,11 @@
 #--------------------------------------
 
 import hardware.distSensor as ds
+import hardware.motor as motor
+import thread
+import time
 class LowLevelController:
+    #initmethod variables (call start to invoke backround methods)
     def __init__(self):
         #Primary declarations.
         #Motors:
@@ -15,7 +19,27 @@ class LowLevelController:
         
         #Altimeter
         self.altimeter = ds.FakeDistanceSensor()
+        self.dHeight = 0
         
         #Camera
         self.camera = None
-
+    
+    #Used to set the desired height.
+    #Effects ill only become apparent after _keepHeight pulls the new info
+    def setDesiredHeight(self,height):
+        self.dHeight = height
+        
+    #Algorithm to invoke motors to achieve a certain height
+    #Pyhton convention: methods names preceded by '_' should be deemed 'private'
+    def _keepHeight(self):
+        while(True):
+            #-- algorithm
+            #End by sleeping for 250 ms not to overload main thread(optimal variable should be found later
+            time.sleep(0.250)
+    
+    #Starts running background threads
+    def start(self):
+        thread.start_new(self._keepHeight, ())
+        
+    
+        

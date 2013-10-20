@@ -1,4 +1,25 @@
 body {
-	background-image:url(../images/background3.png);
+	/*background-image:url(../images/background2.png);*/
 	font-family: 'Roboto', sans-serif;
+}
+
+/*
+ * Colourscheme: 
+ * #BF1300
+ * #800D00
+ * #FF1A00
+ * #400600
+ * #
+ */
+
+#pane{
+	
+	margin:auto;
+	
+	
+	/*background-image:url(../images/forepattern3.png);*/
+}
+
+#pane h1{
+	text-align: center;
 }

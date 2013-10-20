@@ -1,24 +1,25 @@
 #!/usr/bin/env python
 
-#set up zeppelin (temp)
 import modules.lowLevelCotroller as llcp
-llc = llcp.LowLevelController()
 
+#Zeppelin class.
+class Zeppelin:
+    def __init__(self):
+        self.llc = llcp.LowLevelController()
 
-<<<<<<< HEAD
-#Bottle allows explicit linking of a URL request (GET, POST, ...) to python methods. 
+#########################
+####Initiate zeppelin####
+#########################
+zeppelin = Zeppelin()
+
+######################
+####Server-methods####
+######################
+
+#imort Bottle: allows explicit linking of a URL request (GET, POST, ...) to python methods (see below)
 from modules.srv.bottle import *
-=======
-#import modules.hardware.distSensor as distSensor
-#import camera
->>>>>>> Python-branch
 
-#placeholder method
-def check_login(user,passw):
-    return True
-
-<<<<<<< HEAD
-#Homepage. 
+#Homepage.
 @route('/')
 def home():
     return static_file("index.html",root="modules/srv/")
@@ -39,16 +40,28 @@ def send_javascript(filename):
 
 @route('/height')
 def send_height():
-    global llc
-    return str(llc.altimeter.getHeight())
+    global zeppelin
+    return str(zeppelin.llc.altimeter.getHeight())
     
-import modules.srv.server
+    
 
-run(host='localhost', port=8080, debug=True)
+#start zeppelin background tasks.
+zeppelin.llc.start()
+#Start the server
+run(host='localhost', port=54322, debug=True)
+
+
+
+
+
+
+
+
+
 
 
 #Old testing code below
-=======
+
 """
 def testDistSens():
     continuebool = True
@@ -83,7 +96,7 @@ testDistSens()"""
     
     
         
->>>>>>> Python-branch
+
     
 """
 @get('/login') # or @route('/login')
