@@ -11,7 +11,7 @@
 	<body>
 		
 		<script>
-			window.addEventListener('keyup', function (e) {
+			window.addEventListener('keydown', function (e) {
 		        	var keyCode = e.keyCode || e.which,
 		      		arrow = {left: 37, up: 38, right: 39, down: 40 };
 		
@@ -27,6 +27,27 @@
 				    break;
 				    case arrow.down:
 				    alert("Down pressed");
+				    break;
+	  				}
+	    		}
+			, false);
+			
+			window.addEventListener('keyup', function (e) {
+		        	var keyCode = e.keyCode || e.which,
+		      		arrow = {left: 37, up: 38, right: 39, down: 40 };
+		
+		  			switch (keyCode) {
+		    		case arrow.left:
+		      		//actie
+		    		break;
+		    		case arrow.up:
+		      		
+		    		break;
+				    case arrow.right:
+				    
+				    break;
+				    case arrow.down:
+				    
 				    break;
 	  				}
 	    		}
