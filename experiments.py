@@ -1,6 +1,7 @@
 import distSensor
 import time
 
+"""
 ds = distSensor.DistanceSensor()
 
 file = open('../../data/esp.csv','w')
@@ -22,6 +23,26 @@ while i < max:
         
     file.write(";" + str(totDur) + "\n")
     i += 1
+    """
+    
+ds = distSensor.DistanceSensor()
+file = open('date/exp.csv','w')
+
+max = 100
+maxheight = 300
+height = 50
+
+while(height < maxheight):
+    file.write(str(height)+";")
+    i = 0
+    while i < max:
+        h = ds.getHeightRaw(i)
+        file.write(str(h) + ";")
+        i+=1
+        
+    file.write("/n")
+    height += 50
+    raw_input("move to" + str(height))
     
 
     
