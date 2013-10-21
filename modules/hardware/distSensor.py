@@ -110,6 +110,24 @@ class DistanceSensor :
             return -1
         else:
             return numpy.median(points)
+            
+    def getHeight2(self, nopoints):
+        points = []
+        triesleft = 2*nopoints
+        while len(points) < nopoints and triesleft > 0:
+            point = self.measure()
+            if point == -1:
+                triesleft -= 1
+            else:         
+                points.append(self.measure())
+            
+        if triesleft <= 0:
+            return -1
+        else:
+            points.remove(mix(points))
+            points.remove(max(points))
+            return numpy.median(points)
+        
     
     #Calibration of the sensor. Calibration is linear. Allows two inputs: Point zero calibration translates the output. For other inputs
     #scaling is applied (not yet working)
