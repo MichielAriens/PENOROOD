@@ -96,7 +96,7 @@ class DistanceSensor :
     #This means: two consecutive invocations of the function should return close results.
     #This is implemented by calculating the median of (nopoints = 10) measurements. 
     #Returns -1 when measure function fails too often.
-    def getHeightRaw(self, nopoints = 10):
+    def getHeightRaw(self, nopoints):
         points = []
         triesleft = 2*nopoints
         while len(points) < nopoints and triesleft > 0:
