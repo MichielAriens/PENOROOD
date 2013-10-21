@@ -2,7 +2,7 @@ import distSensor
 
 ds = distSensor.DistanceSensor()
 
-file = open("./data/esp.csv","w")
+file = open('../../data/esp.csv','w')
 
 max = 100
 repeats = 100
