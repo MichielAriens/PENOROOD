@@ -9,12 +9,38 @@
 		<script type="text/javascript" src="scripts/jquery-2.0.3.js"></script>
 	</head>
 	<body>
+		
+		<script>
+			window.addEventListener('keyup', function (e) {
+		        	var keyCode = e.keyCode || e.which,
+		      		arrow = {left: 37, up: 38, right: 39, down: 40 };
+		
+		  			switch (keyCode) {
+		    		case arrow.left:
+		      		alert("Left pressed");
+		    		break;
+		    		case arrow.up:
+		      		alert("Up pressed");
+		    		break;
+				    case arrow.right:
+				    alert("Right pressed");
+				    break;
+				    case arrow.down:
+				    alert("Down pressed");
+				    break;
+	  				}
+	    		}
+			, false);
+
+		</script>
 		<div id="pane">
 			<h1>In development</h1>
 			<p>Come back soon!</p>
 			<img src="images/test.png" />
-			
-		</div>
+		</div>	
+		
+		
+	
 		
 	</body>
 	
