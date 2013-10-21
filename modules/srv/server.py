@@ -43,6 +43,35 @@ def do_login():
     else:
         return "<p>Login failed.</p>"
 
+@get('/iframetest')
+def display():
+    return '''
+        <!DOCTYPE html>
+            <html>
+            <body>
+
+        <iframe src="test" width="100" height="200"></iframe>
+
+        <p>Dit is een rechtstreekse referentie naar een andere methode.</p>
+        <p>Nog proberen naar andere pagina's</p>
+
+        </body>
+        </html>
+    '''
+    
+@get('/test')
+def emptyTest():
+    return '''
+        <!DOCTYPE html>
+<html>
+
+<body>
+<p>This is my first paragraph.</p>
+</body>
+
+</html>
+'''
+    
 run(host='localhost', port=8080, debug=True)
     
     
