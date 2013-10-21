@@ -14,9 +14,9 @@ while i < max:
     j=0
     totDur = 0
     while j < repeats:
-        dur = time.gmtime()
+        dur = int(round(time.time() * 1000))
         h = ds.getHeightRaw(i)
-        totDur += time.gmtime() - dur
+        totDur += int(round(time.time() * 1000)) - dur
         file.write(str(h + ";"))
         j += 1
         
