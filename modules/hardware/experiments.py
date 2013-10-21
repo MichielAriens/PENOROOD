@@ -17,7 +17,7 @@ while i < max:
         dur = int(round(time.time() * 1000))
         h = ds.getHeightRaw(i)
         totDur += int(round(time.time() * 1000)) - dur
-        file.write(str(h + ";"))
+        file.write(str(h) + ";")
         j += 1
         
     file.write(";" + str(totDur) + "\n")
