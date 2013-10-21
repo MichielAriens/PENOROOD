@@ -26,9 +26,9 @@ while i < max:
     """
     
 ds = distSensor.DistanceSensor()
-file = open('date/exp.csv','w')
+file = open('data/exp.csv','w')
 
-max = 100
+max = 40
 maxheight = 300
 height = 50
 
@@ -36,7 +36,7 @@ while(height < maxheight):
     file.write(str(height)+";")
     i = 0
     while i < max:
-        h = ds.getHeightRaw(i)
+        h = ds.getHeightRaw(1)
         file.write(str(h) + ";")
         i+=1
         
