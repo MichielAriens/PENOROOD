@@ -25,4 +25,4 @@ class Motor:
         
     def _actuate(self):
         return
-        #-- IO to set thrust and direction
+        #Make motor perform action with self.thrust and self.direction
