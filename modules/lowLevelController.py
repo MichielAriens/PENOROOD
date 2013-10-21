@@ -12,10 +12,11 @@ class LowLevelController:
     #initmethod variables (call start to invoke backround methods)
     def __init__(self):
         #Primary declarations.
+        #
         #Motors:
-        self.lift = None
-        self.thust = None
-        self.rudder = None
+        self.lift = Motor(thrustPin,positivePin,negativePin)  #parameters have to be adjusted appropiately
+        self.thust = Motor(thrustPin,positivePin,negativePin)
+        self.rudder = Motor(thrustPin,positivePin,negativePin)
         
         #Altimeter
         self.altimeter = ds.DistanceSensor()
@@ -38,9 +39,7 @@ class LowLevelController:
             time.sleep(0.250)
     
     #Starts running background threads
-    #    _keepHeight
+    # _keepHeight
     def start(self):
         thread.start_new(self._keepHeight, ())
-        
-    
         

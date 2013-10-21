@@ -96,7 +96,7 @@ class DistanceSensor :
     #This means: two consecutive invocations of the function should return close results.
     #This is implemented by calculating the median of (nopoints = 10) measurements. 
     #Returns -1 when measure function fails too often.
-    def getHeightRaw(self, nopoints = 10):
+    def getHeightRaw(self, nopoints):
         points = []
         triesleft = 2*nopoints
         while len(points) < nopoints and triesleft > 0:
@@ -110,6 +110,24 @@ class DistanceSensor :
             return -1
         else:
             return numpy.median(points)
+            
+    def getHeight2(self, nopoints):
+        points = []
+        triesleft = 2*nopoints
+        while len(points) < nopoints and triesleft > 0:
+            point = self.measure()
+            if point == -1:
+                triesleft -= 1
+            else:         
+                points.append(self.measure())
+            
+        if triesleft <= 0:
+            return -1
+        else:
+            points.remove(mix(points))
+            points.remove(max(points))
+            return numpy.median(points)
+        
     
     #Calibration of the sensor. Calibration is linear. Allows two inputs: Point zero calibration translates the output. For other inputs
     #scaling is applied (not yet working)
