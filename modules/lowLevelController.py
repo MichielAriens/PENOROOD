@@ -73,8 +73,12 @@ class FakeEnvironment:
     def update(self):
         while True:    
             force = self.verticalForce - self.gravity 
-            self.vSpeed += force/self.mass
-            self.height += self.vSpeed
+            if(self.height < 0):
+                self.height = 0
+                self.vSpeed = 0
+            else:
+                self.vSpeed += force/self.mass
+                self.height += self.vSpeed
             time.sleep(1)
         
     
