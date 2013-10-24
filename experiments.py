@@ -39,7 +39,6 @@ while(height < maxheight):
         h = ds.getHeightRaw(1)
         file.write(str(h) + ";")
         i+=1
-        
     file.write("/n")
     height += 50
     raw_input("move to" + str(height))
