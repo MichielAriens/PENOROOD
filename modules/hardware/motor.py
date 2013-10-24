@@ -1,3 +1,5 @@
+import time
+
 class Motor:
     #Pins to be provided by parameters.
     def __init__(self,thrustPin,postivePin,negativePin):
@@ -27,3 +29,18 @@ class Motor:
     def _actuate(self):
         return
         #Make motor perform action with self.thrust and self.direction
+
+class FakeMotor:
+    
+    def __init__(self,env):
+        self.MAXFORCE = 20
+        self.env = env
+        self.thrust = 0
+        
+    #simulate thrust change with a small delay
+    def setThrust(self,thrust):
+        self.thrust = thrust
+        time.sleep(0.010)
+        self.env.verticalForce = thrust/100 * self.MAXFORCE
+        
+        

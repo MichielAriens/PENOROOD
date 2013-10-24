@@ -7,11 +7,23 @@
 
 import time
 import numpy
+import random
+
+
 try:
     import RPi.GPIO as GPIO
 except ImportError:
     print "GPIO pins not imported."
     
+
+class FakeDistanceSensor2:
+    def __init__(self,env):
+        self.env = env
+        
+    #Simulate a slightly less acurate reading that's not instantaneaous
+    def getHeight(self):
+        time.sleep(0.0010)
+        return random.gauss(self.env.height, self.env.height/200)
 
 #This class emulates a distance sensor based on real data.
 class FakeDistanceSensor:

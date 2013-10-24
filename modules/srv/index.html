@@ -27,21 +27,38 @@
 				<div id="IOheight">NA</div>
 			</div>
 			
+			<div id="input">
+				<form id="heightform" action="setheight" method="post">
+					Desired height:<input type="text" name="dHeight">
+					<input type="submit" value="Submit">
+				</form>
+			</div>
+			
 		</div>
 		
 		
 		
 		
 		<script>
-			
+			function submitHeight(){
+				$.post("setheight")
+			}
 			
 			function reloadData(){
+				//reload the height
 				$.get( "height", {} )
   					.done(function( data ) {
   						$('#IOheight').html("" + data);
     				}
   				);
   				window.setTimeout(reloadData, 1000);
+  				
+  				//reoad the lift
+  				$.get("lift",{})
+  					.done(function(data){
+  						$('#IOlift').html("" + data);
+  					}
+  				);
 			}
 			
 			window.setInterval(reloadData(),1000);

@@ -50,8 +50,21 @@ def send_javascript(filename):
 def send_height():
     global zeppelin
     return str(zeppelin.llc.altimeter.getHeight())
-    
-    
+
+@route('/lift')
+def send_lift():
+    global zeppelin
+    return str(zeppelin.llc.lift.thrust)
+
+@post('/setheight')
+def set_height():
+    global zeppelin
+    try: 
+        nheight = float(request.forms.get('dHeight'))
+    except ValueError:
+        return
+    zeppelin.llc.setDesiredHeight(nheight)
+        
 
 #start zeppelin background tasks.
 zeppelin.llc.start()

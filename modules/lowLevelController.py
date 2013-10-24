@@ -8,6 +8,8 @@ import hardware.distSensor as ds
 import hardware.motor as motor
 import thread
 import time
+import random
+
 class LowLevelController:
     #initmethod variables (call start to invoke backround methods)
     def __init__(self,simMode = "RPi"):
@@ -17,12 +19,13 @@ class LowLevelController:
             self.thrust = None
             self.rudder = None
         elif simMode == "sim":
-            self.lift = None
-            self.thrust = None
-            self.rudder = None
-            self.altimeter = ds.FakeDistanceSensor()
+            self.fe = FakeEnvironment()
+            self.lift = motor.FakeMotor(self.fe)
+            self.altimeter = ds.FakeDistanceSensor2(self.fe)
+            thread.start_new(self.fe.update, ())
+            
         else:
-            print "LowLevelController was not pased a valid simulation format.\n the application will now quit."
+            print "LowLevelController was not passed a valid simulation format.\n The application will now quit."
             raise RuntimeError()
         self.dHeight = 0
         
@@ -38,12 +41,48 @@ class LowLevelController:
     #Pyhton convention: methods names preceded by '_' should be deemed 'private'
     def _keepHeight(self):
         while(True):
-            #-- algorithm
-            #End by sleeping for 250 ms not to overload main thread(optimal variable should be found later
+            delta = self.dHeight - self.altimeter.getHeight()
+            
+            #first very simple algorithm
+            if delta > 0:
+                self.lift.setThrust(100)
+            else:
+                self.lift.setThrust(-100)
+            
+            
             time.sleep(0.250)
     
     #Starts running background threads
     # _keepHeight
     def start(self):
         thread.start_new(self._keepHeight, ())
+        
+class FakeEnvironment:
+    
+    def __init__(self):
+        #pull of gravity somewhere around 10 newtons
+        self.mass = random.gauss(1,0.05)
+        print "mass of the fake zeppelin is " + str(self.mass)
+        self.gravity = self.mass * 9.81
+        
+        self.verticalForce = 0
+        
+        self.height = 0
+        self.vSpeed = 0
+        
+    def update(self):
+        while True:    
+            force = self.verticalForce - self.gravity 
+            self.vSpeed += force/self.mass
+            self.height += self.vSpeed
+            time.sleep(1)
+        
+    
+        
+    
+        
+        
+    
+    
+    
         
