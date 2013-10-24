@@ -1,16 +1,24 @@
 #!/usr/bin/env python
 
-import modules.lowLevelCotroller as llcp
+import modules.lowLevelController as llcp
+
+#Check to see whether we're running on the RaspberryPi. store result in simMode
+simMode = "RPi"
+try:
+    import RPi.GPIO as GPIO
+except ImportError:
+    simMode = "sim"
+    print "running in simulation mode."
 
 #Zeppelin class.
 class Zeppelin:
-    def __init__(self):
-        self.llc = llcp.LowLevelController()
+    def __init__(self, simMode = "RPi"):
+        self.llc = llcp.LowLevelController(simMode)
 
 #########################
 ####Initiate zeppelin####
 #########################
-zeppelin = Zeppelin()
+zeppelin = Zeppelin(simMode)
 
 ######################
 ####Server-methods####

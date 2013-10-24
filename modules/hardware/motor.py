@@ -15,12 +15,13 @@ class Motor:
     #The direction is either 1 or -1 (depending on the pin), indicating which way the
     #  propellers are spinning and thus decide the direction of the thrust.
     def setThrust(self):
-        self.thrust = thrustPin.getSignal()    #replace .getSignal() with appropiate input
-        if self.positivePin.getSignal() != null:
-            self.direction = positive
-        elif self.negativePin.getSignal() != null:
-            self.direction = negative
-        else self.direction = null    #No direction has been given, write something to handle it if thrust isn't equal to 0
+        self.thrust = self.thrustPin.getSignal()    #replace .getSignal() with appropiate input
+        if self.positivePin.getSignal() != None:
+            self.direction = "positive"
+        elif self.negativePin.getSignal() != None:
+            self.direction = "negative"
+        else: 
+            self.direction = None    #No direction has been given, write something to handle it if thrust isn't equal to 0
         self._actuate()
         
     def _actuate(self):

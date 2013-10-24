@@ -10,16 +10,20 @@ import thread
 import time
 class LowLevelController:
     #initmethod variables (call start to invoke backround methods)
-    def __init__(self):
-        #Primary declarations.
-        #
-        #Motors:
-        self.lift = Motor(thrustPin,positivePin,negativePin)  #parameters have to be adjusted appropiately
-        self.thust = Motor(thrustPin,positivePin,negativePin)
-        self.rudder = Motor(thrustPin,positivePin,negativePin)
-        
-        #Altimeter
-        self.altimeter = ds.DistanceSensor()
+    def __init__(self,simMode = "RPi"):
+        if simMode == "RPi":
+            self.altimeter = ds.DistanceSensor()
+            self.lift = None
+            self.thrust = None
+            self.rudder = None
+        elif simMode == "sim":
+            self.lift = None
+            self.thrust = None
+            self.rudder = None
+            self.altimeter = ds.FakeDistanceSensor()
+        else:
+            print "LowLevelController was not pased a valid simulation format.\n the application will now quit."
+            raise RuntimeError()
         self.dHeight = 0
         
         #Camera

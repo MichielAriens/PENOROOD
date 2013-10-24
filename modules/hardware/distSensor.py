@@ -7,7 +7,11 @@
 
 import time
 import numpy
-import RPi.GPIO as GPIO 
+try:
+    import RPi.GPIO as GPIO 
+except ImportError:
+    print "GPIO pins not imported."
+    
 
 #This class emulates a distance sensor based on real data.
 class FakeDistanceSensor:
