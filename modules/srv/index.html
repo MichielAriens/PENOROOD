@@ -9,8 +9,46 @@
 		<script type="text/javascript" src="scripts/jquery-2.0.3.js"></script>
 	</head>
 	<body>
+		<div id="header">
+			<h1>RedZeppelin</h1>
+			<h3>PENO 2013-14 team: ROOD</h3>		
+		</div>
+		<div id="info">
+			<div id="motors">
+				lift:
+				<div id="IOlift">NA</div>
+				thrust:
+				<div id="IOthrust">NA</div>
+				rudder:
+				<div id="IOrudder">NA</div>
+			</div>
+			<div id="position">
+				height:
+				<div id="IOheight">NA</div>
+			</div>
+			
+		</div>
+		
+		
+		
 		
 		<script>
+			
+			
+			function reloadData(){
+				$.get( "height", {} )
+  					.done(function( data ) {
+  						$('#IOheight').html("" + data);
+    				}
+  				);
+  				window.setTimeout(reloadData, 1000);
+			}
+			
+			window.setInterval(reloadData(),1000);
+		
+			
+			
+			
 			window.addEventListener('keydown', function (e) {
 		        	var keyCode = e.keyCode || e.which,
 		      		arrow = {left: 37, up: 38, right: 39, down: 40 };
@@ -53,16 +91,7 @@
 	    		}
 			, false);
 
-		</script>
-		<div id="pane">
-			<h1>In development</h1>
-			<p>Come back soon!</p>
-			<img src="images/test.png" />
-		</div>	
-		
-		
-	
-		
+		</script>		
 	</body>
 	
 </html>

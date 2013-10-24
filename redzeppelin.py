@@ -42,7 +42,7 @@ def send_image(filename):
 def send_css(filename):
     return static_file(filename, root='modules/srv/css/', mimetype='text/css')
 
-@route('/scripts/<filename:re:.*\.js')
+@route('/scripts/<filename:re:.*\.js>')
 def send_javascript(filename):
     return static_file(filename, root='modules/srv/scripts/', mimetype='text/javascript')
 
