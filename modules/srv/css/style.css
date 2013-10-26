@@ -23,3 +23,58 @@ body {
 #pane h1{
 	text-align: center;
 }
+
+#info {
+	color: #660000;
+}
+
+.boxed {
+  	border: 2px solid #CC0000 ;
+  	border-radius:5px;
+  	width:30px;
+	height:30px;
+	float: left;
+	margin-right: 5em;
+}
+
+.label {
+	color: #660000;
+}
+
+input[type=range] {
+    -webkit-appearance: none;
+    background-color: #CC0000;
+    border: 2px solid #000000;
+    border-radius:5px;
+    width: 200px;
+    height:20px;
+}
+
+input[type="range"]::-webkit-slider-thumb {
+     -webkit-appearance: none;
+    background-color: #666;
+    border-radius:2px;
+    opacity: 0.5;
+    width: 10px;
+    height: 26px;
+}
+
+.submit{
+	border: 2px solid #CC0000 ;
+  	border-radius:5px;
+  	width:60px;
+	height:30px;
+}
+
+#IOlift,
+#IOthrust,
+#IOheight,
+#IOrudder{
+		color: black;
+		display:-webkit-box;
+		-webkit-box-pack:center;
+		-webkit-box-align:center;
+	}
+	
+
+

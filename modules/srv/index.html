@@ -7,30 +7,47 @@
 		<link rel="stylesheet" type="text/css" href="css/style.css">
 		<link rel="shortcut icon" href="images/favicon.ico" />
 		<script type="text/javascript" src="scripts/jquery-2.0.3.js"></script>
+		<script>
+			var IOheight = 20;
+		</script>
 	</head>
 	<body>
 		<div id="header">
 			<h1>RedZeppelin</h1>
 			<h3>PENO 2013-14 team: ROOD</h3>		
 		</div>
-		<div id="info">
-			<div id="motors">
-				lift:
-				<div id="IOlift">NA</div>
-				thrust:
-				<div id="IOthrust">NA</div>
-				rudder:
-				<div id="IOrudder">NA</div>
-			</div>
-			<div id="position">
-				height:
-				<div id="IOheight">NA</div>
-			</div>
+		<div id="info" >
+				lift:<br>
+				<div class="boxed" id="IOlift">NA</div>
+				<label class="label"><small>-100</small></label>
+				<input type="range" name="slider1" class="slider" value="50" min="-100" max="100" disabled>
+				<label class="label"><small>100</small></label>
+				<br><br>
+				thrust:<br>
+				<div class="boxed" id="IOthrust">NA</div>
+				<label class="label"><small>-100</small></label>
+				<input type="range" name="slider1" class="slider" value="50" min="-100" max="100" disabled>
+				<label class="label"><small>100</small></label>
+				<br><br>
+				rudder:<br>
+				<div class="boxed" id="IOrudder">NA</div>
+				<label class="label"><small>-100</small></label>
+				<input type="range" name="slider1" class="slider" value="50" min="-100" max="100" disabled>
+				<label class="label"><small>100</small></label>
+				<br><br>
+				height:<br>
+				<div class="boxed" id="IOheight">NA</div>
+				<label class="label"><small>-100</small></label>
+				<input type="range" name="slider1" id="slider1" class="slider" value="50" min="-100" max="100" disabled>
+				<label class="label"><small>100</small></label>
+				<br><br><br>
+				</div>
+			
 			
 			<div id="input" action="setheight">
 				<form id="heightform">
 					Desired height:<input type="text" name="dHeight">
-					<input type="submit" value="Submit">
+					<input type="submit" value="Submit" class="submit">
 				</form>
 			</div>
 			
