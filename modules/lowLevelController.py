@@ -13,12 +13,15 @@ import random
 class LowLevelController:
     #initmethod variables (call start to invoke backround methods)
     def __init__(self,simMode = "RPi"):
+        global dHeight
+        dHeight = 0
+        global hoverThrust
         if simMode == "RPi":
             self.altimeter = ds.DistanceSensor()
             self.lift = None
             self.thrust = None
             self.rudder = None
-            global hoverThrust
+            
         elif simMode == "sim":
             self.fe = FakeEnvironment()
             self.lift = motor.FakeMotor(self.fe)
@@ -28,13 +31,13 @@ class LowLevelController:
         else:
             print "LowLevelController was not passed a valid simulation format.\n The application will now quit."
             raise RuntimeError()
-        self.dHeight = 0
+        """self.dHeight = 0"""
         
         #Camera
         self.camera = None
     
     #Used to set the desired height.
-    #Effects ill only become apparent after _keepHeight pulls the new info
+    #Effects will only become apparent after _keepHeight pulls the new info
     def setDesiredHeight(self,height):
         self.dHeight = height
         
@@ -42,20 +45,31 @@ class LowLevelController:
     #Python convention: methods names preceded by '_' should be deemed 'private'
     def _keepHeight(self):
         prevHeight = self.altimeter.getHeight()   
-        prevThrust = 1      #kleine startwaarde
-        prevPrevThrust = 1
-        prevDelta = 1     #smart startwaarde nodig
-        while(True):
-            time.sleep(0.250)
-            
+        prevThrust = 52.0     #kleine startwaarde
+        prevPrevThrust = 52.0
+        prevDelta = 1.0     #smart startwaarde nodig
+        time.sleep(0.250)
+        while(True):            
             currentHeight = self.altimeter.getHeight()
             delta = currentHeight - prevHeight
-            proportion = delta / prevDelta
+            print "delta: "
+            print delta
+            if(prevDelta == 0.0):
+                proportion = 0.0
+            else:
+                proportion = delta / prevDelta
+            print "proportion: "
+            print proportion
             """if(delta > 0):
                 newThrust = prevThrust * (1 - 0.2*proportion)
             else:
                 newThrust = """
-            newThrust = (proportion*prevPrevThrust - prevThrust) / (Proportion - 1)
+            newThrust = float((proportion*prevPrevThrust - prevThrust) / (proportion - 1) )    #wordt compleet geNEGEERD
+            
+            print "new thrust: "
+            print newThrust
+            if(newThrust > 100.0):
+                newThrust = 10.0
             self.lift.setThrust(newThrust)
             prevHeight = currentHeight
             prevPrevThrust = prevThrust
@@ -63,6 +77,8 @@ class LowLevelController:
             prevDelta = delta
             if(abs(delta - dHeight) < 0.01):        #misschien herhaaldelijk werk voor niets
                 hoverThrust = newThrust
+                
+            time.sleep(0.250)    
             
             #first very simple algorithm
             """           if delta > 0:
@@ -87,7 +103,7 @@ class LowLevelController:
     #Starts running background threads
     # _keepHeight
     def start(self):
-        """ self.lift.setThrust(100)  """       #motoren eerst in gang zetten, nodig voor keepHeight
+        self.lift.setThrust(52)         #motoren eerst in gang zetten, nodig voor keepHeight
         thread.start_new(self._keepHeight, ())
         
 class FakeEnvironment:
