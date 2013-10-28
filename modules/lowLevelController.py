@@ -18,6 +18,7 @@ class LowLevelController:
             self.lift = None
             self.thrust = None
             self.rudder = None
+            global hoverThrust
         elif simMode == "sim":
             self.fe = FakeEnvironment()
             self.lift = motor.FakeMotor(self.fe)
@@ -38,16 +39,47 @@ class LowLevelController:
         self.dHeight = height
         
     #Algorithm to invoke motors to achieve a certain height
-    #Pyhton convention: methods names preceded by '_' should be deemed 'private'
+    #Python convention: methods names preceded by '_' should be deemed 'private'
     def _keepHeight(self):
+        prevHeight = self.altimeter.getHeight()   
+        prevThrust = 1      #kleine startwaarde
+        prevPrevThrust = 1
+        prevDelta = 1     #smart startwaarde nodig
         while(True):
-            delta = self.dHeight - self.altimeter.getHeight()
+            time.sleep(0.250)
+            
+            currentHeight = self.altimeter.getHeight()
+            delta = currentHeight - prevHeight
+            proportion = delta / prevDelta
+            """if(delta > 0):
+                newThrust = prevThrust * (1 - 0.2*proportion)
+            else:
+                newThrust = """
+            newThrust = (proportion*prevPrevThrust - prevThrust) / (Proportion - 1)
+            self.lift.setThrust(newThrust)
+            prevHeight = currentHeight
+            prevPrevThrust = prevThrust
+            prevThrust = newThrust
+            prevDelta = delta
+            if(abs(delta - dHeight) < 0.01):        #misschien herhaaldelijk werk voor niets
+                hoverThrust = newThrust
             
             #first very simple algorithm
-            if delta > 0:
+            """           if delta > 0:
                 self.lift.setThrust(100)
             else:
                 self.lift.setThrust(-100)
+ """            
+            
+            
+           
+    
+    def _reachHeight(self):
+        delta = self.dHeight - self.altimeter.getHeight()           #delta = how much zeppelin has to rise
+        while(abs (delta) > 0.01 or abs(prevThrust - hoverThrust) > 0.01):
+            delta = self.dHeight - self.altimeter.getHeight()
+            newThrust = hoverThrust * (1 + delta / 1)
+            
             
             
             time.sleep(0.250)
@@ -55,6 +87,7 @@ class LowLevelController:
     #Starts running background threads
     # _keepHeight
     def start(self):
+        """ self.lift.setThrust(100)  """       #motoren eerst in gang zetten, nodig voor keepHeight
         thread.start_new(self._keepHeight, ())
         
 class FakeEnvironment:
