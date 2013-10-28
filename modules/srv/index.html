@@ -5,7 +5,7 @@
 			RedZeppelin
 		</title>
 		<link rel="stylesheet" type="text/css" href="css/style.css">
-		<link rel="shortcut icon" href="images/favicon.ico" />
+		<link rel="shortcut icon" href="images/favicon.png" type="image/png">
 		<script type="text/javascript" src="scripts/jquery-2.0.3.js"></script>
 		<script>
 			var IOheight = 20;
@@ -70,6 +70,7 @@
 				$.get( "height", {} )
   					.done(function( data ) {
   						$('#IOheight').html("" + data);
+  						
     				}
   				);
   				window.setTimeout(reloadData, 1000);
