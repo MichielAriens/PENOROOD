@@ -7,9 +7,6 @@
 		<link rel="stylesheet" type="text/css" href="css/style.css">
 		<link rel="shortcut icon" href="images/favicon.ico" />
 		<script type="text/javascript" src="scripts/jquery-2.0.3.js"></script>
-		<script>
-			var IOheight = 20;
-		</script>
 	</head>
 	<body>
 		<div id="header">
@@ -74,7 +71,7 @@
   				);
   				window.setTimeout(reloadData, 1000);
   				
-  				//reoad the lift
+  				//reload the lift
   				$.get("lift",{})
   					.done(function(data){
   						$('#IOlift').html("" + data);

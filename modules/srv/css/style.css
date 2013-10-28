@@ -37,6 +37,15 @@ body {
 	margin-right: 5em;
 }
 
+.boxed2 {
+  	border: 2px solid #CC0000 ;
+  	border-radius:5px;
+	height:30px;
+	margin: 0px auto 5px auto;
+	float: left;
+	margin-right: 5em;
+}
+
 .label {
 	color: #660000;
 }

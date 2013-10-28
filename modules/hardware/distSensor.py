@@ -6,7 +6,10 @@
 #see no difference between the opperation of these classes.
 
 import time
-import numpy
+try:
+    import numpy
+except ImportError:
+    pass
 import random
 
 
