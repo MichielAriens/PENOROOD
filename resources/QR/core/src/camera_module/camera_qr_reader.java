@@ -1,4 +1,4 @@
-package cwRobot;
+package camera_module;
 
 import java.awt.image.BufferedImage;
 import java.io.*;
@@ -15,11 +15,10 @@ import com.google.zxing.Result;
 import com.google.zxing.client.j2se.*;
 import com.google.zxing.common.HybridBinarizer;
 
-public class Camera {
- //werkt, kan file aanmaken emptyfile in derp/cw/...
+public class camera_qr_reader {
        public static void main(String args[]) {
     	   int test = 2;
-    	   if(test == 2){
+    	   if(test == 1){
             execute_command();
     	   }
     	   else{
