@@ -1,34 +1,62 @@
 import time
+import thread
+try:
+    import RPi.GPIO as GPIO
+except:
+    pass
 
-class Motor:
-    #Pins to be provided by parameters.
+class VectoredMotor:
     def __init__(self,thrustPin,postivePin,negativePin):
-        self.thrust
-        self.direction
-        self.thrustPin = thrustPin
+        #Instanciate pin objects
+        #--Placeholder--
+        self.thrustPin = thrustPin 
         self.positivePin = postivePin
         self.negativePin = negativePin
-
-    
-    #Set the desired trust. thrust element of [0:100] (float)
-    #The thrust is either at maximum speed (fixed pin) or at a given speed (pwd pin).
-    #All other motors connected to the pwd pin have the same speed.
-    #
-    #The direction is either 1 or -1 (depending on the pin), indicating which way the
-    #  propellers are spinning and thus decide the direction of the thrust.
-    def setThrust(self):
-        self.thrust = self.thrustPin.getSignal()    #replace .getSignal() with appropiate input
-        if self.positivePin.getSignal() != None:
-            self.direction = "positive"
-        elif self.negativePin.getSignal() != None:
-            self.direction = "negative"
-        else: 
-            self.direction = None    #No direction has been given, write something to handle it if thrust isn't equal to 0
+        self.thrust = 0
+            
+    def setThrust(self,nThrust):
+        self.thrust = nThrust
         self._actuate()
         
     def _actuate(self):
-        return
-        #Make motor perform action with self.thrust and self.direction
+        if(self.thrust < 0):
+            pass#TODO Setup directional pins acordingly.
+        else:
+            pass#TODO Setup directional pins acordingly.
+        #TODO Set the PWM pin (pin 18) to output self.thrust
+
+
+class PulsedMotor:
+    def __init__(self,thrustPin,postivePin,negativePin):
+        #Instanciate pin objects
+        #--Placeholder--
+        self.thrustPin = thrustPin 
+        self.positivePin = postivePin
+        self.negativePin = negativePin
+        self.thrust = 0
+        self.thrustControlThread = None
+        
+    def setThrust(self,nThrust):
+        self.thrust = nThrust
+        self._actuate()
+        
+    def _actuate(self):
+        if(self.thrust < 0):
+            pass#TODO Setup directional pins acordingly.
+        else:
+            pass#TODO Setup directional pins acordingly.
+        if self.thrustControlThread != None:
+            self.thrustControlThread.exit()
+        self.thrustControlThread = thread.start_new(self.pulse, (1000,abs(self.thrust)))
+        
+    #Endless loop to control the motors. TimeQuantum decides how fine grained the loop is. The propper value should be found experimentally
+    #percent defines the percent of time that the motor should give 100% of its power.
+    def pulse(self,timeQuantum,percent):
+        while(True):
+            #TODO Set motor to run at 100% power
+            time.sleep((timeQuantum/1000)*(percent/100))
+            #TODO Turn off the motor
+            time.sleep((timeQuantum/1000)*(1-(percent/100)))
 
 class FakeMotor:
     
