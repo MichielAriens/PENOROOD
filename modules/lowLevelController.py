@@ -14,7 +14,7 @@ class LowLevelController:
     #initmethod variables (call start to invoke backround methods)
     def __init__(self,simMode = "RPi"):
         self.dHeight = 0
-        global hoverThrust
+        self.hoverThust = 50
         if simMode == "RPi":
             self.altimeter = ds.DistanceSensor()
             self.lift = None
@@ -43,30 +43,17 @@ class LowLevelController:
     #Algorithm to invoke motors to achieve a certain height
     #Python convention: methods names preceded by '_' should be deemed 'private'
     def _keepHeight(self):
-        speed = 0
-        posNow = 0
-        posPrev = 0
-        timeNow = time.time()
-        posPrevPrev = 0
         while(True):
-            posPrevPrev = posPrev
-            posPrev = posNow
-            timePrev = timeNow
-            posNow = self.altimeter.getHeight()
-            timeNow = time.time()
-            deltaPos = self.dHeight - posNow
-            speed = (posNow - posPrev)/(timeNow - timePrev)
-            
-            
-        
-        
-        deltaX = self.dHeight - self.altimeter.getHeight()
-        
+            delta = self.dHeight - self.altimeter.getHeight()
+            if delta > 100:
+                delta = 100
+            elif delta < -100:
+                delta = -100
+            self.lift.setThrust(delta + self.hoverThust)            
     
     #Starts running background threads
     # _keepHeight
     def start(self):
-        self.lift.setThrust(52)         #motoren eerst in gang zetten, nodig voor keepHeight
         thread.start_new(self._keepHeight, ())
         
 class FakeEnvironment:
