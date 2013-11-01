@@ -142,24 +142,23 @@
 			
 			window.addEventListener('keydown', function (e) {
 		        	var keyCode = e.keyCode || e.which,
-		      		arrow = {left: 37, up: 38, right: 39, down: 40 };
+		      		arrow = {left: 37, up: 38, right: 39, down: 40 , z: 90, s:83};
 		
 		  			switch (keyCode) {
-		    		case arrow.left:
-		      		alert("Left pressed");
-		    		break;
 		    		case arrow.up:
 		    			motors[0] += controlSensitivity[0];
-		    			sendInput();
 		    			break;
-				    case arrow.right:
-				    alert("Right pressed");
-				    break;
 				    case arrow.down:
 				    	motors[0] -= controlSensitivity[0];
-		    			sendInput();
+		    			break;
+		    		case arrow.z:
+		    			motors[0] += 1;
+		    			break;
+		    		case arrow.s:
+		    			motors[0] -= 1;
 		    			break;
 	  				}
+	  				sendInput();
 	    		}
 			, false);
 			
