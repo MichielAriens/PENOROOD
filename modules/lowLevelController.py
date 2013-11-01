@@ -13,8 +13,7 @@ import random
 class LowLevelController:
     #initmethod variables (call start to invoke backround methods)
     def __init__(self,simMode = "RPi"):
-        global dHeight
-        dHeight = 0
+        self.dHeight = 0
         global hoverThrust
         if simMode == "RPi":
             self.altimeter = ds.DistanceSensor()
@@ -44,61 +43,25 @@ class LowLevelController:
     #Algorithm to invoke motors to achieve a certain height
     #Python convention: methods names preceded by '_' should be deemed 'private'
     def _keepHeight(self):
-        prevHeight = self.altimeter.getHeight()   
-        prevThrust = 52.0     #kleine startwaarde
-        prevPrevThrust = 52.0
-        prevDelta = 1.0     #smart startwaarde nodig
-        time.sleep(0.250)
-        while(True):            
-            currentHeight = self.altimeter.getHeight()
-            delta = currentHeight - prevHeight
-            print "delta: "
-            print delta
-            if(prevDelta == 0.0):
-                proportion = 0.0
-            else:
-                proportion = delta / prevDelta
-            print "proportion: "
-            print proportion
-            """if(delta > 0):
-                newThrust = prevThrust * (1 - 0.2*proportion)
-            else:
-                newThrust = """
-            newThrust = float((proportion*prevPrevThrust - prevThrust) / (proportion - 1) )    #wordt compleet geNEGEERD
-            
-            print "new thrust: "
-            print newThrust
-            if(newThrust > 100.0):
-                newThrust = 10.0
-            self.lift.setThrust(newThrust)
-            prevHeight = currentHeight
-            prevPrevThrust = prevThrust
-            prevThrust = newThrust
-            prevDelta = delta
-            if(abs(delta - dHeight) < 0.01):        #misschien herhaaldelijk werk voor niets
-                hoverThrust = newThrust
-                
-            time.sleep(0.250)    
-            
-            #first very simple algorithm
-            """           if delta > 0:
-                self.lift.setThrust(100)
-            else:
-                self.lift.setThrust(-100)
- """            
+        speed = 0
+        posNow = 0
+        posPrev = 0
+        timeNow = time.time()
+        posPrevPrev = 0
+        while(True):
+            posPrevPrev = posPrev
+            posPrev = posNow
+            timePrev = timeNow
+            posNow = self.altimeter.getHeight()
+            timeNow = time.time()
+            deltaPos = self.dHeight - posNow
+            speed = (posNow - posPrev)/(timeNow - timePrev)
             
             
-           
-    
-    def _reachHeight(self):
-        delta = self.dHeight - self.altimeter.getHeight()           #delta = how much zeppelin has to rise
-        while(abs (delta) > 0.01 or abs(prevThrust - hoverThrust) > 0.01):
-            delta = self.dHeight - self.altimeter.getHeight()
-            newThrust = hoverThrust * (1 + delta / 1)
-            
-            
-            
-            time.sleep(0.250)
+        
+        
+        deltaX = self.dHeight - self.altimeter.getHeight()
+        
     
     #Starts running background threads
     # _keepHeight

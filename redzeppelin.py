@@ -32,6 +32,11 @@ from modules.srv.bottle import *
 def home():
     return static_file("index.html",root="modules/srv/")
 
+#HTML must be loaded explicitely from the root folder.
+@route('/<filename:re:.*\.html>')
+def send_html(filename):
+    return static_file(filename, root='modules/srv/')
+
 #Images must be loaded explicitely from the images folder.
 @route('/images/<filename:re:.*\.png>')
 def send_image(filename):
