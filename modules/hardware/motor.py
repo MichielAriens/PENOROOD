@@ -67,8 +67,12 @@ class FakeMotor:
         
     #simulate thrust change with a small delay
     def setThrust(self,thrust):
-        self.thrust = thrust
-        time.sleep(0.010)
-        self.env.verticalForce = thrust/100 * self.MAXFORCE
+        if thrust > 100:
+            self.thrust = 100
+        elif thrust < -100:
+            self.thrust = -100
+        else:
+            self.thrust = thrust
+        self.env.verticalForce = self.thrust/100 * self.MAXFORCE
         
         
