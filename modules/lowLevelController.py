@@ -13,9 +13,10 @@ import random
 class LowLevelController:
     #initmethod variables (call start to invoke backround methods)
     def __init__(self,simMode = "RPi"):
+        self.motorOffset = 50
         self.dHeight = 0
-        #Init PID
-        self.pid = PID(0.1,0.01,0.01)
+        #Init PID (0.1,0,0.5) works slightly
+        self.pid = PID(0.1,0.05,3)
         self.pid.setPoint(self.dHeight)
         
         if simMode == "RPi":
@@ -50,8 +51,8 @@ class LowLevelController:
     def _keepHeight(self):
         while(True):
             #Set the thrust to the PID output.
-            self.lift.setThrust(self.pid.update(self.altimeter.getHeight()))
-            time.sleep(0.250)       
+            self.lift.setThrust(self.pid.update(self.altimeter.getHeight()) + self.motorOffset)
+            time.sleep(1)       
     
     #Starts running background threads
     # _keepHeight
@@ -104,7 +105,7 @@ class PID:
     Discrete PID control
     """
 
-    def __init__(self, P=2.0, I=0.0, D=1.0, Derivator=0, Integrator=0, Integrator_max=500, Integrator_min=-500):
+    def __init__(self, P=2.0, I=0.0, D=1.0, Derivator=0, Integrator=0, Integrator_max=100, Integrator_min=-100):
 
         self.Kp=P
         self.Ki=I
