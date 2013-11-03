@@ -15,8 +15,9 @@ class LowLevelController:
     def __init__(self,simMode = "RPi"):
         self.motorOffset = 50
         self.dHeight = 0
-        #Init PID (0.1,0,0.5) works slightly
-        self.pid = PID(0.1,0.05,3)
+        #Init PID (0.1,0,0.5) works slightly, (0.1,0.05,3) better P to 0.2 increases responsiveness, I increses overshoot but decreases settletime
+        #D decreases overshoot but engthens settletime. (slows machine down)
+        self.pid = PID(0.2,0.1,5)
         self.pid.setPoint(self.dHeight)
         
         if simMode == "RPi":
