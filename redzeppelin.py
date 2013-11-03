@@ -1,7 +1,6 @@
 #!/usr/bin/env python
 
 import modules.lowLevelController as llcp
-from distutils.tests.test_register import RawInputs
 
 #Check to see whether we're running on the RaspberryPi. store result in simMode
 simMode = "RPi"
@@ -81,10 +80,10 @@ def set_motors():
     zeppelin.llc.lift.setThrust(nLift)
     
     
-#mode = raw_input("ControlMode?\n   auto\n   controlled(or anything else)")
+mode = raw_input("ControlMode?\n   auto\n   controlled(or anything else)")
 #start zeppelin background tasks.
-#if mode == "auto":
-zeppelin.llc.start()
+if mode == "auto":
+    zeppelin.llc.start()
 #Start the server
 run(host='localhost', port=54322, debug=True)
 
