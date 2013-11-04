@@ -112,14 +112,18 @@
 					});
 					
 					$.plot($("#liftplaceholder"), [liftData], { 
+					lines: {
+						lineWidth: 1
+					},
 					yaxis: {
 						min: -100,
 						max: 100
 					},
 					xaxis: {
 						mode:"time",
-						min: (new Date()).getTime() - 2*60000,
-						max: (new Date()).getTime()
+						min: (new Date()).getTime() - 60000,
+						max: (new Date()).getTime(),
+						ticks: 3
 					}
 					
 					});
@@ -205,8 +209,7 @@
 	  				}
 	    		}
 			, false);
-
-		</script>		
+			</script>		
 	</body>
 	
 </html>
