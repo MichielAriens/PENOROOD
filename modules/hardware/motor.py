@@ -15,7 +15,7 @@ class VectoredMotor:
         self.positivePin = postivePin
         self.negativePin = negativePin
         self.thrust = 0
-        GPIO.setup(self.postivePin,GPIO.OUT)
+        GPIO.setup(self.positivePin,GPIO.OUT)
         GPIO.setup(self.negativePin,GPIO.OUT)
         GPIO.output(self.postivePin,True)
         GPIO.output(self.negativePin,False)
