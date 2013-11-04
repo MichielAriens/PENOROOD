@@ -20,9 +20,9 @@ class VectoredMotor:
         
     def _actuate(self):
         if(self.thrust < 0):
-            pass#TODO Setup directional pins accordingly.
+            pass#TODO Setup directional pins acccordingly.
         else:
-            pass#TODO Setup directional pins acordingly.
+            pass#TODO Setup directional pins accordingly.
         #TODO Set the PWM pin (pin 18) to output self.thrust
 
 
