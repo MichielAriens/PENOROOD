@@ -9,21 +9,35 @@ class VectoredMotor:
     def __init__(self,thrustPin,postivePin,negativePin):
         #Instantiate pin objects
         #--Placeholder--
-        self.thrustPin = thrustPin 
+        self.thrustPin = GPIO.PWM(12, 50)
+        self.thrustPin.changeDutyCycle(0.0)
         self.positivePin = postivePin
         self.negativePin = negativePin
         self.thrust = 0
+        GPIO.setmode(GPIO.BCM)
+        GPIO.setup(self.postivePin,GPIO.OUT)
+        GPIO.setup(self.negativePin,GPIO.OUT)
+        GPIO.output(self.postivePin,True)
+        GPIO.output(self.negativePin,False)
             
     def setThrust(self,nThrust):
-        self.thrust = nThrust
+        if(nThrust > 100):
+            self.thrust = 100.0
+        elif(nThrust < -100):
+            self.thrust = -100.0
+        else:
+            self.thrust = nThrust
         self._actuate()
         
     def _actuate(self):
+        GPIO.setmode(GPIO.BCM)
         if(self.thrust < 0):
-            pass#TODO Setup directional pins acccordingly.
+            GPIO.output(self.postivePin,False)
+            GPIO.output(self.negativePin,True)
         else:
-            pass#TODO Setup directional pins accordingly.
-        #TODO Set the PWM pin (pin 18) to output self.thrust
+            GPIO.output(self.postivePin,True)
+            GPIO.output(self.negativePin,False)
+        self.thrustPin.changeDutyCycle(self.thrust)
 
 
 class PulsedMotor:

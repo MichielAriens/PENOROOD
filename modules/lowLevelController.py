@@ -22,7 +22,7 @@ class LowLevelController:
         
         if simMode == "RPi":
             self.altimeter = ds.DistanceSensor()
-            self.lift = None
+            self.lift = motor.VectoredMotor(18,24,4)
             self.thrust = None
             self.rudder = None
             
