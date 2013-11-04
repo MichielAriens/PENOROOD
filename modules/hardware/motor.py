@@ -17,7 +17,7 @@ class VectoredMotor:
         self.thrust = 0
         GPIO.setup(self.positivePin,GPIO.OUT)
         GPIO.setup(self.negativePin,GPIO.OUT)
-        GPIO.output(self.postivePin,True)
+        GPIO.output(self.positivePin,True)
         GPIO.output(self.negativePin,False)
         
         self.thrustPin.start(0.0)
@@ -34,12 +34,12 @@ class VectoredMotor:
     def _actuate(self):
         GPIO.setmode(GPIO.BCM)
         if(self.thrust < 0):
-            GPIO.output(self.postivePin,False)
+            GPIO.output(self.positivePin,False)
             GPIO.output(self.negativePin,True)
         else:
-            GPIO.output(self.postivePin,True)
+            GPIO.output(self.positivePin,True)
             GPIO.output(self.negativePin,False)
-        self.thrustPin.changeDutyCycle(self.thrust)
+        self.thrustPin.ChangeDutyCycle(self.thrust)
 
 
 class PulsedMotor:

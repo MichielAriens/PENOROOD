@@ -72,8 +72,8 @@ class FakeDistanceSensor:
 
 class DistanceSensor :
     #setup pins: BCM noation. 17 means GPIO17, 4 means GPIO4
-    echo_gpio = 17
-    trig_gpio = 4
+    echo_gpio = 27
+    trig_gpio = 22
     TRIG_DURATION = 0.0001
     SPEED_OF_SOUND = 340.29
     TIMEOUT = 5000
@@ -84,8 +84,8 @@ class DistanceSensor :
     #Constructor
     def __init__(self):   
         global echo_gpio, trig_gpio, TRIG_DURATION, SPEED_OF_SOUND, TIMEOUT, offset, scalefactor
-        echo_gpio = 17
-        trig_gpio = 4
+        echo_gpio = 27
+        trig_gpio = 22
         TRIG_DURATION = 0.0001
         SPEED_OF_SOUND = 340.29
         TIMEOUT = 2100
