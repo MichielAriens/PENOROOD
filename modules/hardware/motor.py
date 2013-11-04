@@ -7,7 +7,7 @@ except:
 
 class VectoredMotor:
     def __init__(self,thrustPin,postivePin,negativePin):
-        #Instanciate pin objects
+        #Instantiate pin objects
         #--Placeholder--
         self.thrustPin = thrustPin 
         self.positivePin = postivePin
@@ -20,7 +20,7 @@ class VectoredMotor:
         
     def _actuate(self):
         if(self.thrust < 0):
-            pass#TODO Setup directional pins acordingly.
+            pass#TODO Setup directional pins accordingly.
         else:
             pass#TODO Setup directional pins acordingly.
         #TODO Set the PWM pin (pin 18) to output self.thrust
@@ -28,7 +28,7 @@ class VectoredMotor:
 
 class PulsedMotor:
     def __init__(self,thrustPin,postivePin,negativePin):
-        #Instanciate pin objects
+        #Instantiate pin objects
         #--Placeholder--
         self.thrustPin = thrustPin 
         self.positivePin = postivePin
@@ -42,14 +42,14 @@ class PulsedMotor:
         
     def _actuate(self):
         if(self.thrust < 0):
-            pass#TODO Setup directional pins acordingly.
+            pass#TODO Setup directional pins accordingly.
         else:
-            pass#TODO Setup directional pins acordingly.
+            pass#TODO Setup directional pins accordingly.
         if self.thrustControlThread != None:
             self.thrustControlThread.exit()
         self.thrustControlThread = thread.start_new(self.pulse, (1000,abs(self.thrust)))
         
-    #Endless loop to control the motors. TimeQuantum decides how fine grained the loop is. The propper value should be found experimentally
+    #Endless loop to control the motors. TimeQuantum decides how fine grained the loop is. The proper value should be found experimentally
     #percent defines the percent of time that the motor should give 100% of its power.
     def pulse(self,timeQuantum,percent):
         while(True):
