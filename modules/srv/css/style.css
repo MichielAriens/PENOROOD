@@ -9,15 +9,9 @@ body {
 a {	color: #069; }
 a:hover { color: #28b; }
 
-h2 {
-	margin-top: 15px;
-	font: normal 32px "omnes-pro", Helvetica, Arial, sans-serif;
-}
-
-h3 {
-	margin-left: 30px;
-	font: normal 26px "omnes-pro", Helvetica, Arial, sans-serif;
-	color: #666;
+h1 {
+	margin-top: 5px;
+	color: #CC0000;
 }
 
 p {
@@ -87,12 +81,13 @@ input[type=checkbox] {
 .thrust,
 .rudder {
 	display: inline-block;
+	margin-top: 20px;
 }
 
 .motorcontainer {
 	box-sizing: border-box;
-	width: 350px;
-	height: 450px;
+	width: 300px;
+	height: 200px;
 	padding: 20px 15px 15px 15px;
 	margin: 15px auto 30px auto;
 	border: 1px solid #ddd;
