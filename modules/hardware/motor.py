@@ -9,11 +9,12 @@ class VectoredMotor:
     def __init__(self,thrustPin,postivePin,negativePin):
         #Instantiate pin objects
         #--Placeholder--
-        self.thrustPin = GPIO.PWM(12, 50))
+        GPIO.setmode(GPIO.BCM)
+        GPIO.setup(18, GPIO.OUT)
+        self.thrustPin = GPIO.PWM(18, 50)
         self.positivePin = postivePin
         self.negativePin = negativePin
         self.thrust = 0
-        GPIO.setmode(GPIO.BCM)
         GPIO.setup(self.postivePin,GPIO.OUT)
         GPIO.setup(self.negativePin,GPIO.OUT)
         GPIO.output(self.postivePin,True)
