@@ -55,19 +55,25 @@ class PulsedMotor:
         GPIO.output(self.negativePin,False)
         self.thrust = 0
         self.thrustControlThread = None
+        self.renew = False
         
     def setThrust(self,nThrust):
         self.thrust = nThrust
         self._actuate()
         
     def _actuate(self):
-        if self.thrustControlThread != None:
-            self.thrustControlThread.exit()
+        self.renew = True
+        while self.renew == True:
+            time.sleep(0.010)#Wait for the thread to stop
         self.thrustControlThread = thread.start_new(self.pulse, (1000,self.thrust))
         
     #Endless loop to control the motors. TimeQuantum decides how fine grained the loop is. The proper value should be found experimentally
     #percent defines the percent of time that the motor should give 100% of its power.
     def pulse(self,timeQuantum,percent):
+        if self.renew == True:
+            self.renew = False
+            thread.exit()
+            return
         GPIO.output(self.negativePin,False)
         GPIO.output(self.positivePin,False)
         if abs(percent) < 5:
