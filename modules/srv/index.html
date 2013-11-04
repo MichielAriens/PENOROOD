@@ -29,14 +29,14 @@
 				<div>
 					<div class="boxed" id="IOthrust">NA</div>
 					<div class="motorcontainer">
-						<div id="thrustplaceholder"></div>
+						<div id="thrustplaceholder" class="motorplaceholder"></div>
 					</div>
 				</div>
 				rudder:
 				<div>
 					<div class="boxed" id="IOrudder">NA</div>
 					<div class="motorcontainer">
-						<div id="rudderplaceholder"></div>
+						<div id="rudderplaceholder" class="motorplaceholder"></div>
 					</div>
 				</div>
 				height:
@@ -54,14 +54,15 @@
 					<input type="submit" value="Submit" class="submit">
 				</form>
 			</div>
-			
-		</div>
 		
 		
 		
 		
 		<script>
 			var heightData = [];
+			var liftData = [];
+			var thrustData = [];
+			var rudderData = [];
 			var motors = [0,0,0]; //Lift,Thrust,Rudder
 			var controlSensitivity = [10,10,10];
 			
@@ -103,6 +104,19 @@
 					}
 					
 					});
+					
+					$.plot($("#liftplaceholder"), [liftData], { 
+					yaxis: {
+						min: -100,
+						max: 100
+					},
+					xaxis: {
+						mode:"time",
+						min: (new Date()).getTime() - 10*60000,
+						max: (new Date()).getTime()
+					}
+					
+					});
 			}
 			
 			function reloadData(){
@@ -117,6 +131,7 @@
   				//reload the lift
   				$.get("lift",{})
   					.done(function(data){
+  						liftData.push([new Date().getTime(),parseInt(data)]);
   						$('#IOlift').html("" + data);
   					}
   				);
