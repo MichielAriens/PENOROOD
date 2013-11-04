@@ -24,7 +24,7 @@ zeppelin = Zeppelin(simMode)
 ####Server-methods####
 ######################
 
-#imort Bottle: allows explicit linking of a URL request (GET, POST, ...) to python methods (see below)
+#import Bottle: allows explicit linking of a URL request (GET, POST, ...) to python methods (see below)
 from modules.srv.bottle import *
 
 #Homepage.
@@ -32,12 +32,12 @@ from modules.srv.bottle import *
 def home():
     return static_file("index.html",root="modules/srv/")
 
-#HTML must be loaded explicitely from the root folder.
+#HTML must be loaded explicitly from the root folder.
 @route('/<filename:re:.*\.html>')
 def send_html(filename):
     return static_file(filename, root='modules/srv/')
 
-#Images must be loaded explicitely from the images folder.
+#Images must be loaded explicitly from the images folder.
 @route('/images/<filename:re:.*\.png>')
 def send_image(filename):
     return static_file(filename, root='modules/srv/images/', mimetype='image/png')
