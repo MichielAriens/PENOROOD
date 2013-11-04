@@ -39,16 +39,20 @@ class VectoredMotor:
         else:
             GPIO.output(self.positivePin,True)
             GPIO.output(self.negativePin,False)
-        self.thrustPin.ChangeDutyCycle(self.thrust)
+        self.thrustPin.ChangeDutyCycle(abs(self.thrust))
 
 
 class PulsedMotor:
-    def __init__(self,thrustPin,postivePin,negativePin):
+    def __init__(self,postivePin,negativePin):
         #Instantiate pin objects
         #--Placeholder--
-        self.thrustPin = thrustPin 
+        GPIO.setmode(GPIO.BCM)
         self.positivePin = postivePin
         self.negativePin = negativePin
+        GPIO.setup(self.positivePin,GPIO.OUT)
+        GPIO.setup(self.negativePin,GPIO.OUT)
+        GPIO.output(self.positivePin,False)
+        GPIO.output(self.negativePin,False)
         self.thrust = 0
         self.thrustControlThread = None
         
@@ -57,22 +61,27 @@ class PulsedMotor:
         self._actuate()
         
     def _actuate(self):
-        if(self.thrust < 0):
-            pass#TODO Setup directional pins accordingly.
-        else:
-            pass#TODO Setup directional pins accordingly.
         if self.thrustControlThread != None:
             self.thrustControlThread.exit()
-        self.thrustControlThread = thread.start_new(self.pulse, (1000,abs(self.thrust)))
+        self.thrustControlThread = thread.start_new(self.pulse, (1000,self.thrust))
         
     #Endless loop to control the motors. TimeQuantum decides how fine grained the loop is. The proper value should be found experimentally
     #percent defines the percent of time that the motor should give 100% of its power.
     def pulse(self,timeQuantum,percent):
-        while(True):
-            #TODO Set motor to run at 100% power
-            time.sleep((timeQuantum/1000)*(percent/100))
-            #TODO Turn off the motor
-            time.sleep((timeQuantum/1000)*(1-(percent/100)))
+        GPIO.output(self.negativePin,False)
+        GPIO.output(self.positivePin,False)
+        if abs(percent) < 5:
+            return
+        else:
+            if percent > 0:
+                direction = self.positivePin
+            else:
+                direction = self.negativePin
+            while(True):
+                GPIO.ouput(direction,True)
+                time.sleep((timeQuantum/1000)*(percent/100))
+                GPIO.ouput(direction,False)
+                time.sleep((timeQuantum/1000)*(1-(percent/100)))
 
 class FakeMotor:
     

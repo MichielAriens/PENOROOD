@@ -75,9 +75,11 @@ def set_motors():
     global zeppelin
     try:
         nLift = float(request.forms.get('lift'))
+        nThrust = float(request.forms.get('thrust'))
     except ValueError:
         return
     zeppelin.llc.lift.setThrust(nLift)
+    zeppelin.llc.thrust.setThrust(nThrust)
     
     
 mode = raw_input("ControlMode?\n   auto\n   controlled(or anything else)")

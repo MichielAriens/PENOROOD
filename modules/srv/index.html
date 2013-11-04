@@ -142,20 +142,20 @@
 			
 			window.addEventListener('keydown', function (e) {
 		        	var keyCode = e.keyCode || e.which,
-		      		arrow = {left: 37, up: 38, right: 39, down: 40 , z: 90, s:83};
+		      		arrow = {left: 37, up: 38, right: 39, down: 40 , z: 90, s:83, shift:16, ctrl:17};
 		
 		  			switch (keyCode) {
-		    		case arrow.up:
+		    		case arrow.z:
 		    			motors[0] += controlSensitivity[0];
 		    			break;
-				    case arrow.down:
+				    case arrow.s:
 				    	motors[0] -= controlSensitivity[0];
 		    			break;
-		    		case arrow.z:
-		    			motors[0] += 1;
+		    		case arrow.shift:
+		    			motors[1] += controlSensitivity[1];
 		    			break;
-		    		case arrow.s:
-		    			motors[0] -= 1;
+		    		case arrow.ctrl:
+		    			motors[1] -= controlSensitivity[1];
 		    			break;
 	  				}
 	  				sendInput();
