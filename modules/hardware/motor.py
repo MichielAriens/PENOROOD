@@ -9,8 +9,7 @@ class VectoredMotor:
     def __init__(self,thrustPin,postivePin,negativePin):
         #Instantiate pin objects
         #--Placeholder--
-        self.thrustPin = GPIO.PWM(12, 50)
-        self.thrustPin.changeDutyCycle(0.0)
+        self.thrustPin = GPIO.PWM(12, 50))
         self.positivePin = postivePin
         self.negativePin = negativePin
         self.thrust = 0
@@ -19,6 +18,8 @@ class VectoredMotor:
         GPIO.setup(self.negativePin,GPIO.OUT)
         GPIO.output(self.postivePin,True)
         GPIO.output(self.negativePin,False)
+        
+        self.thrustPin.start(0.0)
             
     def setThrust(self,nThrust):
         if(nThrust > 100):
