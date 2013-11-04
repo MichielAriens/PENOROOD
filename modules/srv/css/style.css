@@ -77,24 +77,21 @@ input[type=checkbox] {
 .boxed {
   	border: 2px solid #CC0000 ;
   	border-radius:5px;
-  	width:30px;
-	height:30px;
-	float: left;
-	margin-right: 5em;
-}
-
-.boxed2 {
-  	border: 2px solid #CC0000 ;
-  	border-radius:5px;
 	height:30px;
 	margin: 0px auto 5px auto;
 	float: left;
 	margin-right: 5em;
 }
 
+.lift,
+.thrust,
+.rudder {
+	display: inline-block;
+}
+
 .motorcontainer {
 	box-sizing: border-box;
-	width: 100%;
+	width: 350px;
 	height: 450px;
 	padding: 20px 15px 15px 15px;
 	margin: 15px auto 30px auto;

@@ -19,28 +19,34 @@
 		</div>
 		<div id="info" >
 				lift:
-				<div>
+				<div class="lift">
+					<br>
 					<div class="boxed" id="IOlift">NA</div>
+					<br>
 					<div class="motorcontainer">
 						<div id="liftplaceholder" class="motorplaceholder"> </div>
 					</div>
 				</div>
 				thrust:
-				<div>
-					<div class="boxed" id="IOthrust">NA</div>
+				<div class="thrust">
+					<br>
+					<div class="boxed" id="IOthrust">NA</div><br>
 					<div class="motorcontainer">
 						<div id="thrustplaceholder" class="motorplaceholder"> </div>
 					</div>
 				</div>
 				rudder:
-				<div>
-					<div class="boxed" id="IOrudder">NA</div>
+				<div class="rudder">
+					<br>
+					<div class="boxed" id="IOrudder">NA</div><br>
 					<div class="motorcontainer">
 						<div id="rudderplaceholder" class="motorplaceholder"> </div>
 					</div>
 				</div>
+				<br><br>
 				height:
-				<div class="boxed2" id="IOheight">NA</div>
+				<br>	
+				<div class="boxed" id="IOheight">NA</div><br>
 				<div class="demo-container">
 					<div id="placeholder" class="demo-placeholder"> </div>
 				</div>
@@ -112,7 +118,7 @@
 					},
 					xaxis: {
 						mode:"time",
-						min: (new Date()).getTime() - 10*60000,
+						min: (new Date()).getTime() - 2*60000,
 						max: (new Date()).getTime()
 					}
 					
