@@ -61,6 +61,16 @@ def send_lift():
     global zeppelin
     return str(zeppelin.llc.lift.thrust)
 
+@route('/info')
+def send_info():
+    global zeppelin
+    Xlift = str(zeppelin.llc.lift.thrust)
+    Xthrust = str(zeppelin.llc.thrust.thrust)
+    Xrudder = str(zeppelin.llc.rudder.thrust)
+    Xheight = str(zeppelin.llc.altimeter.getHeight())
+    info = {'lift': Xlift,'thrust': Xthrust, 'rudder': Xrudder, 'height': Xheight}
+    return info
+    
 @post('/setheight')
 def set_height():
     global zeppelin
