@@ -63,7 +63,7 @@ class PulsedMotor:
         
     def _actuate(self):
         self.renew = True
-        while self.renew == True:
+        while self.renew == True & self.threadActive == True:
             time.sleep(0.010)#Wait for the thread to stop
         thread.start_new(self.pulse, (1000,self.thrust))
         
