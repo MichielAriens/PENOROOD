@@ -120,9 +120,9 @@ class PulsedMotor:
                 else:
                     direction = self.negativePin
                 
-                GPIO.ouput(direction,True)
+                GPIO.output(direction,True)
                 time.sleep((timeQuantum/1000)*(percent/100))
-                GPIO.ouput(direction,False)
+                GPIO.output(direction,False)
                 time.sleep((timeQuantum/1000)*(1-(percent/100)))
 
 class FakeMotor:
