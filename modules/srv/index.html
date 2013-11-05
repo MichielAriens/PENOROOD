@@ -130,23 +130,16 @@
 			}
 			
 			function reloadData(){
-				//reload the height
-				$.get( "height", {} )
-  					.done(function( data ) {
-  						heightData.push([new Date().getTime(),parseInt(data)]);
-  						$('#IOheight').html(""+data);
-    				}
-  				);
-  				
-  				//reload the lift
-  				$.get("lift",{})
-  					.done(function(data){
-  						liftData.push([new Date().getTime(),parseInt(data)]);
-  						$('#IOlift').html("" + data);
-  					}
-  				);
+				$.get("info",{})
+					.done(function(data){
+						//height
+						heightData.push([new Date().getTime(),parseInt(data.height)]);
+						$("#IOheight").html("" + data.height);
+						//lift
+						liftData.push([new Date().getTime(),parseInt(data.lift)]);
+  						$('#IOlift').html("" + data.lift);
+					});
   				update();
-  				//window.setTimeout("reloadData()",1000);
 			}
 			
 			function sendInput(){

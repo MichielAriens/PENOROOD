@@ -64,12 +64,17 @@ def send_lift():
 @route('/info')
 def send_info():
     global zeppelin
-    Xlift = str(zeppelin.llc.lift.thrust)
-    Xthrust = str(zeppelin.llc.thrust.thrust)
-    Xrudder = str(zeppelin.llc.rudder.thrust)
-    Xheight = str(zeppelin.llc.altimeter.getHeight())
-    info = {'lift': Xlift,'thrust': Xthrust, 'rudder': Xrudder, 'height': Xheight}
-    return info
+    global simMode
+    if simMode == "sim":
+        Xlift = str(zeppelin.llc.lift.thrust)
+        Xheight = str(zeppelin.llc.altimeter.getHeight())
+        return {'lift':Xlift,'height':Xheight}
+    else:  #Rpi mode
+        Xlift = str(zeppelin.llc.lift.thrust)
+        Xthrust = str(zeppelin.llc.thrust.thrust)
+        Xrudder = str(zeppelin.llc.rudder.thrust)
+        Xheight = str(zeppelin.llc.altimeter.getHeight())
+        return {'lift': Xlift,'thrust': Xthrust, 'rudder': Xrudder, 'height': Xheight}
     
 @post('/setheight')
 def set_height():
