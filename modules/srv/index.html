@@ -18,32 +18,40 @@
 			<h3>PENO 2013-14 team: ROOD</h3>		
 		</div>
 		<div id="info" >
-				lift:<br>
-				<div class="boxed" id="IOlift">NA</div>
-				<label class="label"><small>-100</small></label>
-				<input type="range" name="slider1" class="slider" value="50" min="-100" max="100" disabled>
-				<label class="label"><small>100</small></label>
-				<br><br>
-				thrust:<br>
-				<div class="boxed" id="IOthrust">NA</div>
-				<label class="label"><small>-100</small></label>
-				<input type="range" name="slider1" class="slider" value="50" min="-100" max="100" disabled>
-				<label class="label"><small>100</small></label>
-				<br><br>
-				rudder:<br>
-				<div class="boxed" id="IOrudder">NA</div>
-				<label class="label"><small>-100</small></label>
-				<input type="range" name="slider1" class="slider" value="50" min="-100" max="100" disabled>
-				<label class="label"><small>100</small></label>
-				<br><br>
-				height:<br>
-				<div class="boxed2" id="IOheight">NA</div>
+				<div class="lift">
+				lift:
+					<br>
+					<div class="boxed" id="IOlift">NA</div>
+					<br>
+					<div class="motorcontainer">
+						<div id="liftplaceholder" class="motorplaceholder"> </div>
+					</div>
+				</div>
+				<div class="thrust">
+				thrust:
+					<br>
+					<div class="boxed" id="IOthrust">NA</div><br>
+					<div class="motorcontainer">
+						<div id="thrustplaceholder" class="motorplaceholder"> </div>
+					</div>
+				</div>
+				<div class="rudder">
+				rudder:
+					<br>
+					<div class="boxed" id="IOrudder">NA</div><br>
+					<div class="motorcontainer">
+						<div id="rudderplaceholder" class="motorplaceholder"> </div>
+					</div>
+				</div>
+				<br>
+				height:
+				<br>	
+				<div class="boxed" id="IOheight">NA</div><br>
 				<div class="demo-container">
-					<div id="placeholder" class="demo-placeholder"></div>
+					<div id="placeholder" class="demo-placeholder"> </div>
 				</div>
-				
-				<br><br><br>
-				</div>
+
+		</div>
 			
 			
 			<div id="input" action="setheight">
@@ -52,14 +60,15 @@
 					<input type="submit" value="Submit" class="submit">
 				</form>
 			</div>
-			
-		</div>
 		
 		
 		
 		
 		<script>
 			var heightData = [];
+			var liftData = [];
+			var thrustData = [];
+			var rudderData = [];
 			var motors = [0,0,0]; //Lift,Thrust,Rudder
 			var controlSensitivity = [10,10,10];
 			
@@ -101,6 +110,23 @@
 					}
 					
 					});
+					
+					$.plot($("#liftplaceholder"), [liftData], { 
+					lines: {
+						lineWidth: 1
+					},
+					yaxis: {
+						min: -100,
+						max: 100
+					},
+					xaxis: {
+						mode:"time",
+						min: (new Date()).getTime() - 60000,
+						max: (new Date()).getTime(),
+						ticks: 3
+					}
+					
+					});
 			}
 			
 			function reloadData(){
@@ -115,6 +141,7 @@
   				//reload the lift
   				$.get("lift",{})
   					.done(function(data){
+  						liftData.push([new Date().getTime(),parseInt(data)]);
   						$('#IOlift').html("" + data);
   					}
   				);
@@ -182,8 +209,7 @@
 	  				}
 	    		}
 			, false);
-
-		</script>		
+			</script>		
 	</body>
 	
 </html>

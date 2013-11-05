@@ -1,16 +1,56 @@
+* {	padding: 0; margin: 0; vertical-align: top; }
+
+
 body {
-	/*background-image:url(../images/background2.png);*/
-	font-family: 'Roboto', sans-serif;
+	background: url(background.png) repeat-x;
+	font: 18px/1.5em "proxima-nova", Helvetica, Arial, sans-serif;
 }
 
-/*
- * Colourscheme: 
- * #BF1300
- * #800D00
- * #FF1A00
- * #400600
- * #
- */
+a {	color: #069; }
+a:hover { color: #28b; }
+
+h1 {
+	margin-top: 5px;
+	color: #CC0000;
+}
+
+p {
+	margin-top: 10px;
+}
+
+button {
+	font-size: 18px;
+	padding: 1px 7px;
+}
+
+input {
+	font-size: 18px;
+}
+
+input[type=checkbox] {
+	margin: 7px;
+}
+
+#header {
+	position: relative;
+	width: 900px;
+	margin: auto;
+}
+
+#header h2 {
+	margin-left: 10px;
+	vertical-align: middle;
+	font-size: 42px;
+	font-weight: bold;
+	text-decoration: none;
+	color: #000;
+}
+
+#content {
+	width: 880px;
+	margin: 0 auto;
+	padding: 10px;
+}
 
 #pane{
 	
@@ -31,41 +71,75 @@ body {
 .boxed {
   	border: 2px solid #CC0000 ;
   	border-radius:5px;
-  	width:30px;
-	height:30px;
-	float: left;
-	margin-right: 5em;
-}
-
-.boxed2 {
-  	border: 2px solid #CC0000 ;
-  	border-radius:5px;
 	height:30px;
 	margin: 0px auto 5px auto;
 	float: left;
 	margin-right: 5em;
 }
 
-.label {
-	color: #660000;
+.lift,
+.thrust,
+.rudder {
+	display: inline-block;
+	margin-top: 20px;
 }
 
-input[type=range] {
-    -webkit-appearance: none;
-    background-color: #CC0000;
-    border: 2px solid #000000;
-    border-radius:5px;
-    width: 200px;
-    height:20px;
+.motorcontainer {
+	box-sizing: border-box;
+	width: 300px;
+	height: 200px;
+	padding: 20px 15px 15px 15px;
+	margin: 15px auto 30px auto;
+	border: 1px solid #ddd;
+	background: #fff;
+	background: linear-gradient(#f6f6f6 0, #fff 50px);
+	background: -o-linear-gradient(#f6f6f6 0, #fff 50px);
+	background: -ms-linear-gradient(#f6f6f6 0, #fff 50px);
+	background: -moz-linear-gradient(#f6f6f6 0, #fff 50px);
+	background: -webkit-linear-gradient(#f6f6f6 0, #fff 50px);
+	box-shadow: 0 3px 10px rgba(0,0,0,0.15);
+	-o-box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+	-ms-box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+	-moz-box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+	-webkit-box-shadow: 0 3px 10px rgba(0,0,0,0.1);
 }
 
-input[type="range"]::-webkit-slider-thumb {
-     -webkit-appearance: none;
-    background-color: #666;
-    border-radius:2px;
-    opacity: 0.5;
-    width: 10px;
-    height: 26px;
+.motorplaceholder {
+	width: 100%;
+	height: 100%;
+	font-size: 14px;
+	line-height: 1.2em;
+}
+
+.demo-container {
+	box-sizing: border-box;
+	width: 100%;
+	height: 450px;
+	padding: 20px 15px 15px 15px;
+	margin: 15px auto 30px auto;
+	border: 1px solid #ddd;
+	background: #fff;
+	background: linear-gradient(#f6f6f6 0, #fff 50px);
+	background: -o-linear-gradient(#f6f6f6 0, #fff 50px);
+	background: -ms-linear-gradient(#f6f6f6 0, #fff 50px);
+	background: -moz-linear-gradient(#f6f6f6 0, #fff 50px);
+	background: -webkit-linear-gradient(#f6f6f6 0, #fff 50px);
+	box-shadow: 0 3px 10px rgba(0,0,0,0.15);
+	-o-box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+	-ms-box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+	-moz-box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+	-webkit-box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+}
+
+.demo-placeholder {
+	width: 100%;
+	height: 100%;
+	font-size: 14px;
+	line-height: 1.2em;
+}
+
+.legend table {
+	border-spacing: 5px;
 }
 
 .submit{
@@ -73,6 +147,7 @@ input[type="range"]::-webkit-slider-thumb {
   	border-radius:5px;
   	width:60px;
 	height:30px;
+	margin-bottom:10px;
 }
 
 #IOlift,
