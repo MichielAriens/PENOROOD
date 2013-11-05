@@ -94,7 +94,7 @@ class PulsedMotor:
         GPIO.output(self.positivePin,False)
         GPIO.output(self.negativePin,False)
         self.thrust = 0
-        thread.start_new(self.pulse, (500,1))
+        thread.start_new(self.pulse, (1000,1))
         
     def setThrust(self,nThrust):
         if(nThrust > 100):
@@ -122,11 +122,10 @@ class PulsedMotor:
                     direction = self.negativePin
                     otherDir = self.positivePin
                 
-                GPIO.output(direction,True)
                 GPIO.output(otherDir,False)
+                GPIO.output(direction,True)
                 time.sleep((timeQuantum/1000)*(percent/100))
                 GPIO.output(direction,False)
-                GPIO.output(otherDir,True)
                 time.sleep((timeQuantum/1000)*(1-(percent/100)))
 
 class FakeMotor:
