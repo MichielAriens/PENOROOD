@@ -54,40 +54,27 @@ class PulsedMotor:
         GPIO.output(self.positivePin,False)
         GPIO.output(self.negativePin,False)
         self.thrust = 0
-        self.threadActive = False
-        self.renew = False
+        thread.start_new(self.pulse, (1000))
         
     def setThrust(self,nThrust):
         self.thrust = nThrust
-        self._actuate()
         
-    def _actuate(self):
-        self.renew = True
-        while self.renew == True & self.threadActive == True:
-            time.sleep(0.010)#Wait for the thread to stop
-        thread.start_new(self.pulse, (1000,self.thrust))
-        
-    #Endless loop to control the motors. TimeQuantum decides how fine grained the loop is. The proper value should be found experimentally
+    #Endless loop to control the motors. TimeQuantum decides how fine grained the loop is (ms). The proper value should be found experimentally
     #percent defines the percent of time that the motor should give 100% of its power.
-    def pulse(self,timeQuantum,percent):
-        self.threadActive = True
+    def pulse(self,timeQuantum):
         GPIO.output(self.negativePin,False)
         GPIO.output(self.positivePin,False)
-        if abs(percent) < 5:
-            self.threadActive = False
-            thread.exit()
-            return
-        else:
-            if percent > 0:
-                direction = self.positivePin
+        while(True):
+            percent = self.thrust
+            if abs(percent) < 5:
+                GPIO.output(self.negativePin,False)
+                GPIO.output(self.positivePin,False)
             else:
-                direction = self.negativePin
-            while(True):
-                if self.renew == True:
-                    self.renew = False
-                    self.threadActive = False
-                    thread.exit()
-                    return
+                if percent > 0:
+                    direction = self.positivePin
+                else:
+                    direction = self.negativePin
+                
                 GPIO.ouput(direction,True)
                 time.sleep((timeQuantum/1000)*(percent/100))
                 GPIO.ouput(direction,False)
