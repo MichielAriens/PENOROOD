@@ -72,9 +72,10 @@ def send_info():
     else:  #Rpi mode
         Xlift = str(zeppelin.llc.lift.thrust)
         Xthrust = str(zeppelin.llc.thrust.thrust)
-        Xrudder = str(zeppelin.llc.rudder.thrust)
-        Xheight = str(zeppelin.llc.altimeter.getHeight())
-        return {'lift': Xlift,'thrust': Xthrust, 'rudder': Xrudder, 'height': Xheight}
+        #Xrudder = str(zeppelin.llc.rudder.thrust)
+        #Xheight = str(zeppelin.llc.altimeter.getHeight())
+        #return {'lift': Xlift,'thrust': Xthrust, 'rudder': Xrudder, 'height': Xheight}
+        return {'lift': Xlift,'thrust': Xthrust}
     
 @post('/setheight')
 def set_height():
