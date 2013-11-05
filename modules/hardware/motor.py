@@ -124,9 +124,9 @@ class PulsedMotor:
                 
                 GPIO.output(otherDir,False)
                 GPIO.output(direction,True)
-                time.sleep((timeQuantum/1000)*(percent/100))
+                time.sleep((timeQuantum/1000)*(abs(percent)/100))
                 GPIO.output(direction,False)
-                time.sleep((timeQuantum/1000)*(1-(percent/100)))
+                time.sleep((timeQuantum/1000)*(1-(abs(percent)/100)))
 
 class FakeMotor:
     
