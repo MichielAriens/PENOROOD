@@ -101,10 +101,10 @@ def set_motors():
     
     
     
-mode = raw_input("ControlMode?\n   auto\n   controlled(or anything else)")
+#mode = raw_input("ControlMode?\n   auto\n   controlled(or anything else)")
 #start zeppelin background tasks.
-if mode == "auto":
-    zeppelin.llc.start()
+#if mode == "auto":
+#    zeppelin.llc.start()
 #Start the server
 run(host='localhost', port=54322, debug=True)
 
