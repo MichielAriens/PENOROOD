@@ -27,8 +27,7 @@ class LowLevelController:
             #self.thrust = compMotor.thruster
             #self.rudder = compMotor.rudder
             self.thrust = motor.PulsedMotor(17,23)
-            self.thrust = motor.PulsedMotor(9,7)
-            self.ruder = None
+            self.rudder = motor.PulsedMotor(9,7)
             
         elif simMode == "sim":
             self.fe = FakeEnvironment()
