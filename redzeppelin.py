@@ -91,10 +91,13 @@ def set_motors():
     try:
         nLift = float(request.forms.get('lift'))
         nThrust = float(request.forms.get('thrust'))
+        nRudder = float(request.forms.get('rudder'))
     except ValueError:
-        return
+        pass
     zeppelin.llc.lift.setThrust(nLift)
     zeppelin.llc.thrust.setThrust(nThrust)
+    zeppelin.llc.rudder.setThrust(nRudder)
+    
     
     
 mode = raw_input("ControlMode?\n   auto\n   controlled(or anything else)")

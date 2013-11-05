@@ -22,9 +22,10 @@ class LowLevelController:
         
         if simMode == "RPi":
             self.altimeter = ds.DistanceSensor()
-            self.lift = motor.VectoredMotor(18,24,4)
-            self.thrust = motor.PulsedMotor(17,23)
-            self.rudder = None
+            self.lift = motor.VectoredMotor(24,4)
+            compMotor = motor.CompositeMotor(motor.PulsedMotor(17,23), motor.PulsedMotor(9,7))
+            self.thrust = compMotor.thruster
+            self.rudder = compMotor.rudder
             
         elif simMode == "sim":
             self.fe = FakeEnvironment()

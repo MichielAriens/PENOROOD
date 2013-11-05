@@ -127,6 +127,40 @@
 					}
 					
 					});
+					
+					$.plot($("#thrustplaceholder"), [thrustData], { 
+					lines: {
+						lineWidth: 1
+					},
+					yaxis: {
+						min: -100,
+						max: 100
+					},
+					xaxis: {
+						mode:"time",
+						min: (new Date()).getTime() - 60000,
+						max: (new Date()).getTime(),
+						ticks: 3
+					}
+					
+					});
+					
+					$.plot($("#rudderplaceholder"), [rudderData], { 
+					lines: {
+						lineWidth: 1
+					},
+					yaxis: {
+						min: -100,
+						max: 100
+					},
+					xaxis: {
+						mode:"time",
+						min: (new Date()).getTime() - 60000,
+						max: (new Date()).getTime(),
+						ticks: 3
+					}
+					
+					});
 			}
 			
 			function reloadData(){
@@ -138,6 +172,12 @@
 						//lift
 						liftData.push([new Date().getTime(),parseInt(data.lift)]);
   						$('#IOlift').html("" + data.lift);
+  						//thrust
+  						thrustData.push([new Date().getTime(),parseInt(data.thrust)]);
+  						$('#IOthrust').html("" + data.thrust);
+  						//rudder
+  						rudderData.push([new Date().getTime(),parseInt(data.rudder)]);
+  						$('#IOrudder').html("" + data.rudder);
 					});
   				update();
 			}
@@ -162,7 +202,7 @@
 			
 			window.addEventListener('keydown', function (e) {
 		        	var keyCode = e.keyCode || e.which,
-		      		arrow = {left: 37, up: 38, right: 39, down: 40 , z: 90, s:83, shift:16, ctrl:17};
+		      		arrow = {z: 90, s:83, shift:16, ctrl:17, q:81, d:68};
 		
 		  			switch (keyCode) {
 		    		case arrow.z:
@@ -176,6 +216,12 @@
 		    			break;
 		    		case arrow.ctrl:
 		    			motors[1] -= controlSensitivity[1];
+		    			break;
+		    		case arrow.d:
+		    			motors[2] += controlSensitivity[2];
+		    			break;
+		    		case arrow.q:
+		    			motors[2] -= controlSensitivity[2];
 		    			break;
 	  				}
 	  				sendInput();
