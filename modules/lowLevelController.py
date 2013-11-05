@@ -21,7 +21,8 @@ class LowLevelController:
         self.pid.setPoint(self.dHeight)
         
         if simMode == "RPi":
-            self.altimeter = ds.DistanceSensor()
+            self.altimeter = ds.DistanceSens
+            or()
             self.lift = motor.VectoredMotor(24,4)
             compMotor = motor.CompositeMotor(motor.PulsedMotor(17,23), motor.PulsedMotor(9,7))
             self.thrust = compMotor.thruster
