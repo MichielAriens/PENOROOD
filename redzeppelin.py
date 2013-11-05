@@ -92,12 +92,12 @@ def set_motors():
     try:
         nLift = float(request.forms.get('lift'))
         nThrust = float(request.forms.get('thrust'))
-        #nRudder = float(request.forms.get('rudder'))
+        nRudder = float(request.forms.get('rudder'))
     except ValueError:
         pass
     zeppelin.llc.lift.setThrust(nLift)
     zeppelin.llc.thrust.setThrust(nThrust)
-    #zeppelin.llc.rudder.setThrust(nRudder)
+    zeppelin.llc.rudder.setThrust(nRudder)
     
     
     
