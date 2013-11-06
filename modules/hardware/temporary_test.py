@@ -4,8 +4,6 @@ from PIL import Image
 from math import *
 import numpy as np
 
-from numpy import array
-
 def logpolar(input,silent=False):
     # This takes a numpy array and returns it in Log-Polar coordinates.
 
@@ -38,8 +36,9 @@ def save_image( npdata, outfilename ) :
     img = Image.fromarray( np.asarray( np.clip(npdata,0,255), dtype="uint8"), "L" )
     img.save( outfilename )
 
-image = load_image("C:/index1.jpg")
-target = load_image("C:/index2.jpg")
+image = load_image("C:/index1.jpg")[:,:,0]
+target = load_image("C:/index2.jpg")[:,:,0]
+
 
 # Conversion to log-polar coordinates
 lpimage = logpolar(image)
@@ -48,6 +47,10 @@ lptarget = logpolar(target)
 # Correlation through FFTs
 Fcorr = np.fft.fft(lpimage)*np.fft.fft(lptarget)
 correlation = np.fft.ifft(Fcorr)
+
+# save_image(correlation,"C:/correlation.jpg")
+
+
 
 """
 # Correlation
