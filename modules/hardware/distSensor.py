@@ -145,7 +145,6 @@ class DistanceSensor :
     def measure(self, timeout = TIMEOUT):
         global echo_gpio, trig_gpio, TRIG_DURATION, SPEED_OF_SOUND, TIMEOUT
         #settletime
-        time.sleep(0.05)
         GPIO.output(trig_gpio, True)
         time.sleep(TRIG_DURATION)
         GPIO.output(trig_gpio, False)
@@ -168,6 +167,7 @@ class DistanceSensor :
             
         if(starttime != -1 and endtime != -1):
             distance = (endtime - starttime) * SPEED_OF_SOUND * 100/2
+            time.sleep(endtime - starttime)
             
         return distance
    
@@ -212,7 +212,7 @@ class BackgroundDistanceSensor :
         while True:
             height = self.measure()
             if (height != -1):
-                self.points.pop()
+                self.points.pop(0)
                 self.points.append(height)
             time.sleep(resolution)
             
@@ -248,6 +248,7 @@ class BackgroundDistanceSensor :
             
         if(starttime != -1 and endtime != -1):
             distance = (endtime - starttime) * SPEED_OF_SOUND * 100/2
+            time.sleep(endtime - starttime)
             
         return distance
             
