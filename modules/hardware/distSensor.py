@@ -144,7 +144,7 @@ class DistanceSensor :
     def measure(self, timeout = TIMEOUT):
         global echo_gpio, trig_gpio, TRIG_DURATION, SPEED_OF_SOUND, TIMEOUT
         #settletime
-        time.sleep(0,02)
+        time.sleep(0.02)
         GPIO.output(trig_gpio, True)
         time.sleep(TRIG_DURATION)
         GPIO.output(trig_gpio, False)
