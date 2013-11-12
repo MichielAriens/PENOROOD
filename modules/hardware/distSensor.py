@@ -11,6 +11,7 @@ try:
 except ImportError:
     pass
 import random
+import thread
 
 
 try:
@@ -144,7 +145,7 @@ class DistanceSensor :
     def measure(self, timeout = TIMEOUT):
         global echo_gpio, trig_gpio, TRIG_DURATION, SPEED_OF_SOUND, TIMEOUT
         #settletime
-        time.sleep(0.02)
+        time.sleep(0.05)
         GPIO.output(trig_gpio, True)
         time.sleep(TRIG_DURATION)
         GPIO.output(trig_gpio, False)
@@ -171,7 +172,84 @@ class DistanceSensor :
         return distance
    
             
+class BackgroundDistanceSensor :
+    #setup pins: BCM noation. 17 means GPIO17, 4 means GPIO4
+    echo_gpio = 27
+    trig_gpio = 22
+    TRIG_DURATION = 0.0001
+    SPEED_OF_SOUND = 340.29
+    TIMEOUT = 5000
+
+    scalefactor = 0
+    offset = 0
+    
+    #Constructor
+    def __init__(self,buffersize = 10, resolution = 0.1):   
+        global echo_gpio, trig_gpio, TRIG_DURATION, SPEED_OF_SOUND, TIMEOUT, offset, scalefactor
+        echo_gpio = 27
+        trig_gpio = 22
+        TRIG_DURATION = 0.0001
+        SPEED_OF_SOUND = 340.29
+        TIMEOUT = 2100
+        #Init GPIO
+        #Adressingmode
+        GPIO.setmode(GPIO.BCM)
+        #Bind pins
+        GPIO.setup(echo_gpio,GPIO.IN,pull_up_down=GPIO.PUD_DOWN)
+        GPIO.setup(trig_gpio,GPIO.OUT)
+        GPIO.output(trig_gpio,False)
+        time.sleep(0.5)
+        
+        #initial calibration
+        offset = 0
+        scalefactor = 1
+        
+        thread.start_new(self.monitorHeight,(buffersize,resolution))
+        
+    def monitorHeight(self,buffersize, resolution):
+        size = buffersize
+        self.points = [0] * size        
+        while True:
+            height = self.measure()
+            if (height != -1):
+                self.points.pop()
+                self.points.append(height)
+            time.sleep(resolution)
             
+            
+    def getHeight(self):
+        return numpy.median(self.points)
+    
+    #Perform one instantaneous measurement (not accurate)
+    #Timeout places bounds on the wait. If -1 is returned regularly consider increasing the timeout
+    def measure(self, timeout = TIMEOUT):
+        global echo_gpio, trig_gpio, TRIG_DURATION, SPEED_OF_SOUND, TIMEOUT
+        #settletime
+        time.sleep(0.05)
+        GPIO.output(trig_gpio, True)
+        time.sleep(TRIG_DURATION)
+        GPIO.output(trig_gpio, False)
+        
+        countdown = timeout
+        while(GPIO.input(echo_gpio) == 0 and countdown > 0):
+            countdown -= 1
+        
+        distance= -1
+        starttime = -1
+        endtime = -1
+        if countdown > 0:
+            starttime = time.time()
+            countdown = timeout
+            while(GPIO.input(echo_gpio) == 1 and countdown > 0):
+                countdown -=1
+            
+            if(countdown > 0):
+                endtime =time.time()
+            
+        if(starttime != -1 and endtime != -1):
+            distance = (endtime - starttime) * SPEED_OF_SOUND * 100/2
+            
+        return distance
             
             
         
