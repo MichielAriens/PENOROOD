@@ -108,11 +108,9 @@ class DistanceSensor :
     #This means: two consecutive invocations of the function should return close results.
     #This is implemented by calculating the median of (nopoints = 10) measurements. 
     #Returns -1 when measure function fails too often.
-    def getHeight(self, nopoints = 10):
-        #global offset, scalefactor
-        #return (offset + self.getHeightRaw(10))*scalefactor
-        
-        return self.measure()
+    def getHeight(self, nopoints = 20):
+        global offset, scalefactor
+        return self.getHeightRaw(10)
     
     #Returns the height of the sensor in meters NOT applying calibration data. This value should be accurate.
     #This means: two consecutive invocations of the function should return close results.
