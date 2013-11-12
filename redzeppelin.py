@@ -42,6 +42,10 @@ def send_html(filename):
 def send_image(filename):
     return static_file(filename, root='modules/srv/images/', mimetype='image/png')
 
+@route('/stream')
+def stream():
+    return static_file("cam.png", "/data/cam/", mimetype='image/png')
+
 #CSS, must be loaded from the css folder.
 @route('/css/<filename:re:.*\.css>')
 def send_css(filename):
@@ -101,10 +105,10 @@ def set_motors():
     
     
     
-#mode = raw_input("ControlMode?\n   auto\n   controlled(or anything else)")
+mode = raw_input("ControlMode?\n   auto\n   controlled(or anything else)")
 #start zeppelin background tasks.
-#if mode == "auto":
-#    zeppelin.llc.start()
+if mode == "auto":
+    zeppelin.llc.start()
 #Start the server
 run(host='localhost', port=54322, debug=True)
 

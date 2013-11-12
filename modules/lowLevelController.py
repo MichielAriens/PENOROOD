@@ -17,8 +17,6 @@ class LowLevelController:
         self.dHeight = 0
         #Init PID (0.1,0,0.5) works slightly, (0.1,0.05,3) better P to 0.2 increases responsiveness, I increses overshoot but decreases settletime
         #D decreases overshoot but engthens settletime. (slows machine down)
-        self.pid = PID(0.2,0.1,5)
-        self.pid.setPoint(self.dHeight)
         
         if simMode == "RPi":
             self.altimeter = ds.DistanceSensor()
@@ -26,17 +24,19 @@ class LowLevelController:
             compMotor = motor.CompositeMotor(motor.PulsedMotor(17,23), motor.PulsedMotor(9,7))
             self.thrust = compMotor.thruster
             self.rudder = compMotor.rudder
+            self.pid = PID(0.2,0.1,5)
             
         elif simMode == "sim":
             self.fe = FakeEnvironment()
             self.lift = motor.FakeMotor(self.fe)
             self.altimeter = ds.FakeDistanceSensor2(self.fe)
             thread.start_new(self.fe.update, ())
+            self.pid = PID(0.2,0.1,5)
             
         else:
             print "LowLevelController was not passed a valid simulation format.\n The application will now quit."
             raise RuntimeError()
-        """self.dHeight = 0"""
+        self.pid.setPoint(self.dHeight)
         
         #Camera
         self.camera = None

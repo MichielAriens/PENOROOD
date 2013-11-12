@@ -1,23 +1,28 @@
 from imgproc import *
-import time
-import phase_corr
+try:
+    import RPi.GPIO
+    simMode = False
+except ImportError:
+    simMode = True
+    
+import os
 
 class Camera:
     cam = None
     
-    __init__(self,size = 100):
-        cam = Camera(size,size)
+    def __init__(self,height = 200, width = 200, output):
+        self.height = width
+        self.width = width
+        self.output= output
+        
+        return
+    
+    def click(self):
+        os.system("raspistill -n -h" + self.height + " -w " + str(self.width)+ " -o " + self.output)
 
     #provide the interval in ms
     def detectMovement(self, interval = 1000):
-        image1 = cam.grabImage()
-        time.sleep(interval/1000)
-        image2 = cam.grabImage()
-        corr = phase_corr.phase_correlation(image1, image2)
-        return corr
+        pass #os.system("java /home/pi/PENOROOD/resources/test_multi_QR_400x400.jar")
         
-        
-        
-        
-    my_camera = Camera(100, 100)
-    my_image = my_camera.grabImage()
+    def getQR(self):
+        os.system("java /home/pi/PENOROOD/resources/test_multi_QR_400x400.jar")
