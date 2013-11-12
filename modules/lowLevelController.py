@@ -19,7 +19,7 @@ class LowLevelController:
         #D decreases overshoot but engthens settletime. (slows machine down)
         
         if simMode == "RPi":
-            self.altimeter = ds.BackgroundDistanceSensor(10)
+            self.altimeter = ds.DistanceSensor(10)
             self.lift = motor.VectoredMotor(24,4)
             compMotor = motor.CompositeMotor(motor.PulsedMotor(17,23), motor.PulsedMotor(9,7))
             self.thrust = compMotor.thruster
