@@ -110,7 +110,7 @@ class DistanceSensor :
     #Returns -1 when measure function fails too often.
     def getHeight(self, nopoints = 20):
         global offset, scalefactor
-        return self.getHeightRaw(10)
+        return self.getHeightRaw(nopoints)
     
     #Returns the height of the sensor in meters NOT applying calibration data. This value should be accurate.
     #This means: two consecutive invocations of the function should return close results.
@@ -124,8 +124,7 @@ class DistanceSensor :
             if point == -1:
                 triesleft -= 1
             else:         
-                points.append(self.measure())
-                #points.append(point)
+                points.append(point)
             
         if triesleft <= 0:
             return -1
@@ -172,7 +171,7 @@ class DistanceSensor :
             # That was the distance there and back so halve the value
             distance = (endtime - starttime) * SPEED_OF_SOUND * 100/2
             # sleep zinloos?
-            time.sleep(endtime - starttime)
+            #time.sleep(endtime - starttime)
             
         return distance
    
