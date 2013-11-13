@@ -180,6 +180,8 @@
   						$('#IOrudder').html("" + data.rudder);
 					});
   				update();
+  				
+  				window.setTimeout("reloadData()", 100);
 			}
 			
 			function sendInput(){
@@ -195,7 +197,7 @@
 			}
 			
 			//reload the data every 1000ms
-			window.setInterval("reloadData()",1000);
+			//window.setInterval("reloadData()",1000);
 		
 			
 			
