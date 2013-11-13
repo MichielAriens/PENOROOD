@@ -25,7 +25,7 @@ class LowLevelController:
             compMotor = motor.CompositeMotor(motor.PulsedMotor(17,23), motor.PulsedMotor(9,7))
             self.thrust = compMotor.thruster
             self.rudder = compMotor.rudder
-            self.pid = PID(0.2,0.1,5)
+            self.pid = PID(5,2,5)
             
         elif simMode == "sim":
             self.motorOffset = 50

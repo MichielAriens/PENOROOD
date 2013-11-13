@@ -235,11 +235,11 @@ class BackgroundDistanceSensor :
             if (height != -1):
                 self.points.pop(0)
                 self.points.append(height)
-            time.sleep(resolution)
+            time.sleep(resolution + random.uniform(0,0.0010))
             
             
     def getHeight(self):
-        return numpy.median(self.points)
+        return min(self.points)
     
     #Perform one instantaneous measurement (not accurate)
     #Timeout places bounds on the wait. If -1 is returned regularly consider increasing the timeout
