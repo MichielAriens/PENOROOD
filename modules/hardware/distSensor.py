@@ -121,6 +121,7 @@ class DistanceSensor :
         counter = 5
         while(counter > 0):
             points = []
+            # medianPoints = []
             triesleft = 2*nopoints
             while len(points) < nopoints and triesleft > 0:
                 point = self.measure()
@@ -135,10 +136,13 @@ class DistanceSensor :
                 medianPoint = numpy.median(points)
                 if abs(medianPoint - self.previousPoint) <= 20:
                     self.previousPoint = medianPoint
-                    return medianPoint
+                    return self.previousPoint
                 else:
                     counter -= 1
-        #counter run out
+        #alternative: 
+        #self.previousPoint = min(medianPoints)
+        #return self.previousPoint
+        self.previousPoint = medianPoint
         return medianPoint
         
         
