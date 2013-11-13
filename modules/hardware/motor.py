@@ -42,8 +42,8 @@ class CompositeMotor:
         self.leftMotor.setThrust(self.thruster.thrust + self.rudder.thrust)
         self.rightMotor.setThrust(self.thruster.thrust - self.rudder.thrust)
         
-#A pysical implementation of a motor. Uses PWM (varaible output pins) to drive motors
-#Provides best control. Usefull for most critical motors like the lifter.
+#A physical implementation of a motor. Uses PWM (variable output pins) to drive motors
+#Provides best control. Useful for most critical motors like the lifter.
 class VectoredMotor:
     def __init__(self,postivePin,negativePin):
         #Instantiate pin objects
