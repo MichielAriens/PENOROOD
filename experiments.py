@@ -1,11 +1,11 @@
-import distSensor
+import modules.hardware.distSensor as distSensor
 import time
 
 
 ds = distSensor.DistanceSensor()
 while(True):
     print str( ds.measure())
-    
+    time.sleep(0.008)
 
 
 
