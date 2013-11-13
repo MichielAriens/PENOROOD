@@ -5,7 +5,7 @@ import time
 ds = distSensor.DistanceSensor()
 while(True):
     print str( ds.measure())
-    time.sleep(0.008)
+    time.sleep(0.020)
 
 
 

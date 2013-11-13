@@ -102,7 +102,7 @@ class DistanceSensor :
         #initial calibration
         offset = 0
         scalefactor = 1
-        previousPoint = -1
+        self.previousPoint = -1
         
     
     #Returns the height of the sensor in meters applying calibration data. This value should be accurate.
@@ -121,7 +121,7 @@ class DistanceSensor :
         counter = 5
         while(counter > 0):
             points = []
-            # medianPoints = []
+            medianPoints = []
             triesleft = 2*nopoints
             while len(points) < nopoints and triesleft > 0:
                 point = self.measure()
@@ -138,12 +138,13 @@ class DistanceSensor :
                     self.previousPoint = medianPoint
                     return self.previousPoint
                 else:
+                    medianPoints.append(medianPoint)
                     counter -= 1
         #alternative: 
-        #self.previousPoint = min(medianPoints)
-        #return self.previousPoint
-        self.previousPoint = medianPoint
-        return medianPoint
+        self.previousPoint = min(medianPoints)
+        return self.previousPoint
+        #self.previousPoint = medianPoint
+        #return medianPoint
         
         
             

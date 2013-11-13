@@ -77,7 +77,7 @@ def send_info():
         Xlift = str(zeppelin.llc.lift.thrust)
         Xthrust = str(zeppelin.llc.thrust.thrust)
         Xrudder = str(zeppelin.llc.rudder.thrust)
-        Xheight = str(zeppelin.llc.altimeter.getHeight(1))
+        Xheight = str(zeppelin.llc.altimeter.getHeight())
         return {'lift': Xlift,'thrust': Xthrust, 'rudder': Xrudder, 'height': Xheight}
 
     
