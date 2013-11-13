@@ -102,6 +102,7 @@ class DistanceSensor :
         #initial calibration
         offset = 0
         scalefactor = 1
+        previousPoint = -1
         
     
     #Returns the height of the sensor in meters applying calibration data. This value should be accurate.
@@ -117,19 +118,31 @@ class DistanceSensor :
     #This is implemented by calculating the median of (nopoints = 10) measurements. 
     #Returns -1 when measure function fails too often.
     def getHeightRaw(self, nopoints):
-        points = []
-        triesleft = 2*nopoints
-        while len(points) < nopoints and triesleft > 0:
-            point = self.measure()
-            if point == -1:
-                triesleft -= 1
-            else:         
-                points.append(point)
+        counter = 5
+        while(counter > 0):
+            points = []
+            triesleft = 2*nopoints
+            while len(points) < nopoints and triesleft > 0:
+                point = self.measure()
+                if point == -1:
+                    triesleft -= 1
+                else:         
+                    points.append(point)
+                
+            if triesleft <= 0:
+                return -1
+            else:
+                medianPoint = numpy.median(points)
+                if abs(medianPoint - self.previousPoint) <= 20:
+                    self.previousPoint = medianPoint
+                    return medianPoint
+                else:
+                    counter -= 1
+        #counter run out
+        return medianPoint
+        
+        
             
-        if triesleft <= 0:
-            return -1
-        else:
-            return numpy.median(points)        
     
     #Calibration of the sensor. Calibration is linear. Allows two inputs: Point zero calibration translates the output. For other inputs
     #scaling is applied (not yet working)
