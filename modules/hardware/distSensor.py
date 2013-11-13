@@ -125,6 +125,7 @@ class DistanceSensor :
                 triesleft -= 1
             else:         
                 points.append(self.measure())
+                #points.append(point)
             
         if triesleft <= 0:
             return -1
@@ -166,7 +167,11 @@ class DistanceSensor :
                 endtime =time.time()
             
         if(starttime != -1 and endtime != -1):
+            # Distance pulse travelled in that time is time
+            # multiplied by the speed of sound (cm/s)
+            # That was the distance there and back so halve the value
             distance = (endtime - starttime) * SPEED_OF_SOUND * 100/2
+            # sleep zinloos?
             time.sleep(endtime - starttime)
             
         return distance
