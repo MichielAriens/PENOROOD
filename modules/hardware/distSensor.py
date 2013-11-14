@@ -187,7 +187,7 @@ class DistanceSensor :
             # multiplied by the speed of sound (cm/s)
             # That was the distance there and back so halve the value
             distance = (endtime - starttime) * SPEED_OF_SOUND * 100/2
-            # sleep zinloos?
+            # Voer een sleep in, in functie van de hoogte, te bepalen door experimenten
             #time.sleep(endtime - starttime)
             
         return distance
