@@ -27,7 +27,7 @@ class LowLevelController:
             self.thrust = compMotor.thruster
             self.rudder = compMotor.rudder
             self.pid = PID(2,0.2,5)
-            self.camera = cam.Camera(200, 200, "modules/srv/images/still.jpg")
+            self.camera = cam.Camera(200, 200, output = "still.jpg")
             
         elif simMode == "sim":
             self.motorOffset = 50

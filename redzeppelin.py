@@ -85,7 +85,7 @@ def send_info():
 def send_camimg():
     global simMode
     global zeppelin
-    if simMode == "Rpi":
+    if simMode == "RPi":
         return str(zeppelin.llc.camera.click())
     else:
         return "images/test.png"
