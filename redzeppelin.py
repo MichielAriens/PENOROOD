@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 
 import modules.lowLevelController as llcp
+import os
 
 #Check to see whether we're running on the RaspberryPi. store result in simMode
 simMode = "RPi"
@@ -79,7 +80,15 @@ def send_info():
         Xrudder = str(zeppelin.llc.rudder.thrust)
         Xheight = str(zeppelin.llc.altimeter.getHeight())
         return {'lift': Xlift,'thrust': Xthrust, 'rudder': Xrudder, 'height': Xheight}
-
+    
+@get('/cam')
+def send_camimg():
+    global simMode
+    global zeppelin
+    if simMode == "Rpi":
+        return str(zeppelin.llc.camera.click())
+    else:
+        return "images/test.png"
     
 @post('/setheight')
 def set_height():

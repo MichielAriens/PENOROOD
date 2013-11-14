@@ -6,6 +6,7 @@
 
 import hardware.distSensor as ds
 import hardware.motor as motor
+import hardware.camera as cam
 import thread
 import time
 import random
@@ -25,15 +26,19 @@ class LowLevelController:
             compMotor = motor.CompositeMotor(motor.PulsedMotor(17,23), motor.PulsedMotor(9,7))
             self.thrust = compMotor.thruster
             self.rudder = compMotor.rudder
-            self.pid = PID(5,2,5)
+            self.pid = PID(2,0.2,5)
+            self.camera = cam.Camera(200, 200, "modules/srv/images/still.jpg")
             
         elif simMode == "sim":
             self.motorOffset = 50
             self.fe = FakeEnvironment()
             self.lift = motor.FakeMotor(self.fe)
+            self.thrust = motor.EmptyMotor
+            self.rudder = motor.EmptyMotor
             self.altimeter = ds.FakeDistanceSensor2(self.fe)
             thread.start_new(self.fe.update, ())
             self.pid = PID(0.2,0.1,5)
+            self.camera = None
             
         else:
             print "LowLevelController was not passed a valid simulation format.\n The application will now quit."
@@ -41,7 +46,6 @@ class LowLevelController:
         self.pid.setPoint(self.dHeight)
         
         #Camera
-        self.camera = None
     
     #Used to set the desired height.
     #Effects will only become apparent after _keepHeight pulls the new info

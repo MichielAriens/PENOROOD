@@ -145,4 +145,7 @@ class FakeMotor:
             self.thrust = thrust
         self.env.verticalForce = self.thrust/100 * self.MAXFORCE
         
-        
+class EmptyMotor:
+    
+    def setThrust(self,ignore):
+        return        

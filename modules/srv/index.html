@@ -43,6 +43,12 @@
 						<div id="rudderplaceholder" class="motorplaceholder"> </div>
 					</div>
 				</div>
+				<div class="cam">
+					<br>
+					<div class="motorcontainer">
+						<div id="camplaceholder" class="motorplaceholder"> </div>
+					</div>
+				</div>
 				<br>
 				height:
 				<br>	
@@ -81,6 +87,8 @@
 			      },'json');
 			      return false;
 			   });
+			   reloadData();
+			   updateCam();
 			});
 			
 			/*var plot = $.plot("#placeholder", heightData, {
@@ -181,7 +189,17 @@
 					});
   				update();
   				
+  				
   				window.setTimeout("reloadData()", 100);
+			}
+			 
+			function updateCam(){
+				$.get("cam",{})
+					.done(function(data){
+						$('#camplaceholder').html("<img src=\"" + data + "\" alt=\"failed\">");
+						//$('#camplaceholder').html(data);
+					});
+				window.setTimeout("updateCam()", 1000);
 			}
 			
 			function sendInput(){
