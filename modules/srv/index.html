@@ -40,12 +40,12 @@
 					<br>
 					<div class="boxed" id="IOrudder">NA</div><br>
 					<div class="motorcontainer">
-						<div id="rudderplaceholder" class="motorplaceholder"> replace me!!</div>
+						<div id="rudderplaceholder" class="motorplaceholder"></div>
 					</div>
 				</div>
 				<div class="cam">
 					<div class="motorcontainer">
-						<div id="camplaceholder" class="motorplaceholder"> </div>
+						<div id="camplaceholder" class="motorplaceholder"> <img id = "camStill" src="images/test.png"> </div>
 					</div>
 				</div>
 				<br>
@@ -193,7 +193,7 @@
 			}
 			 
 			function updateCam(){
-				$("#camplaceholder").attr("src", "images/still.png?"+new Date().getTime());
+				$("#camstill").attr("src", "images/still.png?"+new Date().getTime());
 				window.setTimeout("updateCam()", 1000);
 				/*
 				$.get("cam",{})
