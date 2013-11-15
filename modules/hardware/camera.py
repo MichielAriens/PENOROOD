@@ -24,7 +24,7 @@ class Camera:
         return self.readroot + self.output
     
     def takeImage(self):
-        os.system("raspistill -n -t 0 -w " + str(self.width) + " -h " + str(self.height)+ " -o " + self.root + self.output)
+        os.system("raspistill -w " + str(self.width) + " -h " + str(self.height)+ " -q 5 -o " + self.root + self.output + "-t1 100 -t 9999999 -th 0:0:0 -n &")
 
     #provide the interval in ms
     def detectMovement(self, interval = 1000):
