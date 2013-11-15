@@ -27,7 +27,7 @@ class Camera:
     
     #launches repeating 
     def start(self):
-        command = "raspistill -w " + str(self.width) + " -h " + str(self.height)+ " -q 5 -o " + self.root + self.output + " -t 9999999 -th 0:0:0 -t1 100 -n &"
+        command = "raspistill -w " + str(self.width) + " -h " + str(self.height)+ " -q 5 -o " + self.root + self.output + " -t 9999999 -th 0:0:0 -tl 100 -n &"
         print "trying: " + command
         os.system(command)
 
