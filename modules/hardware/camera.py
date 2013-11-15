@@ -27,7 +27,8 @@ class Camera:
     
     #launches repeating 
     def start(self):
-        os.system("raspistill -w " + str(self.width) + " -h " + str(self.height)+ " -q 5 -o " + self.root + self.output + "-t1 100 -t 9999999 -th 0:0:0 -n &")
+        print "trying: " + "raspistill -w " + str(self.width) + " -h " + str(self.height)+ " -q 5 -o " + self.root + self.output + " -t1 100 -t 9999999 -th 0:0:0 -n &"
+        os.system("raspistill -w " + str(self.width) + " -h " + str(self.height)+ " -q 5 -o " + self.root + self.output + " -t1 100 -t 9999999 -th 0:0:0 -n &")
 
     #provide the interval in ms
     def detectMovement(self, interval = 1000):
