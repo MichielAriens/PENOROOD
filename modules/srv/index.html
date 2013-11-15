@@ -195,7 +195,8 @@
 			function updateCam(){
 				$.get("cam",{})
 					.done(function(data){
-						$('#camplaceholder').html("<img src=\"" + data + "\" alt=\"failed\">");
+						
+						$('#camplaceholder').html("<img src=\"" + data + "?timestamp=" + new Date().getTime() + "\" alt=\"failed\">");
 						//$('#camplaceholder').html(data);
 					});
 				window.setTimeout("updateCam()", 1000);

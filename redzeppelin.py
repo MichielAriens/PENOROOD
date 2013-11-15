@@ -87,10 +87,10 @@ def send_camimg():
     global zeppelin
     if simMode == "RPi":
         pass
-        #return str(zeppelin.llc.camera.click())
+        return str(zeppelin.llc.camera.click())
     else:
         pass
-        #return "images/test.png"
+        return "images/test.png"
     
 @post('/setheight')
 def set_height():
