@@ -246,6 +246,7 @@ class BackgroundDistanceSensor :
     def measure(self, timeout = TIMEOUT):
         global echo_gpio, trig_gpio, TRIG_DURATION, SPEED_OF_SOUND, TIMEOUT
         #settletime
+        time.sleep(random.uniform(0,0.008))
         GPIO.output(trig_gpio, True)
         time.sleep(TRIG_DURATION)
         GPIO.output(trig_gpio, False)
