@@ -19,7 +19,7 @@ class Camera:
         return
     
     def click(self):
-        os.system("raspistill -n -t 0 -w" + str(self.width) + " -h " + str(self.height)+ " -o " + self.root + self.output)
+        os.system("raspistill -n -t 0 -w " + str(self.width) + " -h " + str(self.height)+ " -o " + self.root + self.output)
         return self.readroot + self.output
 
     #provide the interval in ms

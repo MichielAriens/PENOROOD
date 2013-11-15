@@ -2,6 +2,7 @@
 
 import modules.lowLevelController as llcp
 import os
+import thread
 
 #Check to see whether we're running on the RaspberryPi. store result in simMode
 simMode = "RPi"
@@ -87,7 +88,7 @@ def send_camimg():
     global zeppelin
     if simMode == "RPi":
         pass
-        return str(zeppelin.llc.camera.click())
+        return thread.start_new(str(zeppelin.llc.camera.click()))
     else:
         pass
         return "images/test.png"
