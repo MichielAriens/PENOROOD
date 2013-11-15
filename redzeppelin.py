@@ -40,7 +40,7 @@ def send_html(filename):
     return static_file(filename, root='modules/srv/')
 
 #Images must be loaded explicitly from the images folder.
-@route('/images/<filename:re:.*\.png><re:,.*>')
+@route('/images/<filename:re:.*\.png>')
 def send_image(filename):
     return static_file(filename, root='modules/srv/images/', mimetype='image/png')
 
