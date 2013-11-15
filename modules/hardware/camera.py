@@ -17,13 +17,16 @@ class Camera:
         self.output = output  
         self.root = root
         self.readroot = readroot
+        thread.start_new(self.start, ())
         return
     
+    #deprecated
     def click(self):
         thread.start_new(self.takeImage, ())
         return self.readroot + self.output
     
-    def takeImage(self):
+    #launches repeating 
+    def start(self):
         os.system("raspistill -w " + str(self.width) + " -h " + str(self.height)+ " -q 5 -o " + self.root + self.output + "-t1 100 -t 9999999 -th 0:0:0 -n &")
 
     #provide the interval in ms

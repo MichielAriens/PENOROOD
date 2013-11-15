@@ -193,6 +193,9 @@
 			}
 			 
 			function updateCam(){
+				$("#camplaceholder").attr("src", "images/still.png?"+new Date().getTime());
+				window.setTimeout("updateCam()", 1000);
+				/*
 				$.get("cam",{})
 					.done(function(data){
 						
@@ -200,6 +203,7 @@
 						//$('#camplaceholder').html(data);
 					});
 				window.setTimeout("updateCam()", 1000);
+				*/
 			}
 			
 			function sendInput(){
