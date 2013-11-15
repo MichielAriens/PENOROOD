@@ -6,6 +6,7 @@ except ImportError:
     simMode = True
     
 import os
+import thread
 
 class Camera:
     cam = None
@@ -19,8 +20,11 @@ class Camera:
         return
     
     def click(self):
-        os.system("raspistill -n -t 0 -w " + str(self.width) + " -h " + str(self.height)+ " -o " + self.root + self.output)
+        thread.start_new(self.takeImage, ())
         return self.readroot + self.output
+    
+    def takeImage(self):
+        os.system("raspistill -n -t 0 -w " + str(self.width) + " -h " + str(self.height)+ " -o " + self.root + self.output)
 
     #provide the interval in ms
     def detectMovement(self, interval = 1000):

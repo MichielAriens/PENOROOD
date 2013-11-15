@@ -88,7 +88,7 @@ def send_camimg():
     global zeppelin
     if simMode == "RPi":
         pass
-        return thread.start_new(str(zeppelin.llc.camera.click()))
+        return str(zeppelin.llc.camera.click())
     else:
         pass
         return "images/test.png"
