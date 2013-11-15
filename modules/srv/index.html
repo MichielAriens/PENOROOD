@@ -193,17 +193,19 @@
 			}
 			 
 			function updateCam(){
+				/*
 				$("#camstill").attr("src", "images/still.png?"+new Date().getTime());
 				window.setTimeout("updateCam()", 1000);
 				/*
 				$.get("cam",{})
 					.done(function(data){
-						
+						*/
 						$('#camplaceholder').html("<img src=\"" + data + "?timestamp=" + new Date().getTime() + "\" alt=\"failed\">");
 						//$('#camplaceholder').html(data);
-					});
-				window.setTimeout("updateCam()", 1000);
+				/*	});
 				*/
+				window.setTimeout("updateCam()", 1000);
+				
 			}
 			
 			function sendInput(){
