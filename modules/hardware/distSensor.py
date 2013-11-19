@@ -105,7 +105,7 @@ class DistanceSensor :
     #This is implemented by calculating the median of (nopoints = 10) measurements. 
     #Returns -1 when measure function fails too often.
     def getHeight(self, amountPoints = 20):
-        return self.getHeightRaw(amountPoints)
+        return self.simpleTestHeight()
 
     # Use 'self.measureWithSemaphores()' instead of self.measure() to use semaphores
 
