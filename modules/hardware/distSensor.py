@@ -183,7 +183,7 @@ class DistanceSensor :
                 break
 
             # Distance pulse travelled in that time is time
-            # multiplied by the speed of sound (cm/s)
+            # multiplied by the speed of sound * 100 (cm/s)
             # That was the distance forth and back so halve the value
             distance = timeDifference * SPEED_OF_SOUND * 100/2
             return distance
