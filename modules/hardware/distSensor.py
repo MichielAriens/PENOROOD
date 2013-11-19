@@ -3,7 +3,7 @@
 #This file contains two similar classes, one which actively controls the distance sensor and one which
 #emulates a distance sensor using empirical data for testing purposes.
 #Although not explicitly defined, both classes have the exact same methods. Implementing code should
-#see no difference between the opperation of these classes.
+#see no difference between the operation of these classes.
 
 import time
 try:
@@ -12,6 +12,7 @@ except ImportError:
     pass
 import random
 import thread
+from threading import Semaphore
 
 
 try:
@@ -24,7 +25,7 @@ class FakeDistanceSensor2:
     def __init__(self,env):
         self.env = env
         
-    #Simulate a slightly less acurate reading that's not instantaneaous
+    #Simulate a slightly less accurate reading that's not instantaneous
     def getHeight(self):
         time.sleep(0.0010)
         return random.gauss(self.env.height, self.env.height/200)
@@ -77,19 +78,15 @@ class DistanceSensor :
     trig_gpio = 22
     TRIG_DURATION = 0.0001
     SPEED_OF_SOUND = 340.29
-    TIMEOUT = 5000
+    TIMEOUT = 8000
+    UNLOCK_CPU_TIME = 0.4
 
-    scalefactor = 0
+    scalefactor = 1
     offset = 0
     
     #Constructor
     def __init__(self):   
-        global echo_gpio, trig_gpio, TRIG_DURATION, SPEED_OF_SOUND, TIMEOUT, offset, scalefactor
-        echo_gpio = 27
-        trig_gpio = 22
-        TRIG_DURATION = 0.0001
-        SPEED_OF_SOUND = 340.29
-        TIMEOUT = 2100
+        global echo_gpio, trig_gpio
         #Init GPIO
         #Adressingmode
         GPIO.setmode(GPIO.BCM)
@@ -100,8 +97,6 @@ class DistanceSensor :
         time.sleep(0.5)
         
         #initial calibration
-        offset = 0
-        scalefactor = 1
         self.previousPoint = -1
         
     
@@ -109,21 +104,101 @@ class DistanceSensor :
     #This means: two consecutive invocations of the function should return close results.
     #This is implemented by calculating the median of (nopoints = 10) measurements. 
     #Returns -1 when measure function fails too often.
-    def getHeight(self, nopoints = 20):
-        global offset, scalefactor
-        return self.getHeightRaw(nopoints)
+    def getHeight(self, amountPoints = 20):
+        return self.getHeightRaw(amountPoints)
+
+    # Use 'self.measureWithSemaphores()' instead of self.measure() to use semaphores
+
+    # Test #1: literally prints the measurements without any modifications
+    #          one measurement per function call
+    def simpleTestHeight(self):
+        global UNLOCK_CPU_TIME
+        distance = self.measure()
+        # give other threads a chance to use the cpu
+        time.sleep(UNLOCK_CPU_TIME)
+        return distance
+
+    # Test #2: calculates the distance x times and returns the median
+    def secondTestHeight(self):
+        global UNLOCK_CPU_TIME
+        # amount of times to measure the distance
+        counter = 5
+        distancePoints = []
+        while(counter > 0):
+            distance = self.measure()
+            if distance != -1:
+                distancePoints.append(distance)
+            counter -= 1
+        # if somehow all the measurements have failed, then 0 will be returned
+        if(len(distancePoints) > 0):
+            medianDistances = numpy.median(distancePoints)
+        else:
+            medianDistances = 0
+        # give other threads more chances to use the cpu
+        # lower the sleep if you need more measurements per second
+        time.sleep(UNLOCK_CPU_TIME)
+        return medianDistances
+
+    # Measure distance, using a semaphore to give the measurement full priority.
+    def measureWithSemaphore(self):
+        global echo_gpio, trig_gpio, TRIG_DURATION, SPEED_OF_SOUND
+        GPIO.output(trig_gpio, True)
+        time.sleep(TRIG_DURATION)
+        GPIO.output(trig_gpio, False)
+
+        distance = -1
+        semaphore = Semaphore()
+
+        # Purpose of loop: ability to break at any time
+        while(True):
+            # Note: if this doesn't work, try assuming there's always a signal and cpu is always ready
+            #       so remove the need to check for end and start times
+
+            # START SEMAPHORE HERE
+            semaphore.acquire()
+
+            start = time.time()
+            end = time.time()
+            timeDifference = end - start
+            while(GPIO.input(echo_gpio) == 0 and timeDifference < 0.1):
+                end = time.time()
+                timeDifference = end - start
+
+            if(timeDifference >= 0.1):
+                # END SEMAPHORE HERE
+                semaphore.release()
+                break
+
+            start = time.time()
+            end = time.time()
+            timeDifference = end - start
+            while(GPIO.input(echo_gpio) == 1 and timeDifference < 0.1):
+                end = time.time()
+                timeDifference = end - start
+
+            # END SEMAPHORE HERE
+            semaphore.release()
+
+            if(timeDifference >= 0.1):
+                break
+
+            # Distance pulse travelled in that time is time
+            # multiplied by the speed of sound (cm/s)
+            # That was the distance forth and back so halve the value
+            distance = timeDifference * SPEED_OF_SOUND * 100/2
+            return distance
     
     #Returns the height of the sensor in meters NOT applying calibration data. This value should be accurate.
     #This means: two consecutive invocations of the function should return close results.
     #This is implemented by calculating the median of (nopoints = 10) measurements. 
     #Returns -1 when measure function fails too often.
-    def getHeightRaw(self, nopoints):
+    def getHeightRaw(self, amountPoints):
         counter = 5
         while(counter > 0):
             points = []
             medianPoints = []
-            triesleft = 2*nopoints
-            while len(points) < nopoints and triesleft > 0:
+            triesleft = 2*amountPoints
+            while len(points) < amountPoints and triesleft > 0:
                 point = self.measure()
                 if point == -1:
                     triesleft -= 1
@@ -175,7 +250,7 @@ class DistanceSensor :
         endtime = -1
         if countdown > 0:
             starttime = time.time()
-            countdown = timeout
+            countdown = TIMEOUT
             while(GPIO.input(echo_gpio) == 1 and countdown > 0):
                 countdown -=1
             
