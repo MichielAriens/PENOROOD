@@ -78,8 +78,8 @@ class DistanceSensor :
     SPEED_OF_SOUND = 340.29
     TIMEOUT = 8000
     TIMEOUT_SEMAPHORE = 1
-    UNLOCK_CPU_TIME = 0.4
-    TIME_BETWEEN_MEASUREMENTS = 0.01
+    UNLOCK_CPU_TIME = 0
+    TIME_BETWEEN_MEASUREMENTS = 0
 
     scalefactor = 1
     offset = 0
