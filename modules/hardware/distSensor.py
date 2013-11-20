@@ -79,7 +79,9 @@ class DistanceSensor :
     TRIG_DURATION = 0.00001
     SPEED_OF_SOUND = 340.29
     TIMEOUT = 8000
+    TIMEOUT_SEMAPHORE = 1
     UNLOCK_CPU_TIME = 0.4
+    TIME_BETWEEN_MEASUREMENTS = 0.01
 
     scalefactor = 1
     offset = 0
@@ -112,15 +114,13 @@ class DistanceSensor :
     # Test #1: literally prints the measurements without any modifications
     #          one measurement per function call
     def simpleTestHeight(self):
-        global UNLOCK_CPU_TIME
         distance = self.measure()
         # give other threads a chance to use the cpu
-        time.sleep(UNLOCK_CPU_TIME)
+        time.sleep(self.UNLOCK_CPU_TIME)
         return distance
 
     # Test #2: calculates the distance x times and returns the median
     def secondTestHeight(self):
-        global UNLOCK_CPU_TIME
         # amount of times to measure the distance
         counter = 5
         distancePoints = []
@@ -136,14 +136,14 @@ class DistanceSensor :
             medianDistances = 0
         # give other threads more chances to use the cpu
         # lower the sleep if you need more measurements per second
-        time.sleep(UNLOCK_CPU_TIME)
+        time.sleep(self.UNLOCK_CPU_TIME)
         return medianDistances
 
     # Measure distance, using a semaphore to give the measurement full priority.
     def measureWithSemaphore(self):
-        global echo_gpio, trig_gpio, TRIG_DURATION, SPEED_OF_SOUND
+        global echo_gpio, trig_gpio
         GPIO.output(trig_gpio, True)
-        time.sleep(TRIG_DURATION)
+        time.sleep(self.TRIG_DURATION)
         GPIO.output(trig_gpio, False)
 
         distance = -1
@@ -160,11 +160,11 @@ class DistanceSensor :
             start = time.time()
             end = time.time()
             timeDifference = end - start
-            while(GPIO.input(echo_gpio) == 0 and timeDifference < 0.1):
+            while(GPIO.input(echo_gpio) == 0 and timeDifference < self.TIMEOUT_SEMAPHORE):
                 end = time.time()
                 timeDifference = end - start
 
-            if(timeDifference >= 0.1):
+            if(timeDifference >= self.TIMEOUT_SEMAPHORE):
                 # END SEMAPHORE HERE
                 semaphore.release()
                 break
@@ -172,21 +172,23 @@ class DistanceSensor :
             start = time.time()
             end = time.time()
             timeDifference = end - start
-            while(GPIO.input(echo_gpio) == 1 and timeDifference < 0.1):
+            while(GPIO.input(echo_gpio) == 1 and timeDifference < self.TIMEOUT_SEMAPHORE):
                 end = time.time()
                 timeDifference = end - start
 
             # END SEMAPHORE HERE
             semaphore.release()
 
-            if(timeDifference >= 0.1):
+            if(timeDifference >= self.TIMEOUT_SEMAPHORE):
                 break
 
-            # Distance pulse travelled in that time is time
+            # Distance pulse travelled in that time is equal to time
             # multiplied by the speed of sound * 100 (cm/s)
-            # That was the distance forth and back so halve the value
-            distance = timeDifference * SPEED_OF_SOUND * 100/2
+            # That was the distance forth and back, so halve the value
+            distance = timeDifference * self.SPEED_OF_SOUND * 100/2
             break
+        # wait before retriggering
+        time.sleep(self.TIME_BETWEEN_MEASUREMENTS)
         return distance
     
     #Returns the height of the sensor in meters NOT applying calibration data. This value should be accurate.
@@ -236,13 +238,13 @@ class DistanceSensor :
     
     #Perform one instantaneous measurement (not accurate)
     #Timeout places bounds on the wait. If -1 is returned regularly consider increasing the timeout
-    def measure(self, timeout = TIMEOUT):
-        global echo_gpio, trig_gpio, TRIG_DURATION, SPEED_OF_SOUND, TIMEOUT
+    def measure(self):
+        global echo_gpio, trig_gpio
         GPIO.output(trig_gpio, True)
-        time.sleep(TRIG_DURATION)
+        time.sleep(self.TRIG_DURATION)
         GPIO.output(trig_gpio, False)
         
-        countdown = timeout
+        countdown = self.TIMEOUT
         while(GPIO.input(echo_gpio) == 0 and countdown > 0):
             countdown -= 1
         
@@ -251,7 +253,7 @@ class DistanceSensor :
         endtime = -1
         if countdown > 0:
             starttime = time.time()
-            countdown = TIMEOUT
+            countdown = self.TIMEOUT
             while(GPIO.input(echo_gpio) == 1 and countdown > 0):
                 countdown -=1
             
@@ -262,10 +264,11 @@ class DistanceSensor :
             # Distance pulse travelled in that time is time
             # multiplied by the speed of sound (cm/s)
             # That was the distance there and back so halve the value
-            distance = (endtime - starttime) * SPEED_OF_SOUND * 100/2
+            distance = (endtime - starttime) * self.SPEED_OF_SOUND * 100/2
             # Voer een sleep in, in functie van de hoogte, te bepalen door experimenten
             #time.sleep(endtime - starttime)
-            
+        # wait before retriggering
+        time.sleep(self.TIME_BETWEEN_MEASUREMENTS)
         return distance
    
             
