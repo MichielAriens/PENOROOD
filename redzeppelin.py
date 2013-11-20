@@ -117,7 +117,7 @@ def set_motors():
     
     
     
-mode = raw_input("ControlMode?\n   auto\n   controlled(or anything else)")
+mode = raw_input("Type 'auto' for automatic mode\n Type anything else for controlled mode\n ")
 #start zeppelin background tasks. Otherwise mode stays RPi or sim.
 if mode == "auto":
     zeppelin.llc.start()
