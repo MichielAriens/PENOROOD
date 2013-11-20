@@ -76,7 +76,7 @@ class DistanceSensor :
     #setup pins: BCM noation. 17 means GPIO17, 4 means GPIO4
     echo_gpio = 27
     trig_gpio = 22
-    TRIG_DURATION = 0.0001
+    TRIG_DURATION = 0.00001
     SPEED_OF_SOUND = 340.29
     TIMEOUT = 8000
     UNLOCK_CPU_TIME = 0.4
@@ -186,7 +186,8 @@ class DistanceSensor :
             # multiplied by the speed of sound * 100 (cm/s)
             # That was the distance forth and back so halve the value
             distance = timeDifference * SPEED_OF_SOUND * 100/2
-            return distance
+            break
+        return distance
     
     #Returns the height of the sensor in meters NOT applying calibration data. This value should be accurate.
     #This means: two consecutive invocations of the function should return close results.
