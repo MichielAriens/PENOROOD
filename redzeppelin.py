@@ -79,7 +79,7 @@ def send_info():
         Xlift = str(zeppelin.llc.lift.thrust)
         Xthrust = str(zeppelin.llc.thrust.thrust)
         Xrudder = str(zeppelin.llc.rudder.thrust)
-        Xheight = str(zeppelin.llc.altimeter.getHeight(5, 0.200))
+        Xheight = str(zeppelin.llc.altimeter.getHeight(5, 200))
         return {'lift': Xlift,'thrust': Xthrust, 'rudder': Xrudder, 'height': Xheight}
     
 @get('/cam')
