@@ -268,7 +268,7 @@ class DistanceSensor :
             # Voer een sleep in, in functie van de hoogte, te bepalen door experimenten
             #time.sleep(endtime - starttime)
         # wait before retriggering
-        time.sleep(self.TIME_BETWEEN_MEASUREMENTS)
+        #time.sleep(self.TIME_BETWEEN_MEASUREMENTS)
         return distance
    
             

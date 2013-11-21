@@ -4,7 +4,7 @@ import time
 
 ds = distSensor.DistanceSensor()
 wait = 0
-waitIncrease = 5
+waitIncrease = 1
 amount = 100
 maxi = 1000
 myfile = open('data/exp/timing.csv','w')
