@@ -215,7 +215,7 @@ class DistanceSensor :
             if triesleft <= 0:
                 return -1
             else:
-                return numpy.percentile(self.points,25)
+                return numpy.percentile(points,25)
                 #if abs(medianPoint - self.previousPoint) <= 20:
                 #    self.previousPoint = medianPoint
                 #    return self.previousPoint
