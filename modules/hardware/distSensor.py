@@ -79,7 +79,7 @@ class DistanceSensor :
     TIMEOUT = 8000
     TIMEOUT_SEMAPHORE = 1
     UNLOCK_CPU_TIME = 0
-    TIME_BETWEEN_MEASUREMENTS = 0
+    TIME_BETWEEN_MEASUREMENTS = 0.01
 
     scalefactor = 1
     offset = 0
