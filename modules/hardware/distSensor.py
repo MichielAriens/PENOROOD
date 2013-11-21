@@ -103,11 +103,8 @@ class DistanceSensor :
         self.previousPoint = -1
         
     
-    #Returns the height of the sensor in meters applying calibration data. This value should be accurate.
-    #This means: two consecutive invocations of the function should return close results.
-    #This is implemented by calculating the median of (nopoints = 10) measurements. 
-    #Returns -1 when measure function fails too often.
-    def getHeight(self, amountPoints = 20):
+    
+    def forceMeasure(self):
         retval = -1
         while(retval == -1):
             retval = self.measure()
@@ -201,32 +198,33 @@ class DistanceSensor :
     #This means: two consecutive invocations of the function should return close results.
     #This is implemented by calculating the median of (nopoints = 10) measurements. 
     #Returns -1 when measure function fails too often.
-    def getHeightRaw(self, amountPoints):
-        counter = 5
+    def getHeight(self, amountPoints = 5, wait = 200):
+        counter = amountPoints
         while(counter > 0):
             points = []
-            medianPoints = []
+            #medianPoints = []
             triesleft = 2*amountPoints
             while len(points) < amountPoints and triesleft > 0:
-                point = self.measure()
+                point = self.forceMeasure()
                 if point == -1:
                     triesleft -= 1
                 else:         
                     points.append(point)
+                time.sleep(wait/1000)
                 
             if triesleft <= 0:
                 return -1
             else:
-                medianPoint = numpy.median(points)
-                if abs(medianPoint - self.previousPoint) <= 20:
-                    self.previousPoint = medianPoint
-                    return self.previousPoint
-                else:
-                    medianPoints.append(medianPoint)
-                    counter -= 1
+                return numpy.percentile(self.points,25)
+                #if abs(medianPoint - self.previousPoint) <= 20:
+                #    self.previousPoint = medianPoint
+                #    return self.previousPoint
+                #else:
+                #    medianPoints.append(medianPoint)
+                #    counter -= 1
         #alternative: 
-        self.previousPoint = min(medianPoints)
-        return self.previousPoint
+        #self.previousPoint = min(medianPoints)
+        #return self.previousPoint
         #self.previousPoint = medianPoint
         #return medianPoint
         
