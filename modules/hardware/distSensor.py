@@ -85,6 +85,8 @@ class DistanceSensor :
     scalefactor = 1
     offset = 0
     
+    measuring = False
+    
     #Constructor
     def __init__(self):   
         global echo_gpio, trig_gpio
@@ -101,6 +103,7 @@ class DistanceSensor :
         
         #initial calibration
         self.previousPoint = -1
+        self.sem = Semaphore()
         
     
     
@@ -199,29 +202,27 @@ class DistanceSensor :
     #This is implemented by calculating the median of (nopoints = 10) measurements. 
     #Returns -1 when measure function fails too often.
     def getHeight(self, amountPoints = 5, wait = 200):
-        counter = amountPoints
-        while(counter > 0):
-            points = []
-            #medianPoints = []
-            triesleft = 2*amountPoints
-            while len(points) < amountPoints and triesleft > 0:
-                point = self.forceMeasure()
-                if point == -1:
-                    triesleft -= 1
-                else:         
-                    points.append(point)
-                time.sleep(wait/1000)
-                
-            if triesleft <= 0:
-                return -1
-            else:
-                return numpy.percentile(points,25)
-                #if abs(medianPoint - self.previousPoint) <= 20:
-                #    self.previousPoint = medianPoint
-                #    return self.previousPoint
-                #else:
-                #    medianPoints.append(medianPoint)
-                #    counter -= 1
+        points = []
+        #medianPoints = []
+        triesleft = 2*amountPoints
+        while len(points) < amountPoints and triesleft > 0:
+            point = self.measure()
+            if point == -1:
+                triesleft -= 1
+            else:         
+                points.append(point)
+            time.sleep(wait/1000)
+            
+        if triesleft <= 0:
+            return -1
+        else:
+            return numpy.percentile(points,25)
+            #if abs(medianPoint - self.previousPoint) <= 20:
+            #    self.previousPoint = medianPoint
+            #    return self.previousPoint
+            #else:
+            #    medianPoints.append(medianPoint)
+            #    counter -= 1
         #alternative: 
         #self.previousPoint = min(medianPoints)
         #return self.previousPoint
@@ -243,6 +244,7 @@ class DistanceSensor :
     #Perform one instantaneous measurement (not accurate)
     #Timeout places bounds on the wait. If -1 is returned regularly consider increasing the timeout
     def measure(self):
+        self.sem.acquire()
         global echo_gpio, trig_gpio
         GPIO.output(trig_gpio, True)
         time.sleep(self.TRIG_DURATION)
@@ -282,6 +284,7 @@ class DistanceSensor :
             #time.sleep(endtime - starttime)
         # wait before retriggering
         #time.sleep(self.TIME_BETWEEN_MEASUREMENTS)
+        self.sem.release()
         return distance
    
             
