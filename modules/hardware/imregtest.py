@@ -3,8 +3,8 @@ from PIL import Image
 import numpy as np
 
 """
-image = Image.open("C:/red-imagetesting/imagex1.jpg")
-target = Image.open("C:/red-imagetesting/imagex2.jpg")
+image = Image.open("/home/pi/img/test1.jpg")
+target = Image.open("/home/pi/img/test2.jpg")
 """
 
 def load_image( infilename ) :
