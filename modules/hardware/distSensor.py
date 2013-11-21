@@ -12,6 +12,7 @@ except ImportError:
     pass
 import random
 import thread
+from decimal import *
 from threading import Semaphore
 
 
@@ -107,8 +108,12 @@ class DistanceSensor :
     #This is implemented by calculating the median of (nopoints = 10) measurements. 
     #Returns -1 when measure function fails too often.
     def getHeight(self, amountPoints = 20):
-        return self.simpleTestHeight()
+        retval = -1
+        while(retval == -1):
+            retval = self.measure()
+        return retval
 
+    """
     # Use 'self.measureWithSemaphores()' instead of self.measure() to use semaphores
 
     # Test #1: literally prints the measurements without any modifications
@@ -138,7 +143,7 @@ class DistanceSensor :
         # lower the sleep if you need more measurements per second
         time.sleep(self.UNLOCK_CPU_TIME)
         return medianDistances
-
+        
     # Measure distance, using a semaphore to give the measurement full priority.
     def measureWithSemaphore(self):
         global echo_gpio, trig_gpio
@@ -190,6 +195,7 @@ class DistanceSensor :
         # wait before retriggering
         time.sleep(self.TIME_BETWEEN_MEASUREMENTS)
         return distance
+        """
     
     #Returns the height of the sensor in meters NOT applying calibration data. This value should be accurate.
     #This means: two consecutive invocations of the function should return close results.
@@ -254,10 +260,19 @@ class DistanceSensor :
         if countdown > 0:
             starttime = time.time()
             countdown = self.TIMEOUT
+            prevPass = Decimal(time.time())
             while(GPIO.input(echo_gpio) == 1 and countdown > 0):
+                thisPass = Decimal(time.time())
+                if 0 == (thisPass - prevPass):
+                    #An interrupt has occured
+                    interrupted = True
+                else:
+                    interrupted = False
+                    
+                prevPass = thisPass
                 countdown -=1
             
-            if(countdown > 0):
+            if(countdown > 0 and interrupted == False):
                 endtime =time.time()
             
         if(starttime != -1 and endtime != -1):
