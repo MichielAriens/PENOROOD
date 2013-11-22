@@ -252,37 +252,16 @@ class DistanceSensor :
         GPIO.output(trig_gpio, True)
         time.sleep(self.TRIG_DURATION)
         GPIO.output(trig_gpio, False)
-        
-        countdown = self.TIMEOUT
-        while(GPIO.input(echo_gpio) == 0 and countdown > 0):
-            countdown -= 1
-        
+        while(GPIO.input(echo_gpio) == 0):
+            pass
         distance= -1
-        starttime = -1
+        starttime = time.time()
         endtime = -1
-        if countdown > 0:
-            starttime = time.time()
-            countdown = self.TIMEOUT
-            prevPass = Decimal(time.time())
-            ni = 0
-            i = 0
-            while(GPIO.input(echo_gpio) == 1 and countdown > 0):
-                thisPass = Decimal(time.time())
-                if 0.01 <= (thisPass - prevPass):
-                    #An interrupt has occured
-                    interrupted = True
-                    i += 1
-                else:
-                    interrupted = False
-                    ni += 1
-                    
-                prevPass = thisPass
-                #countdown -=1
-            print str(i + ni) + "cycles of which " + str(i) + " interrupts."
-            
-            if(countdown > 0 and interrupted == False):
-                endtime =time.time()
-            
+        ni = 0
+        while(GPIO.input(echo_gpio) == 1):
+            ni += 1
+        print "        " + str(ni) + " cycles"
+        endtime =time.time()
         if(starttime != -1 and endtime != -1):
             # Distance pulse travelled in that time is time
             # multiplied by the speed of sound (cm/s)
