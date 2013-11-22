@@ -244,8 +244,8 @@ class DistanceSensor :
     #Perform one instantaneous measurement (not accurate)
     #Timeout places bounds on the wait. If -1 is returned regularly consider increasing the timeout
     def measure(self):
-        self.sem.acquire()
         global echo_gpio, trig_gpio
+        self.sem.acquire()
         GPIO.output(trig_gpio, True)
         time.sleep(self.TRIG_DURATION)
         GPIO.output(trig_gpio, False)

@@ -57,10 +57,12 @@ def send_css(filename):
 def send_javascript(filename):
     return static_file(filename, root='modules/srv/scripts/', mimetype='text/javascript')
 
+"""
 @route('/height')
 def send_height():
     global zeppelin
     return str(zeppelin.llc.altimeter.getHeight())
+"""
 
 @route('/lift')
 def send_lift():
@@ -117,7 +119,7 @@ def set_motors():
     
     
     
-mode = raw_input("Type 'auto' for automatic mode\n Type anything else for controlled mode\n ")
+mode = raw_input("Type 'auto' for automatic mode\n Type anything else for controlled mode\n> ")
 #start zeppelin background tasks. Otherwise mode stays RPi or sim.
 if mode == "auto":
     zeppelin.llc.start()
