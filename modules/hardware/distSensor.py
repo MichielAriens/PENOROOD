@@ -77,7 +77,8 @@ class DistanceSensor :
     #setup pins: BCM noation. 17 means GPIO17, 4 means GPIO4
     TRIG_DURATION = 0.00001
     SPEED_OF_SOUND = 340.29
-    TIMEOUT = 8000
+    #TIMEOUT = 8000
+    TIMEOUT = 1000000
     TIMEOUT_SEMAPHORE = 1
     UNLOCK_CPU_TIME = 0
     TIME_BETWEEN_MEASUREMENTS = 0.01
@@ -246,6 +247,7 @@ class DistanceSensor :
     def measure(self):
         global echo_gpio, trig_gpio
         self.sem.acquire()
+        print "aquired"
         GPIO.output(trig_gpio, True)
         time.sleep(self.TRIG_DURATION)
         GPIO.output(trig_gpio, False)
@@ -270,7 +272,7 @@ class DistanceSensor :
                     interrupted = True
                     
                 prevPass = thisPass
-                countdown -=1
+                #countdown -=1
             
             if(countdown > 0 and interrupted == False):
                 endtime =time.time()
@@ -285,6 +287,7 @@ class DistanceSensor :
         # wait before retriggering
         #time.sleep(self.TIME_BETWEEN_MEASUREMENTS)
         self.sem.release()
+        print "released"
         return distance
    
             
