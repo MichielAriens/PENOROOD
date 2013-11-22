@@ -265,20 +265,20 @@ class DistanceSensor :
             countdown = self.TIMEOUT
             prevPass = Decimal(time.time())
             ni = 0
+            i = 0
             while(GPIO.input(echo_gpio) == 1 and countdown > 0):
                 thisPass = Decimal(time.time())
-                print "    " + str(thisPass - prevPass)
                 if 0.01 <= (thisPass - prevPass):
                     #An interrupt has occured
                     interrupted = True
-                    print "        Interrupted after " + str(ni) + " non interupted cycles."
-                    ni = 0
+                    i += 1
                 else:
                     interrupted = False
                     ni += 1
                     
                 prevPass = thisPass
                 #countdown -=1
+            print str(i + ni) + "cycles of which " + str(i) + " interrupts."
             
             if(countdown > 0 and interrupted == False):
                 endtime =time.time()
