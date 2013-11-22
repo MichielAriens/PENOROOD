@@ -268,7 +268,7 @@ class DistanceSensor :
             while(GPIO.input(echo_gpio) == 1 and countdown > 0):
                 thisPass = Decimal(time.time())
                 print "    " + str(thisPass - prevPass)
-                if 0.000001 <= (thisPass - prevPass):
+                if 0.01 <= (thisPass - prevPass):
                     #An interrupt has occured
                     interrupted = True
                     print "        Interrupted after " + str(ni) + " non interupted cycles."
