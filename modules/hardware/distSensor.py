@@ -196,12 +196,15 @@ class DistanceSensor :
         time.sleep(self.TIME_BETWEEN_MEASUREMENTS)
         return distance
         """
-    
+
+    counter = 0
     #Returns the height of the sensor in meters NOT applying calibration data. This value should be accurate.
     #This means: two consecutive invocations of the function should return close results.
     #This is implemented by calculating the median of (nopoints = 10) measurements. 
     #Returns -1 when measure function fails too often.
     def getHeight(self, amountPoints = 5, wait = 200):
+        print 'height counter: ' + self.counter + '\n'
+        self.counter += 1
         points = []
         #medianPoints = []
         triesleft = 2*amountPoints
@@ -280,6 +283,7 @@ class DistanceSensor :
             # multiplied by the speed of sound (cm/s)
             # That was the distance there and back so halve the value
             distance = (endtime - starttime) * self.SPEED_OF_SOUND * 100/2
+            print 'distance: ' + distance + '\n'
             # Voer een sleep in, in functie van de hoogte, te bepalen door experimenten
             #time.sleep(endtime - starttime)
         # wait before retriggering

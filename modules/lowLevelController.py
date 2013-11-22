@@ -16,10 +16,13 @@ class LowLevelController:
     def __init__(self,simMode = "RPi"):
         
         self.dHeight = 0
+        self.counter = 0
         #Init PID (0.1,0,0.5) works slightly, (0.1,0.05,3) better P to 0.2 increases responsiveness, I increses overshoot but decreases settletime
         #D decreases overshoot but engthens settletime. (slows machine down)
         
         if simMode == "RPi":
+            print '\n llc counter: ' + self.counter + '\n'
+            self.counter += 1
             self.motorOffset = 0
             self.altimeter = ds.DistanceSensor()
             self.lift = motor.VectoredMotor(24,4)
