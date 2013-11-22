@@ -5,6 +5,8 @@
 #Although not explicitly defined, both classes have the exact same methods. Implementing code should
 #see no difference between the operation of these classes.
 
+#test
+
 import time
 try:
     import numpy
