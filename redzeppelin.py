@@ -19,12 +19,12 @@ if pid == 0:
     #This is the child process
     os.nice(-1)
     os.close(r) # use os.close() to close a file descriptor
-    w = os.fdopen(w, 'w',bufsize = 1)
+    w = os.fdopen(w, 'w')
     ds = Ids.PriorityDistanceSensor(pipe = w)
 
 #else this is the parent
 else:
-    r = os.fdopen(r, bufsize = 1)
+    r = os.fdopen(r)
 
 
 
