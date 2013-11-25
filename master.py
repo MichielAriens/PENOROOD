@@ -18,11 +18,17 @@ else:
     # we are the child
     os.close(r)
     w = os.fdopen(w, 'w')
-    print "child: writing"
-    w.write("here's some text from the child")
+    #Write to this writer
+    
     w.close()
     print "child: closing"
     sys.exit(0)
+
+#No children beyong this point
+#r is the reader
+
+
+
 
 print "parent: got it; text =", txt
 

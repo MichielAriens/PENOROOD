@@ -12,6 +12,7 @@ except ImportError:
     pass
 import random
 import thread
+import os
 from decimal import *
 from threading import Semaphore
 
@@ -20,6 +21,13 @@ try:
     import RPi.GPIO as GPIO
 except ImportError:
     print "GPIO pins not imported."
+    
+class DistanceReader:
+    def __init__(self,pipe):
+        self.pipe = os.fdopen(pipe)
+
+    def getHeight(self):
+        return self.pipe.read()
     
 class PriorityDistanceSensor :
     #setup pins: BCM noation. 17 means GPIO17, 4 means GPIO4
@@ -33,8 +41,9 @@ class PriorityDistanceSensor :
     offset = 0
     
     #Constructor resolution refers to time delay between measurements
-    def __init__(self,buffersize = 10, resolution = 0.1):   
+    def __init__(self,pipe,buffersize = 10, resolution = 0.1):   
         global echo_gpio, trig_gpio, TRIG_DURATION, SPEED_OF_SOUND, TIMEOUT, offset, scalefactor
+        self.pipe = pipe
         echo_gpio = 27
         trig_gpio = 22
         TRIG_DURATION = 0.0001
@@ -53,7 +62,8 @@ class PriorityDistanceSensor :
         offset = 0
         scalefactor = 1
         
-        thread.start_new(self.monitorHeight,(buffersize,resolution))
+        while True:
+            self.monitorHeight(buffersize,resolution)
         
     def monitorHeight(self,buffersize, resolution):
         size = buffersize
@@ -64,15 +74,7 @@ class PriorityDistanceSensor :
                 self.points.pop(0)
                 self.points.append(height)
             time.sleep(resolution + random.uniform(0,0.0010))
-            
-            
-    def getHeight(self):
-        return numpy.percentile(self.points,25)
-
-    """
-    def percentile(self,P):
-        n = int(round(P * len(self.points) + 0.5))
-       return self.points[n-1]"""
+        self.pipe.write(numpy.percentile(self.points,25))
     
     #Perform one instantaneous measurement (not accurate)
     #Timeout places bounds on the wait. If -1 is returned regularly consider increasing the timeout
