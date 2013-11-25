@@ -24,7 +24,7 @@ except ImportError:
     
 class DistanceReader:
     def __init__(self,pipe):
-        self.pipe = os.fdopen(pipe)
+        self.pipe = pipe
 
     def getHeight(self):
         return self.pipe.read()
