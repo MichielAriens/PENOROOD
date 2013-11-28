@@ -13,7 +13,7 @@ import random
 
 class LowLevelController:
     #initmethod variables (call start to invoke backround methods)
-    def __init__(self,simMode = "RPi"):
+    def __init__(self,simMode = "RPi", dists=None):
         
         self.dHeight = 0
         #Init PID (0.1,0,0.5) works slightly, (0.1,0.05,3) better P to 0.2 increases responsiveness, I increses overshoot but decreases settletime
@@ -21,7 +21,7 @@ class LowLevelController:
         
         if simMode == "RPi":
             self.motorOffset = 0
-            self.altimeter = ds.DistanceSensor()
+            self.altimeter = dists
             self.lift = motor.VectoredMotor(24,4)
             compMotor = motor.CompositeMotor(motor.PulsedMotor(17,23), motor.PulsedMotor(9,7))
             self.thrust = compMotor.thruster

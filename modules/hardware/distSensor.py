@@ -43,6 +43,7 @@ class PriorityDistanceSensor :
     #Constructor resolution refers to time delay between measurements
     def __init__(self,pipe,buffersize = 20, resolution = 0.1):   
         global echo_gpio, trig_gpio, TRIG_DURATION, SPEED_OF_SOUND, TIMEOUT, offset, scalefactor
+        print "loading distance sensor"
         self.pipe = pipe
         echo_gpio = 27
         trig_gpio = 22
@@ -61,9 +62,7 @@ class PriorityDistanceSensor :
         #initial calibration
         offset = 0
         scalefactor = 1
-        
-        while True:
-            self.monitorHeight(buffersize,resolution)
+        self.monitorHeight(buffersize, resolution)
         
     def monitorHeight(self,buffersize, resolution):
         size = buffersize
@@ -73,9 +72,8 @@ class PriorityDistanceSensor :
             if (height != -1):
                 self.points.pop(0)
                 self.points.append(height)
-            time.sleep(resolution + random.uniform(0,0.0010))
-        self.pipe.write(str(numpy.percentile(self.points,25)))
-        self.pipe.flush()
+            time.sleep(resolution)
+            self.pipe.write(str(numpy.percentile(self.points,25)))
     
     #Perform one instantaneous measurement (not accurate)
     #Timeout places bounds on the wait. If -1 is returned regularly consider increasing the timeout
