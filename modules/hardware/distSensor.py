@@ -23,11 +23,20 @@ except ImportError:
     print "GPIO pins not imported."
     
 class DistanceReader:
-    def __init__(self,pipe):
-        self.pipe = pipe
+    def __init__(self,location):
+        self.location = location
 
     def getHeight(self):
-        return self.pipe.read()
+        waiting = True
+        while waiting:
+            try:
+                buf = open(self.location,'r')
+                retval = buf.readline()
+                buf.close()
+                waiting = False
+            except IOError:
+                pass
+        return retval
     
 class PriorityDistanceSensor :
     #setup pins: BCM noation. 17 means GPIO17, 4 means GPIO4
@@ -41,10 +50,10 @@ class PriorityDistanceSensor :
     offset = 0
     
     #Constructor resolution refers to time delay between measurements
-    def __init__(self,pipe,buffersize = 20, resolution = 0.1):   
+    def __init__(self,location,buffersize = 20, resolution = 0.1):   
         global echo_gpio, trig_gpio, TRIG_DURATION, SPEED_OF_SOUND, TIMEOUT, offset, scalefactor
         print "loading distance sensor"
-        self.pipe = pipe
+        self.location = location
         echo_gpio = 27
         trig_gpio = 22
         TRIG_DURATION = 0.0001
@@ -73,7 +82,12 @@ class PriorityDistanceSensor :
                 self.points.pop(0)
                 self.points.append(height)
             time.sleep(resolution)
-            self.pipe.write(str(numpy.percentile(self.points,25)))
+            try:
+                buf = open(self.location,'w')
+                buf.write(str(numpy.percentile(self.points,25)) + '\n')
+                buf.close()
+            except IOError:
+                pass
     
     #Perform one instantaneous measurement (not accurate)
     #Timeout places bounds on the wait. If -1 is returned regularly consider increasing the timeout

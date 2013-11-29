@@ -1,3 +1,4 @@
+
 #!/usr/bin/env python
 import modules.hardware.distSensor as Ids
 import modules.lowLevelController as llcp
@@ -8,7 +9,7 @@ import time
 #Zeppelin class.
 class Zeppelin:
     def __init__(self, simMode = "RPi", dist = None):
-        dsr = Ids.DistanceReader(pipe = dist)
+        dsr = Ids.DistanceReader(location = dist)
         self.llc = llcp.LowLevelController(simMode, dists = dsr)
 
 #Check to see whether we're running on the RaspberryPi. store result in simMode
@@ -19,16 +20,19 @@ except ImportError:
     simMode = "sim"
     print "running in simulation mode."
     
-r, w = os.pipe() # these are file descriptors, not file objects
-
+    
+os.system("rm data/ds/data")
+print "1"
+#os.system("cat > data/ds/data")
+print "2"
+filelocation = "data/ds/data"
+print "3"
 pid = os.fork()
 if pid == 0:
     #This is the child process
     os.nice(-1)
     print "Distsens on: " + str(os.getpid()) + " | priority: " + str(os.nice(0))
-    os.close(r) # use os.close() to close a file descriptor
-    w = os.fdopen(w, 'w')
-    dist = Ids.PriorityDistanceSensor(pipe = w)
+    dist = Ids.PriorityDistanceSensor(location = filelocation)
     #safety lock
     while(True):
         print "Line 33 passed by child = fatal!!!!!"
@@ -37,8 +41,7 @@ if pid == 0:
 #else this is the parent
 else:
     print "main on: " + str(os.getpid()) + " | priority: " + str(os.nice(0))
-    r = os.fdopen(r)
-    zeppelin = Zeppelin(simMode, dist = r)
+    zeppelin = Zeppelin(simMode, dist = filelocation)
     #########################
     ####Initiate zeppelin####
     #########################
