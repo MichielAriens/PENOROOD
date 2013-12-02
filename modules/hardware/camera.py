@@ -8,6 +8,7 @@ except ImportError:
 import os
 import thread
 import time
+import subprocess
 
 class Camera:    
     def __init__(self,height = 200, width = 200, output = "still.jpg", root = "data/cam/", readroot = "images/"):
@@ -34,4 +35,13 @@ class Camera:
         pass #os.system("java /home/pi/PENOROOD/resources/test_multi_QR_400x400.jar")
         
     def getQR(self):
-        os.system("java /home/pi/PENOROOD/resources/test_multi_QR_400x400.jar")
+        retval = []
+        try:
+            fileqr = open(self.root + "QR",'r')
+            while True:
+                x = fileqr.readline()
+                y = fileqr.readline()
+                command = fileqr.readline()
+                retval.append([x,y,command])
+            
+        
