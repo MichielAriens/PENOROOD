@@ -31,10 +31,10 @@ class DistanceReader:
         while waiting:
             try:
                 buf = open(self.location,'r')
-                retval = buf.readline()
+                retval = float(buf.readline())
                 buf.close()
                 waiting = False
-            except IOError:
+            except:
                 pass
         return retval
     
@@ -50,7 +50,7 @@ class PriorityDistanceSensor :
     offset = 0
     
     #Constructor resolution refers to time delay between measurements
-    def __init__(self,location,buffersize = 20, resolution = 0.1):   
+    def __init__(self,location,buffersize = 50, resolution = 0.02):   
         global echo_gpio, trig_gpio, TRIG_DURATION, SPEED_OF_SOUND, TIMEOUT, offset, scalefactor
         print "loading distance sensor"
         self.location = location

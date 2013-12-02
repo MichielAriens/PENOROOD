@@ -19,7 +19,10 @@ else:
     os.close(r)
     w = os.fdopen(w, 'w')
     #Write to this writer
-    
+    w.write("shite")
+    w.flush()
+    while True:
+        pass
     w.close()
     print "child: closing"
     sys.exit(0)
