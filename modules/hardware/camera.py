@@ -34,6 +34,8 @@ class Camera:
     def detectMovement(self, interval = 1000):
         pass #os.system("java /home/pi/PENOROOD/resources/test_multi_QR_400x400.jar")
         
+    #Returns a list of lists [[x,y,info]] where x & y represent the position of the found QR code in the screen (taking the midpoint of the screen as the origin.
+    #Info contains a formatted string to be parsed higher up.
     def getQR(self):
         retval = []
         try:
@@ -50,8 +52,8 @@ class Camera:
                     pass
             eof = False
             while not eof:
-                x = out.readline().replace("\n","")
-                y = out.readline().replace("\n","")
+                x = float(out.readline().replace("\n","")) - self.width/2
+                y = float(out.readline().replace("\n","")) - self.height/2
                 command = out.readline().replace("\n","")
                 if (x == "" or y == "" or command == ""):
                     eof = True
