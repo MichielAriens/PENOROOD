@@ -37,11 +37,13 @@ class Camera:
     def getQR(self):
         retval = []
         try:
-            fileqr = open(self.root + "QR",'r')
+            p = subprocess.Popen("java -jar resources/QR_decoder.jar")
+            out, err = p.communicate()
             while True:
-                x = fileqr.readline()
-                y = fileqr.readline()
-                command = fileqr.readline()
-                retval.append([x,y,command])
+                print "passed"
+                retval.append([out.readline(),out.readline(),out.readline()])
+        except:
+            pass
+        return retval
             
         
