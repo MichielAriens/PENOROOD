@@ -3,9 +3,22 @@ import time
 
 
 ds = distSensor.DistanceSensor()
-while(True):
-    print str( ds.measure())
-    time.sleep(0.020)
+wait = 0
+waitIncrease = 1
+amount = 100
+maxi = 1000
+myfile = open('data/exp/timing.csv','w')
+
+while(wait < maxi):
+    print str(wait) + "ms\n"
+    myfile.write(str(wait)+";")
+    i = 0
+    while( i < amount):
+        myfile.write(str(ds.measure()) + ";")
+        time.sleep(wait/1000)
+        i+=1        
+    myfile.write("\n")
+    wait += waitIncrease
 
 
 
