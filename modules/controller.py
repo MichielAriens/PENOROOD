@@ -1,29 +1,24 @@
+import lowLevelController as llci
 
-
-
+class NodeSet:
+    def __init__(self):
+        self.nodes = []
+        
+    def add(self, Node):
+        
+    
 
 class Controller:
-    
-    
-    
-    
-    def __init__(self, llc):
-        self.llc = llc
-        self.commandDictionary = {"V":self.forwards,
-                                  "A":self.backwards}
-    
-    #Removes all spacing and splits ";" seperated values into a list.
-    
+    def __init__(self, dist = None):
+        self.llc = llci.LowLevelController(dist = dist)
+        self.nodes #Nodes is a set where each node is unique in its number and is mutable.
         
-    def forwards(self, dist):
-        pass
-    
-    def backwards(self, dist):
-        try:
-            dist = float(dist)
-            self.forwards(-dist)
-        except:
-            pass
+        
+        
+    def _start(self):
+        self.llc.camera.click()
+        readNodes = self.llc.camera.getQR()
+        
         
 class Command:
     def __init__(self, string):
@@ -55,6 +50,18 @@ class Command:
         return self.param
     
     def invoke(self, llc):
+        if self.type == "ASC":
+            llc.setDesiredHeight(llc.dHeight + self.param)
+        elif self.type == "MOV":
+            if self.param < 0:
+                llc.thrust.setThrust(-20)
+            elif self.param > 0:
+                llc.thrust.setThrust(20)
+            else:
+                pass
+        elif self.type == "ROT":
+            pass
+                
         
     
     
