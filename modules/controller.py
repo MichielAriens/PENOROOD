@@ -62,22 +62,23 @@ class Command:
 class Node:
     def __init__(self, x, y, command_list):
         commandstrings = self.splitstrings(command_list)
-        commandstrings 
-        
-        
+        self.createCommands(commandstrings)
+        commands = []
         self.command_counter = 0
         self.active = False
-        self.number = number
+        self.number = -1
         
     def splitstrings(self, string):
         return string.replace(" ","").split(";")
         
-    
     def readCommand(self, commandString):
         global commandDictionary
         
     def getNumber(self):
         return self.number
+
+    def setNumber(self,number):
+        self.number = number
     
     def getActive(self):
         return self.active
@@ -97,14 +98,25 @@ class Node:
     def incrementCounter(self):
         counter = self.getCommandCounter()
         counter = counter + 1
-        
         self.setCommandCounter(counter)
+        
     def getNextCommand(self):
         command = self.getCommandList(self.getCommandCounter())
         self.incrementCounter(self)
         return command
+
+    def getCommands(self):
+        self.commands
     
-
-
+    def createCommands(self, commandstrings):
+        i = 0
+        while i < len(commandstrings):
+            command = Command(commandstrings[i])
+            if command.cmd == "NR" :
+                self.setNumber(command.getParam())
+            self.getCommands().append(command)
+            i = i + 1
+            
+                  
 
 
