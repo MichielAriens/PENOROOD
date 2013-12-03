@@ -27,11 +27,15 @@ class Controller:
         try:
             dist = float(dist)
             self.forwards(-dist)
-        
+        except:
+            pass
         
 class Command:
-    self.action #A function
-    self.param  #The parameter
+    def __init__(self):
+        self.action #A function
+        self.param  #The parameter
+    
+    
 
 class Node:
     def __init__(self,no,commands):

@@ -37,11 +37,26 @@ class Camera:
     def getQR(self):
         retval = []
         try:
-            p = subprocess.Popen("java -jar resources/QR_decoder.jar")
-            out, err = p.communicate()
-            while True:
-                print "passed"
-                retval.append([out.readline(),out.readline(),out.readline()])
+            writeout = "data/cam/QR"
+            os.system("java -jar resources/QR_decoder.jar > " + writeout)
+            #p = subprocess.Popen("java -jar resources/QR_decoder.jar")
+            #out, err = p.communicate()
+            #Try to open the file 
+            out = None
+            while(out == None):
+                try:
+                    out = open(writeout,'r')
+                except IOError:
+                    pass
+            eof = False
+            while not eof:
+                x = out.readline().replace("\n","")
+                y = out.readline().replace("\n","")
+                command = out.readline().replace("\n","")
+                if (x == "" or y == "" or command == ""):
+                    eof = True
+                else:
+                    retval.append([x,y,command])
         except:
             pass
         return retval
