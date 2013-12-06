@@ -90,10 +90,8 @@ class Controller:
         foundNodes = []
         for x in params:
             foundNodes.append(Node(x[0], x[1], x[2]))
-            
-        
-        
-        
+        for x in foundNodes:
+            self.nodes.add(x)
         
 #This class represents a command. type is = {mov, rot, asc, nr}. Invoke(llc) invokes a command on the low level controller
 class Command:

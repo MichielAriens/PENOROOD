@@ -20,9 +20,9 @@ class Camera:
     
     
     #launches repeating 
-    def click(self):
+    def click(self, size = 500):
         #command = "raspistill -w " + str(self.width) + " -h " + str(self.height)+ " -q 5 -o " + self.root + self.output + " -t 9999999 -th 0:0:0 -tl 100 -n &"
-        command = "raspistill -w " + str(self.width) + " -h " + str(self.height)+ " -o " + self.root + self.output + " -t 0.001 -n"
+        command = "raspistill -w " + str(size) + " -h " + str(size)+ " -o " + self.root + self.output + " -t 0.001 -n"
         print "trying: " + command
         os.system(command)
         timestamp = time.time()

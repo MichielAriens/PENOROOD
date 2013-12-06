@@ -2,6 +2,7 @@
 #!/usr/bin/env python
 import modules.hardware.distSensor as Ids
 import modules.lowLevelController as llcp
+import modules.controller as hlcp
 import os
 import thread
 import time
@@ -10,7 +11,8 @@ import time
 class Zeppelin:
     def __init__(self, simMode = "RPi", dist = None):
         dsr = Ids.DistanceReader(location = dist)
-        self.llc = llcp.LowLevelController(simMode, dists = dsr)
+        self.hlc = hlcp.Controller(sens = dsr)
+        self.llc = self.hlc.llc
 
 #Check to see whether we're running on the RaspberryPi. store result in simMode
 simMode = "RPi"
@@ -148,6 +150,8 @@ else:
     #start zeppelin background tasks. Otherwise mode stays RPi or sim.
     if mode == "auto":
         zeppelin.llc.start()
+        time.sleep(1)
+        zeppelin.hlc._start()
     #Start the server
     run(host='localhost', port=54322, debug=True)
 
