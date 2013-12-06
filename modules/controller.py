@@ -1,5 +1,7 @@
 import lowLevelController as llci
 import math
+import time
+import thread
 
 #Set implementation for nodes.
 class NodeSet:
@@ -38,16 +40,39 @@ class NodeSet:
 
 #Controller class is responible for taking image data, storing and updating it and fulfilling the commands within the image data and
 class Controller:
-    def __init__(self, dist = None):
-        self.llc = llci.LowLevelController(dist = dist)
-        self.nodes = NodeSet #Nodes is a set where each node is unique in its number and is mutable.
+    def __init__(self, sens = None):
+        self.llc = llci.LowLevelController(dists = sens)
+        self.nodes = NodeSet() #Nodes is a set where each node is unique in its number and is mutable.
         self.stage = 0
+        
+    def _start(self):
+        while(True):
+            self.updateInput()
+            activeNode = self.nodes.get(self.stage)
+            if activeNode != None:
+                while(activeNode.execute(self.llc)):
+                    pass
+            else:
+                pass #Current node not vivible
+            
+            if self.nodes.containsStage(self.stage +1):
+                nextNode = self.nodes.get(self.stage +1)
+                if abs(nextNode.x) < 50 and abs(nextNode.y) < 50:
+                    self.stage += 1
+                    print "stage changed: " + str(self.stage)
+                else:
+                    pass #try to rotate to target.
+                
+            
         
     def getRotToNextStage(self):
         nextNode = self.nodes.get(self.stage + 1)
         if nextNode == None:
             return
         return math.atan2(nextNode.x, nextNode.y)
+    
+    def start(self):
+        thread.start_new(self._start, ())
         
     def updateOutput(self):
         #if the next stage is visible
@@ -130,6 +155,7 @@ class Node():
         self.commands = self.toCommands(commandstrings)
         self.x = x
         self.y = y
+        self.stage = 0
         
         self.command_counter = 0
         self.active = False
@@ -137,6 +163,14 @@ class Node():
         
     def equals(self, other):
         return other.number == self.number
+    
+    def execute(self, llc):
+        if self.stage < len(self.commands):
+            self.commands[self.stage].invoke(llc)
+            self.stage += 1
+            return True
+        else:
+            return False
         
     #Fills the returnvalue with the command objects from the list of command strings.
     #If the command is of the type "NR" then the command is skipped and the node number is updated

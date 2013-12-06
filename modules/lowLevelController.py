@@ -23,7 +23,8 @@ class LowLevelController:
             self.motorOffset = 0
             self.altimeter = dists
             self.lift = motor.VectoredMotor(24,4)
-            compMotor = motor.CompositeMotor(motor.PulsedMotor(17,23), motor.PulsedMotor(9,7))
+            #compMotor = motor.CompositeMotor(motor.PulsedMotor(17,23), motor.PulsedMotor(9,7))
+            compMotor = motor.CompositeMotor(motor.PulsedMotor(23,17), motor.PulsedMotor(7,9))
             self.thrust = compMotor.thruster
             self.rudder = compMotor.rudder
             self.pid = PID(5,0.5,5)
