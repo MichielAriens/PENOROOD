@@ -45,13 +45,13 @@ class CompositeMotor:
 #A physical implementation of a motor. Uses PWM (variable output pins) to drive motors
 #Provides best control. Useful for most critical motors like the lifter.
 class VectoredMotor:
-    def __init__(self,postivePin,negativePin):
+    def __init__(self,positivePin,negativePin):
         #Instantiate pin objects
         #--Placeholder--
         GPIO.setmode(GPIO.BCM)
         GPIO.setup(18, GPIO.OUT)
         self.thrustPin = GPIO.PWM(18, 50)
-        self.positivePin = postivePin
+        self.positivePin = positivePin
         self.negativePin = negativePin
         self.thrust = 0
         GPIO.setup(self.positivePin,GPIO.OUT)
