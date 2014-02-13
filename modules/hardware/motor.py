@@ -8,6 +8,7 @@ except:
 #A logical motor provides an abstraction layer above the specific layout of the motors. 
 #specifically a logical motor is a rudder or a thruster. It relies on a composite thruster to distribute the thrust among the
 #real engines. This class should not be used by the user: it should be deemed private.
+#The only purpose of this class is actually to handle exceptions (abs(thrust)>100)
 class LogicalMotor:
     def __init__(self,master):
         self.master = master
