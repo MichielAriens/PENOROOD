@@ -11,42 +11,26 @@ import thread
 import time
 import random
 
-class LowLevelController:
+class Zeppelin:
     #initmethod variables (call start to invoke backround methods)
-    def __init__(self,simMode = "RPi", dists=None):
+    def __init__(self, dists=None):
         
         self.dHeight = 0
         #Init PID (0.1,0,0.5) works slightly, (0.1,0.05,3) better P to 0.2 increases responsiveness, I increses overshoot but decreases settletime
         #D decreases overshoot but engthens settletime. (slows machine down)
         
-        if simMode == "RPi":
-            self.motorOffset = 0
-            self.altimeter = dists
-            self.lift = motor.VectoredMotor(24,4)
-            #compMotor = motor.CompositeMotor(motor.PulsedMotor(17,23), motor.PulsedMotor(9,7))
-            strafing = motor.PulsedMotor(17,23)
-            thruster = motor.PulsedMotor(9,7)
-            self.pid = PID(5,0.5,5)
-            self.camera = None
-            #self.camera = cam.Camera(200, 200, output = "still.png")
-            
-        elif simMode == "sim":
-            self.motorOffset = 50
-            self.fe = FakeEnvironment()
-            self.lift = motor.FakeMotor(self.fe)
-            self.thrust = motor.EmptyMotor
-            self.rudder = motor.EmptyMotor
-            self.altimeter = ds.FakeDistanceSensor2(self.fe)
-            thread.start_new(self.fe.update, ())
-            self.pid = PID(0.2,0.1,5)
-            self.camera = None
-            
-        else:
-            print "LowLevelController was not passed a valid simulation format.\n The application will now quit."
-            raise RuntimeError()
-        self.pid.setPoint(self.dHeight)
+        simMode == "RPi":
+        self.motorOffset = 0
+        self.altimeter = dists
+        self.lift = motor.VectoredMotor(24,4)
+        strafing = motor.PulsedMotor(17,23)
+        thruster = motor.PulsedMotor(9,7)
+        self.pid = PID(5,0.5,5)
+        self.camera = None
+        #self.camera = cam.Camera(200, 200, output = "still.png")
         
-        #Camera
+        self.pid.setPoint(self.dHeight)
+
     
     #Used to set the desired height.
     #Effects will only become apparent after _keepHeight pulls the new info
@@ -67,46 +51,7 @@ class LowLevelController:
     # _keepHeight
     def start(self):
         thread.start_new(self._keepHeight, ())
-        
-class FakeEnvironment:
-    
-    def __init__(self):
-        #pull of gravity somewhere around 10 newtons
-        self.mass = random.gauss(1,0.05)
-        print "mass of the fake zeppelin is " + str(self.mass)
-        self.gravity = self.mass * 9.81
-        
-        self.verticalForce = 0
-        
-        self.height = 0
-        self.vSpeed = 0
-        
-    def update(self):
-        while True:    
-            force = self.verticalForce - self.gravity 
-            if(self.height < 0):
-                self.height = 0
-                self.vSpeed = 0
-            else:
-                self.vSpeed += force/self.mass
-                self.height += self.vSpeed
-            time.sleep(1)
-        
-        
-#The recipe gives simple implementation of a Discrete Proportional-Integral-Derivative (PID) controller. 
-#PID controller gives output value for error between desired reference input and measurement feedback to minimize error value.
-#More information: http://en.wikipedia.org/wiki/PID_controller
-#
-#cnr437@gmail.com
-#
-#######    Example    #########
-#
-#p=PID(3.0,0.4,1.2)
-#p.setPoint(5.0)
-#while True:
-#     pid = p.update(measurement_value)
-#
-#
+   
 
 
 class PID:
