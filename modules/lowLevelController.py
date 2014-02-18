@@ -23,11 +23,9 @@ class LowLevelController:
             self.motorOffset = 0
             self.altimeter = dists
             self.lift = motor.VectoredMotor(24,4)
-            compMotor = motor.CompositeMotor(motor.PulsedMotor(17,23), motor.PulsedMotor(9,7))
-            #strafing = motor.PulsedMotor(17,23)
-            #thruster = motor.PulsedMotor(9,7)
-            self.thrust = compMotor.thruster
-            self.rudder = compMotor.rudder
+            #compMotor = motor.CompositeMotor(motor.PulsedMotor(17,23), motor.PulsedMotor(9,7))
+            strafing = motor.PulsedMotor(17,23)
+            thruster = motor.PulsedMotor(9,7)
             self.pid = PID(5,0.5,5)
             self.camera = None
             #self.camera = cam.Camera(200, 200, output = "still.png")
