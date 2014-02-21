@@ -101,12 +101,12 @@ class PulsedMotor:
 
 class FakeMotor:
     
-    def __init__(self,env):
+    def __init__(self,env,axis):
         self.MAXFORCE = 20
         self.env = env
+        self.axis = axis
         self.thrust = 0
         
-    #simulate thrust change with a small delay
     def setThrust(self,thrust):
         if thrust > 100:
             self.thrust = 100
@@ -114,4 +114,8 @@ class FakeMotor:
             self.thrust = -100
         else:
             self.thrust = thrust
-        self.env.verticalForce = self.thrust/100 * self.MAXFORCE
+        self.env.force.setAxis(self.axis,self.thrust/100 * self.MAXFORCE)
+        
+        
+        
+        
