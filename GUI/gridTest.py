@@ -184,6 +184,7 @@ class GUI:
             self.grid.setZeppelinPosition(zep_pos[0], zep_pos[1], 1)
         self.updateCanvas()
         self.root.after(33,self.task)
+        print(self.grid.calculatePositionFromShapes(12, 17, 7))
     
     def getPositionFromListener(self):
         return self.listener.getPosition()
@@ -273,8 +274,38 @@ class GRID:
     
     #nog afwerken    
     def calculatePositionFromShapes(self, SID1, SID2, SID3):
-        self.getShapesAndPositions()
-    
+        for i in range(self.rows-1):
+            for j in range(self.columns):
+                if((self.table[i][j]==SID1 and self.table[i+1][j]==SID2) or (self.table[i][j]==SID2 and self.table[i+1][j]==SID1)):
+                    print("herrro")
+                    if(j%2 == 1 and self.table[i][j+1]==SID3):
+                        return((i+1)*40,(j+1/2)*35) #klopt wrs nog ni
+                    if(j%2 == 1 and self.table[i][j-1]==SID3):
+                        return((i+1)*40,(j-1/2)*35)
+                    if(j%2 == 0 and self.table[i][j+1]==SID3):
+                        return((i+1/2)*40,(j+1/2)*35) #klopt wrs nog ni
+                    if(j%2 == 0 and self.table[i][j-1]==SID3):
+                        return((i+1/2)*40,(j-1/2)*35)
+                if((self.table[i][j]==SID1 and self.table[i+1][j]==SID3) or (self.table[i][j]==SID3 and self.table[i+1][j]==SID1)):
+                    print("herrro1")
+                    if(j%2 == 1 and self.table[i+1][j+1]==SID2):
+                        return((i+1)*40,(j+1/2)*35) #klopt wrs nog ni
+                    if(j%2 == 1 and self.table[i+1][j-1]==SID2):
+                        return((i+1)*40,(j-1/2)*35)
+                    if(j%2 == 0 and self.table[i+1][j+1]==SID2):
+                        return((i-1)*40,(j+1/2)*35) #klopt wrs nog ni
+                    if(j%2 == 0 and self.table[i+1][j-1]==SID2):
+                        return((i-1)*40,(j-1/2)*35)
+                if((self.table[i][j]==SID2 and self.table[i+1][j]==SID3) or (self.table[i][j]==SID3 and self.table[i+1][j]==SID2)):
+                    if(j%2 == 1 and self.table[i+1][j+1]==SID1):
+                        return((i+1)*40,(j+1/2)*35) #klopt wrs nog ni
+                    if(j%2 == 1 and self.table[i+1][j-1]==SID1):
+                        return((i+1)*40,(j-1/2)*35)
+                    if(j%2 == 0 and self.table[i+1][j+1]==SID1):
+                        return((i-1)*40,(j+1/2)*35) #klopt wrs nog ni
+                    if(j%2 == 0 and self.table[i+1][j-1]==SID1):
+                        return((i-1)*40,(j-1/2)*35)
+        return ((-1,-1),-1)
     #!!!!!!!!!!!!!!!!!!!! x and y are in cm !!!!!!!!!!!!!!!!!!!
     def setZeppelinPosition(self, x, y, ZID):
         for i in range (len(self.zeplist)):

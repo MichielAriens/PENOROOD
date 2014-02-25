@@ -48,6 +48,7 @@ Gui.grid.setValue(1, 5, 1)
 Gui.grid.setValue(7, 0, 1)
 Gui.grid.setValue(9, 11,1)
 Gui.grid.setValue(17, 0, 0)
+Gui.grid.setValue(12,1,0)
 Gui.grid.setValue(19, 11,0)
 
 
