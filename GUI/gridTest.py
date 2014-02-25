@@ -1,8 +1,8 @@
 from tkinter import *
 
 #initiate tinker, tk() acts as a frame
-root = Tk()
-root.title("team ROOD")
+#root = Tk()
+#root.title("team ROOD")
 
 class GUI:
     
@@ -15,8 +15,9 @@ class GUI:
     #Text(container, width in characters, height in lines) = widget used for displayed multiple lines of text
     #Greendot & Reddot, images for zeppelins
     #other images are shapes
-    def __init__(self, master):
-     
+    def __init__(self, master,listener):
+        self.root = master
+        self.listener = listener
         self.labelframe = LabelFrame(master, text="Input&Output")
         self.canvas = Canvas(master, bg = "White", width = 500, height = 500)
         self.label1 = Label(self.labelframe, text="input 1")
@@ -177,8 +178,15 @@ class GUI:
     #keep updating besides running the tkinter mainloop
     #update canvas after 1000ms
     def task(self):
+        if(self.listener is not None):
+            zep = self.getPositionFromListener()
+            zep_pos = zep.asArray()
+            self.grid.setZeppelinPosition(zep_pos[0], zep_pos[1], 1)
         self.updateCanvas()
-        root.after(1000,self.task)
+        self.root.after(1000,self.task)
+    
+    def getPositionFromListener(self):
+        return self.listener.getPosition()
         
     def moveUpWithButton(self):
         our_zep = self.grid.getZeppelin(1)
@@ -362,42 +370,42 @@ class GRID:
         
             
 #Initiate GUI
-Gui = GUI(root)
+#Gui = GUI(root)
 
 #pack() is used for positioning/drawing the widgets on the frame
-Gui.canvas.pack(side = LEFT)
-Gui.text.pack()
-Gui.labelframe.pack(expand="yes")
-Gui.controlFrame.pack(expand="yes")
+#Gui.canvas.pack(side = LEFT)
+#Gui.text.pack()
+#Gui.labelframe.pack(expand="yes")
+#Gui.controlFrame.pack(expand="yes")
 #grid() positions/draws widget in a grid-like-layout
-Gui.label1.grid(row = 0, column = 0)
-Gui.label2.grid(row = 1, column = 0)
-Gui.heightLabel.grid(columnspan = 2)
-Gui.entry1.grid(row = 0, column = 1)
-Gui.entry2.grid(row = 1, column = 1)
+#Gui.label1.grid(row = 0, column = 0)
+#Gui.label2.grid(row = 1, column = 0)
+#Gui.heightLabel.grid(columnspan = 2)
+#Gui.entry1.grid(row = 0, column = 1)
+#Gui.entry2.grid(row = 1, column = 1)
 
-Gui.upbutton.grid(row = 0, column = 1)
-Gui.downbutton.grid(row = 2, column = 1)
-Gui.leftbutton.grid(row = 1, column = 0)
-Gui.rightbutton.grid(row = 1, column = 2)
+#Gui.upbutton.grid(row = 0, column = 1)
+#Gui.downbutton.grid(row = 2, column = 1)
+#Gui.leftbutton.grid(row = 1, column = 0)
+#Gui.rightbutton.grid(row = 1, column = 2)
 
-Gui.grid.addZeppelin(120, 243, 1)
-Gui.grid.addZeppelin(200, 200, 2)
-Gui.grid.setValue(5, 2, 3)
-Gui.grid.setValue(1, 5, 1)
-Gui.grid.setValue(7, 0, 1)
-Gui.grid.setValue(9, 11,1)
-Gui.grid.setValue(17, 0, 0)
-Gui.grid.setValue(19, 11,0)
+#Gui.grid.addZeppelin(120, 243, 1)
+#Gui.grid.addZeppelin(200, 200, 2)
+#Gui.grid.setValue(5, 2, 3)
+#Gui.grid.setValue(1, 5, 1)
+#Gui.grid.setValue(7, 0, 1)
+#Gui.grid.setValue(9, 11,1)
+#Gui.grid.setValue(17, 0, 0)
+#Gui.grid.setValue(19, 11,0)
 
 
 #Set values of positions on the grid
-print(Gui.grid.getZeppelins())
-Gui.addDisplayedMessage("Nothing to be displayed atm.")
-Gui.setHeightLabel("230cm")
-Gui.updateCanvas()
+#print(Gui.grid.getZeppelins())
+#Gui.addDisplayedMessage("Nothing to be displayed atm.")
+#Gui.setHeightLabel("230cm")
+#Gui.updateCanvas()
 
 #loop that registers action in the frame
 #keep calling Gui.task every 1000ms
-root.after(1000,Gui.task)
-root.mainloop()
+#root.after(1000,Gui.task)
+#root.mainloop()

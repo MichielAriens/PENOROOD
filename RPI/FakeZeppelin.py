@@ -1,37 +1,14 @@
-#from enum import Enum
-#class Axis(Enum):
- #   x = 1
- #  y = 2
-  #  z = 3
+import COMMON.enum as enum
+class Axis(enum.Enum):
+  x = 1
+  y = 2
+  z = 3
     
 ################################################
 
 import RPI.hardware.motor as motor
-class FakeZeppelin:
-    
-    def __init__(self, listener):
-        self.height = 0
-        self.zepListener = listener 
-        self.motorOffset = 50
-        self.fe = FakeEnvironment()
-        self.motorX = motor.FakeMotor(fe,Axis.x)
-        self.motorY = motor.FakeMotor(fe,Axis.y)
-        self.motorZ = motor.FakeMotor(fe,Axis.z)
-        self.altimeter = ds.FakeDistanceSensor2(self.fe)
-        thread.start_new(self.fe.update, ())
-        self.pid = PID(0.2,0.1,5)
-        self.camera = None
-        
-        self.fe.force = Vector3(0.5,0.5,0)
-        
-    def getPosition(self):
-        return self.fe.pos
-    
-    def getSpeed(self):
-        return self.fe.speed
-    
-        
-    #//TODO PID's for all axis. 
+
+   #//TODO PID's for all axis. 
 class Vector3:
     
     def __init__(self,x,y,z):
@@ -70,16 +47,16 @@ class Vector3:
             
     
     def fst(self):
-        return x
+        return self.x
     
     def snd(self):
-        return y
+        return self.y
     
     def thrd(self):
-        return z
+        return self.z
     
     def asArray(self):
-        return [x,y,z]
+        return [self.x,self.y,self.z]
            
 class FakeEnvironment:
     
@@ -87,7 +64,8 @@ class FakeEnvironment:
         self.pos = Vector3(0,0,0)
         self.speed = Vector3(0,0,0)
         self.force = Vector3(0,0,0)
-        #pull of gravity somewhere around 1 m/s². 
+        #pull of gravity somewhere around 1 m/s².
+        import random
         self.mass = random.gauss(1,0.05)
         print("mass of the fake zeppelin is " + str(self.mass))
         self.gravity = Vector3(0,0,self.mass * 9.81)
@@ -107,4 +85,31 @@ class FakeEnvironment:
                 self.vSpeed += force/self.mass
                 self.height += self.vSpeed
             time.sleep(1)
-            
+
+import _thread as thread
+ 
+class FakeZeppelin:
+    
+    def __init__(self, listener):
+        self.height = 0
+        self.zepListener = listener 
+        self.motorOffset = 50
+        self.fe = FakeEnvironment()
+        self.motorX = motor.FakeMotor(self.fe,Axis.x)
+        self.motorY = motor.FakeMotor(self.fe,Axis.y)
+        self.motorZ = motor.FakeMotor(self.fe,Axis.z)
+        #self.altimeter = ds.FakeDistanceSensor2(self.fe)
+        thread.start_new(self.fe.update, ())
+        #self.pid = PID(0.2,0.1,5)
+        self.camera = None
+        
+        self.fe.force = Vector3(0.5,0.5,0)
+        
+    def getPosition(self):
+        return self.fe.pos
+    
+    def getSpeed(self):
+        return self.fe.speed
+    
+        
+ 

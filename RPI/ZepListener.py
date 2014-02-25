@@ -5,9 +5,9 @@ class ZepListener:
 		self.zeppelin = None
 		self.guiListener = None	
 		
-	def link(other):
+	def link(self,other):
 		self.guiListener = other
-		other.guiListener = self
+		other.zepListener = self
 		
 	def getPosition(self):
 		return self.zeppelin.getPosition()

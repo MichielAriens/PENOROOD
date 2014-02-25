@@ -2,12 +2,17 @@ import RPI.FakeZeppelin as FakeZeppelin
 import GUI.gridTest as gridTest
 import GUI.GuiListener as GuiListener
 import RPI.ZepListener as ZepListener
+from GUI.GuiListener import *
+from RPI.ZepListener import *
+from GUI.gridTest import *
+from tkinter import *
 
 root = Tk()
 root.title("team ROOD")
 
 zepl = ZepListener()
-zep = FakeZeppelin(zepl)
+zep = FakeZeppelin.FakeZeppelin(zepl)
+zepl.zeppelin = zep
 guil = GuiListener()
 Gui = GUI(root, guil)
 zepl.link(guil)

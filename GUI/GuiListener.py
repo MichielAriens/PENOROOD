@@ -5,9 +5,8 @@ class GuiListener:
         self.zepListener = None
         self.gui = None
         
-    def link(self,zepListener,gui):
+    def link(self,zepListener):
         self.zepListener = zepListener
-        self.gui = gui
         
     def send(self,stuff):
         self.zepListener.receive(stuff)
