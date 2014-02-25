@@ -1,16 +1,16 @@
-from enum import Enum
-class Axis(Enum):
-    x = 1
-    y = 2
-    z = 3
+#from enum import Enum
+#class Axis(Enum):
+ #   x = 1
+ #  y = 2
+  #  z = 3
     
 ################################################
 
-import hardware.motor as motor
+import RPI.hardware.motor as motor
 class FakeZeppelin:
-    self.height = 0
     
     def __init__(self, listener):
+        self.height = 0
         self.zepListener = listener 
         self.motorOffset = 50
         self.fe = FakeEnvironment()
@@ -32,38 +32,7 @@ class FakeZeppelin:
     
         
     #//TODO PID's for all axis. 
-        
-class FakeEnvironment:
-    self.pos = Vector3(0,0,0)
-    self.speed = Vector3(0,0,0)
-    self.force = Vector3(0,0,0)
-    
-    def __init__(self):
-        #pull of gravity somewhere around 1 m/s². 
-        self.mass = random.gauss(1,0.05)
-        print("mass of the fake zeppelin is " + str(self.mass))
-        self.gravity = Vector3(0,0,self.mass * 9.81)
-        self.lift = Vector3(0,0,self.mass * 8)
-    
-    
-    def update(self):
-        while True:
-            
-            actuatedForce = self.force.add(self.gravity.inverse()).add(self.lift)
-            self.speed = self.speed.add(force)
-            
-            if(self.pos.thrd() < 0):
-                self.pos = 0
-                self.vSpeed = 0
-            else:
-                self.vSpeed += force/self.mass
-                self.height += self.vSpeed
-            time.sleep(1)
-            
 class Vector3:
-    self.x = 0
-    self.y = 0
-    self.z = 0
     
     def __init__(self,x,y,z):
         self.x = 0
@@ -111,4 +80,31 @@ class Vector3:
     
     def asArray(self):
         return [x,y,z]
+           
+class FakeEnvironment:
     
+    def __init__(self):
+        self.pos = Vector3(0,0,0)
+        self.speed = Vector3(0,0,0)
+        self.force = Vector3(0,0,0)
+        #pull of gravity somewhere around 1 m/s². 
+        self.mass = random.gauss(1,0.05)
+        print("mass of the fake zeppelin is " + str(self.mass))
+        self.gravity = Vector3(0,0,self.mass * 9.81)
+        self.lift = Vector3(0,0,self.mass * 8)
+    
+    
+    def update(self):
+        while True:
+            
+            actuatedForce = self.force.add(self.gravity.inverse()).add(self.lift)
+            self.speed = self.speed.add(force)
+            
+            if(self.pos.thrd() < 0):
+                self.pos = 0
+                self.vSpeed = 0
+            else:
+                self.vSpeed += force/self.mass
+                self.height += self.vSpeed
+            time.sleep(1)
+            

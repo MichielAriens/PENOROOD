@@ -15,8 +15,8 @@ class GUI:
     #Text(container, width in characters, height in lines) = widget used for displayed multiple lines of text
     #Greendot & Reddot, images for zeppelins
     #other images are shapes
-    def __init__(self, master, listener):
-        self.listener = listener
+    def __init__(self, master):
+     
         self.labelframe = LabelFrame(master, text="Input&Output")
         self.canvas = Canvas(master, bg = "White", width = 500, height = 500)
         self.label1 = Label(self.labelframe, text="input 1")
