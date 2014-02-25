@@ -10,7 +10,8 @@ import hardware.motor as motor
 class FakeZeppelin:
     self.height = 0
     
-    def __init__(self):
+    def __init__(self,zepListener):
+        self.zepListener = zepListener 
         self.motorOffset = 50
         self.fe = FakeEnvironment()
         self.motorX = motor.FakeMotor(fe,Axis.x)
@@ -20,6 +21,13 @@ class FakeZeppelin:
         thread.start_new(self.fe.update, ())
         self.pid = PID(0.2,0.1,5)
         self.camera = None
+        
+    def getPosition(self):
+        return self.fe.pos
+    
+    def getSpeed(self):
+        return self.fe.speed
+    
         
     #//TODO PID's for all axis. 
         
@@ -31,7 +39,7 @@ class FakeEnvironment:
     def __init__(self):
         #pull of gravity somewhere around 1 m/s². 
         self.mass = random.gauss(1,0.05)
-        print "mass of the fake zeppelin is " + str(self.mass)
+        print("mass of the fake zeppelin is " + str(self.mass))
         self.gravity = Vector3(0,0,self.mass * 9.81)
         self.lift = Vector3(0,0,self.mass * 8)
     
