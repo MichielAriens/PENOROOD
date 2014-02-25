@@ -12,15 +12,21 @@ import RPI.hardware.motor as motor
 class Vector3:
     
     def __init__(self,x,y,z):
-        self.x = 0
-        self.y = 0
-        self.z = 0
+        self.x = x
+        self.y = y
+        self.z = z
         
     def add(self,other):
         return Vector3(self.x + other.x, self.y + other.y, self.z + other.z)
     
     def inverse(self):
         return Vector3(-self.x, -self.y, -self.z)
+    
+    def toString(self):
+        return str(self.x) + "," + str(self.y) + "," + str(self.z) 
+    
+    def scale(self,i):
+        return Vector3(i * self.x , i * self.y, i * self.z)
     
     #Get a specific axis.
     def getAxis(self,axis):
@@ -58,6 +64,8 @@ class Vector3:
     def asArray(self):
         return [self.x,self.y,self.z]
            
+           
+import time
 class FakeEnvironment:
     
     def __init__(self):
@@ -73,18 +81,25 @@ class FakeEnvironment:
     
     
     def update(self):
+        lastTime = time.time()
         while True:
+            print(self.pos.toString() + " | " + self.force.toString())
+            timeNow = time.time()
+            scale = timeNow - lastTime
+            lastTime = timeNow
             
             actuatedForce = self.force.add(self.gravity.inverse()).add(self.lift)
-            self.speed = self.speed.add(force)
+            self.speed = self.speed.add(actuatedForce.scale(scale))
+            self.pos = self.pos.add(self.speed)
             
-            if(self.pos.thrd() < 0):
-                self.pos = 0
-                self.vSpeed = 0
-            else:
-                self.vSpeed += force/self.mass
-                self.height += self.vSpeed
-            time.sleep(1)
+            #if(self.pos.thrd() < 0):
+             #   self.pos = 0
+              #  self.vSpeed = 0
+            #else:
+            #    self.vSpeed += force/self.mass
+            #    self.height += self.vSpeed
+            time.sleep(0.033)
+            
 
 import _thread as thread
  
@@ -99,11 +114,12 @@ class FakeZeppelin:
         self.motorY = motor.FakeMotor(self.fe,Axis.y)
         self.motorZ = motor.FakeMotor(self.fe,Axis.z)
         #self.altimeter = ds.FakeDistanceSensor2(self.fe)
-        thread.start_new(self.fe.update, ())
+        self.fe.force = Vector3(1,1,0)
+        print(self.fe.force.toString())
+        thread.start_new_thread(self.fe.update, ())
+        print(self.fe.force.toString())
         #self.pid = PID(0.2,0.1,5)
         self.camera = None
-        
-        self.fe.force = Vector3(0.5,0.5,0)
         
     def getPosition(self):
         return self.fe.pos

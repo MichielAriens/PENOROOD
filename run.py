@@ -59,5 +59,5 @@ Gui.updateCanvas()
 
 #loop that registers action in the frame
 #keep calling Gui.task every 1000ms
-root.after(1000,Gui.task)
+root.after(33,Gui.task)
 root.mainloop()

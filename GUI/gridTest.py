@@ -183,7 +183,7 @@ class GUI:
             zep_pos = zep.asArray()
             self.grid.setZeppelinPosition(zep_pos[0], zep_pos[1], 1)
         self.updateCanvas()
-        self.root.after(1000,self.task)
+        self.root.after(33,self.task)
     
     def getPositionFromListener(self):
         return self.listener.getPosition()
