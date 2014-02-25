@@ -23,22 +23,38 @@ class GUI:
         self.heightLabel = Label(self.labelframe, text="Height = n.a.")
         self.entry1 = Entry(self.labelframe)
         self.entry2 = Entry(self.labelframe)
-        self.grid = GRID(10,12)
+        self.grid = GRID(12,13)
         self.text = Text(master,width = 50, height = 15)
-        self.greendot = PhotoImage(file="greendot1.gif") #needs replacement
+        
+        self.controlFrame = LabelFrame(master, text="Controls")
+        self.upbutton= Button(self.controlFrame, text="UP", command=self.moveUpWithButton)
+        self.downbutton= Button(self.controlFrame, text="DOWN", command=self.moveDownWithButton)
+        self.leftbutton= Button(self.controlFrame, text="LEFT", command=self.moveLeftWithButton)
+        self.rightbutton= Button(self.controlFrame, text="RIGHT", command=self.moveRightWithButton)
+        
+        self.greendot = PhotoImage(file="goodzep.gif")
+        self.reddot = PhotoImage(file="badzep.gif")
         self.bh = PhotoImage(file="blauw_hart.gif")
         self.glh = PhotoImage(file="geel_hart.gif")
         self.grh = PhotoImage(file="groen_hart.gif")
+        self.rh = PhotoImage(file="rood_hart.gif")
+        self.wh = PhotoImage(file= "wit_hart.gif")
         self.bc = PhotoImage(file="blauwe_cirkel.gif")
         self.glc = PhotoImage(file="gele_cirkel.gif")
         self.grc = PhotoImage(file="groene_cirkel.gif")
+        self.rc = PhotoImage(file="rode_cirkel.gif")
+        self.wc = PhotoImage(file="witte_cirkel.gif")
         self.br = PhotoImage(file="blauwe_rechthoek.gif")
         self.glr = PhotoImage(file="gele_rechthoek.gif")
         self.grr = PhotoImage(file="groene_rechthoek.gif")
+        self.rr = PhotoImage(file="rode_rechthoek.gif")
+        self.wr = PhotoImage(file="witte_rechthoek.gif")
         self.bs = PhotoImage(file="blauwe_ster.gif")
         self.gls = PhotoImage(file="gele_ster.gif")
         self.grs = PhotoImage(file="groene_ster.gif")
-        self.images = (self.bh,self.glh,self.grh,self.bc,self.glc,self.grc,self.br,self.glr,self.grr,self.bs,self.gls,self.grs)
+        self.rs = PhotoImage(file="rode_ster.gif")
+        self.ws = PhotoImage(file="witte_ster.gif")
+        self.images = (self.bh,self.glh,self.grh,self.rh, self.wh,self.bc,self.glc,self.grc,self.rc,self.wc,self.br,self.glr,self.grr,self.rr,self.wr,self.bs,self.gls,self.grs,self.rs,self.ws)
         
         
         
@@ -56,7 +72,7 @@ class GUI:
             painty = (posy+1)*position_height
         if(shapeID < len(self.images)):
             self.canvas.create_image(paintx,painty,image=self.images[shapeID])
-            self.canvas.create_text(paintx+5,painty+30,text="ZID =" + str(shapeID), fill = "red")
+            self.canvas.create_text(paintx+5,painty+30,text="SID =" + str(shapeID), fill = "red")
             self.canvas.create_text(paintx+5,painty+40,text="POS = (" + str(posx) +","+ str(posy)+")", fill = "red")
     
     #Paints a zeppelin on the grid
@@ -74,11 +90,11 @@ class GUI:
         if(ZID == 1):   #our zeppelin
             self.canvas.create_image(xoffset + x,yoffset + y,image=self.greendot)
             self.canvas.create_text(xoffset + x + 5,yoffset + y+30,text="ZID =" + str(ZID), fill = "red")
-            self.canvas.create_text(xoffset + x + 5,yoffset + y+40,text="POS = (" + str(posx) +","+ str(posy)+")", fill = "red")
+            self.canvas.create_text(xoffset + x + 5,yoffset + y+40,text="POS = (" + str(posx) +","+ str(posy)+")cm", fill = "red")
         else:
             self.canvas.create_image(xoffset + x,yoffset + y,image=self.reddot)
             self.canvas.create_text(xoffset + x + 5,yoffset + y+30,text="ZID =" + str(ZID), fill = "red")
-            self.canvas.create_text(xoffset + x + 5,yoffset + y+40,text="POS = (" + str(posx) +","+ str(posy)+")", fill = "red")
+            self.canvas.create_text(xoffset + x + 5,yoffset + y+40,text="POS = (" + str(posx) +","+ str(posy)+")cm", fill = "red")
         
     
         
@@ -95,17 +111,17 @@ class GUI:
             if((i%2)==0):
                 self.canvas.create_line(position_width,position_height*(i+1),can_width-position_width*2,position_height*(i+1))
             else:
-                self.canvas.create_line(position_width*(3/2),position_height*(i+1),can_width-position_width*(5/2),position_height*(i+1))
+                self.canvas.create_line(position_width*(3/2),position_height*(i+1),can_width-position_width*(3/2),position_height*(i+1))
         #diagonal lines
         for j in range(max_vertical_triangles-1):
             if((j%2)==0):
-                for i in range(max_horizontal_triangles*2-2):
+                for i in range(max_horizontal_triangles*2-1):
                     if((i%2)==0):
                         self.canvas.create_line(position_width+position_width*i/2, position_height+position_height*j,position_width+position_width*(1/2)+position_width*i/2,2*position_height+position_height*j)
                     else:
                         self.canvas.create_line((3/2)*position_width+position_width*i/2, position_height+position_height*j,(3/2)*position_width-position_width*(1/2)+position_width*i/2,2*position_height+position_height*j)
             else:
-                for i in range(max_horizontal_triangles*2-2):
+                for i in range(max_horizontal_triangles*2-1):
                     if((i%2)==0):
                         self.canvas.create_line(position_width+position_width*i/2,2*position_height+position_height*j,position_width+position_width*(1/2)+position_width*i/2,position_height+position_height*j)
                     else:
@@ -113,6 +129,7 @@ class GUI:
     
     #requests all zeppelins and refreshes them on canvas
     def updateCanvas(self):
+        self.canvas.delete(ALL)
         list = self.grid.getZeppelins()
         for i in range(len(list)):
             zep = list[i]
@@ -127,15 +144,65 @@ class GUI:
             SID = shape[1]
             self.paintShape(position_shape[0], position_shape[1], SID)
         self.drawGrid()
+        self.updateMessage()
+        print(self.grid.getZeppelins())
     
+    #updates the displayed message
+    def updateMessage(self):
+        zeps = self.grid.getZeppelins()
+        message = ""
+        for i in range(len(zeps)):
+            zep = zeps[i]
+            pos = zep[0]
+            if(zep[1] == 1):
+                message = message + "\n" + "Our zeppelin at (" + str(pos[0]) + "," + str(pos[1]) + ")"
+            else:
+                message = message + "\n" + "Other zeppelin, ID="+ str(zep[1])+ " at ("+ str(pos[0]) + "," + str(pos[1]) + ")"
+        self.clearMessage()
+        self.addDisplayedMessage(message)
     
     #set the message in the text-widget          
-    def setDisplayedMessage(self, text):
+    def addDisplayedMessage(self, text):
         self.text.insert(INSERT, text)
+        
+    #clear message
+    def clearMessage(self):
+        self.text.delete(1.0, END)
     
     #set the height parameter
     def setHeightLabel(self, text):
         self.heightLabel.textvariable = text
+        
+    #keep updating besides running the tkinter mainloop
+    #update canvas after 1000ms
+    def task(self):
+        self.updateCanvas()
+        root.after(1000,self.task)
+        
+    def moveUpWithButton(self):
+        our_zep = self.grid.getZeppelin(1)
+        x = our_zep[0][0]
+        y = our_zep[0][1]
+        self.grid.setZeppelinPosition( x, y+20,1)
+        
+    def moveDownWithButton(self):
+        our_zep = self.grid.getZeppelin(1)
+        x = our_zep[0][0]
+        y = our_zep[0][1]
+        self.grid.setZeppelinPosition( x, y-20,1)
+    
+    def moveLeftWithButton(self):
+        our_zep = self.grid.getZeppelin(1)
+        x = our_zep[0][0]
+        y = our_zep[0][1]
+        self.grid.setZeppelinPosition( x-20, y,1)
+        
+    def moveRightWithButton(self):
+        our_zep = self.grid.getZeppelin(1)
+        x = our_zep[0][0]
+        y = our_zep[0][1]
+        self.grid.setZeppelinPosition( x+20, y,1)
+                                
 
 #class that represents the triangular grid
 class GRID:
@@ -160,14 +227,14 @@ class GRID:
         else:
             print("not a valid position")
     
-    #get all zeppelins and their positions and return them in a list ((x,y),ZID)
+    #get all shapes and their positions and return them in a list ((x,y),ZID)
     def getShapesAndPositions(self):
-        list = []
+        listy = []
         for i in range(self.rows):
             for j in range(self.columns):
                 if(self.table[i][j] > 0):
-                    list.append(((i,j),self.table[i][j]))
-        return list
+                    listy.append(((i,j),self.table[i][j]))
+        return listy
     
     #return a list of all zeppelins
     def getZeppelins(self):
@@ -181,17 +248,32 @@ class GRID:
                     return ((i,j),SID)
         else:
             return ((-1,-1),-1)
+        
+    def getZeppelin(self, ZID):
+        zeps = self.getZeppelins()
+        for i in range(len(zeps)):
+            zep = zeps[i]
+            if(ZID == zep[1]):
+                return zep
+        else:
+            return ((-1,-1),-1)
     
     #add zeppelin x and y in cm
     def addZeppelin(self,x,y,ZID):
         self.zeplist.append(((x,y),ZID))
+    
+    #nog afwerken    
+    def calculatePositionFromShapes(self, SID1, SID2, SID3):
+        self.getShapesAndPositions()
     
     #!!!!!!!!!!!!!!!!!!!! x and y are in cm !!!!!!!!!!!!!!!!!!!
     def setZeppelinPosition(self, x, y, ZID):
         for i in range (len(self.zeplist)):
             zep = self.zeplist[i]
             if(zep[1] == ZID):
-                zep[0] = (x,y)
+                self.zeplist.remove(zep)
+                zep1 = ((x,y),ZID)
+                self.zeplist.append(zep1)
     
         
     #moves a zeppelin from his old position to a new position(x,y), returns true if this new position doesn't contain another zeppelin
@@ -268,9 +350,9 @@ class GRID:
         if(x-1 > 0 and self.checkPosition(x-1,y) == True):
             children.append((x-1,y))
     
-    def goalReached(self,x,y,list):
-        for i in range(len(list)):
-            path = list[i]
+    def goalReached(self,x,y,listy):
+        for i in range(len(listy)):
+            path = listy[i]
             endpos = path[len(path-1)]
             if(endpos[0] == x and endpos[1] == y):
                 return True
@@ -285,6 +367,7 @@ Gui = GUI(root)
 Gui.canvas.pack(side = LEFT)
 Gui.text.pack()
 Gui.labelframe.pack(expand="yes")
+Gui.controlFrame.pack(expand="yes")
 #grid() positions/draws widget in a grid-like-layout
 Gui.label1.grid(row = 0, column = 0)
 Gui.label2.grid(row = 1, column = 0)
@@ -292,17 +375,28 @@ Gui.heightLabel.grid(columnspan = 2)
 Gui.entry1.grid(row = 0, column = 1)
 Gui.entry2.grid(row = 1, column = 1)
 
+Gui.upbutton.grid(row = 0, column = 1)
+Gui.downbutton.grid(row = 2, column = 1)
+Gui.leftbutton.grid(row = 1, column = 0)
+Gui.rightbutton.grid(row = 1, column = 2)
+
 Gui.grid.addZeppelin(120, 243, 1)
+Gui.grid.addZeppelin(200, 200, 2)
 Gui.grid.setValue(5, 2, 3)
 Gui.grid.setValue(1, 5, 1)
+Gui.grid.setValue(7, 0, 1)
+Gui.grid.setValue(9, 11,1)
+Gui.grid.setValue(17, 0, 0)
+Gui.grid.setValue(19, 11,0)
 
 
 #Set values of positions on the grid
-
 print(Gui.grid.getZeppelins())
-Gui.setDisplayedMessage("Nothing to be displayed atm.")
+Gui.addDisplayedMessage("Nothing to be displayed atm.")
 Gui.setHeightLabel("230cm")
 Gui.updateCanvas()
 
 #loop that registers action in the frame
+#keep calling Gui.task every 1000ms
+root.after(1000,Gui.task)
 root.mainloop()
