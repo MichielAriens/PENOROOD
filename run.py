@@ -1,14 +1,23 @@
-import RPI.FakeZeppelin
-import GUI.gridTest
-
-zep = FakeZeppelin()
-
+import RPI.FakeZeppelin as FakeZeppelin
+import GUI.gridTest as gridTest
+import GUI.GuiListener as GuiListener
+import RPI.ZepListener as ZepListener
 
 root = Tk()
 root.title("team ROOD")
 
-#Initiate GUI
-Gui = GUI(root)
+zepl = ZepListener()
+zep = FakeZeppelin(zepl)
+guil = GuiListener()
+Gui = GUI(root, guil)
+zepl.link(guil)
+
+
+
+
+
+
+
 
 #pack() is used for positioning/drawing the widgets on the frame
 Gui.canvas.pack(side = LEFT)

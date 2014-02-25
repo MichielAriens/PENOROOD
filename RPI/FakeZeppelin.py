@@ -10,8 +10,8 @@ import hardware.motor as motor
 class FakeZeppelin:
     self.height = 0
     
-    def __init__(self,zepListener):
-        self.zepListener = zepListener 
+    def __init__(self, listener):
+        self.zepListener = listener 
         self.motorOffset = 50
         self.fe = FakeEnvironment()
         self.motorX = motor.FakeMotor(fe,Axis.x)
@@ -21,6 +21,8 @@ class FakeZeppelin:
         thread.start_new(self.fe.update, ())
         self.pid = PID(0.2,0.1,5)
         self.camera = None
+        
+        self.fe.force = Vector3(0.5,0.5,0)
         
     def getPosition(self):
         return self.fe.pos
