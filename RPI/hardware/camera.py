@@ -10,6 +10,10 @@ import thread
 import time
 import subprocess
 
+
+class FakeCamera:
+    pass
+
 class Camera:    
     def __init__(self,height = 200, width = 200, output = "still.jpg", root = "data/cam/", readroot = "images/"):
         self.height = width
