@@ -28,19 +28,22 @@ class ShapeFinder:
             fig = image.colorDistance(Color.WHITE)
         else: print "Bad color input, this should never have happened!"
 
-        """     # If the selected color is colored black, then it's working as intended
+        """     # Test: If the selected color is colored black, then it's working as intended
         fig.show()
         raw_input()
         """
+        # The contrast of the given color has been made stronger; this should ideally show only the figures with the color we want.
+        # Play around with the amount of times you subtract fig (black is (0,0,0) though our chosen color is not completely black in fig, so
+        # be careful not to subtract too much or everything becomes black). Keep doing this until everything but the figures we need are black.
+        # Numbers below zero automatically become zero. Subtracting fig twice seems to be the sweet spot. :)
+        filteredFigure = image - fig - fig
 
-        # The contrast of the given color has been made stronger.
-        filteredFigure = image - fig
-
-        """     # If the selected color has a stronger contrast with the other colors than before, then it's working as intended
+        """     # Test: If the selected color has a stronger contrast with the other colors than before, then it's working as intended
         filteredFigure.show()
         raw_input()
         """
-
+        filteredFigure.show()
+        raw_input()
         return filteredFigure
 
     # Value of the color can be found.
@@ -53,9 +56,9 @@ class ShapeFinder:
         filteredFig = self.highlightColor(color)
 
         # Contains figures of the chosen color
-        blobs = filteredFig.findBlobs()
+        blobs = filteredFig.findBlobs()  # findBlobs() function easily finds lightly colored blobs on a dark background
 
-        # self.testFoundColor(blobs,filteredFig)    # Use this method to test if the figures from the given color are correct
+        self.testFoundColor(blobs,filteredFig)    # Use this method to test if the figures from the given color are correct
 
         # Contains figures of the chosen shape (and color)
         shapes = self.findShapes(shape,blobs,filteredFig)
@@ -105,4 +108,4 @@ class ShapeFinder:
 
 
 shapes = ShapeFinder()
-shapes.locateFigures('white','Rectangle')
+shapes.locateFigures('yellow','circle')
