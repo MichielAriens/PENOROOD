@@ -17,8 +17,6 @@ class ShapeFinder:
 
     # Highlight color (the input color should be case insensitive)
     def highlightColor(self,color=None):
-        print type(color)
-
         image = self.renewImage()  # Load picture from image path
         fig = None
 
@@ -53,19 +51,22 @@ class ShapeFinder:
     def colorValue(self, filteredFigure):
         return filteredFigure.meanColor()
 
-    def locateFigures(self,color=None):
-        print type(color)
-        print type(self)
+    # This method first parses the color, then parses the shape from the figure. It should return only figures
+    # of the chose color and shape.
+    def locateFigures(self,color=None,shape=None):
         filteredFig = self.highlightColor(color)
 
         # Contains figures of the chosen color
         blobs = filteredFig.findBlobs()
 
-        self.testFoundFigures(blobs,filteredFig)    # Use this method to test if the figures from the given color are correct
+        # self.testFoundColor(blobs,filteredFig)    # Use this method to test if the figures from the given color are correct
 
-    locateFigures('Yellow')
+        # Contains figures of the chosen shape (and color)
+        shapes = self.findShapes(shape,blobs,filteredFig)
 
-    def testFoundFigures(self,blobs=None,filteredFig = None):
+        self.testFoundShape(shapes,filteredFig)  # Use this method to test if the figures from the given shape are correct
+
+    def testFoundColor(self,blobs=None,filteredFig = None):
         for blob in blobs:
             blob.draw()
             print blob
@@ -74,60 +75,38 @@ class ShapeFinder:
             filteredFig.show()
             raw_input()
 
+    def findShapes(self,shape=None,blobs=None,filteredFig=None):
+        tolerance = None
+        fig = None
 
-    """
-    # Renders light colors vs dark colors. I think.  I actually don't know what this does.  ;o
-    binarized = image.binarize(220).invert()
-    blobs = binarized.findBlobs()
-    """
+        if shape.lower() == "circle":     # lower() makes sure the characters are not capitalized
+            circleTolerance = 0.2  # 0.2 may be a bit too large, but 0.05 is definately too small.  Further testing required.
+            tolerance = circleTolerance
+            fig = [b for b in blobs if b.isCircle(circleTolerance)]  # find all the circles within a certain tolerance
+        elif shape.lower() == "rectangle":
+            rectangleTolerance = 0.05  # Keep this number very low or every figure becomes a rectangle...
+            tolerance = rectangleTolerance
+            fig = [b for b in blobs if b.isRectangle(rectangleTolerance)]  # find all the rectangles within a certain tolerance
+        elif shape.lower() == "heart":
+            print 'not yet implemented'
+        elif shape.lower() == "star":
+            print 'not yet implemented'
+        else: print "Bad shape input, this should never have happened!"
 
-    """
-    # Shows the distinguished blobs, give a random input for each iteration
-    for blob in blobs:
-        blob.draw()
-        print blob
-        if (blob.isCircle(0.2) == True): print "circle"
-        if (blob.isRectangle(0.05) == True): print "rectangle"
-        binarized.show()
-        raw_input()
-    """
-
-    """
-    # Find circles
-    circleTolerance = 0.2  # 0.2 may be a bit too large, but 0.05 is definately too small.  Further testing required.
-    circles = [b for b in blobs if b.isCircle(circleTolerance)]  # find all the circles within a certain tolerance
-    for circle in circles:
-        circle.draw()
-        print circle
-        binarized.show()
-        raw_input()
-    """
-
-    """
-    # Find rectangles
-    rectangleTolerance = 0.05  # Keep this number very low or every figure becomes a rectangle...
-    rectangles = [b for b in blobs if b.isRectangle(rectangleTolerance)]  # find all the rectangles within a certain tolerance
-    for rectangle in rectangles:
-        rectangle.draw()
-        print rectangle
-        binarized.show()
-        raw_input()
-    """
+        return fig
 
 
-    """
-    # General method for drawing found figures.
-    def findFigure(self,figures):
-        self.figure = figures
-        for figure in figures:
-            figure.draw()
-            print figure
-            binarized.show()
+
+    def testFoundShape(self,shapes=None,filteredFig=None):
+        for shape in shapes:
+            shape.draw()
+            print shape
+            filteredFig.show()
             raw_input()
-    """
 
 
-
+shapes = ShapeFinder()
+shapes.locateFigures('Yellow','Rectangle')
 # filtering method: http://stackoverflow.com/questions/14036944/how-do-i-locate-the-rabbit
 
 
