@@ -1,9 +1,5 @@
-# look into SimpleCV.Features.Blob -> can determine left/right/above/below positioning between two shapes
-
 # template matching can find an input picture within a larger picture:
 #   http://docs.opencv.org/doc/tutorials/imgproc/histograms/template_matching/template_matching.html
-
-# help('modules')
 
 from SimpleCV import Color, Image
 
@@ -37,7 +33,7 @@ class ShapeFinder:
         raw_input()
         """
 
-        # The contrast of the yellow color has been made stronger.
+        # The contrast of the given color has been made stronger.
         filteredFigure = image - fig
 
         """     # If the selected color has a stronger contrast with the other colors than before, then it's working as intended
@@ -59,13 +55,16 @@ class ShapeFinder:
         # Contains figures of the chosen color
         blobs = filteredFig.findBlobs()
 
-        # self.testFoundColor(blobs,filteredFig)    # Use this method to test if the figures from the given color are correct
+        #self.testFoundColor(blobs,filteredFig)    # Use this method to test if the figures from the given color are correct
 
         # Contains figures of the chosen shape (and color)
         shapes = self.findShapes(shape,blobs,filteredFig)
 
         self.testFoundShape(shapes,filteredFig)  # Use this method to test if the figures from the given shape are correct
 
+        return shapes
+
+    # Tests whether the figures correspond to the given color or not by displaying the current results.
     def testFoundColor(self,blobs=None,filteredFig = None):
         for blob in blobs:
             blob.draw()
@@ -75,6 +74,7 @@ class ShapeFinder:
             filteredFig.show()
             raw_input()
 
+    # Returns all the figures with the specified shapes. This should only apply to the figures of the chosen color.
     def findShapes(self,shape=None,blobs=None,filteredFig=None):
         tolerance = None
         fig = None
@@ -95,8 +95,7 @@ class ShapeFinder:
 
         return fig
 
-
-
+    # Tests whether the figures correspond to the given shape or not by displaying the current results.
     def testFoundShape(self,shapes=None,filteredFig=None):
         for shape in shapes:
             shape.draw()
@@ -106,10 +105,4 @@ class ShapeFinder:
 
 
 shapes = ShapeFinder()
-shapes.locateFigures('Yellow','Rectangle')
-# filtering method: http://stackoverflow.com/questions/14036944/how-do-i-locate-the-rabbit
-
-
-# java method for detecting figures: https://opencv-code.com/tutorials/detecting-simple-shapes-in-an-image/
-
-
+shapes.locateFigures('white','Rectangle')
