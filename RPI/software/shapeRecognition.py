@@ -42,8 +42,6 @@ class ShapeFinder:
         filteredFigure.show()
         raw_input()
         """
-        filteredFigure.show()
-        raw_input()
         return filteredFigure
 
     # Value of the color can be found.
