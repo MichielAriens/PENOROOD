@@ -55,12 +55,12 @@ class ShapeFinder:
         # Contains figures of the chosen color
         blobs = filteredFig.findBlobs()
 
-        #self.testFoundColor(blobs,filteredFig)    # Use this method to test if the figures from the given color are correct
+        # self.testFoundColor(blobs,filteredFig)    # Use this method to test if the figures from the given color are correct
 
         # Contains figures of the chosen shape (and color)
         shapes = self.findShapes(shape,blobs,filteredFig)
 
-        self.testFoundShape(shapes,filteredFig)  # Use this method to test if the figures from the given shape are correct
+        # self.testFoundShape(shapes,filteredFig)  # Use this method to test if the figures from the given shape are correct
 
         return shapes
 
