@@ -1,3 +1,5 @@
+# personal reminder: http://www.societyofrobots.com/programming_computer_vision_tutorial_pt3.shtml#shape_detection
+
 # template matching can find an input picture within a larger picture:
 #   http://docs.opencv.org/doc/tutorials/imgproc/histograms/template_matching/template_matching.html
 
