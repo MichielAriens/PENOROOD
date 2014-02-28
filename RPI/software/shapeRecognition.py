@@ -1,6 +1,8 @@
 # template matching can find an input picture within a larger picture:
 #   http://docs.opencv.org/doc/tutorials/imgproc/histograms/template_matching/template_matching.html
 
+# alternative method if blobs aren't working for 'live' pictures: contour method with opencv
+
 from SimpleCV import Color, Image
 
 class ShapeFinder:
@@ -32,6 +34,7 @@ class ShapeFinder:
         fig.show()
         raw_input()
         """
+
         # The contrast of the given color has been made stronger; this should ideally show only the figures with the color we want.
         # Play around with the amount of times you subtract fig (black is (0,0,0) though our chosen color is not completely black in fig, so
         # be careful not to subtract too much or everything becomes black). Keep doing this until everything but the figures we need are black.
@@ -42,6 +45,7 @@ class ShapeFinder:
         filteredFigure.show()
         raw_input()
         """
+
         return filteredFigure
 
     # Value of the color can be found.
@@ -59,7 +63,7 @@ class ShapeFinder:
         self.testFoundColor(blobs,filteredFig)    # Use this method to test if the figures from the given color are correct
 
         # Contains figures of the chosen shape (and color)
-        shapes = self.findShapes(shape,blobs,filteredFig)
+        shapes = self.findShapes(shape,blobs)
 
         # self.testFoundShape(shapes,filteredFig)  # Use this method to test if the figures from the given shape are correct
 
@@ -76,18 +80,18 @@ class ShapeFinder:
             raw_input()
 
     # Returns all the figures with the specified shapes. This should only apply to the figures of the chosen color.
-    def findShapes(self,shape=None,blobs=None,filteredFig=None):
+    def findShapes(self,shape=None,blobs=None):
         tolerance = None
         fig = None
 
         if shape.lower() == "circle":     # lower() makes sure the characters are not capitalized
             circleTolerance = 0.2  # 0.2 may be a bit too large, but 0.05 is definately too small.  Further testing required.
             tolerance = circleTolerance
-            fig = [b for b in blobs if b.isCircle(circleTolerance)]  # find all the circles within a certain tolerance
+            fig = [b for b in blobs if b.isCircle(tolerance)]  # find all the circles within a certain tolerance
         elif shape.lower() == "rectangle":
             rectangleTolerance = 0.05  # Keep this number very low or every figure becomes a rectangle...
             tolerance = rectangleTolerance
-            fig = [b for b in blobs if b.isRectangle(rectangleTolerance)]  # find all the rectangles within a certain tolerance
+            fig = [b for b in blobs if b.isRectangle(tolerance)]  # find all the rectangles within a certain tolerance
         elif shape.lower() == "heart":
             print 'not yet implemented'
         elif shape.lower() == "star":
