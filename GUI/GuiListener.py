@@ -15,3 +15,8 @@ class GuiListener:
         pos = self.zepListener.getPosition()
         return pos
     
+    def refactor(self,message):
+        print()
+        
+    def encode(self,message):
+        print()

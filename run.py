@@ -50,6 +50,13 @@ Gui.grid.setValue(9, 11,1)
 Gui.grid.setValue(17, 0, 0)
 Gui.grid.setValue(12,1,0)
 Gui.grid.setValue(19, 11,0)
+Gui.grid.setValue(13, 5,7)
+Gui.grid.setValue(14, 5,8)
+Gui.grid.setValue(15, 6,8)
+Gui.grid.setValue(2, 7,8)
+Gui.grid.setValue(3, 6,9)
+Gui.grid.setValue(4, 7,9)
+
 
 
 #Set values of positions on the grid

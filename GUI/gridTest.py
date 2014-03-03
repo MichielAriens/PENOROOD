@@ -37,26 +37,26 @@ class GUI:
         self.greendot = PhotoImage(file="GUI/goodzep.gif")
         self.reddot = PhotoImage(file="GUI/badzep.gif")
         self.bh = PhotoImage(file="GUI/blauw_hart.gif")
-        self.glh = PhotoImage(file="GUI/geel_hart.gif")
-        self.grh = PhotoImage(file="GUI/groen_hart.gif")
+        self.yh = PhotoImage(file="GUI/geel_hart.gif")
+        self.gh = PhotoImage(file="GUI/groen_hart.gif")
         self.rh = PhotoImage(file="GUI/rood_hart.gif")
         self.wh = PhotoImage(file= "GUI/wit_hart.gif")
         self.bc = PhotoImage(file="GUI/blauwe_cirkel.gif")
-        self.glc = PhotoImage(file="GUI/gele_cirkel.gif")
-        self.grc = PhotoImage(file="GUI/groene_cirkel.gif")
+        self.yc = PhotoImage(file="GUI/gele_cirkel.gif")
+        self.gc = PhotoImage(file="GUI/groene_cirkel.gif")
         self.rc = PhotoImage(file="GUI/rode_cirkel.gif")
         self.wc = PhotoImage(file="GUI/witte_cirkel.gif")
-        self.br = PhotoImage(file="GUI/blauwe_rechthoek.gif")
-        self.glr = PhotoImage(file="GUI/gele_rechthoek.gif")
-        self.grr = PhotoImage(file="GUI/groene_rechthoek.gif")
-        self.rr = PhotoImage(file="GUI/rode_rechthoek.gif")
-        self.wr = PhotoImage(file="GUI/witte_rechthoek.gif")
+        self.bs = PhotoImage(file="GUI/blauwe_rechthoek.gif")
+        self.ys = PhotoImage(file="GUI/gele_rechthoek.gif")
+        self.gs = PhotoImage(file="GUI/groene_rechthoek.gif")
+        self.rs = PhotoImage(file="GUI/rode_rechthoek.gif")
+        self.ws = PhotoImage(file="GUI/witte_rechthoek.gif")
         self.bs = PhotoImage(file="GUI/blauwe_ster.gif")
-        self.gls = PhotoImage(file="GUI/gele_ster.gif")
-        self.grs = PhotoImage(file="GUI/groene_ster.gif")
+        self.ys = PhotoImage(file="GUI/gele_ster.gif")
+        self.gs = PhotoImage(file="GUI/groene_ster.gif")
         self.rs = PhotoImage(file="GUI/rode_ster.gif")
         self.ws = PhotoImage(file="GUI/witte_ster.gif")
-        self.images = (self.bh,self.glh,self.grh,self.rh, self.wh,self.bc,self.glc,self.grc,self.rc,self.wc,self.br,self.glr,self.grr,self.rr,self.wr,self.bs,self.gls,self.grs,self.rs,self.ws)
+        self.images = (self.bh,self.yh,self.gh,self.rh, self.wh,self.bc,self.yc,self.gc,self.rc,self.wc,self.bs,self.ys,self.gs,self.rs,self.ws,self.bs,self.ys,self.gs,self.rs,self.ws)
         
         
         
@@ -74,8 +74,8 @@ class GUI:
             painty = (posy+1)*position_height
         if(shapeID < len(self.images)):
             self.canvas.create_image(paintx,painty,image=self.images[shapeID])
-            self.canvas.create_text(paintx+5,painty+30,text="SID =" + str(shapeID), fill = "red")
-            self.canvas.create_text(paintx+5,painty+40,text="POS = (" + str(posx) +","+ str(posy)+")", fill = "red")
+            #self.canvas.create_text(paintx+5,painty+30,text="SID =" + str(shapeID), fill = "red")
+            #self.canvas.create_text(paintx+5,painty+40,text="POS = (" + str(posx) +","+ str(posy)+")", fill = "red")
     
     #Paints a zeppelin on the grid
     #posx en posy is in cm
@@ -184,8 +184,29 @@ class GUI:
             self.grid.setZeppelinPosition(zep_pos[0], zep_pos[1], 1)
         self.updateCanvas()
         self.root.after(33,self.task)
+        print("xxxxxxxxxxxxxxxxxxxxxxxxx")
         print(self.grid.calculatePositionFromShapes(12, 17, 7))
-    
+        print(self.grid.calculatePositionFromShapes(12, 7, 17))
+        print(self.grid.calculatePositionFromShapes(7, 12, 17))
+        print(self.grid.calculatePositionFromShapes(7, 17, 12))
+        print(self.grid.calculatePositionFromShapes(17, 12, 7))
+        print(self.grid.calculatePositionFromShapes(17, 7, 12))
+        print("xxxxxxxxxxxxxxxxxxxxxxxxx")
+        print(self.grid.calculatePositionFromShapes(13, 14, 15))
+        print(self.grid.calculatePositionFromShapes(13, 15, 14))
+        print(self.grid.calculatePositionFromShapes(14, 13, 15))
+        print(self.grid.calculatePositionFromShapes(14, 15, 13))
+        print(self.grid.calculatePositionFromShapes(15, 14, 13))
+        print(self.grid.calculatePositionFromShapes(15, 13, 14))
+        print("xxxxxxxxxxxxxxxxxxxxxxxxx")
+        print(self.grid.calculatePositionFromShapes(2, 3, 4))
+        print(self.grid.calculatePositionFromShapes(2, 4, 3))
+        print(self.grid.calculatePositionFromShapes(3, 2, 4))
+        print(self.grid.calculatePositionFromShapes(3, 4, 2))
+        print(self.grid.calculatePositionFromShapes(4, 3, 2))
+        print(self.grid.calculatePositionFromShapes(4, 2, 3))
+        print("xxxxxxxxxxxxxxxxxxxxxxxxx")
+        
     def getPositionFromListener(self):
         return self.listener.getPosition()
         
@@ -212,7 +233,12 @@ class GUI:
         x = our_zep[0][0]
         y = our_zep[0][1]
         self.grid.setZeppelinPosition( x+20, y,1)
-                                
+        
+    def sendMessageToListener(self, message):
+        self.listener.refactor(message);
+        
+    def createGridFromFile(self, gridstring):
+        strings = gridstring.rsplit(",")
 
 #class that represents the triangular grid
 class GRID:
@@ -277,34 +303,32 @@ class GRID:
         for i in range(self.rows-1):
             for j in range(self.columns):
                 if((self.table[i][j]==SID1 and self.table[i+1][j]==SID2) or (self.table[i][j]==SID2 and self.table[i+1][j]==SID1)):
-                    print("herrro")
-                    if(j%2 == 1 and self.table[i][j+1]==SID3):
+                    if(j%2 == 1 and self.table[i+1][j+1]==SID3):
                         return((i+1)*40,(j+1/2)*35) #klopt wrs nog ni
-                    if(j%2 == 1 and self.table[i][j-1]==SID3):
+                    if(j%2 == 1 and self.table[i+1][j-1]==SID3):
                         return((i+1)*40,(j-1/2)*35)
                     if(j%2 == 0 and self.table[i][j+1]==SID3):
                         return((i+1/2)*40,(j+1/2)*35) #klopt wrs nog ni
                     if(j%2 == 0 and self.table[i][j-1]==SID3):
                         return((i+1/2)*40,(j-1/2)*35)
                 if((self.table[i][j]==SID1 and self.table[i+1][j]==SID3) or (self.table[i][j]==SID3 and self.table[i+1][j]==SID1)):
-                    print("herrro1")
                     if(j%2 == 1 and self.table[i+1][j+1]==SID2):
                         return((i+1)*40,(j+1/2)*35) #klopt wrs nog ni
                     if(j%2 == 1 and self.table[i+1][j-1]==SID2):
                         return((i+1)*40,(j-1/2)*35)
-                    if(j%2 == 0 and self.table[i+1][j+1]==SID2):
-                        return((i-1)*40,(j+1/2)*35) #klopt wrs nog ni
-                    if(j%2 == 0 and self.table[i+1][j-1]==SID2):
-                        return((i-1)*40,(j-1/2)*35)
+                    if(j%2 == 0 and self.table[i][j+1]==SID2):
+                        return((i+1/2)*40,(j+1/2)*35) #klopt wrs nog ni
+                    if(j%2 == 0 and self.table[i][j-1]==SID2):
+                        return((i+1/2)*40,(j-1/2)*35)
                 if((self.table[i][j]==SID2 and self.table[i+1][j]==SID3) or (self.table[i][j]==SID3 and self.table[i+1][j]==SID2)):
                     if(j%2 == 1 and self.table[i+1][j+1]==SID1):
                         return((i+1)*40,(j+1/2)*35) #klopt wrs nog ni
                     if(j%2 == 1 and self.table[i+1][j-1]==SID1):
                         return((i+1)*40,(j-1/2)*35)
-                    if(j%2 == 0 and self.table[i+1][j+1]==SID1):
-                        return((i-1)*40,(j+1/2)*35) #klopt wrs nog ni
-                    if(j%2 == 0 and self.table[i+1][j-1]==SID1):
-                        return((i-1)*40,(j-1/2)*35)
+                    if(j%2 == 0 and self.table[i][j+1]==SID1):
+                        return((i+1/2)*40,(j+1/2)*35) #klopt wrs nog ni
+                    if(j%2 == 0 and self.table[i][j-1]==SID1):
+                        return((i+1/2)*40,(j-1/2)*35)
         return ((-1,-1),-1)
     #!!!!!!!!!!!!!!!!!!!! x and y are in cm !!!!!!!!!!!!!!!!!!!
     def setZeppelinPosition(self, x, y, ZID):
