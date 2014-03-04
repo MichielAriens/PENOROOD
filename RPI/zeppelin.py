@@ -15,22 +15,25 @@ class Zeppelin:
     #initmethod variables (call start to invoke backround methods)
     def __init__(self, dists=None):
         
-        self.dHeight = 0
+        self.path = "cam.jpg"
         #Init PID (0.1,0,0.5) works slightly, (0.1,0.05,3) better P to 0.2 increases responsiveness, I increses overshoot but decreases settletime
         #D decreases overshoot but engthens settletime. (slows machine down)
-        
-        simMode == "RPi":
-        self.motorOffset = 0
         self.altimeter = dists
         self.lift = motor.VectoredMotor(24,4)
-        strafing = motor.PulsedMotor(17,23)
-        thruster = motor.PulsedMotor(9,7)
-        self.pid = PID(5,0.5,5)
-        self.camera = None
-        #self.camera = cam.Camera(200, 200, output = "still.png")
+        self.xMot = motor.PulsedMotor(17,23)
+        self.yMot = motor.PulsedMotor(9,7)
+        self.heightPID = PID(5,0.5,5)
+        self.xPID = PID(1,0,0.1)
+        self.yPID = PID(1,0,0.1)
+        self.camera = cam.Camera(500, self.path)
         
-        self.pid.setPoint(self.dHeight)
-
+        self.dHeight = self.altimeter.getHeight()
+        self.dPos = camera.getPos()
+        
+        self.heightPID.setPoint(dHeight)
+        
+        self.xPID.setPoint(dPos.fst())
+        self.yPID.setPoint(dPos.snd())
     
     #Used to set the desired height.
     #Effects will only become apparent after _keepHeight pulls the new info
@@ -39,12 +42,16 @@ class Zeppelin:
         self.pid.setPoint(height)
         
         
+        
     #Algorithm to invoke motors to achieve a certain height
     #Python convention: methods names preceded by '_' should be deemed 'private'
     def _keepHeight(self):
         while(True):
             #Set the thrust to the PID output.
-            self.lift.setThrust(self.pid.update(self.altimeter.getHeight()) + self.motorOffset)
+            pos = self.camera.getPos()
+            self.lift.setThrust(self.heightPID.update(self.altimeter.getHeight()) + self.motorOffset)
+            self.xMot.setThrust(self.xPID.update(self.pos.fst()))
+            self.xMot.setThrust(self.xPID.update(self.pos.snd()))
             time.sleep(1)       
     
     #Starts running background threads
