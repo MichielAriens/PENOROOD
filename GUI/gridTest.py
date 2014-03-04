@@ -57,7 +57,7 @@ class GUI:
         self.rs = PhotoImage(file="GUI/rode_ster.gif")
         self.ws = PhotoImage(file="GUI/witte_ster.gif")
         self.fb = PhotoImage(file="GUI/forbidden_area.gif")
-        self.images = (self.bh,self.yh,self.gh,self.rh, self.wh,self.bc,self.yc,self.gc,self.rc,self.wc,self.bs,self.ys,self.gs,self.rs,self.ws,self.bs,self.ys,self.gs,self.rs,self.ws)
+        self.images = (self.fb,self.bh,self.yh,self.gh,self.rh, self.wh,self.bc,self.yc,self.gc,self.rc,self.wc,self.bs,self.ys,self.gs,self.rs,self.ws,self.bs,self.ys,self.gs,self.rs,self.ws)
         
         
         
@@ -73,7 +73,7 @@ class GUI:
         else:
             paintx = (posx+1)*position_width
             painty = (posy+1)*position_height
-        if(shapeID < len(self.images)):
+        if(shapeID < len(self.images) and shapeID > 0):
             self.canvas.create_image(paintx,painty,image=self.images[shapeID])
         else:
             self.canvas.create_image(paintx,painty,image=self.fb)
@@ -238,7 +238,7 @@ class GRID:
     #defines a matrix with y rows and x columns. Each M(x,y) contains a value, this value represents the Shape-ID (SID)
     def __init__(self,x,y):
         print(str(range(x)))
-        self.table = [ [ 0 for i in range(x) ] for j in range(y) ]
+        self.table = [ [ 0 for i in range(y) ] for j in range(x) ]
         print(self.table)
         self.rows = y
         self.columns = x
