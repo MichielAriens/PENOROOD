@@ -7,9 +7,10 @@
 
 from SimpleCV import Color, Image
 
+# Color values can easily be found by right clicking the picture and use color picker!  (in pycharm anyway)
 class ShapeFinder:
     def __init__(self):
-        self.imagePath = 'C:\Users\Babyburger\Desktop\cshapes.jpg'
+        self.imagePath = 'C:\\Users\\Babyburger\\PycharmProjects\\PENOROODpy\\output1\\1.jpg'
 
     # Load picture here
     def renewImage(self):
@@ -21,32 +22,32 @@ class ShapeFinder:
         fig = None
 
         if color.lower() == "yellow":     # lower() makes sure the characters are not capitalized
-            fig = image.colorDistance(Color.YELLOW)
+            fig = image.colorDistance((236,187,120))
         elif color.lower() == "red":
-            fig = image.colorDistance(Color.RED)
+            fig = image.colorDistance((167,38,76))
         elif color.lower() == "green":
-            fig = image.colorDistance(Color.GREEN)
+            fig = image.colorDistance((62,80,75))
         elif color.lower() == "blue":
-            fig = image.colorDistance(Color.BLUE)
+            fig = image.colorDistance((55,70,110))
         elif color.lower() == "white":
-            fig = image.colorDistance(Color.WHITE)
+            fig = image.colorDistance((239,239,239))
         else: print "Bad color input, this should never have happened!"
 
-        """     # Test: If the selected color is colored black, then it's working as intended
+             # Test: If the selected color is colored black, then it's working as intended
         fig.show()
         raw_input()
-        """
+
 
         # The contrast of the given color has been made stronger; this should ideally show only the figures with the color we want.
         # Play around with the amount of times you subtract fig (black is (0,0,0) though our chosen color is not completely black in fig, so
         # be careful not to subtract too much or everything becomes black). Keep doing this until everything but the figures we need are black.
         # Numbers below zero automatically become zero. Subtracting fig twice seems to be the sweet spot. :)
-        filteredFigure = image - fig - fig
+        filteredFigure = image - fig - fig - fig
 
-        """     # Test: If the selected color has a stronger contrast with the other colors than before, then it's working as intended
+             # Test: If the selected color has a stronger contrast with the other colors than before, then it's working as intended
         filteredFigure.show()
         raw_input()
-        """
+
 
         return filteredFigure
 
@@ -111,5 +112,8 @@ class ShapeFinder:
             raw_input()
 
 
+
+
 shapes = ShapeFinder()
-shapes.locateFigures('yellow','circle')
+shapes.locateFigures('green','circle')
+
