@@ -1,24 +1,16 @@
 
-try:
-    import RPi.GPIO
-    simMode = False
-except ImportError:
-    simMode = True
-    
-import os
-import thread
-import time
-import subprocess
 
+
+import time
 import picamera
 
-class Camera:
-    def __init__(self,resolution,path):
-        self.res = resolution;
-        self.camera = picamera.PiCamera()
-        self.camera.resolution = (self.res, self.res)
-        self.path = path
-        
-    def update(self):
-        camera.capture(self.path,'jpeg')
+global sf = ShapeFinder()
+global path = "/home/pi/zep2/output/data.jpg"
 
+def analyze():
+    global sf,path
+    with picamera.PiCamera() as camera:
+        camera.resolution = (500,500)
+        camera.capture(path, "jpeg")
+        
+    sf.findAll(path)

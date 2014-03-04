@@ -11,6 +11,20 @@ import thread
 import time
 import random
 
+
+import picamera
+sf = ShapeFinder()
+path = "/home/pi/zep2/output/data.jpg"
+
+def analyze():
+    global sf,path
+    with picamera.PiCamera() as camera:
+        camera.resolution = (500,500)
+        camera.capture(path, "jpeg")
+        
+    sf.findAll(path)
+
+
 class Zeppelin:
     #initmethod variables (call start to invoke backround methods)
     def __init__(self, dists=None):
@@ -48,7 +62,7 @@ class Zeppelin:
     def _keepHeight(self):
         while(True):
             #Set the thrust to the PID output.
-            pos = self.camera.getPos()
+            pos = analyze()
             self.lift.setThrust(self.heightPID.update(self.altimeter.getHeight()) + self.motorOffset)
             self.xMot.setThrust(self.xPID.update(self.pos.fst()))
             self.xMot.setThrust(self.xPID.update(self.pos.snd()))
