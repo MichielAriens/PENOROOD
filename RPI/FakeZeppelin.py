@@ -1,4 +1,5 @@
 import COMMON.enum as enum
+import GUI.gridTest as gridTest
 class Axis(enum.Enum):
   x = 1
   y = 2
@@ -107,6 +108,8 @@ import _thread as thread
 class FakeZeppelin:
     
     def __init__(self, listener):
+        #self.grid = gridTest.GRID(12,13)
+        #self.updateGrid()
         self.height = 0
         self.zepListener = listener 
         self.motorOffset = 50
@@ -132,6 +135,25 @@ class FakeZeppelin:
     def getSpeed(self):
         return self.fe.speed
     
+    def updateGrid(self): 
+        self.grid.setValue(5, 2, 3)
+        self.grid.setValue(1, 5, 1)
+        self.grid.setValue(7, 0, 1)
+        self.grid.setValue(9, 11,1)
+        self.grid.setValue(17, 0, 0)
+        self.grid.setValue(12,1,0)
+        self.grid.setValue(19, 11,0)
+        self.grid.setValue(13, 5,7)
+        self.grid.setValue(14, 5,8)
+        self.grid.setValue(15, 6,8)
+        self.grid.setValue(2, 7,8)
+        self.grid.setValue(3, 6,9)
+        self.grid.setValue(4, 7,9)
+        
+    def getZeppelinPositionFromShapes(self):
+        pos = self.grid.calculatePositionFromShapes()
+        return pos
+
     def setMovementZeppelin(self):
         self.fe.force = Vector3(0.1,0.2,0)
         

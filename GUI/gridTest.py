@@ -20,8 +20,8 @@ class GUI:
         self.listener = listener
         self.labelframe = LabelFrame(master, text="Input&Output")
         self.canvas = Canvas(master, bg = "White", width = 500, height = 500)
-        self.label1 = Label(self.labelframe, text="input 1")
-        self.label2 = Label(self.labelframe, text="input 2")
+        self.label1 = Label(self.labelframe, text="X")
+        self.label2 = Label(self.labelframe, text="Y")
         self.heightLabel = Label(self.labelframe, text="Height = n.a.")
         self.entry1 = Entry(self.labelframe)
         self.entry2 = Entry(self.labelframe)
@@ -56,6 +56,7 @@ class GUI:
         self.gs = PhotoImage(file="GUI/groene_ster.gif")
         self.rs = PhotoImage(file="GUI/rode_ster.gif")
         self.ws = PhotoImage(file="GUI/witte_ster.gif")
+        self.fb = PhotoImage(file="GUI/forbidden_area.gif")
         self.images = (self.bh,self.yh,self.gh,self.rh, self.wh,self.bc,self.yc,self.gc,self.rc,self.wc,self.bs,self.ys,self.gs,self.rs,self.ws,self.bs,self.ys,self.gs,self.rs,self.ws)
         
         
@@ -74,8 +75,9 @@ class GUI:
             painty = (posy+1)*position_height
         if(shapeID < len(self.images)):
             self.canvas.create_image(paintx,painty,image=self.images[shapeID])
-            #self.canvas.create_text(paintx+5,painty+30,text="SID =" + str(shapeID), fill = "red")
-            #self.canvas.create_text(paintx+5,painty+40,text="POS = (" + str(posx) +","+ str(posy)+")", fill = "red")
+        else:
+            self.canvas.create_image(paintx,painty,image=self.fb)
+        
     
     #Paints a zeppelin on the grid
     #posx en posy is in cm
@@ -92,11 +94,11 @@ class GUI:
         if(ZID == 1):   #our zeppelin
             self.canvas.create_image(xoffset + x,yoffset + y,image=self.greendot)
             self.canvas.create_text(xoffset + x + 5,yoffset + y+30,text="ZID =" + str(ZID), fill = "red")
-            self.canvas.create_text(xoffset + x + 5,yoffset + y+40,text="POS = (" + str(posx) +","+ str(posy)+")cm", fill = "red")
+            self.canvas.create_text(xoffset + x + 5,yoffset + y+40,text="POS = (" + str(round(posx)) +","+ str(round(posy))+")cm", fill = "red")
         else:
             self.canvas.create_image(xoffset + x,yoffset + y,image=self.reddot)
             self.canvas.create_text(xoffset + x + 5,yoffset + y+30,text="ZID =" + str(ZID), fill = "red")
-            self.canvas.create_text(xoffset + x + 5,yoffset + y+40,text="POS = (" + str(posx) +","+ str(posy)+")cm", fill = "red")
+            self.canvas.create_text(xoffset + x + 5,yoffset + y+40,text="POS = (" + str(round(posx)) +","+ str(round(posy))+")cm", fill = "red")
         
     
         
@@ -132,6 +134,12 @@ class GUI:
     #requests all zeppelins and refreshes them on canvas
     def updateCanvas(self):
         self.canvas.delete(ALL)
+        list_empty = self.grid.getEmptyPositions()
+        for k in range(len(list_empty)):
+            emp = list_empty[k]
+            position_emp = emp[0]
+            EID = emp[1]
+            self.paintShape(position_emp[0], position_emp[1], EID)
         list = self.grid.getZeppelins()
         for i in range(len(list)):
             zep = list[i]
@@ -157,9 +165,9 @@ class GUI:
             zep = zeps[i]
             pos = zep[0]
             if(zep[1] == 1):
-                message = message + "\n" + "Our zeppelin at (" + str(pos[0]) + "," + str(pos[1]) + ")"
+                message = message + "\n" + "Our zeppelin at (" + str(round(pos[0])) + "," + str(round(pos[1])) + ")"
             else:
-                message = message + "\n" + "Other zeppelin, ID="+ str(zep[1])+ " at ("+ str(pos[0]) + "," + str(pos[1]) + ")"
+                message = message + "\n" + "Other zeppelin, ID="+ str(zep[1])+ " at ("+ str(round(pos[0])) + "," + str(round(pos[1])) + ")"
         self.clearMessage()
         self.addDisplayedMessage(message)
     
@@ -179,6 +187,7 @@ class GUI:
     #update canvas after 1000ms
     def task(self):
         if(self.listener is not None):
+            goal = self.getGoalFromInput()
             zep = self.getPositionFromListener()
             zep_pos = zep.asArray()
             self.grid.setZeppelinPosition(zep_pos[0], zep_pos[1], 1)
@@ -186,27 +195,22 @@ class GUI:
         self.root.after(33,self.task)
         print("xxxxxxxxxxxxxxxxxxxxxxxxx")
         print(self.grid.calculatePositionFromShapes(12, 17, 7))
-        print(self.grid.calculatePositionFromShapes(12, 7, 17))
-        print(self.grid.calculatePositionFromShapes(7, 12, 17))
-        print(self.grid.calculatePositionFromShapes(7, 17, 12))
-        print(self.grid.calculatePositionFromShapes(17, 12, 7))
-        print(self.grid.calculatePositionFromShapes(17, 7, 12))
-        print("xxxxxxxxxxxxxxxxxxxxxxxxx")
         print(self.grid.calculatePositionFromShapes(13, 14, 15))
-        print(self.grid.calculatePositionFromShapes(13, 15, 14))
-        print(self.grid.calculatePositionFromShapes(14, 13, 15))
-        print(self.grid.calculatePositionFromShapes(14, 15, 13))
-        print(self.grid.calculatePositionFromShapes(15, 14, 13))
-        print(self.grid.calculatePositionFromShapes(15, 13, 14))
-        print("xxxxxxxxxxxxxxxxxxxxxxxxx")
-        print(self.grid.calculatePositionFromShapes(2, 3, 4))
-        print(self.grid.calculatePositionFromShapes(2, 4, 3))
-        print(self.grid.calculatePositionFromShapes(3, 2, 4))
-        print(self.grid.calculatePositionFromShapes(3, 4, 2))
-        print(self.grid.calculatePositionFromShapes(4, 3, 2))
         print(self.grid.calculatePositionFromShapes(4, 2, 3))
         print("xxxxxxxxxxxxxxxxxxxxxxxxx")
-        
+    
+    def getGoalFromInput(self):
+        inputx = self.entry1.get()
+        inputy = self.entry2.get()
+        try:
+            x = int(inputx)
+            y = int(inputy)
+        except:
+            x = -1
+            y = -1
+        print(x,y)
+        return (x,y)
+    
     def getPositionFromListener(self):
         return self.listener.getPosition()
         
@@ -233,7 +237,9 @@ class GRID:
     
     #defines a matrix with y rows and x columns. Each M(x,y) contains a value, this value represents the Shape-ID (SID)
     def __init__(self,x,y):
+        print(str(range(x)))
         self.table = [ [ 0 for i in range(x) ] for j in range(y) ]
+        print(self.table)
         self.rows = y
         self.columns = x
         self.height_cm = 400
@@ -251,13 +257,22 @@ class GRID:
         else:
             print("not a valid position")
     
+    #get empty positions
+    def getEmptyPositions(self):
+        listy = []
+        for i in range(self.rows):
+            for j in range(self.columns):
+                if(self.table[j][i] <= 0):
+                    listy.append(((j,i),self.table[j][i]))
+        return listy
+    
     #get all shapes and their positions and return them in a list ((x,y),ZID)
     def getShapesAndPositions(self):
         listy = []
         for i in range(self.rows):
             for j in range(self.columns):
-                if(self.table[i][j] > 0):
-                    listy.append(((i,j),self.table[i][j]))
+                if(self.table[j][i] > 0):
+                    listy.append(((j,i),self.table[j][i]))
         return listy
     
     #return a list of all zeppelins
@@ -317,7 +332,7 @@ class GRID:
                         return((i+1/2)*40,(j+1/2)*35) #klopt wrs nog ni
                     if(j%2 == 0 and self.table[i][j-1]==SID1):
                         return((i+1/2)*40,(j-1/2)*35)
-        return ((-1,-1),-1)
+        return (-1,-1)
     #!!!!!!!!!!!!!!!!!!!! x and y are in cm !!!!!!!!!!!!!!!!!!!
     def setZeppelinPosition(self, x, y, ZID):
         for i in range (len(self.zeplist)):

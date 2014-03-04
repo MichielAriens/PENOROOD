@@ -56,6 +56,7 @@ Gui.grid.setValue(15, 6,8)
 Gui.grid.setValue(2, 7,8)
 Gui.grid.setValue(3, 6,9)
 Gui.grid.setValue(4, 7,9)
+Gui.grid.setValue(1,10,11)
 
 
 
