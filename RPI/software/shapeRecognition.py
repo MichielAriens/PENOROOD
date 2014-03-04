@@ -20,17 +20,23 @@ class ShapeFinder:
     def highlightColor(self,color=None):
         image = self.renewImage()  # Load picture from image path
         fig = None
+        filteredFigure = None
 
         if color.lower() == "yellow":     # lower() makes sure the characters are not capitalized
             fig = image.colorDistance((236,187,120))
+            filteredFigure = image - fig - fig - fig
         elif color.lower() == "red":
             fig = image.colorDistance((167,38,76))
+            filteredFigure = image - fig - fig
         elif color.lower() == "green":
             fig = image.colorDistance((62,80,75))
+            filteredFigure = image - fig - fig - fig - fig
         elif color.lower() == "blue":
             fig = image.colorDistance((55,70,110))
+            filteredFigure = image - fig - fig
         elif color.lower() == "white":
             fig = image.colorDistance((239,239,239))
+            filteredFigure = image - fig - fig
         else: print "Bad color input, this should never have happened!"
 
              # Test: If the selected color is colored black, then it's working as intended
@@ -41,8 +47,9 @@ class ShapeFinder:
         # The contrast of the given color has been made stronger; this should ideally show only the figures with the color we want.
         # Play around with the amount of times you subtract fig (black is (0,0,0) though our chosen color is not completely black in fig, so
         # be careful not to subtract too much or everything becomes black). Keep doing this until everything but the figures we need are black.
-        # Numbers below zero automatically become zero. Subtracting fig twice seems to be the sweet spot. :)
-        filteredFigure = image - fig - fig - fig
+        # Numbers below zero automatically become zero.
+        # Deprecated: different colors need different amount of filtering
+        # filteredFigure = image - fig - fig
 
              # Test: If the selected color has a stronger contrast with the other colors than before, then it's working as intended
         filteredFigure.show()
@@ -77,7 +84,7 @@ class ShapeFinder:
         for blob in blobs:
             blob.draw()
             print blob
-            if (blob.isCircle(0.2) == True): print "circle"
+            if (blob.isCircle(0.11) == True): print "circle"
             if (blob.isRectangle(0.05) == True): print "rectangle"
             filteredFig.show()
             raw_input()
@@ -88,7 +95,7 @@ class ShapeFinder:
         fig = None
 
         if shape.lower() == "circle":     # lower() makes sure the characters are not capitalized
-            circleTolerance = 0.2  # 0.2 may be a bit too large, but 0.05 is definately too small.  Further testing required.
+            circleTolerance = 0.11  # 0.2 may be a bit too large, but 0.05 is definately too small.  Further testing required.
             tolerance = circleTolerance
             fig = [b for b in blobs if b.isCircle(tolerance)]  # find all the circles within a certain tolerance
         elif shape.lower() == "rectangle":
@@ -115,5 +122,5 @@ class ShapeFinder:
 
 
 shapes = ShapeFinder()
-shapes.locateFigures('green','circle')
+shapes.locateFigures('white','circle')
 
