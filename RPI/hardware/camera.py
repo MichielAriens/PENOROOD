@@ -14,11 +14,11 @@ import picamera
 
 class Camera:
     def __init__(self,resolution,path):
-        self.res = res;
+        self.res = resolution;
         self.camera = picamera.PiCamera()
         self.camera.resolution = (self.res, self.res)
         self.path = path
         
     def update(self):
-        camera.capture(path,'jpeg')
+        camera.capture(self.path,'jpeg')
 
