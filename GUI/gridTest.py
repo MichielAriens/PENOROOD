@@ -25,7 +25,7 @@ class GUI:
         self.heightLabel = Label(self.labelframe, text="Height = n.a.")
         self.entry1 = Entry(self.labelframe)
         self.entry2 = Entry(self.labelframe)
-        self.grid = GRID(12,13)
+        self.grid = GRID(8,7)
         self.text = Text(master,width = 50, height = 15)
         
         self.controlFrame = LabelFrame(master, text="Controls")
@@ -36,28 +36,28 @@ class GUI:
         
         self.greendot = PhotoImage(file="GUI/goodzep.gif")
         self.reddot = PhotoImage(file="GUI/badzep.gif")
-        self.bh = PhotoImage(file="GUI/blauw_hart.gif")
-        self.yh = PhotoImage(file="GUI/geel_hart.gif")
-        self.gh = PhotoImage(file="GUI/groen_hart.gif")
-        self.rh = PhotoImage(file="GUI/rood_hart.gif")
-        self.wh = PhotoImage(file= "GUI/wit_hart.gif")
-        self.bc = PhotoImage(file="GUI/blauwe_cirkel.gif")
-        self.yc = PhotoImage(file="GUI/gele_cirkel.gif")
-        self.gc = PhotoImage(file="GUI/groene_cirkel.gif")
-        self.rc = PhotoImage(file="GUI/rode_cirkel.gif")
-        self.wc = PhotoImage(file="GUI/witte_cirkel.gif")
-        self.bs = PhotoImage(file="GUI/blauwe_rechthoek.gif")
-        self.ys = PhotoImage(file="GUI/gele_rechthoek.gif")
-        self.gs = PhotoImage(file="GUI/groene_rechthoek.gif")
-        self.rs = PhotoImage(file="GUI/rode_rechthoek.gif")
-        self.ws = PhotoImage(file="GUI/witte_rechthoek.gif")
-        self.bs = PhotoImage(file="GUI/blauwe_ster.gif")
-        self.ys = PhotoImage(file="GUI/gele_ster.gif")
-        self.gs = PhotoImage(file="GUI/groene_ster.gif")
-        self.rs = PhotoImage(file="GUI/rode_ster.gif")
-        self.ws = PhotoImage(file="GUI/witte_ster.gif")
-        self.fb = PhotoImage(file="GUI/forbidden_area.gif")
-        self.images = (self.fb,self.bh,self.yh,self.gh,self.rh, self.wh,self.bc,self.yc,self.gc,self.rc,self.wc,self.bs,self.ys,self.gs,self.rs,self.ws,self.bs,self.ys,self.gs,self.rs,self.ws)
+        self.bh = PhotoImage(file="GUI/blauw_hart.gif") #1
+        self.yh = PhotoImage(file="GUI/geel_hart.gif")#2
+        self.gh = PhotoImage(file="GUI/groen_hart.gif")#3
+        self.rh = PhotoImage(file="GUI/rood_hart.gif")#4
+        self.wh = PhotoImage(file= "GUI/wit_hart.gif")#5
+        self.bc = PhotoImage(file="GUI/blauwe_cirkel.gif")#6
+        self.yc = PhotoImage(file="GUI/gele_cirkel.gif")#7
+        self.gc = PhotoImage(file="GUI/groene_cirkel.gif")#8
+        self.rc = PhotoImage(file="GUI/rode_cirkel.gif")#9
+        self.wc = PhotoImage(file="GUI/witte_cirkel.gif")#10
+        self.br = PhotoImage(file="GUI/blauwe_rechthoek.gif")#11
+        self.yr = PhotoImage(file="GUI/gele_rechthoek.gif")#12
+        self.gr = PhotoImage(file="GUI/groene_rechthoek.gif")#13
+        self.rr = PhotoImage(file="GUI/rode_rechthoek.gif")#14
+        self.wr = PhotoImage(file="GUI/witte_rechthoek.gif")#15
+        self.bs = PhotoImage(file="GUI/blauwe_ster.gif")#16
+        self.ys = PhotoImage(file="GUI/gele_ster.gif")#17
+        self.gs = PhotoImage(file="GUI/groene_ster.gif")#18
+        self.rs = PhotoImage(file="GUI/rode_ster.gif")#19
+        self.ws = PhotoImage(file="GUI/witte_ster.gif")#20
+        self.fb = PhotoImage(file="GUI/forbidden_area.gif")#1
+        self.images = (self.fb,self.bh,self.yh,self.gh,self.rh, self.wh,self.bc,self.yc,self.gc,self.rc,self.wc,self.br,self.yr,self.gr,self.rr,self.wr,self.bs,self.ys,self.gs,self.rs,self.ws)
         
         
         
@@ -134,18 +134,13 @@ class GUI:
     #requests all zeppelins and refreshes them on canvas
     def updateCanvas(self):
         self.canvas.delete(ALL)
+        self.drawGrid()
         list_empty = self.grid.getEmptyPositions()
         for k in range(len(list_empty)):
             emp = list_empty[k]
             position_emp = emp[0]
             EID = emp[1]
             self.paintShape(position_emp[0], position_emp[1], EID)
-        list = self.grid.getZeppelins()
-        for i in range(len(list)):
-            zep = list[i]
-            position_zep = zep[0]
-            ZID = zep[1]
-            self.paintZeppelin(position_zep[0], position_zep[1], ZID)
         list_shapes = self.grid.getShapesAndPositions()
         print(list_shapes)
         for j in range(len(list_shapes)):
@@ -153,7 +148,12 @@ class GUI:
             position_shape = shape[0]
             SID = shape[1]
             self.paintShape(position_shape[0], position_shape[1], SID)
-        self.drawGrid()
+        list = self.grid.getZeppelins()
+        for i in range(len(list)):
+            zep = list[i]
+            position_zep = zep[0]
+            ZID = zep[1]
+            self.paintZeppelin(position_zep[0], position_zep[1], ZID)
         self.updateMessage()
         print(self.grid.getZeppelins())
     
@@ -246,6 +246,64 @@ class GRID:
         self.width_cm = 400
         self.zeplist = []
     
+    def initiate(self,string):
+        part_strings = string.rsplit("=");
+        value = 0
+        x = 0
+        y = 0
+        for i in range(len(part_strings)):
+            string = part_strings[i]
+            if(string == "bh"):
+                value = 1
+            elif(string == "yh"):
+                value = 2
+            elif(string =="gh"):
+                value = 3
+            elif(string =="rh"):
+                value = 4
+            elif(string =="wh"):
+                value = 5
+            elif(string =="bc"):
+                value = 6
+            elif(string =="yc"):
+                value = 7
+            elif(string =="gc"):
+                value = 8
+            elif(string =="rc"):
+                value = 9
+            elif(string =="wc"):
+                value = 10
+            elif(string =="br"):
+                value = 11
+            elif(string =="yr"):
+                value = 12
+            elif(string =="gr"):
+                value = 13
+            elif(string =="rr"):
+                value = 14
+            elif(string =="wr"):
+                value = 15
+            elif(string =="bs"):
+                value = 16
+            elif(string =="ys"):
+                value = 17
+            elif(string =="gs"):
+                value = 18
+            elif(string =="rs"):
+                value = 19
+            elif(string =="ws"):
+                value = 20
+            elif(string =="0"):
+                value = 0
+            self.setValue(value, x, y)
+            x = x + 1
+            if(x >= 8):
+                x = 0
+                y = y + 1 
+    
+        
+        
+
     #set the value of specified position on the grid.
     def setValue(self, value, x, y ): #value = zeppelin_ID
         self.table[x][y] = value

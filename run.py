@@ -43,20 +43,7 @@ Gui.rightbutton.grid(row = 1, column = 2)
 
 Gui.grid.addZeppelin(120, 243, 1)
 Gui.grid.addZeppelin(200, 200, 2)
-Gui.grid.setValue(5, 2, 3)
-Gui.grid.setValue(1, 5, 1)
-Gui.grid.setValue(7, 0, 1)
-Gui.grid.setValue(9, 11,1)
-Gui.grid.setValue(17, 0, 0)
-Gui.grid.setValue(12,1,0)
-Gui.grid.setValue(19, 11,0)
-Gui.grid.setValue(13, 5,7)
-Gui.grid.setValue(14, 5,8)
-Gui.grid.setValue(15, 6,8)
-Gui.grid.setValue(2, 7,8)
-Gui.grid.setValue(3, 6,9)
-Gui.grid.setValue(4, 7,9)
-Gui.grid.setValue(1,11,12)
+Gui.grid.initiate("0=0=gh=rs=bc=gr=0=0=0=wr=ys=bc=ws=gr=0=0=0=rr=yr=gh=wc=bh=wr=0=bs=rs=gc=bs=bh=bc=gs=0=0=br=yh=rh=gs=gc=yh=0=0=bh=rh=ws=wr=ys=0=0=0=0=gh=rs=bc=gr")
 
 
 
