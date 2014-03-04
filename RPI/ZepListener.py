@@ -15,6 +15,5 @@ class ZepListener:
 	def getSpeed(self):
 		return self.zeppelin.getSpeed()
 
-		
-
-		
+	def sendMovementToFakeZep(self,movement):
+		self.zeppelin.acceptMovementFromListener(movement)

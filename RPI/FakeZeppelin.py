@@ -88,6 +88,7 @@ class FakeEnvironment:
             scale = timeNow - lastTime
             lastTime = timeNow
             
+            #simon
             actuatedForce = self.force.add(self.gravity.inverse()).add(self.lift)
             self.speed = self.speed.add(actuatedForce.scale(scale))
             self.pos = self.pos.add(self.speed)
@@ -114,7 +115,11 @@ class FakeZeppelin:
         self.motorY = motor.FakeMotor(self.fe,Axis.y)
         self.motorZ = motor.FakeMotor(self.fe,Axis.z)
         #self.altimeter = ds.FakeDistanceSensor2(self.fe)
-        self.fe.force = Vector3(1,1,0)
+       
+        #old self.fe.force = Vector3(0.1,0.2,0)
+        #new SimonOveride
+        self.setMovementZeppelin();
+        
         print(self.fe.force.toString())
         thread.start_new_thread(self.fe.update, ())
         print(self.fe.force.toString())
@@ -127,5 +132,31 @@ class FakeZeppelin:
     def getSpeed(self):
         return self.fe.speed
     
+    def setMovementZeppelin(self):
+        self.fe.force = Vector3(0.1,0.2,0)
         
- 
+    def acceptMovementFromListener(self,movement):
+        if(movement == 1):
+            self.goForward()
+        elif(movement == 2):
+            self.goRight()
+        elif(movement == 3):
+            self.goBackward()
+        else:
+            self.goLeft()
+        
+    def goRight(self):
+        self.fe.force = Vector3(1,0,0)
+        
+    def goLeft(self):
+        self.fe.force = Vector3(-1,0,0)
+        
+    def goForward(self):
+        self.fe.force = Vector3(0,-1,0)
+        
+    def goBackward(self):
+        self.fe.force = Vector3(0,1,0)
+        
+    def stop(self):
+        self.fe.speed = Vector3(0,0,0)
+    

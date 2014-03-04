@@ -211,28 +211,16 @@ class GUI:
         return self.listener.getPosition()
         
     def moveUpWithButton(self):
-        our_zep = self.grid.getZeppelin(1)
-        x = our_zep[0][0]
-        y = our_zep[0][1]
-        self.grid.setZeppelinPosition( x, y+20,1)
+        self.listener.sendMovementToFakeZep(1)
         
     def moveDownWithButton(self):
-        our_zep = self.grid.getZeppelin(1)
-        x = our_zep[0][0]
-        y = our_zep[0][1]
-        self.grid.setZeppelinPosition( x, y-20,1)
+        self.listener.sendMovementToFakeZep(3)
     
     def moveLeftWithButton(self):
-        our_zep = self.grid.getZeppelin(1)
-        x = our_zep[0][0]
-        y = our_zep[0][1]
-        self.grid.setZeppelinPosition( x-20, y,1)
+        self.listener.sendMovementToFakeZep(4)
         
     def moveRightWithButton(self):
-        our_zep = self.grid.getZeppelin(1)
-        x = our_zep[0][0]
-        y = our_zep[0][1]
-        self.grid.setZeppelinPosition( x+20, y,1)
+        self.listener.sendMovementToFakeZep(2)
         
     def sendMessageToListener(self, message):
         self.listener.refactor(message);

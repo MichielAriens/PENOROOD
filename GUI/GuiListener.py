@@ -20,3 +20,6 @@ class GuiListener:
         
     def encode(self,message):
         print()
+        
+    def sendMovementToFakeZep(self, movement): #1 = up ,2 = down, ...
+        self.zepListener.sendMovementToFakeZep(movement)
