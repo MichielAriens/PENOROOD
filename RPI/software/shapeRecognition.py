@@ -48,7 +48,7 @@ class ShapeFinder:
         # Play around with the amount of times you subtract fig (black is (0,0,0) though our chosen color is not completely black in fig, so
         # be careful not to subtract too much or everything becomes black). Keep doing this until everything but the figures we need are black.
         # Numbers below zero automatically become zero.
-        # Deprecated: different colors need different amount of filtering
+        # Deprecated: different colors need different amount of filtering.
         # filteredFigure = image - fig - fig
 
              # Test: If the selected color has a stronger contrast with the other colors than before, then it's working as intended
