@@ -28,7 +28,8 @@ def analyze():
 class Zeppelin:
     #initmethod variables (call start to invoke backround methods)
     def __init__(self, dists=None):
-        
+        self.grid = gridTest.GRID(12,13)
+        #still requirs grid loading
         self.path = "cam.jpg"
         #Init PID (0.1,0,0.5) works slightly, (0.1,0.05,3) better P to 0.2 increases responsiveness, I increses overshoot but decreases settletime
         #D decreases overshoot but engthens settletime. (slows machine down)
@@ -62,7 +63,7 @@ class Zeppelin:
     def _keepHeight(self):
         while(True):
             #Set the thrust to the PID output.
-            pos = analyze()
+            pos = analyze(self.grid)
             self.lift.setThrust(self.heightPID.update(self.altimeter.getHeight()) + self.motorOffset)
             self.xMot.setThrust(self.xPID.update(self.pos.fst()))
             self.xMot.setThrust(self.xPID.update(self.pos.snd()))
