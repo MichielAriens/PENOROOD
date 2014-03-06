@@ -10,7 +10,9 @@ from SimpleCV import Color, Image
 # Color values can easily be found by right clicking the picture and use color picker!  (in pycharm anyway)
 class ShapeFinder:
     def __init__(self):
-        self.imagePath = 'C:\\Users\\Babyburger\\PycharmProjects\\PENOROODpy\\output1\\1.jpg'
+        pass
+        #self.imagePath = 'C:\\Users\\Babyburger\\PycharmProjects\\PENOROODpy\\output1\\1.jpg'
+        self.imagePath = '/home/pi/zep2/output/4.jpg'
 
     # Load picture here
     def renewImage(self):
@@ -49,10 +51,10 @@ class ShapeFinder:
         # Deprecated: different colors need different amount of filtering.
         # filteredFigure = image - fig - fig
 
-             # Test: If the selected color has a stronger contrast with the other colors than before, then it's working as intended
+        """     # Test: If the selected color has a stronger contrast with the other colors than before, then it's working as intended
         filteredFigure.show()
         raw_input()
-
+        """
 
         return filteredFigure
 
@@ -68,12 +70,12 @@ class ShapeFinder:
         # Contains figures of the chosen color
         blobs = filteredFig.findBlobs()  # findBlobs() function easily finds lightly colored blobs on a dark background
 
-        self.testFoundColor(blobs,filteredFig)    # Use this method to test if the figures from the given color are correct
+        #self.testFoundColor(blobs,filteredFig)    # Use this method to test if the figures from the given color are correct
 
         # Contains figures of the chosen shape (and color)
         shapes = self.findShapes(shape,blobs)
 
-        self.testFoundShape(shapes,filteredFig)  # Use this method to test if the figures from the given shape are correct
+        #self.testFoundShape(shapes,filteredFig)  # Use this method to test if the figures from the given shape are correct
 
         width, height = filteredFig.size()
         coordinates = self.findCoordinates(shapes,width,height)
@@ -139,8 +141,8 @@ class ShapeFinder:
 
 
 
-shapes = ShapeFinder()
-shapes.locateFigures('white','circle')
+#shapes = ShapeFinder()
+#shapes.locateFigures('white','circle')
 
 
 
@@ -150,23 +152,23 @@ class Analyzer:
         self.shape = ShapeFinder()
     
     def analyze(self,path):
-        shape.setImage(path)
+        self.shape.setImage(path)
         allfigures = []
         
-        filteredFig = shape.highlightColor("white")
-        allfigures.extend(colorshape(filteredFig,"white"))
+        filteredFig = self.shape.highlightColor("white")
+        allfigures.extend(self.colorshape(filteredFig,"white"))
         
-        filteredFig = shape.highlightColor("blue")
-        allfigures.extend(colorshape(filteredFig,"blue"))
+        filteredFig = self.shape.highlightColor("blue")
+        allfigures.extend(self.colorshape(filteredFig,"blue"))
         
-        filteredFig = shape.highlightColor("red")
-        allfigures.extend(colorshape(filteredFig,"red"))
+        filteredFig = self.shape.highlightColor("red")
+        allfigures.extend(self.colorshape(filteredFig,"red"))
         
-        filteredFig = shape.highlightColor("green")
-        allfigures.extend(colorshape(filteredFig,"green"))
+        filteredFig = self.shape.highlightColor("green")
+        allfigures.extend(self.colorshape(filteredFig,"green"))
         
-        filteredFig = shape.highlightColor("yellow")
-        allfigures.extend(colorshape(filteredFig,"yellow"))
+        filteredFig = self.shape.highlightColor("yellow")
+        allfigures.extend(self.colorshape(filteredFig,"yellow"))
         
         return allfigures
         
@@ -177,20 +179,21 @@ class Analyzer:
         
         width, height = filteredFig.size()
         
-        for blob in blobs:
-            if (blob.rectangleDistance() < 0.05):
-                x,y = shape.findCoordinate(blob,width,height)
-                colorshapes.append((color,"rectangle",x,y))
-            else:
-                cd = blob.circleDistance()
-                if (cd < 0.1):
-                    x,y = shape.findCoordinate(blob,width,height)
-                    colorshapes.append((color,"circle",x,y))
-                elif (cd > 0.15 and cd < 0.25):
-                    x,y = shape.findCoordinate(blob,width,height)
-                    colorshapes.append((color,"heart",x,y))
+        if blobs is not None:   
+            for blob in blobs:
+                if (blob.rectangleDistance() < 0.05):
+                    x,y = self.shape.findCoordinate(blob,width,height)
+                    colorshapes.append((color,"rectangle",x,y))
                 else:
-                    x,y = shape.findCoordinate(blob,width,height)
-                    colorshapes.append((color,"star",x,y))
-                
+                    cd = blob.circleDistance()
+                    if (cd < 0.1):
+                        x,y = self.shape.findCoordinate(blob,width,height)
+                        colorshapes.append((color,"circle",x,y))
+                    elif (cd > 0.15 and cd < 0.25):
+                        x,y = self.shape.findCoordinate(blob,width,height)
+                        colorshapes.append((color,"heart",x,y))
+                    else:
+                        x,y = self.shape.findCoordinate(blob,width,height)
+                        colorshapes.append((color,"star",x,y))
+                    
         return colorshapes
