@@ -2,8 +2,8 @@
 #You tell this class what results you wish to achieve instead of how to achieve them.
 
 
-#--------------------------------------
-
+#-------------------------------------
+import grid as gridTest
 import hardware.distSensor as ds
 import hardware.motor as motor
 import hardware.camera as cam
@@ -28,7 +28,8 @@ def analyze():
 class Zeppelin:
     #initmethod variables (call start to invoke backround methods)
     def __init__(self, dists=None):
-        self.grid = gridTest.GRID(12,13)
+        self.grid = gridTest.GRID(8,7)
+        grid.initiate("0=0=gh=rs=bc=gr=0=0=0=wr=ys=bc=ws=gr=0=0=0=rr=yr=gh=wc=bh=wr=0=bs=rs=gc=bs=bh=bc=gs=0=0=br=yh=rh=gs=gc=yh=0=0=bh=rh=ws=wr=ys=0=0=0=0=gh=rs=bc=gr")
         #still requirs grid loading
         self.path = "cam.jpg"
         #Init PID (0.1,0,0.5) works slightly, (0.1,0.05,3) better P to 0.2 increases responsiveness, I increses overshoot but decreases settletime

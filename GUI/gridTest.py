@@ -193,11 +193,6 @@ class GUI:
             self.grid.setZeppelinPosition(zep_pos[0], zep_pos[1], 1)
         self.updateCanvas()
         self.root.after(33,self.task)
-        print("xxxxxxxxxxxxxxxxxxxxxxxxx")
-        print(self.grid.calculatePositionFromShapes(12, 17, 7))
-        print(self.grid.calculatePositionFromShapes(13, 14, 15))
-        print(self.grid.calculatePositionFromShapes(4, 2, 3))
-        print("xxxxxxxxxxxxxxxxxxxxxxxxx")
     
     def getGoalFromInput(self):
         inputx = self.entry1.get()
