@@ -19,7 +19,7 @@ class GUI:
         self.root = master
         self.listener = listener
         self.labelframe = LabelFrame(master, text="Input&Output")
-        self.canvas = Canvas(master, bg = "White", width = 500, height = 500)
+        self.canvas = Canvas(master, bg = "White", width = 1000, height = 1000)
         self.label1 = Label(self.labelframe, text="X")
         self.label2 = Label(self.labelframe, text="Y")
         self.heightLabel = Label(self.labelframe, text="Height = n.a.")
