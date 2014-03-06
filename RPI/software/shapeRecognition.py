@@ -62,8 +62,8 @@ class ShapeFinder:
     def colorValue(self, filteredFigure):
         return filteredFigure.meanColor()
 
-    # This method first parses the color, then parses the shape from the figure. It should return only figures
-    # of the chose color and shape.
+    # This method first parses the color, then parses the shape from the figure. It should find only figures
+    # of the chose color and shape. It then returns a list of the coordinates of these figures.
     def locateFigures(self,color=None,shape=None):
         filteredFig = self.highlightColor(color)
 
@@ -75,9 +75,12 @@ class ShapeFinder:
         # Contains figures of the chosen shape (and color)
         shapes = self.findShapes(shape,blobs)
 
-        # self.testFoundShape(shapes,filteredFig)  # Use this method to test if the figures from the given shape are correct
+        self.testFoundShape(shapes,filteredFig)  # Use this method to test if the figures from the given shape are correct
 
-        return shapes
+        width, height = filteredFig.size()
+        coordinates = self.findCoordinates(shapes,width,height)
+
+        return coordinates
 
     # Tests whether the figures correspond to the given color or not by displaying the current results.
     def testFoundColor(self,blobs=None,filteredFig = None):
@@ -118,6 +121,16 @@ class ShapeFinder:
             filteredFig.show()
             raw_input()
 
+    # Finds the coordinates of the shapes and returns them in a list
+    def findCoordinates(self,shapes=None,width=0,height=0):
+        # use extend, not append
+        coordinates = []
+
+        for shape in shapes:
+            #implement coordinates extension real quick
+            True
+
+        return coordinates
 
 
 
