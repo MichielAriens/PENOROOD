@@ -1,27 +1,28 @@
-import picamera
+#import picamera
 import time
+import RPI.software.shapeRecognition as sr
 
-sf = ShapeFinder()
-path = "/home/pi/zep2/output/data.jpg"
+#sf = sr.Analyzer()
+#path = "/home/pi/zep2/output/data.jpg"
 
-f = open('/home/pi/zep2/output/results.csv','w')
-f.write('hi there\n') # python will convert \n to os.linesep
-f.close()
+#f = open('/home/pi/zep2/output/results.csv','w')
+#f.write('hi there\n') # python will convert \n to os.linesep
 
 def analyze():
     global sf,path
-    with picamera.PiCamera() as camera:
-        camera.resolution = (500,500)
-        camera.capture(path, "jpeg")
+    #with picamera.PiCamera() as camera:
+    #    camera.resolution = (500,500)
+    #    camera.capture(path, "jpeg")
         
-    sf.findAll(path)
+    found = sf.analyze()#path)
+    print str(found)
+    return found
     
     
+#import RPI.grid
+#grid =  RPI.grid.Grid()
     
-import RPI.grid
-grid =  RPI.grid.Grid()
-    
-while(true):
-    listOfShapes = analyze()
-    for (shape,colour,x,y) in listOfShapes:
+#while(true):
+#    listOfShapes = analyze()
+#    for (shape,colour,x,y) in listOfShapes:
         

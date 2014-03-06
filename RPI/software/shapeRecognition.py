@@ -111,7 +111,6 @@ class ShapeFinder:
 
         return lst
 
-    def isHeart
 
     # Tests whether the figures correspond to the given shape or not by displaying the current results.
     def testFoundShape(self,shapes=None,filteredFig=None):
@@ -147,7 +146,7 @@ shapes.locateFigures('white','circle')
 
 class Analyzer:
     
-    __init__(self):
+    def __init__(self):
         self.shape = ShapeFinder()
     
     def analyze(self,path):
@@ -187,7 +186,7 @@ class Analyzer:
                 if (cd < 0.1):
                     x,y = shape.findCoordinate(blob,width,height)
                     colorshapes.append((color,"circle",x,y))
-                else if (cd > 0.15 and cd < 0.25):
+                elif (cd > 0.15 and cd < 0.25):
                     x,y = shape.findCoordinate(blob,width,height)
                     colorshapes.append((color,"heart",x,y))
                 else:
