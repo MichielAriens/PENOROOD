@@ -121,14 +121,16 @@ class ShapeFinder:
             filteredFig.show()
             raw_input()
 
-    # Finds the coordinates of the shapes and returns them in a list
+    # Finds the coordinates of the shapes and returns them in a list (of tuples)
     def findCoordinates(self,shapes=None,width=0,height=0):
         # use extend, not append
         coordinates = []
 
         for shape in shapes:
-            #implement coordinates extension real quick
-            True
+            blobwidth, blobheight = shape.centroid()
+            xcoor = blobwidth - (width / 2)
+            ycoor = blobheight - (height / 2)
+            coordinates.extend((xcoor,ycoor))
 
         return coordinates
 
