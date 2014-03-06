@@ -67,7 +67,50 @@ class GRID:
                 y = y + 1 
     
         
-        
+    def getShapeID(self, string):
+        if(string == "bh"):
+            value = 1
+        elif(string == "yh"):
+            value = 2
+        elif(string =="gh"):
+            value = 3
+        elif(string =="rh"):
+            value = 4
+        elif(string =="wh"):
+            value = 5
+        elif(string =="bc"):
+            value = 6
+        elif(string =="yc"):
+            value = 7
+        elif(string =="gc"):
+            value = 8
+        elif(string =="rc"):
+            value = 9
+        elif(string =="wc"):
+            value = 10
+        elif(string =="br"):
+            value = 11
+        elif(string =="yr"):
+            value = 12
+        elif(string =="gr"):
+            value = 13
+        elif(string =="rr"):
+            value = 14
+        elif(string =="wr"):
+            value = 15
+        elif(string =="bs"):
+            value = 16
+        elif(string =="ys"):
+            value = 17
+        elif(string =="gs"):
+            value = 18
+        elif(string =="rs"):
+            value = 19
+        elif(string =="ws"):
+            value = 20
+        elif(string =="0"):
+            value = 0
+        return value
 
     #set the value of specified position on the grid.
     def setValue(self, value, x, y ): #value = zeppelin_ID

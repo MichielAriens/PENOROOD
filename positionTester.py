@@ -18,8 +18,8 @@ def analyze():
     
     
     
-
-grid
+import RPI.grid
+grid =  RPI.grid.Grid()
     
 while(true):
     listOfShapes = analyze()
