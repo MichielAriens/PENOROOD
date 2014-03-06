@@ -113,6 +113,8 @@ class ShapeFinder:
 
         return fig
 
+    def isHeart
+
     # Tests whether the figures correspond to the given shape or not by displaying the current results.
     def testFoundShape(self,shapes=None,filteredFig=None):
         for shape in shapes:
