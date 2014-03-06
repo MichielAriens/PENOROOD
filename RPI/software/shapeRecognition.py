@@ -15,6 +15,9 @@ class ShapeFinder:
     # Load picture here
     def renewImage(self):
         return Image(self.imagePath)
+        
+    def setImage(self,path):
+        self.imagePath = path
 
     # Highlight color (the input color should be case insensitive)
     def highlightColor(self,color=None):
@@ -147,7 +150,8 @@ class Analyzer:
     __init__(self):
         self.shape = ShapeFinder()
     
-    def analyze(self):
+    def analyze(self,path):
+        shape.setImage(path)
         allfigures = []
         
         filteredFig = shape.highlightColor("white")
