@@ -19,7 +19,7 @@ class GUI:
         self.root = master
         self.listener = listener
         self.labelframe = LabelFrame(master, text="Input&Output")
-        self.canvas = Canvas(master, bg = "White", width = 500, height = 500)
+        self.canvas = Canvas(master, bg = "White", width = 1000, height = 1000)
         self.label1 = Label(self.labelframe, text="X")
         self.label2 = Label(self.labelframe, text="Y")
         self.heightLabel = Label(self.labelframe, text="Height = n.a.")
@@ -193,11 +193,6 @@ class GUI:
             self.grid.setZeppelinPosition(zep_pos[0], zep_pos[1], 1)
         self.updateCanvas()
         self.root.after(33,self.task)
-        print("xxxxxxxxxxxxxxxxxxxxxxxxx")
-        print(self.grid.calculatePositionFromShapes(12, 17, 7))
-        print(self.grid.calculatePositionFromShapes(13, 14, 15))
-        print(self.grid.calculatePositionFromShapes(4, 2, 3))
-        print("xxxxxxxxxxxxxxxxxxxxxxxxx")
     
     def getGoalFromInput(self):
         inputx = self.entry1.get()
