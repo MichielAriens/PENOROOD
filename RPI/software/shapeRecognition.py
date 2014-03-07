@@ -74,7 +74,7 @@ class ShapeFinder:
         newblobs = self.removeEdges(blobs,width,height)
 
         # Contains figures of the chosen shape (and color)
-        shapes = self.findShapes(shape,blobs)
+        shapes = self.findShapes(shape,newblobs)
 
         self.testFoundShape(shapes,filteredFig)  # Use this method to test if the figures from the given shape are correct
 
