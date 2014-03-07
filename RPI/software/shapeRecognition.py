@@ -10,7 +10,7 @@ from SimpleCV import Color, Image
 # Color values can easily be found by right clicking the picture and use color picker!  (in pycharm anyway)
 class ShapeFinder:
     def __init__(self):
-        self.imagePath = 'C:\\Users\\Babyburger\\PycharmProjects\\PENOROODpy\\output1\\1.jpg'
+        self.imagePath = 'C:\\Users\\Babyburger\\PycharmProjects\\PENOROODpy\\output\\7.jpg'
 
     # Load picture here
     def renewImage(self):
@@ -33,9 +33,9 @@ class ShapeFinder:
             filteredFigure = image - fig - fig
         elif color.lower() == "green":
             fig = image.colorDistance((62,80,75))
-            filteredFigure = image - fig - fig - fig - fig
+            filteredFigure = image - fig - fig - fig
         elif color.lower() == "blue":
-            fig = image.colorDistance((55,70,110))
+            fig = image.colorDistance((55,70,125))
             filteredFigure = image - fig - fig
         elif color.lower() == "white":
             fig = image.colorDistance((239,239,239))
@@ -70,43 +70,68 @@ class ShapeFinder:
 
         self.testFoundColor(blobs,filteredFig)    # Use this method to test if the figures from the given color are correct
 
+        width, height = filteredFig.size()
+        newblobs = self.removeEdges(blobs,width,height)
+
         # Contains figures of the chosen shape (and color)
         shapes = self.findShapes(shape,blobs)
 
         self.testFoundShape(shapes,filteredFig)  # Use this method to test if the figures from the given shape are correct
 
-        width, height = filteredFig.size()
         coordinates = self.findCoordinates(shapes,width,height)
 
         return coordinates
 
     # Tests whether the figures correspond to the given color or not by displaying the current results.
     def testFoundColor(self,blobs=None,filteredFig = None):
-        for blob in blobs:
-            blob.draw()
-            print blob
-            if (blob.isCircle(0.11) == True): print "circle"
-            if (blob.isRectangle(0.05) == True): print "rectangle"
-            filteredFig.show()
-            raw_input()
+        if blobs is not None:
+            for blob in blobs:
+                blob.draw()
+                print blob
+                if (blob.isRectangle(0.07) == True): print "rectangle"
+                else:
+                    circleDistance = blob.circleDistance()
+                    if (circleDistance < 0.17): print "circle"
+                    elif (circleDistance < 0.22): print "star"
+                    elif (circleDistance < 0.45): print "heart"
+                filteredFig.show()
+                raw_input()
+
+    # filter edges that are within 5% margin of the edges (to ensure we scan complete figures)
+    def removeEdges(self,blobs=None,width=None,height=None):
+        leftedge = 5*width/100
+        rightedge = width - leftedge
+        upperedge = 5*height/100
+        bottomedge = height - upperedge
+        newblobs = []
+        if blobs is not None:
+            for b in blobs:
+                bw, bh = b.centroid()   # bw = blobwidth ; bh = blob height
+                if(bw > leftedge and bw < rightedge and bh > upperedge and bh < bottomedge):
+                    print 'sausage'
+                    newblobs.append(b)
+                else:
+                    print 'no sausage'
+
+        return newblobs
 
     # Returns all the figures with the specified shapes. This should only apply to the figures of the chosen color.
     def findShapes(self,shape=None,blobs=None):
-        tolerance = None
-        fig = None
+        lst = []
 
-        if shape.lower() == "circle":     # lower() makes sure the characters are not capitalized
-            circleTolerance = 0.11  # 0.2 may be a bit too large, but 0.05 is definately too small.  Further testing required.
-            tolerance = circleTolerance
-            lst = [b for b in blobs if b.isCircle(tolerance)]  # find all the circles within a certain tolerance
-        elif shape.lower() == "rectangle":
-            rectangleTolerance = 0.05  # Keep this number very low or every figure becomes a rectangle...
-            tolerance = rectangleTolerance
-            lst = [b for b in blobs if b.isRectangle(tolerance)]  # find all the rectangles within a certain tolerance
-        elif shape.lower() == "heart":
-            print 'not yet implemented'
+
+        if shape.lower() == "rectangle":
+            rectangleTolerance = 0.07  # Keep this number very low or every figure becomes a rectangle...
+            lst = [b for b in blobs if b.isRectangle(rectangleTolerance)]  # find all the rectangles within a certain tolerance
+        elif shape.lower() == "circle":     # lower() makes sure the characters are not capitalized
+            circleTolerance = 0.17  # 0.2 may be a bit too large, but 0.05 is definately too small.  Further testing required.
+            lst = [b for b in blobs if b.isCircle(circleTolerance)]  # find all the circles within a certain tolerance
         elif shape.lower() == "star":
-            print 'not yet implemented'
+            starTolerance = 0.22  # 0.2 may be a bit too large, but 0.05 is definately too small.  Further testing required.
+            lst = [b for b in blobs if b.isCircle(starTolerance)]  # find all the circles within a certain tolerance
+        elif shape.lower() == "heart":
+            heartTolerance = 0.45  # 0.2 may be a bit too large, but 0.05 is definately too small.  Further testing required.
+            lst = [b for b in blobs if b.isCircle(heartTolerance)]  # find all the circles within a certain tolerance
         else: print "Bad shape input, this should never have happened!"
 
         return lst
@@ -114,20 +139,22 @@ class ShapeFinder:
 
     # Tests whether the figures correspond to the given shape or not by displaying the current results.
     def testFoundShape(self,shapes=None,filteredFig=None):
-        for shape in shapes:
-            shape.draw()
-            print shape
-            filteredFig.show()
-            raw_input()
+        if shapes is not None:
+            for shape in shapes:
+                shape.draw()
+                print shape
+                filteredFig.show()
+                raw_input()
 
     # Finds the coordinates of the shapes and returns them in a list (of tuples)
     def findCoordinates(self,shapes=None,width=0,height=0):
         # use append, not extend
         coordinates = []
 
-        for shape in shapes:
-            coord = findCoordinate(shape,width,height)
-            coordinates.append(coord)
+        if shapes is not None:
+            for shape in shapes:
+                coord = self.findCoordinate(shape,width,height)
+                coordinates.append(coord)
 
         return coordinates
     
@@ -136,12 +163,6 @@ class ShapeFinder:
         xcoor = blobwidth - (width / 2)
         ycoor = blobheight - (height / 2)
         return (xcoor,ycoor)
-
-
-
-shapes = ShapeFinder()
-shapes.locateFigures('white','circle')
-
 
 
 class Analyzer:
