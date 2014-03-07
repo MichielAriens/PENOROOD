@@ -87,21 +87,22 @@ class ShapeFinder:
             print blob
             if (blob.isCircle(0.11) == True): print "circle"
             if (blob.isRectangle(0.05) == True): print "rectangle"
-            if (blob.isCircle(0.11) == True): print "circle"
-            if (blob.isCircle(0.11) == True): print "circle"
             filteredFig.show()
             raw_input()
 
     # Returns all the figures with the specified shapes. This should only apply to the figures of the chosen color.
     def findShapes(self,shape=None,blobs=None):
-        lst = None
+        tolerance = None
+        fig = None
 
         if shape.lower() == "circle":     # lower() makes sure the characters are not capitalized
             circleTolerance = 0.11  # 0.2 may be a bit too large, but 0.05 is definately too small.  Further testing required.
-            lst = [b for b in blobs if b.isCircle(circleTolerance)]  # find all the circles within a certain tolerance
+            tolerance = circleTolerance
+            lst = [b for b in blobs if b.isCircle(tolerance)]  # find all the circles within a certain tolerance
         elif shape.lower() == "rectangle":
             rectangleTolerance = 0.05  # Keep this number very low or every figure becomes a rectangle...
-            lst = [b for b in blobs if b.isRectangle(rectangleTolerance)]  # find all the rectangles within a certain tolerance
+            tolerance = rectangleTolerance
+            lst = [b for b in blobs if b.isRectangle(tolerance)]  # find all the rectangles within a certain tolerance
         elif shape.lower() == "heart":
             print 'not yet implemented'
         elif shape.lower() == "star":
@@ -125,7 +126,7 @@ class ShapeFinder:
         coordinates = []
 
         for shape in shapes:
-            coord = self.findCoordinate(shape,width,height)
+            coord = findCoordinate(shape,width,height)
             coordinates.append(coord)
 
         return coordinates
@@ -176,20 +177,21 @@ class Analyzer:
         
         width, height = filteredFig.size()
         
-        for blob in blobs:
-            if (blob.rectangleDistance() < 0.05):
-                x,y = self.shape.findCoordinate(blob,width,height)
-                colorshapes.append((color,"rectangle",x,y))
-            else:
-                cd = blob.circleDistance()
-                if (cd < 0.1):
+        if blobs is not None:   
+            for blob in blobs:
+                if (blob.rectangleDistance() < 0.05):
                     x,y = self.shape.findCoordinate(blob,width,height)
-                    colorshapes.append((color,"circle",x,y))
-                elif (cd > 0.15 and cd < 0.25):
-                    x,y = self.shape.findCoordinate(blob,width,height)
-                    colorshapes.append((color,"heart",x,y))
+                    colorshapes.append((color,"rectangle",x,y))
                 else:
-                    x,y = self.shape.findCoordinate(blob,width,height)
-                    colorshapes.append((color,"star",x,y))
-                
+                    cd = blob.circleDistance()
+                    if (cd < 0.1):
+                        x,y = self.shape.findCoordinate(blob,width,height)
+                        colorshapes.append((color,"circle",x,y))
+                    elif (cd > 0.15 and cd < 0.25):
+                        x,y = self.shape.findCoordinate(blob,width,height)
+                        colorshapes.append((color,"heart",x,y))
+                    else:
+                        x,y = self.shape.findCoordinate(blob,width,height)
+                        colorshapes.append((color,"star",x,y))
+                    
         return colorshapes
