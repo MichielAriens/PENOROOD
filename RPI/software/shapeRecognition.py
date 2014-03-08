@@ -82,18 +82,22 @@ class ShapeFinder:
 
         return coordinates
 
+
     # Tests whether the figures correspond to the given color or not by displaying the current results.
     def testFoundColor(self,blobs=None,filteredFig = None):
         if blobs is not None:
             for blob in blobs:
                 blob.draw()
                 print blob
-                if (blob.isRectangle(0.07) == True): print "rectangle"
+
+                rectangleDistance = blob.rectangleDistance()
+                if (rectangleDistance < 0.07): print "rectangle"
                 else:
                     circleDistance = blob.circleDistance()
-                    if (circleDistance < 0.17): print "circle"
-                    elif (circleDistance < 0.22): print "star"
-                    elif (circleDistance < 0.45): print "heart"
+                    if (circleDistance < 0.18 and rectangleDistance < 0.185): print "circle"
+                    elif (circleDistance < 0.23 and rectangleDistance > 0.21): print "star"
+                    else: print "heart"
+
                 filteredFig.show()
                 raw_input()
 
@@ -119,19 +123,17 @@ class ShapeFinder:
     def findShapes(self,shape=None,blobs=None):
         lst = []
 
-
         if shape.lower() == "rectangle":
-            rectangleTolerance = 0.07  # Keep this number very low or every figure becomes a rectangle...
+            rectangleTolerance = 0.07
             lst = [b for b in blobs if b.isRectangle(rectangleTolerance)]  # find all the rectangles within a certain tolerance
         elif shape.lower() == "circle":     # lower() makes sure the characters are not capitalized
-            circleTolerance = 0.17  # 0.2 may be a bit too large, but 0.05 is definately too small.  Further testing required.
-            lst = [b for b in blobs if b.isCircle(circleTolerance)]  # find all the circles within a certain tolerance
+            circleTolerance = 0.18
+            lst = [b for b in blobs if (b.isCircle(circleTolerance) and b.rectangleDistance() < 0.185)]  # find all the circles within a certain tolerance
         elif shape.lower() == "star":
-            starTolerance = 0.22  # 0.2 may be a bit too large, but 0.05 is definately too small.  Further testing required.
-            lst = [b for b in blobs if b.isCircle(starTolerance)]  # find all the circles within a certain tolerance
+            starTolerance = 0.23
+            lst = [b for b in blobs if (b.isCircle(starTolerance) and b.rectangleDistance() > 0.205)]
         elif shape.lower() == "heart":
-            heartTolerance = 0.45  # 0.2 may be a bit too large, but 0.05 is definately too small.  Further testing required.
-            lst = [b for b in blobs if b.isCircle(heartTolerance)]  # find all the circles within a certain tolerance
+            lst = [b for b in blobs if (b.circleDistance > 0.21 and b.rectangleDistance() < 0.205)]
         else: print "Bad shape input, this should never have happened!"
 
         return lst
