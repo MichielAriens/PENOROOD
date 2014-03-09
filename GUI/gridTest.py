@@ -360,29 +360,29 @@ class GRID:
             for j in range(self.columns):
                 if((self.table[i][j]==SID1 and self.table[i+1][j]==SID2) or (self.table[i][j]==SID2 and self.table[i+1][j]==SID1)):
                     if(j%2 == 1 and self.table[i+1][j+1]==SID3):
-                        return((i+1)*40,(j+1/2)*35) #klopt wrs nog ni
+                        return((i+1)*40,(j+1/2)*35) 
                     if(j%2 == 1 and self.table[i+1][j-1]==SID3):
                         return((i+1)*40,(j-1/2)*35)
                     if(j%2 == 0 and self.table[i][j+1]==SID3):
-                        return((i+1/2)*40,(j+1/2)*35) #klopt wrs nog ni
+                        return((i+1/2)*40,(j+1/2)*35) 
                     if(j%2 == 0 and self.table[i][j-1]==SID3):
                         return((i+1/2)*40,(j-1/2)*35)
                 if((self.table[i][j]==SID1 and self.table[i+1][j]==SID3) or (self.table[i][j]==SID3 and self.table[i+1][j]==SID1)):
                     if(j%2 == 1 and self.table[i+1][j+1]==SID2):
-                        return((i+1)*40,(j+1/2)*35) #klopt wrs nog ni
+                        return((i+1)*40,(j+1/2)*35) 
                     if(j%2 == 1 and self.table[i+1][j-1]==SID2):
                         return((i+1)*40,(j-1/2)*35)
                     if(j%2 == 0 and self.table[i][j+1]==SID2):
-                        return((i+1/2)*40,(j+1/2)*35) #klopt wrs nog ni
+                        return((i+1/2)*40,(j+1/2)*35) 
                     if(j%2 == 0 and self.table[i][j-1]==SID2):
                         return((i+1/2)*40,(j-1/2)*35)
                 if((self.table[i][j]==SID2 and self.table[i+1][j]==SID3) or (self.table[i][j]==SID3 and self.table[i+1][j]==SID2)):
                     if(j%2 == 1 and self.table[i+1][j+1]==SID1):
-                        return((i+1)*40,(j+1/2)*35) #klopt wrs nog ni
+                        return((i+1)*40,(j+1/2)*35) 
                     if(j%2 == 1 and self.table[i+1][j-1]==SID1):
                         return((i+1)*40,(j-1/2)*35)
                     if(j%2 == 0 and self.table[i][j+1]==SID1):
-                        return((i+1/2)*40,(j+1/2)*35) #klopt wrs nog ni
+                        return((i+1/2)*40,(j+1/2)*35) 
                     if(j%2 == 0 and self.table[i][j-1]==SID1):
                         return((i+1/2)*40,(j-1/2)*35)
         return (-1,-1)
