@@ -121,7 +121,7 @@ class FakeZeppelin:
        
         #old self.fe.force = Vector3(0.1,0.2,0)
         #new SimonOveride
-        self.setMovementZeppelin();
+        self.setMovementZeppelin((-1,-1));
         
         #print(self.fe.force.toString())
         thread.start_new_thread(self.fe.update, ())
@@ -134,28 +134,29 @@ class FakeZeppelin:
     
     def getSpeed(self):
         return self.fe.speed
-    
-    def updateGrid(self): 
-        self.grid.setValue(5, 2, 3)
-        self.grid.setValue(1, 5, 1)
-        self.grid.setValue(7, 0, 1)
-        self.grid.setValue(9, 11,1)
-        self.grid.setValue(17, 0, 0)
-        self.grid.setValue(12,1,0)
-        self.grid.setValue(19, 11,0)
-        self.grid.setValue(13, 5,7)
-        self.grid.setValue(14, 5,8)
-        self.grid.setValue(15, 6,8)
-        self.grid.setValue(2, 7,8)
-        self.grid.setValue(3, 6,9)
-        self.grid.setValue(4, 7,9)
         
     def getZeppelinPositionFromShapes(self):
         pos = self.grid.calculatePositionFromShapes()
         return pos
 
-    def setMovementZeppelin(self):
-        self.fe.force = Vector3(0.1,0.2,0)
+    def setMovementZeppelin(self,direction):
+        if(direction == (-1,-1)):
+            self.fe.force = Vector3(0.1,0.2,0)
+        else:
+            print("Direction:" + str(direction))
+            if(direction[0]>direction[1]):
+                xf = direction[0]/abs(direction[0])
+                yf = direction[1]/abs(direction[0])
+            elif(direction == (0,0)):
+                xf = 0
+                yf = 0
+            else:
+                xf = direction[0]/abs(direction[1])
+                yf = direction[1]/abs(direction[1])
+            print(xf)
+            print(yf)
+            self.fe.force = Vector3(xf/5,yf/5,0)
+        
         
     def acceptMovementFromListener(self,movement):
         if(movement == 1):

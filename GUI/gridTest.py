@@ -27,7 +27,7 @@ class GUI:
         self.entry2 = Entry(self.labelframe)
         self.grid = GRID(8,7)
         self.text = Text(master,width = 50, height = 15)
-        self.goal = (-1,-1)
+        self.goal = (147,200)
         
         self.controlFrame = LabelFrame(master, text="Controls")
         self.upbutton= Button(self.controlFrame, text="UP", command=self.moveUpWithButton)
@@ -188,7 +188,8 @@ class GUI:
     #update canvas after 1000ms
     def task(self):
         if(self.listener is not None):
-            #goal = self.getGoalFromInput()
+            if(self.goal != (-1,-1)):
+                self.listener.sendGoalDirection(self.updateGoalDirection())
             zep = self.getPositionFromListener()
             zep_pos = zep.asArray()
             self.grid.setZeppelinPosition(zep_pos[0], zep_pos[1], 1)
@@ -220,9 +221,12 @@ class GUI:
         currentpos = self.grid.getZeppelin(1)[0]
         if(currentpos[0] == self.goal):
             self.goal = (-1,-1)
+            return(0,0)
         else:
-            direction_x = goalposition[0] - currentpos[0];
-            direction_y = goalposition[1] - currentpos[1];
+            direction_x = self.goal[0] - currentpos[0];
+            direction_y = self.goal[1] - currentpos[1];
+            print(direction_x)
+            return(direction_x, direction_y)
         
         
     def getPositionFromListener(self):
