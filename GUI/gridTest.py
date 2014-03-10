@@ -27,6 +27,7 @@ class GUI:
         self.entry2 = Entry(self.labelframe)
         self.grid = GRID(8,7)
         self.text = Text(master,width = 50, height = 15)
+        self.goal = (147,200)
         
         self.controlFrame = LabelFrame(master, text="Controls")
         self.upbutton= Button(self.controlFrame, text="UP", command=self.moveUpWithButton)
@@ -142,7 +143,6 @@ class GUI:
             EID = emp[1]
             self.paintShape(position_emp[0], position_emp[1], EID)
         list_shapes = self.grid.getShapesAndPositions()
-        print(list_shapes)
         for j in range(len(list_shapes)):
             shape = list_shapes[j]
             position_shape = shape[0]
@@ -155,12 +155,11 @@ class GUI:
             ZID = zep[1]
             self.paintZeppelin(position_zep[0], position_zep[1], ZID)
         self.updateMessage()
-        print(self.grid.getZeppelins())
     
     #updates the displayed message
     def updateMessage(self):
         zeps = self.grid.getZeppelins()
-        message = ""
+        message = "Info:"
         for i in range(len(zeps)):
             zep = zeps[i]
             pos = zep[0]
@@ -168,6 +167,8 @@ class GUI:
                 message = message + "\n" + "Our zeppelin at (" + str(round(pos[0])) + "," + str(round(pos[1])) + ")"
             else:
                 message = message + "\n" + "Other zeppelin, ID="+ str(zep[1])+ " at ("+ str(round(pos[0])) + "," + str(round(pos[1])) + ")"
+        if(self.goal != (-1,-1)):
+            message = message + "\n" + "Current goal = " +  "("+ str(self.goal[0]) + "," + str(self.goal[1]) + ")"
         self.clearMessage()
         self.addDisplayedMessage(message)
     
@@ -187,7 +188,8 @@ class GUI:
     #update canvas after 1000ms
     def task(self):
         if(self.listener is not None):
-            goal = self.getGoalFromInput()
+            if(self.goal != (-1,-1)):
+                self.listener.sendGoalDirection(self.updateGoalDirection())
             zep = self.getPositionFromListener()
             zep_pos = zep.asArray()
             self.grid.setZeppelinPosition(zep_pos[0], zep_pos[1], 1)
@@ -203,9 +205,30 @@ class GUI:
         except:
             x = -1
             y = -1
-        print(x,y)
         return (x,y)
     
+    def sendFakeZepToGoal(self):
+        goal = self.getGoalFromInput()
+        if(goal[0]==-1):
+            a = 1 #random
+        else:
+            self.setGoal(goal)
+
+    def setGoal(self,goalposition):
+        self.goal = goalposition;
+        
+    def updateGoalDirection(self):
+        currentpos = self.grid.getZeppelin(1)[0]
+        if(currentpos[0] == self.goal):
+            self.goal = (-1,-1)
+            return(0,0)
+        else:
+            direction_x = self.goal[0] - currentpos[0];
+            direction_y = self.goal[1] - currentpos[1];
+            print(direction_x)
+            return(direction_x, direction_y)
+        
+        
     def getPositionFromListener(self):
         return self.listener.getPosition()
         
@@ -224,8 +247,28 @@ class GUI:
     def sendMessageToListener(self, message):
         self.listener.refactor(message);
         
-    def createGridFromFile(self, gridstring):
-        strings = gridstring.rsplit(",")
+    def initiateFromFile(self, path):
+        import csv
+        with open(path) as f:
+            data=[tuple(line) for line in csv.reader(f)]
+        list = []
+        emptyrow = []
+        for i in range(len(data)):
+            list.append(emptyrow)
+            row = data[i]
+            for j in range(len(row)):
+                oldstr = row[j]
+                newstr = oldstr.replace("'", " ")
+                list[i].append(newstr)
+        list[0] = str(list[0]).replace("'", "")
+        list[0] = str(list[0]).replace(" ", "")
+        list[0] = str(list[0]).replace(",", "=")
+        list[0] = str(list[0]).lower()
+        number_of_rows = len(data);
+        number_of_columns = len(data[0])
+        init_string = list[0]
+        self.grid = GRID(number_of_columns, number_of_rows)
+        self.grid.initiate(init_string);
 
 #class that represents the triangular grid
 class GRID:
@@ -260,15 +303,15 @@ class GRID:
                 value = 5
             elif(string =="bc"):
                 value = 6
-            elif(string =="yc"):
+            elif(string =="yo"):
                 value = 7
-            elif(string =="gc"):
+            elif(string =="go"):
                 value = 8
-            elif(string =="rc"):
+            elif(string =="ro"):
                 value = 9
-            elif(string =="wc"):
+            elif(string =="wo"):
                 value = 10
-            elif(string =="br"):
+            elif(string =="bo"):
                 value = 11
             elif(string =="yr"):
                 value = 12
@@ -288,11 +331,11 @@ class GRID:
                 value = 19
             elif(string =="ws"):
                 value = 20
-            elif(string =="0"):
+            elif(string =="xx" or string =="0"):
                 value = 0
             self.setValue(value, x, y)
             x = x + 1
-            if(x >= 8):
+            if(x >= self.columns):
                 x = 0
                 y = y + 1 
     
@@ -360,29 +403,29 @@ class GRID:
             for j in range(self.columns):
                 if((self.table[i][j]==SID1 and self.table[i+1][j]==SID2) or (self.table[i][j]==SID2 and self.table[i+1][j]==SID1)):
                     if(j%2 == 1 and self.table[i+1][j+1]==SID3):
-                        return((i+1)*40,(j+1/2)*35) #klopt wrs nog ni
+                        return((i+1)*40,(j+1/2)*35) 
                     if(j%2 == 1 and self.table[i+1][j-1]==SID3):
                         return((i+1)*40,(j-1/2)*35)
                     if(j%2 == 0 and self.table[i][j+1]==SID3):
-                        return((i+1/2)*40,(j+1/2)*35) #klopt wrs nog ni
+                        return((i+1/2)*40,(j+1/2)*35) 
                     if(j%2 == 0 and self.table[i][j-1]==SID3):
                         return((i+1/2)*40,(j-1/2)*35)
                 if((self.table[i][j]==SID1 and self.table[i+1][j]==SID3) or (self.table[i][j]==SID3 and self.table[i+1][j]==SID1)):
                     if(j%2 == 1 and self.table[i+1][j+1]==SID2):
-                        return((i+1)*40,(j+1/2)*35) #klopt wrs nog ni
+                        return((i+1)*40,(j+1/2)*35) 
                     if(j%2 == 1 and self.table[i+1][j-1]==SID2):
                         return((i+1)*40,(j-1/2)*35)
                     if(j%2 == 0 and self.table[i][j+1]==SID2):
-                        return((i+1/2)*40,(j+1/2)*35) #klopt wrs nog ni
+                        return((i+1/2)*40,(j+1/2)*35) 
                     if(j%2 == 0 and self.table[i][j-1]==SID2):
                         return((i+1/2)*40,(j-1/2)*35)
                 if((self.table[i][j]==SID2 and self.table[i+1][j]==SID3) or (self.table[i][j]==SID3 and self.table[i+1][j]==SID2)):
                     if(j%2 == 1 and self.table[i+1][j+1]==SID1):
-                        return((i+1)*40,(j+1/2)*35) #klopt wrs nog ni
+                        return((i+1)*40,(j+1/2)*35) 
                     if(j%2 == 1 and self.table[i+1][j-1]==SID1):
                         return((i+1)*40,(j-1/2)*35)
                     if(j%2 == 0 and self.table[i][j+1]==SID1):
-                        return((i+1/2)*40,(j+1/2)*35) #klopt wrs nog ni
+                        return((i+1/2)*40,(j+1/2)*35) 
                     if(j%2 == 0 and self.table[i][j-1]==SID1):
                         return((i+1/2)*40,(j-1/2)*35)
         return (-1,-1)
@@ -420,7 +463,9 @@ class GRID:
                 return False
             else:
                 return True
+            
     
+
     #!!!!!!!!!!
     #NOT TESTED
     #(probably not working, yet)

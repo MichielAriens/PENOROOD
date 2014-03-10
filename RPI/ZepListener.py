@@ -17,3 +17,6 @@ class ZepListener:
 
 	def sendMovementToFakeZep(self,movement):
 		self.zeppelin.acceptMovementFromListener(movement)
+		
+	def sendGoalDirection(self,direction):
+		self.zeppelin.setMovementZeppelin(direction)

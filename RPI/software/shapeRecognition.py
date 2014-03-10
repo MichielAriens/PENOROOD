@@ -50,8 +50,8 @@ class ShapeFinder:
         # filteredFigure = image - fig - fig
 
              # Test: If the selected color has a stronger contrast with the other colors than before, then it's working as intended
-        filteredFigure.show()
-        raw_input()
+        #filteredFigure.show()
+        #raw_input()
 
 
         return filteredFigure
@@ -202,19 +202,20 @@ class Analyzer:
         
         if blobs is not None:   
             for blob in blobs:
-                if (blob.rectangleDistance() < 0.05):
+                rectangleDistance = blob.rectangleDistance()
+                if (rectangleDistance < 0.07):
                     x,y = self.shape.findCoordinate(blob,width,height)
                     colorshapes.append((color,"rectangle",x,y))
                 else:
-                    cd = blob.circleDistance()
-                    if (cd < 0.1):
+                    circleDistance = blob.circleDistance()
+                    if (circleDistance < 0.18 and rectangleDistance < 0.185):
                         x,y = self.shape.findCoordinate(blob,width,height)
                         colorshapes.append((color,"circle",x,y))
-                    elif (cd > 0.15 and cd < 0.25):
-                        x,y = self.shape.findCoordinate(blob,width,height)
-                        colorshapes.append((color,"heart",x,y))
-                    else:
+                    elif (circleDistance < 0.23 and rectangleDistance > 0.205):
                         x,y = self.shape.findCoordinate(blob,width,height)
                         colorshapes.append((color,"star",x,y))
+                    else:
+                        x,y = self.shape.findCoordinate(blob,width,height)
+                        colorshapes.append((color,"heart",x,y))
                     
         return colorshapes
