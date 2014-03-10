@@ -50,8 +50,8 @@ class ShapeFinder:
         # filteredFigure = image - fig - fig
 
              # Test: If the selected color has a stronger contrast with the other colors than before, then it's working as intended
-        filteredFigure.show()
-        raw_input()
+        #filteredFigure.show()
+        #raw_input()
 
 
         return filteredFigure
