@@ -121,7 +121,7 @@ class FakeZeppelin:
        
         #old self.fe.force = Vector3(0.1,0.2,0)
         #new SimonOveride
-        self.setMovementZeppelin((-1,-1));
+        self.setMovementZeppelin((2,3));
         
         #print(self.fe.force.toString())
         thread.start_new_thread(self.fe.update, ())
@@ -141,7 +141,8 @@ class FakeZeppelin:
 
     def setMovementZeppelin(self,direction):
         if(direction == (-1,-1)):
-            self.fe.force = Vector3(0.1,0.2,0)
+            self.fe.force = Vector3(0,0,0)
+            self.fe.speed = Vector3(0,0,0)
         else:
             print("Direction:" + str(direction))
             if(direction[0]>direction[1]):
@@ -155,7 +156,8 @@ class FakeZeppelin:
                 yf = direction[1]/abs(direction[1])
             print(xf)
             print(yf)
-            self.fe.force = Vector3(xf/5,yf/5,0)
+            #self.fe.force = Vector3(xf/5,yf/5,0)
+            self.fe.speed = Vector3(xf*direction[0]/300,yf*direction[1]/300,0)
         
         
     def acceptMovementFromListener(self,movement):
