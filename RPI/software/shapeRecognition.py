@@ -5,7 +5,7 @@
 
 # alternative method if blobs aren't working for 'live' pictures: contour method with opencv
 
-from SimpleCV import Color, Image
+from SimpleCV import Image
 
 # Color values can easily be found by right clicking the picture and use color picker!  (in pycharm anyway)
 class ShapeFinder:
@@ -219,3 +219,10 @@ class Analyzer:
                         colorshapes.append((color,"heart",x,y))
                     
         return colorshapes
+
+class ColorRange:
+    def __init__(self):
+        True
+
+    def getColorRanges(self):
+        True
