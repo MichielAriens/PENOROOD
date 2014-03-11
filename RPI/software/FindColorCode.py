@@ -58,7 +58,8 @@ class ColorRange:
         s = []
         v = []
         if lst is not None:
-            for H,S,V in lst:
+            for element in lst:
+                H,S,V = element
                 h.append(H)
                 s.append(S)
                 v.append(V)
