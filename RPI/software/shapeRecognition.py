@@ -12,7 +12,7 @@ import FindColorCode as fc
 class ShapeFinder:
     def __init__(self):
         self.imagePath = 'C:\\Users\\Babyburger\\PycharmProjects\\PENOROODpy\\output\\7.jpg'
-        self.calibrate = fc.ColorRange
+        self.calibrate = fc.ColorRange()
         self.whitey = (239,239,239)
         self.yellow = (236,187,120)
         self.red = (167,38,76)
