@@ -12,12 +12,12 @@ res = 250
 #f = open('/home/pi/zep2/output/results.csv','w')
 #f.write('hi there\n') # python will convert \n to os.linesep
 
-"""
+
 def analyze():
     global sf,path,res
-    i = 0
-    while i < 20:
-        print str(i)
+    print "ready"
+    while True:
+        raw_input("")
         with picamera.PiCamera() as camera:
             camera.resolution = (res,res)
             camera.capture(path, "jpeg")
@@ -26,10 +26,9 @@ def analyze():
         found = sf.analyze(path)
         print str(time.time() - starttime)
         print str(found)
-        i += 1
     return found
 
-
+"""
 def takePics():
     global res
     path = "/home/pi/zep2/output/"
@@ -45,6 +44,7 @@ def takePics():
         i += 1
     return found
 """
+"""
 
 def analyzePosition():
     global sf,path,res,grid
@@ -53,8 +53,6 @@ def analyzePosition():
     with picamera.PiCamera() as camera:
         camera.resolution = (res,res)
         camera.capture(path, "jpeg")
-    sf.shape.setImage(path)
-    sf.shape.calibrateColors()
     while True:
         print str(i)
         with picamera.PiCamera() as camera:
@@ -66,7 +64,7 @@ def analyzePosition():
         print str(time.time() - starttime)
         print str(found)
         
-        """
+        
         if len(found) < 3:
             print "Not enough shapes found for analysis"
         elif len(found) == 3:
@@ -83,7 +81,7 @@ def analyzePosition():
             """
             
 #takePics()
-analyzePosition()
+analyze()
  
 
  
