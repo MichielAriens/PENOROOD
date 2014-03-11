@@ -167,10 +167,23 @@ class GRID:
     def addZeppelin(self,x,y,ZID):
         self.zeplist.append(((x,y),ZID))
     
+    
+    def find(self,a,b,c):
+        aPos = []
+        #Find all a
+        for i in range(self.rows-1):
+            for j in rang(self.columns-1):
+                if self.table[i][j] == a:
+                    aPos.append((i,j))
+        
+        print str(aPos)
+                
+    
     #nog afwerken    
     def calculatePositionFromShapes(self, SID1, SID2, SID3):
         for i in range(self.rows-1):
-            for j in range(self.columns):
+            #for j in range(self.columns):
+            for j in range(self.columns-1):
                 if((self.table[i][j]==SID1 and self.table[i+1][j]==SID2) or (self.table[i][j]==SID2 and self.table[i+1][j]==SID1)):
                     if(j%2 == 1 and self.table[i+1][j+1]==SID3):
                         return((i+1)*40,(j+1/2)*35) #klopt wrs nog ni

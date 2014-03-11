@@ -73,7 +73,7 @@ class FakeEnvironment:
         self.pos = Vector3(0,0,0)
         self.speed = Vector3(0,0,0)
         self.force = Vector3(0,0,0)
-        #pull of gravity somewhere around 1 m/s².
+        #pull of gravity somewhere around 1 m/s^2.
         import random
         self.mass = random.gauss(1,0.05)
         print("mass of the fake zeppelin is " + str(self.mass))
@@ -145,7 +145,7 @@ class FakeZeppelin:
             self.fe.speed = Vector3(0,0,0)
         else:
             print("Direction:" + str(direction))
-            if(direction[0]>direction[1]):
+            if(abs(direction[0])>abs(direction[1])):
                 xf = direction[0]/abs(direction[0])
                 yf = direction[1]/abs(direction[0])
             elif(direction == (0,0)):
@@ -157,7 +157,7 @@ class FakeZeppelin:
             print(xf)
             print(yf)
             #self.fe.force = Vector3(xf/5,yf/5,0)
-            self.fe.speed = Vector3(xf*direction[0]/300,yf*direction[1]/300,0)
+            self.fe.speed = Vector3(xf*abs(direction[0])/300,yf*abs(direction[1])/300,0)
         
         
     def acceptMovementFromListener(self,movement):

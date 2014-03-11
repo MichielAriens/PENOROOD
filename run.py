@@ -37,17 +37,15 @@ Gui.label2.grid(row = 1, column = 0)
 Gui.heightLabel.grid(columnspan = 2)
 Gui.entry1.grid(row = 0, column = 1)
 Gui.entry2.grid(row = 1, column = 1)
+Gui.gobutton.grid(row = 2, column = 0)
 
 Gui.upbutton.grid(row = 0, column = 1)
 Gui.downbutton.grid(row = 2, column = 1)
 Gui.leftbutton.grid(row = 1, column = 0)
 Gui.rightbutton.grid(row = 1, column = 2)
 
-root2 = tkinter.Tk()
-root2.withdraw()
 
-file_path = tkinter.filedialog.askopenfilename()
-print(file_path)
+file_path = 'C:\\Users\\simon\\Desktop\\peno-1314-zeppelin-frame-master\\example_grid2.csv'
 if(len(file_path)>0):
     Gui.initiateFromFile(file_path)
 else:
@@ -63,4 +61,5 @@ Gui.updateCanvas()
 #loop that registers action in the frame
 #keep calling Gui.task every 1000ms
 root.after(33,Gui.task)
+root.grab_set()
 root.mainloop()
