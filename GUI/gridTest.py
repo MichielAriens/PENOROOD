@@ -27,13 +27,14 @@ class GUI:
         self.entry2 = Entry(self.labelframe)
         self.grid = GRID(8,7)
         self.text = Text(master,width = 50, height = 15)
-        self.goal = (147,200)
+        self.goal = (0,0)
         
         self.controlFrame = LabelFrame(master, text="Controls")
         self.upbutton= Button(self.controlFrame, text="UP", command=self.moveUpWithButton)
         self.downbutton= Button(self.controlFrame, text="DOWN", command=self.moveDownWithButton)
         self.leftbutton= Button(self.controlFrame, text="LEFT", command=self.moveLeftWithButton)
         self.rightbutton= Button(self.controlFrame, text="RIGHT", command=self.moveRightWithButton)
+        self.gobutton= Button(self.labelframe, text="GO", command=self.setGoal)
         
         self.greendot = PhotoImage(file="GUI/goodzep.gif")
         self.reddot = PhotoImage(file="GUI/badzep.gif")
@@ -269,7 +270,10 @@ class GUI:
         init_string = list[0]
         self.grid = GRID(number_of_columns, number_of_rows)
         self.grid.initiate(init_string);
-
+        
+    def setGoal(self):
+        goalz = self.getGoalFromInput()
+        self.goal = goalz
 #class that represents the triangular grid
 class GRID:
     

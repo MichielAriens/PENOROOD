@@ -4,4 +4,6 @@
 import FindColorCode as fc
 
 colors = fc.ColorRange()
-colors.getColorRanges()
+#colors.getColorRanges()
+d = colors.findMeanRGB([(50,0.8,0.8),(70,0.5,0.9)])
+
