@@ -235,11 +235,16 @@ class ColorRange:
 
         for pixel in pixels:
             (x,y,z) = pixel
+            # set several conditions depending on the color to retrieve and put it in the corresponding list.
+            # then find the average for each of those lists so 1 list of 5 tuples are returned. (one for each determined color)
+            # Each of those tuples will represent the new value for the colorDistance measurement
 
     def RGBtoHSV(self,R,G,B):
         Cmax = max(R, G, B)
-        print Cmax
+        print Cmax   #find a way to get a floating number from max of integers.
         Cmax = Cmax/255
 
         print Cmax
+
+        # Follow this algorithm: http://www.rapidtables.com/convert/color/rgb-to-hsv.htm
 
