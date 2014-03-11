@@ -73,7 +73,7 @@ class FakeEnvironment:
         self.pos = Vector3(0,0,0)
         self.speed = Vector3(0,0,0)
         self.force = Vector3(0,0,0)
-        #pull of gravity somewhere around 1 m/s².
+        #pull of gravity somewhere around 1 m/s^2.
         import random
         self.mass = random.gauss(1,0.05)
         print("mass of the fake zeppelin is " + str(self.mass))
