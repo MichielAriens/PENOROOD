@@ -45,7 +45,7 @@ Gui.leftbutton.grid(row = 1, column = 0)
 Gui.rightbutton.grid(row = 1, column = 2)
 
 
-file_path = 'C:\\Users\\simon\\Desktop\\peno-1314-zeppelin-frame-master\\example_grid2.csv'
+file_path = 'C:\\Users\\Michiel\\Documents\\GitHub\\PENOROOD\\OTHER\\example_grid2.csv'
 if(len(file_path)>0):
     Gui.initiateFromFile(file_path)
 else:
