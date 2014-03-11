@@ -5,7 +5,8 @@
 
 # alternative method if blobs aren't working for 'live' pictures: contour method with opencv
 
-from SimpleCV import Image
+from SimpleCV import Color,Image
+import numpy as np
 
 # Color values can easily be found by right clicking the picture and use color picker!  (in pycharm anyway)
 class ShapeFinder:
@@ -224,5 +225,21 @@ class ColorRange:
     def __init__(self):
         True
 
-    def getColorRanges(self):
-        True
+    def getColorRanges(self,image=Image('C:\\Users\\Babyburger\\PycharmProjects\\PENOROODpy\\output\\7.jpg')):
+        pixels = np.array(image.getNumpy()).reshape(-1, 3)
+        redlst = []
+        greenlst = []
+        bluelst = []
+        whitelst = []
+        yellowlst = []
+
+        for pixel in pixels:
+            (x,y,z) = pixel
+
+    def RGBtoHSV(self,R,G,B):
+        Cmax = max(R, G, B)
+        print Cmax
+        Cmax = Cmax/255
+
+        print Cmax
+
