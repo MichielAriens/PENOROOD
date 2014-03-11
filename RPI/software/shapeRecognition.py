@@ -5,13 +5,19 @@
 
 # alternative method if blobs aren't working for 'live' pictures: contour method with opencv
 
-from SimpleCV import Color,Image
-import numpy as np
+from SimpleCV import Image
+import FindColorCode as fc
 
 # Color values can easily be found by right clicking the picture and use color picker!  (in pycharm anyway)
 class ShapeFinder:
     def __init__(self):
         self.imagePath = 'C:\\Users\\Babyburger\\PycharmProjects\\PENOROODpy\\output\\7.jpg'
+        self.calibrate = fc.ColorRange
+        self.whitey = (239,239,239)
+        self.yellow = (236,187,120)
+        self.red = (167,38,76)
+        self.blue = (55,70,125)
+        self.green = (62,80,75)
 
     # Load picture here
     def renewImage(self):
@@ -20,6 +26,9 @@ class ShapeFinder:
     def setImage(self,path):
         self.imagePath = path
 
+    def calibrateColors(self):
+        self.whitey, self.yellow, self.red, self.green, self.blue = self.calibrate.getColorRanges(self.imagePath)
+
     # Highlight color (the input color should be case insensitive)
     def highlightColor(self,color=None):
         image = self.renewImage()  # Load picture from image path
@@ -27,19 +36,19 @@ class ShapeFinder:
         filteredFigure = None
 
         if color.lower() == "yellow":     # lower() makes sure the characters are not capitalized
-            fig = image.colorDistance((236,187,120))
+            fig = image.colorDistance(self.yellow)
             filteredFigure = image - fig - fig - fig
         elif color.lower() == "red":
-            fig = image.colorDistance((167,38,76))
+            fig = image.colorDistance(self.red)
             filteredFigure = image - fig - fig
         elif color.lower() == "green":
-            fig = image.colorDistance((62,80,75))
+            fig = image.colorDistance(self.green)
             filteredFigure = image - fig - fig - fig
         elif color.lower() == "blue":
-            fig = image.colorDistance((55,70,125))
+            fig = image.colorDistance(self.blue)
             filteredFigure = image - fig - fig
         elif color.lower() == "white":
-            fig = image.colorDistance((239,239,239))
+            fig = image.colorDistance(self.whitey)
             filteredFigure = image - fig - fig
         else: print "Bad color input, this should never have happened!"
 
