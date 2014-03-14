@@ -305,17 +305,17 @@ class GRID:
                 value = 4
             elif(string =="wh"):
                 value = 5
-            elif(string =="bc"):
+            elif(string =="bo" or string =="bc"):
                 value = 6
-            elif(string =="yo"):
+            elif(string =="yo" or string =="yc"):
                 value = 7
-            elif(string =="go"):
+            elif(string =="go" or string =="gc"):
                 value = 8
-            elif(string =="ro"):
+            elif(string =="ro" or string =="rc"):
                 value = 9
-            elif(string =="wo"):
+            elif(string =="wo" or string =="wc"):
                 value = 10
-            elif(string =="bo"):
+            elif(string =="br"):
                 value = 11
             elif(string =="yr"):
                 value = 12
@@ -336,6 +336,8 @@ class GRID:
             elif(string =="ws"):
                 value = 20
             elif(string =="xx" or string =="0"):
+                value = 0
+            else:
                 value = 0
             self.setValue(value, x, y)
             x = x + 1
