@@ -7,10 +7,10 @@ class ColorRange:
     def __init__(self):
         True
 
-    def getColorRanges(self,path = 'C:\\Users\\Babyburger\\PycharmProjects\\PENOROODpy\\output\\7.jpg'):
+    def getColorRanges(self,path = 'C:\\Users\\Babyburger\\PycharmProjects\\PENOROODpy\\output\\19.jpg'):
         image = Image.open(path)
         rgb_im = image.convert('RGB')
-        pixels = list(rgb_im.getdata())
+        pixels = list(rgb_im.getdata()) # List of all the pixels with RGB values
 
         #pixels = np.array(image.getNumpy()).reshape(-1, 3)
         redlst = []
@@ -19,65 +19,79 @@ class ColorRange:
         whitelst = []
         yellowlst = []
 
+        # This loop will append pixels to the respective list (whitelst, ..) if the pixel is within the defined
+        # HSV spectrum of the corresponding list.
         for pixel in pixels:
             (x,y,z) = pixel
+
             (H,S,V) = self.RGBtoHSV(x,y,z)
-            #print (H,S,V)
-            # works well!  compare with actual pictures (and the online converter)
 
             if(V > 0.9 and S < 0.2):    # white condition
-                whitelst.append((x,y,z))
+                whitelst.append((H,S,V))
             else:
                 if(H < 50 and H > 25 and S > 0.45 and V > 0.75):   # yellow condition
-                    yellowlst.append((x,y,z))
+                    yellowlst.append((H,S,V))
                 else:
-                    if(H < 13 and H > 335 and S > 0.60 and V > 0.60):   # red condition
-                        redlst.append((x,y,z))
+                    if((H < 13 or H > 335) and S > 0.60 and V > 0.60):   # red condition
+                        redlst.append((H,S,V))
                     else:
                         if(H < 260 and H > 205 and S > 0.15 and V > 0.2 and V < 0.65):   # blue condition
-                            bluelst.append((x,y,z))
+                            bluelst.append((H,S,V))
                         else:
-                            if(H > 60 and H < 180 and S < 0.6 and V < 0.6):     # green condition
-                                greenlst.append((x,y,z))
+                            if(H > 60 and H < 180 and V < 0.6):     # green condition
+                                greenlst.append((H,S,V))
 
         # set several conditions depending on the color to retrieve and put it in the corresponding list.
         # then find the average for each of those lists so 1 list of 5 tuples are returned. (one for each determined color)
         # Each of those tuples will represent the new value for the colorDistance measurement
 
         colorCodes = []
+        print "getting white mean"
         colorCodes.append(self.findMeanRGB(whitelst))
+        print "getting yellow mean"
         colorCodes.append(self.findMeanRGB(yellowlst))
-        colorCodes.append(self.findMeanRGB(redlst))
+        print "getting red mean"
+        colorCodes.append(self.findMeanRGB(redlst,"red"))
+        print "getting green mean"
         colorCodes.append(self.findMeanRGB(greenlst))
+        print "getting blue mean"
         colorCodes.append(self.findMeanRGB(bluelst))
         return colorCodes   # returns the list of color codes in the following order:
                 #white, yellow, red, green, blue (in RGB)
 
-    def findMeanRGB(self,lst):
+
+    # THE RGB RESULT FROM HSVtoRGB SEEMS TO BE WRONG: tested it => renew the algorithm (or reverse engineer it  :p )
+
+    def findMeanRGB(self,lst,color=""):
         h = []
         s = []
         v = []
-        if lst is not None:
-            for element in lst:
-                H,S,V = element
-                h.append(H)
-                s.append(S)
-                v.append(V)
-        else:
-            print 'A color is not found.'
+        for element in lst:
+            H,S,V = element
+            h.append(H)
+            s.append(S)
+            v.append(V)
 
-        meanh = sum(h) / float(len(h))
+        # This checks whether the list is empty or not. If h = [], then so are s and v.
+        if(len(h) == 0):
+            print 'A color is not found.'
+            return
+        if(color == "red"):     # The average between polar coordinates 350 and 10 should be zero in our case, but doesn't work that
+            meanh = 0           # way mathematically. This adjusts it to work for red colors.
+            for i in h:
+                if(i < 13):     # 13 is a boundary polar coordinate set for red color
+                    meanh = meanh + i + 360
+                else: meanh = meanh + i
+            meanh = meanh / float(len(h))
+        else: meanh = sum(h) / float(len(h))
+
         means = sum(s) / float(len(s))
         meanv = sum(v) / float(len(v))
-        print meanh
-        print means
-        print meanv
         R,G,B = self.HSVtoRGB(meanh,means,meanv)
-        print R
-        print G
-        print B
+
         return (R,G,B)
 
+    # Gives the HSV value for the given RGB pixel
     def RGBtoHSV(self,R,G,B):
         r, g, b = R/255.0, G/255.0, B/255.0
         mx = max(r, g, b)
@@ -100,6 +114,9 @@ class ColorRange:
 
         # Follow this algorithm: http://www.rapidtables.com/convert/color/rgb-to-hsv.htm
 
+    # Gives the RGB value for the given HSV pixel (in the name of all that is holy, use decimals for percentages!!)
+    # so 19% = 0.19, not 19 (for S and V only; H is in polar degrees)
+    #  0 <= H <= 360 ; 0 <= S <= 1 ; 0 <= V <= 1
     def HSVtoRGB(self,h,s,v):
         h = float(h)
         s = float(s)

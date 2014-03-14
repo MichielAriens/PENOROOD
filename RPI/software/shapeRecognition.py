@@ -26,6 +26,7 @@ class ShapeFinder:
     def setImage(self,path):
         self.imagePath = path
 
+    # redefines the color codes, using HSV to scan for the 5 colors. Uses the image set for this object as a reference.
     def calibrateColors(self):
         self.whitey, self.yellow, self.red, self.green, self.blue = self.calibrate.getColorRanges(self.imagePath)
 
@@ -43,7 +44,7 @@ class ShapeFinder:
             filteredFigure = image - fig - fig
         elif color.lower() == "green":
             fig = image.colorDistance(self.green)
-            filteredFigure = image - fig - fig - fig
+            filteredFigure = image - fig - fig
         elif color.lower() == "blue":
             fig = image.colorDistance(self.blue)
             filteredFigure = image - fig - fig
@@ -59,16 +60,28 @@ class ShapeFinder:
         # Deprecated: different colors need different amount of filtering.
         # filteredFigure = image - fig - fig
 
-             # Test: If the selected color has a stronger contrast with the other colors than before, then it's working as intended
-        #filteredFigure.show()
-        #raw_input()
-
+        """     # Test: If the selected color has a stronger contrast with the other colors than before, then it's working as intended
+        filteredFigure.show()
+        raw_input()
+        """
 
         return filteredFigure
 
     # Value of the color can be found.
     def colorValue(self, filteredFigure):
         return filteredFigure.meanColor()
+
+    def generalTest(self,color):
+        filteredFig = self.highlightColor(color)
+        blobs = filteredFig.findBlobs()
+
+        filteredFig.show()
+        raw_input()
+
+        if blobs is not None:
+            for blob in blobs:
+                print blob.rectangleDistance()
+                print blob.circleDistance()
 
     # This method first parses the color, then parses the shape from the figure. It should find only figures
     # of the chose color and shape. It then returns a list of the coordinates of these figures.
@@ -78,7 +91,7 @@ class ShapeFinder:
         # Contains figures of the chosen color
         blobs = filteredFig.findBlobs()  # findBlobs() function easily finds lightly colored blobs on a dark background
 
-        self.testFoundColor(blobs,filteredFig)    # Use this method to test if the figures from the given color are correct
+        #self.testFoundColor(blobs,filteredFig)    # Use this method to test if the figures from the given color are correct
 
         width, height = filteredFig.size()
         newblobs = self.removeEdges(blobs,width,height)
@@ -86,7 +99,7 @@ class ShapeFinder:
         # Contains figures of the chosen shape (and color)
         shapes = self.findShapes(shape,newblobs)
 
-        self.testFoundShape(shapes,filteredFig)  # Use this method to test if the figures from the given shape are correct
+        #self.testFoundShape(shapes,filteredFig)  # Use this method to test if the figures from the given shape are correct
 
         coordinates = self.findCoordinates(shapes,width,height)
 
@@ -112,21 +125,17 @@ class ShapeFinder:
                 raw_input()
 
     # filter edges that are within 5% margin of the edges (to ensure we scan complete figures)
-    def removeEdges(self,blobs=None,width=None,height=None):
-        leftedge = 5*width/100
+    def removeEdges(self,blobs=None,width=None,height=None,percentageRemoval = 5):
+        leftedge = percentageRemoval*width/100
         rightedge = width - leftedge
-        upperedge = 5*height/100
+        upperedge = percentageRemoval*height/100
         bottomedge = height - upperedge
         newblobs = []
         if blobs is not None:
             for b in blobs:
                 bw, bh = b.centroid()   # bw = blobwidth ; bh = blob height
                 if(bw > leftedge and bw < rightedge and bh > upperedge and bh < bottomedge):
-                    print 'sausage'
                     newblobs.append(b)
-                else:
-                    print 'no sausage'
-
         return newblobs
 
     # Returns all the figures with the specified shapes. This should only apply to the figures of the chosen color.
@@ -147,7 +156,6 @@ class ShapeFinder:
         else: print "Bad shape input, this should never have happened!"
 
         return lst
-
 
     # Tests whether the figures correspond to the given shape or not by displaying the current results.
     def testFoundShape(self,shapes=None,filteredFig=None):
@@ -177,13 +185,17 @@ class ShapeFinder:
         return (xcoor,ycoor)
 
 
+
+# This class offers the color, shape and coordinates of all figures found on a picture
 class Analyzer:
     
     def __init__(self):
         self.shape = ShapeFinder()
     
-    def analyze(self,path):
-        self.shape.setImage(path)
+    def analyze(self,path = None):
+        if(path != None):
+            self.shape.setImage(path)
+
         allfigures = []
         
         filteredFig = self.shape.highlightColor("white")
@@ -205,7 +217,12 @@ class Analyzer:
         
         
     def colorshape(self,filteredFig=None,color=None):
-        blobs = filteredFig.findBlobs()
+        oldBlobs = filteredFig.findBlobs()
+
+        # removes a certain percentage of the edges
+        width, height = filteredFig.size()
+        blobs = self.shape.removeEdges(oldBlobs,width,height)   # put the percentage to remove behind height; 5% off all edges by default
+
         colorshapes = []
         
         width, height = filteredFig.size()
