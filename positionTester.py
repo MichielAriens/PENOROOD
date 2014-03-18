@@ -5,8 +5,14 @@ import RPI.grid as grid
 
 
 
-sf = sr.Analyzer()
+
+shape = sr.ShapeFinder()
 path = "/home/pi/zep2/output/path.jpg"
+shape.setImage(path)
+raw_input("ready to calibrate")
+shape.calibrateColors()
+sf = sr.Analyzer(shape)
+
 res = 250
 
 #f = open('/home/pi/zep2/output/results.csv','w')
@@ -14,7 +20,7 @@ res = 250
 
 
 def analyze():
-    global sf,path,res
+    global sf,path,res,shape
     print "ready"
     while True:
         raw_input("")

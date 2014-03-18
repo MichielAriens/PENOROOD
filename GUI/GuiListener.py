@@ -25,5 +25,4 @@ class GuiListener:
         self.zepListener.sendMovementToFakeZep(movement)
         
     def sendGoalDirection(self,direction):
-        print(direction)
         self.zepListener.sendGoalDirection(direction)
