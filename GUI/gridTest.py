@@ -194,8 +194,10 @@ class GUI:
             zep = self.getPositionFromListener()
             zep_pos = zep.asArray()
             self.grid.setZeppelinPosition(zep_pos[0], zep_pos[1], 1)
+        print(self.grid.calculatePositionFromShapes(13,13,20))
         self.updateCanvas()
         self.root.after(33,self.task)
+        
     
     def getGoalFromInput(self):
         inputx = self.entry1.get()
@@ -226,7 +228,6 @@ class GUI:
         else:
             direction_x = self.goal[0] - currentpos[0];
             direction_y = self.goal[1] - currentpos[1];
-            print(direction_x)
             return(direction_x, direction_y)
         
         
