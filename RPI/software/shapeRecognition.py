@@ -189,8 +189,8 @@ class ShapeFinder:
 # This class offers the color, shape and coordinates of all figures found on a picture
 class Analyzer:
     
-    def __init__(self):
-        self.shape = ShapeFinder()
+    def __init__(self, shape = ShapeFinder()):
+        self.shape = shape
     
     def analyze(self,path = None):
         if(path != None):
