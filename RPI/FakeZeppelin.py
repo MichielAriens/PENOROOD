@@ -144,7 +144,6 @@ class FakeZeppelin:
             self.fe.force = Vector3(0,0,0)
             self.fe.speed = Vector3(0,0,0)
         else:
-            print("Direction:" + str(direction))
             if(abs(direction[0])>abs(direction[1])):
                 xf = direction[0]/abs(direction[0])
                 yf = direction[1]/abs(direction[0])
@@ -154,8 +153,6 @@ class FakeZeppelin:
             else:
                 xf = direction[0]/abs(direction[1])
                 yf = direction[1]/abs(direction[1])
-            print(xf)
-            print(yf)
             #self.fe.force = Vector3(xf/5,yf/5,0)
             self.fe.speed = Vector3(xf*abs(direction[0])/300,yf*abs(direction[1])/300,0)
         
