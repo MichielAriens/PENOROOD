@@ -75,7 +75,7 @@ class ColorRange:
         # This checks whether the list is empty or not. If h = [], then so are s and v.
         if(len(h) == 0):
             print 'A color is not found.'
-            return
+            return (0,0,0)
         if(color == "red"):     # The average between polar coordinates 350 and 10 should be zero in our case, but doesn't work that
             meanh = 0           # way mathematically. This adjusts it to work for red colors.
             for i in h:

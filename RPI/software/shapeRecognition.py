@@ -28,7 +28,25 @@ class ShapeFinder:
 
     # redefines the color codes, using HSV to scan for the 5 colors. Uses the image set for this object as a reference.
     def calibrateColors(self):
-        self.whitey, self.yellow, self.red, self.green, self.blue = self.calibrate.getColorRanges(self.imagePath)
+        w, y, r, g, b = self.calibrate.getColorRanges(self.imagePath)
+        if(self.colorFound(w)):
+            self.whitey = w
+        if(self.colorFound(y)):
+            self.yellow = y
+        if(self.colorFound(r)):
+            self.red = r
+        if(self.colorFound(b)):
+            self.blue = b
+        if(self.colorFound(g)):
+            self.green = g
+
+
+
+    def colorFound(self,(a,b,c)):
+        if(a == 0 and b == 0 and c == 0):
+            return False
+        else:
+            return True
 
     # Highlight color (the input color should be case insensitive)
     def highlightColor(self,color=None):
