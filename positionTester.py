@@ -4,16 +4,20 @@ import RPI.software.shapeRecognition as sr
 import RPI.grid as grid
 
 
-
+res = 250
 
 shape = sr.ShapeFinder()
 path = "/home/pi/zep2/output/path.jpg"
 shape.setImage(path)
 raw_input("ready to calibrate")
-shape.calibrateColors()
+with picamera.PiCamera() as camera:
+    camera.resolution = (res,res)
+    camera.capture(path, "jpeg")
+print "pic taken"
+#shape.calibrateColors()
 sf = sr.Analyzer(shape)
 
-res = 250
+
 
 #f = open('/home/pi/zep2/output/results.csv','w')
 #f.write('hi there\n') # python will convert \n to os.linesep
@@ -23,11 +27,12 @@ def analyze():
     global sf,path,res,shape
     print "ready"
     while True:
-        raw_input("")
+        raw_input(">")
         with picamera.PiCamera() as camera:
             camera.resolution = (res,res)
             camera.capture(path, "jpeg")
-            
+
+        print "pic taken"
         starttime = time.time()
         found = sf.analyze(path)
         print str(time.time() - starttime)

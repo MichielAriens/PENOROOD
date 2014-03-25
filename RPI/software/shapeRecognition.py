@@ -59,13 +59,13 @@ class ShapeFinder:
             filteredFigure = image - fig - fig - fig
         elif color.lower() == "red":
             fig = image.colorDistance(self.red)
-            filteredFigure = image - fig - fig
+            filteredFigure = image - fig - fig - fig
         elif color.lower() == "green":
             fig = image.colorDistance(self.green)
-            filteredFigure = image - fig - fig
+            filteredFigure = image - fig - fig - fig
         elif color.lower() == "blue":
             fig = image.colorDistance(self.blue)
-            filteredFigure = image - fig - fig
+            filteredFigure = image - fig - fig - fig
         elif color.lower() == "white":
             fig = image.colorDistance(self.whitey)
             filteredFigure = image - fig - fig
