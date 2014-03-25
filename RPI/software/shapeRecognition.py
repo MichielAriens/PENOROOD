@@ -61,6 +61,7 @@ class ShapeFinder:
             fig = image.colorDistance(self.red)
             filteredFigure = image - fig - fig - fig
         elif color.lower() == "green":
+            print self.green
             fig = image.colorDistance(self.green)
             filteredFigure = image - fig - fig - fig
         elif color.lower() == "blue":
@@ -100,6 +101,9 @@ class ShapeFinder:
             for blob in blobs:
                 print blob.rectangleDistance()
                 print blob.circleDistance()
+                blob.draw()
+                filteredFig.show()
+                raw_input()
 
     # This method first parses the color, then parses the shape from the figure. It should find only figures
     # of the chose color and shape. It then returns a list of the coordinates of these figures.

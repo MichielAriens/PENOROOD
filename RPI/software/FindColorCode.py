@@ -7,7 +7,7 @@ class ColorRange:
     def __init__(self):
         True
 
-    def getColorRanges(self,path = 'C:\\Users\\Babyburger\\PycharmProjects\\PENOROODpy\\output\\19.jpg'):
+    def getColorRanges(self, path = 'C:\\Users\\Babyburger\\PycharmProjects\\PENOROODpy\\output\\19.jpg', brightness = "light"):
         image = Image.open(path)
         rgb_im = image.convert('RGB')
         pixels = list(rgb_im.getdata()) # List of all the pixels with RGB values
@@ -26,35 +26,36 @@ class ColorRange:
 
             (H,S,V) = self.RGBtoHSV(x,y,z)
 
-            if(V > 0.9 and S < 0.2):    # white condition
+            if(S < 0.2 and V > 0.9):    # white condition
                 whitelst.append((H,S,V))
             else:
-                if(H < 50 and H > 25 and S > 0.45 and V > 0.75):   # yellow condition
-                    yellowlst.append((H,S,V))
+                if(S < 0.1 and V > 0.25 and V < 0.6):    #indicates background
+                    True
                 else:
-                    if((H < 13 or H > 335) and S > 0.60 and V > 0.60):   # red condition
-                        redlst.append((H,S,V))
+                    if(H < 50 and H > 25 and S > 0.45 and V > 0.75):   # yellow condition
+                        yellowlst.append((H,S,V))
                     else:
-                        if(H < 260 and H > 205 and S > 0.15 and V > 0.2 and V < 0.65):   # blue condition
-                            bluelst.append((H,S,V))
+                        if((H < 13 or H > 335) and S > 0.60 and V > 0.60):   # red condition
+                            redlst.append((H,S,V))
                         else:
-                            if(H > 60 and H < 180 and V < 0.6):     # green condition
-                                greenlst.append((H,S,V))
+                            if(H < 260 and H > 205 and S > 0.15 and V > 0.2 and V < 0.65):   # blue condition
+                                bluelst.append((H,S,V))
+                            else:
+                                if(brightness == "light" and H > 100 and H < 200 and S > 0.25 and S < 0.60 and  V < 0.6):     # green condition
+                                    greenlst.append((H,S,V))
+                                else:
+                                    if(brightness == "dark" and H > 60 and H < 200 and S > 0.25 and V < 0.35):     # green secondary condition (dark environment)
+                                        greenlst.append((H,S,V))
 
         # set several conditions depending on the color to retrieve and put it in the corresponding list.
         # then find the average for each of those lists so 1 list of 5 tuples are returned. (one for each determined color)
         # Each of those tuples will represent the new value for the colorDistance measurement
 
         colorCodes = []
-        print "getting white mean"
         colorCodes.append(self.findMeanRGB(whitelst))
-        print "getting yellow mean"
         colorCodes.append(self.findMeanRGB(yellowlst))
-        print "getting red mean"
         colorCodes.append(self.findMeanRGB(redlst,"red"))
-        print "getting green mean"
         colorCodes.append(self.findMeanRGB(greenlst))
-        print "getting blue mean"
         colorCodes.append(self.findMeanRGB(bluelst))
         return colorCodes   # returns the list of color codes in the following order:
                 #white, yellow, red, green, blue (in RGB)

@@ -2,7 +2,7 @@ import shapeRecognition as sr
 
 shapes = sr.ShapeFinder()
 analyzer = sr.Analyzer()
-path = 'C:\\Users\\Babyburger\\PycharmProjects\\PENOROODpy\\output\\8.jpg'
+path = 'C:\\Users\\Babyburger\\PycharmProjects\\PENOROODpy\\output2\\0.jpg'
 shapes.setImage(path)
 shapes.calibrateColors()
 
