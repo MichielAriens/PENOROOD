@@ -15,9 +15,9 @@ class GUI:
     #Text(container, width in characters, height in lines) = widget used for displayed multiple lines of text
     #Greendot & Reddot, images for zeppelins
     #other images are shapes
-    def __init__(self, master,listener):
+    def __init__(self, master, listeners):
         self.root = master
-        self.listener = listener
+        self.listener = listeners
         self.labelframe = LabelFrame(master, text="Input&Output")
         self.canvas = Canvas(master, bg = "White", width = 1000, height = 1000)
         self.label1 = Label(self.labelframe, text="X")
@@ -28,6 +28,12 @@ class GUI:
         self.grid = GRID(8,7)
         self.text = Text(master,width = 50, height = 15)
         self.goal = (0,0)
+        
+        self.zeplisteners = []
+        for i in range(len(listeners)):
+            lis = listeners[i]
+            self.zeplisteners.append(lis)
+       
         
         self.controlFrame = LabelFrame(master, text="Controls")
         self.upbutton= Button(self.controlFrame, text="UP", command=self.moveUpWithButton)
@@ -188,17 +194,38 @@ class GUI:
     #keep updating besides running the tkinter mainloop
     #update canvas after 1000ms
     def task(self):
-        if(self.listener is not None):
-            if(self.goal != (-1,-1)):
-                self.listener.sendGoalDirection(self.updateGoalDirection())
-            zep = self.getPositionFromListener()
-            zep_pos = zep.asArray()
-            self.grid.setZeppelinPosition(zep_pos[0], zep_pos[1], 1)
-        print(self.grid.calculatePositionFromShapes(13,13,20))
+        self.checkzeppelins()
+        self.taskListeners()
+        #test
+        shapes = [1,7,5]
+        print(self.grid.calculatePositionFromShapesFlexible(shapes))
         self.updateCanvas()
         self.root.after(33,self.task)
-        
     
+    def checkzeppelins(self):
+        for i in range(len(self.zeplisteners)):
+            listener = self.zeplisteners[i]
+            id = listener.zepID
+            if(self.grid.getZeppelin(id) == ((-1,-1),-1)):
+                self.grid.addZeppelin(200, 200, id)
+            
+            
+                    
+    def taskListeners(self):
+        for i in range(len(self.zeplisteners)):
+            listener = self.zeplisteners[i]
+            if(listener.zepID > 10): #simulators have an ID > 10
+                if(self.goal != (-1,-1)):
+                    listener.sendGoalDirection(self.updateGoalDirection(listener.zepID))
+                zep = listener.getPosition()
+                zep_pos = zep.asArray()
+                self.grid.setZeppelinPosition(zep_pos[0], zep_pos[1], listener.zepID)
+            else: #not a simulator
+                zep = listener.getPosition()
+                zep_pos = zep.asArray()
+                self.grid.setZeppelinPosition(zep_pos[0], zep_pos[1], listener.zepID)
+    
+        
     def getGoalFromInput(self):
         inputx = self.entry1.get()
         inputy = self.entry2.get()
@@ -220,8 +247,8 @@ class GUI:
     def setGoal(self,goalposition):
         self.goal = goalposition;
         
-    def updateGoalDirection(self):
-        currentpos = self.grid.getZeppelin(1)[0]
+    def updateGoalDirection(self, zepID):
+        currentpos = self.grid.getZeppelin(zepID)[0]
         if(currentpos[0] == self.goal):
             self.goal = (-1,-1)
             return(0,0)
@@ -285,8 +312,7 @@ class GRID:
         print(self.table)
         self.rows = y
         self.columns = x
-        self.height_cm = 400
-        self.width_cm = 400
+        
         self.zeplist = []
     
     def initiate(self,string):
@@ -384,12 +410,15 @@ class GRID:
     
     #returns the position and SID of a shape: ((x,y),ZID). If the shape can't be found it returns ((-1,-1),-1)
     def getShape(self, SID):
+        shapes = []
         for i in range(self.rows):
             for j in range(self.columns):
                 if(SID == self.table[i][j]):
-                    return ((i,j),SID)
+                    shapes.append(((i,j),SID))
+        if(len(shapes)>0):
+            return shapes
         else:
-            return ((-1,-1),-1)
+            return []
         
     def getZeppelin(self, ZID):
         zeps = self.getZeppelins()
@@ -404,6 +433,44 @@ class GRID:
     def addZeppelin(self,x,y,ZID):
         self.zeplist.append(((x,y),ZID))
     
+    def calculatePositionFromShapesFlexible(self, shapes):
+        positions = []
+        checked_shapes = []
+        for i in range(len(shapes)):
+            shape = shapes[i]
+            if not self.checkList(checked_shapes, shape):
+                shape_pos = self.getShape(shape)
+                print("Shape: "+str(shape))
+                print("Shape_Positions: " + str(shape_pos))
+                for j in range(len(shape_pos)):
+                    new_pos = (shape_pos[j][0][0]*40, shape_pos[j][0][1]*36)
+                    positions.append(new_pos)
+                checked_shapes.append(shape)
+        #alle positions van de shapes toegevoegd in positions
+        print("positions:" + str(positions))
+        x = 0
+        y = 0
+        count = 0
+        for k in range(len(positions)):
+            x += positions[k][0]
+            y += positions[k][1]
+            count += 1
+        print("x-coord: " + str(x))
+        print("y-coord: " + str(y))
+        print("count: " + str(count))
+        x = x/count
+        y = y/count
+        print(x,y)
+            
+            
+    def checkList(self,list,element):
+        for i in range(len(list)):
+            if(list[i] == element):
+                return True
+        else:
+            return False
+            
+        
     #nog afwerken    
     def calculatePositionFromShapes(self, SID1, SID2, SID3):
         for i in range(self.rows-1):

@@ -129,6 +129,9 @@ class FakeZeppelin:
         #self.pid = PID(0.2,0.1,5)
         self.camera = None
         
+    def setPosition(self,x,y,z):
+        self.fe.pos = Vector3(x,y,z)
+        
     def getPosition(self):
         return self.fe.pos
     
