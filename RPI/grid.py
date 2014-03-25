@@ -166,16 +166,48 @@ class GRID:
     #add zeppelin x and y in cm
     def addZeppelin(self,x,y,ZID):
         self.zeplist.append(((x,y),ZID))
-    
-    
-    def find(self,a,b,c):
-        aPos = []
-        #Find all a
-        for i in range(self.rows-1):
-            for j in rang(self.columns-1):
-                if self.table[i][j] == a:
-                    aPos.append((i,j))
-        
+
+    def calculatePositionFromShapesFlexible(self, shapes):
+        positions = []
+        checked_shapes = []
+        for i in range(len(shapes)):
+            shape = shapes[i]
+            if not self.checkList(checked_shapes, shape):
+                shape_pos = self.getShape(shape)
+                if(shape_pos != []):
+                    print("Shape: "+str(shape))
+                    print("Shape_Positions: " + str(shape_pos))
+                    for j in range(len(shape_pos)):
+                        new_pos = (shape_pos[j][0][0]*40, shape_pos[j][0][1]*36)
+                        positions.append(new_pos)
+                    checked_shapes.append(shape)
+        #alle positions van de shapes toegevoegd in positions
+        print("positions:" + str(positions))
+        x = 0
+        y = 0
+        count = 0
+        for k in range(len(positions)):
+            x += positions[k][0]
+            y += positions[k][1]
+            count += 1
+        print("x-coord: " + str(x))
+        print("y-coord: " + str(y))
+        print("count: " + str(count))
+        if count == 0:
+            print("-1,-1")
+        else:
+            x = x/count
+            y = y/count
+            print(x,y)
+            
+            
+    def checkList(self,list,element):
+        for i in range(len(list)):
+            if(list[i] == element):
+                return True
+        else:
+            return False
+            
         print str(aPos)
                 
     

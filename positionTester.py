@@ -14,7 +14,7 @@ with picamera.PiCamera() as camera:
     camera.resolution = (res,res)
     camera.capture(path, "jpeg")
 print "pic taken"
-#shape.calibrateColors()
+shape.calibrateColors()
 sf = sr.Analyzer(shape)
 
 
