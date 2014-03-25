@@ -23,8 +23,25 @@ zepl = ZepListener()
 zep = FakeZeppelin.FakeZeppelin(zepl)
 zepl.zeppelin = zep
 guil = GuiListener()
-Gui = GUI(root, guil)
+guil.setZepID(11)
 zepl.link(guil)
+
+zepl55 = ZepListener()
+zep55 = FakeZeppelin.FakeZeppelin(zepl55)
+zep55.setPosition(50,100,100)
+zepl55.zeppelin = zep55
+guil55 = GuiListener()
+guil55.setZepID(55)
+zepl55.link(guil55)
+
+listeners = []
+listeners.append(guil)
+listeners.append(guil55)
+
+Gui = GUI(root, listeners)
+
+
+
 
 #pack() is used for positioning/drawing the widgets on the frame
 Gui.canvas.pack(side = LEFT)
@@ -55,7 +72,7 @@ if(len(file_path)>0):
 else:
     Gui.grid.initiate("0=0=gh=rs=bc=gr=0=0=0=wr=ys=bc=ws=gr=0=0=0=rr=yr=gh=wc=bh=wr=0=bs=rs=gc=bs=bh=bc=gs=0=0=br=yh=rh=gs=gc=yh=0=0=bh=rh=ws=wr=ys=0=0=0=0=gh=rs=bc=gr")
 
-
+Gui.grid.addZeppelin(212,77,55)
 Gui.grid.addZeppelin(120, 243, 1)
 Gui.grid.addZeppelin(200, 200, 2)
 Gui.addDisplayedMessage("Nothing to be displayed atm.")

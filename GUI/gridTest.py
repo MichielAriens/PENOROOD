@@ -15,9 +15,9 @@ class GUI:
     #Text(container, width in characters, height in lines) = widget used for displayed multiple lines of text
     #Greendot & Reddot, images for zeppelins
     #other images are shapes
-    def __init__(self, master,listener):
+    def __init__(self, master, listeners):
         self.root = master
-        self.listener = listener
+        self.listener = listeners
         self.labelframe = LabelFrame(master, text="Input&Output")
         self.canvas = Canvas(master, bg = "White", width = 1000, height = 1000)
         self.label1 = Label(self.labelframe, text="X")
@@ -28,6 +28,12 @@ class GUI:
         self.grid = GRID(8,7)
         self.text = Text(master,width = 50, height = 15)
         self.goal = (0,0)
+        
+        self.zeplisteners = []
+        for i in range(len(listeners)):
+            lis = listeners[i]
+            self.zeplisteners.append(lis)
+       
         
         self.controlFrame = LabelFrame(master, text="Controls")
         self.upbutton= Button(self.controlFrame, text="UP", command=self.moveUpWithButton)
@@ -188,17 +194,37 @@ class GUI:
     #keep updating besides running the tkinter mainloop
     #update canvas after 1000ms
     def task(self):
-        if(self.listener is not None):
-            if(self.goal != (-1,-1)):
-                self.listener.sendGoalDirection(self.updateGoalDirection())
-            zep = self.getPositionFromListener()
-            zep_pos = zep.asArray()
-            self.grid.setZeppelinPosition(zep_pos[0], zep_pos[1], 1)
+        self.checkzeppelins()
+        self.taskListeners()
         #test
         shapes = [1,7,5]
         print(self.grid.calculatePositionFromShapesFlexible(shapes))
         self.updateCanvas()
         self.root.after(33,self.task)
+    
+    def checkzeppelins(self):
+        for i in range(len(self.zeplisteners)):
+            listener = self.zeplisteners[i]
+            id = listener.zepID
+            if(self.grid.getZeppelin(id) == ((-1,-1),-1)):
+                self.grid.addZeppelin(200, 200, id)
+            
+            
+                    
+    def taskListeners(self):
+        for i in range(len(self.zeplisteners)):
+            listener = self.zeplisteners[i]
+            if(listener.zepID > 10): #simulators have an ID > 10
+                if(self.goal != (-1,-1)):
+                    listener.sendGoalDirection(self.updateGoalDirection(listener.zepID))
+                zep = listener.getPosition()
+                zep_pos = zep.asArray()
+                self.grid.setZeppelinPosition(zep_pos[0], zep_pos[1], listener.zepID)
+            else: #not a simulator
+                zep = listener.getPosition()
+                zep_pos = zep.asArray()
+                self.grid.setZeppelinPosition(zep_pos[0], zep_pos[1], listener.zepID)
+    
         
     def getGoalFromInput(self):
         inputx = self.entry1.get()
@@ -221,8 +247,8 @@ class GUI:
     def setGoal(self,goalposition):
         self.goal = goalposition;
         
-    def updateGoalDirection(self):
-        currentpos = self.grid.getZeppelin(1)[0]
+    def updateGoalDirection(self, zepID):
+        currentpos = self.grid.getZeppelin(zepID)[0]
         if(currentpos[0] == self.goal):
             self.goal = (-1,-1)
             return(0,0)
@@ -286,8 +312,7 @@ class GRID:
         print(self.table)
         self.rows = y
         self.columns = x
-        self.height_cm = 400
-        self.width_cm = 400
+        
         self.zeplist = []
     
     def initiate(self,string):

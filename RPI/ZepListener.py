@@ -3,7 +3,7 @@ import GUI.GuiListener
 class ZepListener:
 	def __init__(self):
 		self.zeppelin = None
-		self.guiListener = None	
+		self.guiListener = None
 		
 	def link(self,other):
 		self.guiListener = other
