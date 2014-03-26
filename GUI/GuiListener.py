@@ -4,6 +4,7 @@ class GuiListener:
     def __init__(self):
         self.zepListener = None
         self.gui = None
+        self.zepID = None
         
     def link(self,zepListener):
         self.zepListener = zepListener
@@ -25,4 +26,11 @@ class GuiListener:
         self.zepListener.sendMovementToFakeZep(movement)
         
     def sendGoalDirection(self,direction):
+        print("Zep " + str(self.zepID) + ", direction: " + str(direction))
         self.zepListener.sendGoalDirection(direction)
+        
+    def setZepID(self, ID):
+        self.zepID = ID
+        
+
+        
