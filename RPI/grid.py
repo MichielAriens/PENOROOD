@@ -28,15 +28,15 @@ class GRID:
                 value = 4
             elif(string =="wh"):
                 value = 5
-            elif(string =="bc"):
+            elif(string =="bo" or string =="bc"):
                 value = 6
-            elif(string =="yc"):
+            elif(string =="yo" or string =="yc"):
                 value = 7
-            elif(string =="gc"):
+            elif(string =="go" or string =="gc"):
                 value = 8
-            elif(string =="rc"):
+            elif(string =="ro" or string =="rc"):
                 value = 9
-            elif(string =="wc"):
+            elif(string =="wo" or string =="wc"):
                 value = 10
             elif(string =="br"):
                 value = 11
@@ -58,7 +58,9 @@ class GRID:
                 value = 19
             elif(string =="ws"):
                 value = 20
-            elif(string =="0"):
+            elif(string =="xx" or string =="0"):
+                value = 0
+            else:
                 value = 0
             self.setValue(value, x, y)
             x = x + 1
@@ -148,12 +150,15 @@ class GRID:
     
     #returns the position and SID of a shape: ((x,y),ZID). If the shape can't be found it returns ((-1,-1),-1)
     def getShape(self, SID):
+        shapes = []
         for i in range(self.rows):
             for j in range(self.columns):
                 if(SID == self.table[i][j]):
-                    return ((i,j),SID)
+                    shapes.append(((i,j),SID))
+        if(len(shapes)>0):
+            return shapes
         else:
-            return ((-1,-1),-1)
+            return []
         
     def getZeppelin(self, ZID):
         zeps = self.getZeppelins()
@@ -181,9 +186,7 @@ class GRID:
                     print("Shape: "+str(shape))
                     print("Shape_Positions: " + str(shape_pos))
                     for j in range(len(shape_pos)):
-                        ((x,y),z) = shape_pos
-                        new_pos = (x,y)
-                        #new_pos = (shape_pos[j][0][0]*40, shape_pos[j][0][1]*36)
+                        new_pos = (shape_pos[j][0][0]*40, shape_pos[j][0][1]*36)
                         positions.append(new_pos)
                     checked_shapes.append(shape)
         #alle positions van de shapes toegevoegd in positions
