@@ -62,7 +62,7 @@ class GRID:
                 value = 0
             self.setValue(value, x, y)
             x = x + 1
-            if(x >= 8):
+            if(x >= self.columns):
                 x = 0
                 y = y + 1 
     
@@ -166,16 +166,50 @@ class GRID:
     #add zeppelin x and y in cm
     def addZeppelin(self,x,y,ZID):
         self.zeplist.append(((x,y),ZID))
-    
-    
-    def find(self,a,b,c):
-        aPos = []
-        #Find all a
-        for i in range(self.rows-1):
-            for j in rang(self.columns-1):
-                if self.table[i][j] == a:
-                    aPos.append((i,j))
-        
+
+    def calculatePositionFromShapesFlexible(self, shapes):
+        positions = []
+        checked_shapes = []
+        for i in range(len(shapes)):
+            shape = shapes[i]
+            if not self.checkList(checked_shapes, shape):
+                shape_pos = self.getShape(shape)
+                if(shape_pos != []):
+                    print("Shape: "+str(shape))
+                    print("Shape_Positions: " + str(shape_pos))
+                    for j in range(len(shape_pos)):
+                        ((x,y),z) = shape_pos
+                        new_pos = (x,y)
+                        #new_pos = (shape_pos[j][0][0]*40, shape_pos[j][0][1]*36)
+                        positions.append(new_pos)
+                    checked_shapes.append(shape)
+        #alle positions van de shapes toegevoegd in positions
+        print("positions:" + str(positions))
+        x = 0
+        y = 0
+        count = 0
+        for k in range(len(positions)):
+            x += positions[k][0]
+            y += positions[k][1]
+            count += 1
+        print("x-coord: " + str(x))
+        print("y-coord: " + str(y))
+        print("count: " + str(count))
+        if count == 0:
+            print("-1,-1")
+        else:
+            x = x/count
+            y = y/count
+            print(x,y)
+            
+            
+    def checkList(self,list,element):
+        for i in range(len(list)):
+            if(list[i] == element):
+                return True
+        else:
+            return False
+            
         print str(aPos)
                 
     
@@ -303,4 +337,29 @@ class GRID:
             if(endpos[0] == x and endpos[1] == y):
                 return True
         return False
+    
+def initiateFromFile(path):
+    import csv
+    with open(path) as f:
+        data=[tuple(line) for line in csv.reader(f)]
+    list = []
+    emptyrow = []
+    for i in range(len(data)):
+        list.append(emptyrow)
+        row = data[i]
+        for j in range(len(row)):
+            oldstr = row[j]
+            newstr = oldstr.replace("'", " ")
+            list[i].append(newstr)
+    list[0] = str(list[0]).replace("'", "")
+    list[0] = str(list[0]).replace(" ", "")
+    list[0] = str(list[0]).replace(",", "=")
+    list[0] = str(list[0]).lower()
+    number_of_rows = len(data);
+    number_of_columns = len(data[0])
+    init_string = list[0]
+    retval = GRID(number_of_columns, number_of_rows)
+    print init_string + " rows: " + str(number_of_rows) + " cols: " + str(number_of_columns)
+    retval.initiate(init_string);
+    return retval
                 
