@@ -66,7 +66,8 @@ class GRID:
                 x = 0
                 y = y + 1 
     
-        
+
+    # returns a value corresponding to the given string (string is based on shape and color)
     def getShapeID(self, string):
         if(string == "bh"):
             value = 1
@@ -167,11 +168,13 @@ class GRID:
     def addZeppelin(self,x,y,ZID):
         self.zeplist.append(((x,y),ZID))
 
+    # returns the calculated position (tuple of x and y coordinates) from given list of shapes
+    # the shapes contain (value for shape and color, xcoordinate, ycoordinate)
     def calculatePositionFromShapesFlexible(self, shapes):
         positions = []
         checked_shapes = []
-        for i in range(len(shapes)):
-            shape = shapes[i]
+        for i in range(len(shapes)):    # looping through all the shapes
+            shape = shapes[i]   # current shape in the for loop
             if not self.checkList(checked_shapes, shape):
                 shape_pos = self.getShape(shape)
                 if(shape_pos != []):
@@ -337,7 +340,8 @@ class GRID:
             if(endpos[0] == x and endpos[1] == y):
                 return True
         return False
-    
+
+# this method returns the grid from the given path
 def initiateFromFile(path):
     import csv
     with open(path) as f:
