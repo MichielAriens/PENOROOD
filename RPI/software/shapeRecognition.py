@@ -27,8 +27,8 @@ class ShapeFinder:
         self.imagePath = path
 
     # redefines the color codes, using HSV to scan for the 5 colors. Uses the image set for this object as a reference.
-    def calibrateColors(self):
-        w, y, r, g, b = self.calibrate.getColorRanges(self.imagePath)
+    def calibrateColors(self, brightness = "light"):
+        w, y, r, g, b = self.calibrate.getColorRanges(self.imagePath, brightness)
         if(self.colorFound(w)):
             self.whitey = w
         if(self.colorFound(y)):
