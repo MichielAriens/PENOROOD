@@ -62,7 +62,7 @@ class GRID:
                 value = 0
             self.setValue(value, x, y)
             x = x + 1
-            if(x >= 8):
+            if(x >= self.columns):
                 x = 0
                 y = y + 1 
     
@@ -178,7 +178,9 @@ class GRID:
                     print("Shape: "+str(shape))
                     print("Shape_Positions: " + str(shape_pos))
                     for j in range(len(shape_pos)):
-                        new_pos = (shape_pos[j][0][0]*40, shape_pos[j][0][1]*36)
+                        ((x,y),z) = shape_pos
+                        new_pos = (x,y)
+                        #new_pos = (shape_pos[j][0][0]*40, shape_pos[j][0][1]*36)
                         positions.append(new_pos)
                     checked_shapes.append(shape)
         #alle positions van de shapes toegevoegd in positions
@@ -357,6 +359,7 @@ def initiateFromFile(path):
     number_of_columns = len(data[0])
     init_string = list[0]
     retval = GRID(number_of_columns, number_of_rows)
+    print init_string + " rows: " + str(number_of_rows) + " cols: " + str(number_of_columns)
     retval.initiate(init_string);
     return retval
                 
