@@ -24,7 +24,7 @@ sf = sr.Analyzer(shape)
 
 def analyzePosition():
     global sf,path,res,grid
-    myGrid = grid.initiateFromFile('/home/pi/zep2/OTHER/example_grid2.csv')
+    myGrid = grid.initiateFromFile('/home/pi/zep2/OTHER/grid.csv')
     #myGrid.initiate("0=0=gh=rs=bc=gr=0=0=0=wr=ys=bc=ws=gr=0=0=0=rr=yr=gh=wc=bh=wr=0=bs=rs=gc=bs=bh=bc=gs=0=0=br=yh=rh=gs=gc=yh=0=0=bh=rh=ws=wr=ys=0=0=0=0=gh=rs=bc=gr")
     with picamera.PiCamera() as camera:
         camera.resolution = (res,res)
