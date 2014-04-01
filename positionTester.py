@@ -1,7 +1,6 @@
-import picamera
 import time
-import RPI.software.shapeRecognition as sr
-import RPI.grid as grid
+
+import RPI.software.recognition.shapeRecognition as sr
 
 
 res = 250
