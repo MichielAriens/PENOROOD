@@ -7,4 +7,5 @@ class userInterface:
 
 
     def findZeppelinLocation(self, path = "/home/pi/zep2/output/path.jpg"):
-        handler.run(path)
+        pos = handler.run(path)
+        print "found " + str(pos)
