@@ -69,11 +69,26 @@ class Zeppelin:
             self.xMot.setThrust(self.xPID.update(self.pos.fst()))
             self.xMot.setThrust(self.xPID.update(self.pos.snd()))
             time.sleep(1)       
+            
+    #Set the desired position to the given position  
+    def setDesiredPosition(self,pos):
+        self.dPos = pos
+        self.xPID.setPoint(pos.fst())
+        self.yPID.setPoint(pos.snd())
+        
+    #Algorithm to invoke motors to achieve a certain position     
+    def _goToDesiredPosition(self):
+        while(True):
+            self.xMot.setThrust(self.xPID.update(camera.getPosition().fst()))
+            self.yMot.setThrust(self.yPID.update(camera.getPosition().snd()))
+            time.sleep(1)
+                 
     
     #Starts running background threads
     # _keepHeight
     def start(self):
         thread.start_new(self._keepHeight, ())
+        thread.start_new(self._goToDesiredPosition, ())
    
 
 
