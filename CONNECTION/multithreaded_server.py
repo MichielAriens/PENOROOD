@@ -19,24 +19,60 @@ def reverse_string(my_str):
 '''  One instance per connection.
      Override handle(self) to customize action. '''
 
+class ZepBase():
+    
+    def __init__(self):
+        self.zeppelins = []
+        
+    def addZeppelin(self, ID):
+        self.zeppelins.append(((0,0),ID))
+        
+    def updatePosition(self, ID, position):
+        for i in range(len(self.zeppelins)):
+            zep = self.zeppelins[i]
+            if(zep[1] == ID):
+                self.zeppelins.remove(zep)
+                self.zeppelins.append(position,ID)
+    
+    def getZeppelin(self, ID):
+        for i in range(len(self.zeppelins)):
+            zep = self.zeppelins[i]
+            if(zep[1] == ID):
+                return zep
+        return ((-1,-1),-1)
+    
+    def formRequest(self,data):
+        print("@formrequest, data= " + str(data))
+        splitted = data.rsplit("=");
+        print(splitted)
+        if(data[0] == "G"):
+            string = str(self.getZeppelin(int(splitted[1])))
+            print("Got zep position: ")
+            return string
+        else:
+            self.updatePosition(int(splitted[1]),int(splitted[2]))
+            print("did update")
+        return "updated"
+        
 class TCPConnectionHandler(socketserver.BaseRequestHandler):
-
+    
     def handle(self):
         
         print("SingleTCPHandler::handle()")
 
         # self.request is the client connection
         data = self.request.recv(1024)  # clip input at 1Kb
-        print(data.decode("utf-8"))
+        stuff = data.decode("utf-8")
 
-        reply = reverse_string(data)
-
+        reply = self.formRequest(stuff)
+        
         print((reply))
 
         if reply is not None:
-            self.request.send(reply)
-        self.request.close()
+            self.request.send(bytes(reply, 'UTF-8'))
 
+    
+    
 ############################################################################
 
 class Server(socketserver.ThreadingMixIn, socketserver.TCPServer):
@@ -50,7 +86,9 @@ class Server(socketserver.ThreadingMixIn, socketserver.TCPServer):
         self,\
         server_address,\
         RequestHandlerClass)
-
+    
+    
+    
 ############################################################################
 
 if __name__ == "__main__":

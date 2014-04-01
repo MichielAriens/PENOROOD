@@ -3,21 +3,24 @@ import random
 
 def client(string):
     HOST, PORT = 'localhost', 21567
-    # SOCK_STREAM == a TCP socket
     sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-    #sock.setblocking(0)  # optional non-blocking
     sock.connect((HOST, PORT))
 
-    sock.send(bytes(string, 'UTF-8'))
+    sendMessage(string, sock)
+    
     reply = sock.recv(16384)  # limit reply to 16K
     print(reply.decode("utf-8"))
     sock.close()
-    while(True):
-       i = 1
+    #while(True):
+     #  i = 1
     return reply
 
 def main():
-    client('Python Rocks')
-
+    client("this is a test")
+    
+def sendMessage(string, sock):
+    sock.send(bytes(string, 'UTF-8'))
+    
 if __name__ == "__main__":
     main()
+    
