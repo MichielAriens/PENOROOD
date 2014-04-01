@@ -1,4 +1,4 @@
-import shapeRecognition as sr
+from RPI.software.recognition import shapeRecognition as sr
 
 shapes = sr.ShapeFinder()
 analyzer = sr.Analyzer()

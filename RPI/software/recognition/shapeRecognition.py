@@ -6,9 +6,11 @@
 # alternative method if blobs aren't working for 'live' pictures: contour method with opencv
 
 from SimpleCV import Image
-import FindColorCode as fc
 
 # Color values can easily be found by right clicking the picture and use color picker!  (in pycharm anyway)
+from RPI.software.recognition import FindColorCode as fc
+
+
 class ShapeFinder:
     def __init__(self):
         self.imagePath = 'C:\\Users\\Babyburger\\PycharmProjects\\PENOROODpy\\output\\7.jpg'
