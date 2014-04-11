@@ -2,11 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="b589891e-741d-4fd8-909e-5035d39e1101" name="Default" comment="t">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/RabbitMQ/RMQ.py" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/RabbitMQ/RMQSender.py" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/RabbitMQ/RMQreceiver.py" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/RabbitMQ/__init__.py" />
-      <change type="DELETED" beforePath="C:\Users\Babyburger\PycharmProjects\PENOROODpy\reciever.py" afterPath="" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="PENOROOD.iws" />
@@ -30,57 +25,19 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="locationZeppelin.py" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/RPI/software/locationZeppelin.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="24" column="38" selection-start="734" selection-end="734" vertical-scroll-proportion="0.0" vertical-offset="408" max-vertical-offset="578">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="RMQSender.py" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/RabbitMQ/RMQSender.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="7" column="0" selection-start="195" selection-end="195" vertical-scroll-proportion="0.0" vertical-offset="119" max-vertical-offset="391">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="RMQreceiver.py" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/RabbitMQ/RMQreceiver.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="14" column="0" selection-start="486" selection-end="486" vertical-scroll-proportion="0.0" vertical-offset="238" max-vertical-offset="425">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="RMQ.py" pinned="false" current="true" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/RabbitMQ/RMQ.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="28" column="12" selection-start="780" selection-end="780" vertical-scroll-proportion="0.74041814" vertical-offset="51" max-vertical-offset="1241">
-              <folding>
-                <element signature="e#0#37#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="distSensor.py" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/RPI/hardware/distSensor.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="231" column="30" selection-start="6607" selection-end="6607" vertical-scroll-proportion="0.0" vertical-offset="3927" max-vertical-offset="8075">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="main.py" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/RPI/software/main.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="9" column="24" selection-start="209" selection-end="209" vertical-scroll-proportion="0.0" vertical-offset="153" max-vertical-offset="272">
+            <state line="10" column="33" selection-start="250" selection-end="250" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="272">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="camera.py" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/RPI/software/camera.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="7" column="45" selection-start="178" selection-end="178" vertical-scroll-proportion="0.0" vertical-offset="119" max-vertical-offset="340">
               <folding />
             </state>
           </provider>
@@ -89,16 +46,27 @@
       <file leaf-file-name="positionHandler.py" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/RPI/software/positionHandler.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="11" column="30" selection-start="378" selection-end="378" vertical-scroll-proportion="0.0" vertical-offset="187" max-vertical-offset="697">
+            <state line="24" column="51" selection-start="952" selection-end="952" vertical-scroll-proportion="0.0" vertical-offset="408" max-vertical-offset="697">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="positionTester.py" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/positionTester.py">
+      <file leaf-file-name="RMQ.py" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/RabbitMQ/RMQ.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="28" column="28" selection-start="838" selection-end="838" vertical-scroll-proportion="0.0" vertical-offset="370" max-vertical-offset="1207">
+            <state line="24" column="28" selection-start="670" selection-end="670" vertical-scroll-proportion="0.51428574" vertical-offset="102" max-vertical-offset="1241">
+              <folding>
+                <element signature="e#0#37#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="grid.csv" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/OTHER/grid.csv">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="2" column="5" selection-start="47" selection-end="47" vertical-scroll-proportion="0.0" vertical-offset="34" max-vertical-offset="221">
               <folding />
             </state>
           </provider>
@@ -135,11 +103,6 @@
         <option value="$PROJECT_DIR$/RPI/software/locationZeppelin.py" />
         <option value="$PROJECT_DIR$/RPI/software/positionHandler.py" />
         <option value="$PROJECT_DIR$/RPI/software/main.py" />
-        <option value="$PROJECT_DIR$/RMQreceiver.py" />
-        <option value="$PROJECT_DIR$/startRMQ.py" />
-        <option value="$PROJECT_DIR$/RMQSender.py" />
-        <option value="$PROJECT_DIR$/RMQ.py" />
-        <option value="$PROJECT_DIR$/RMQ/RMQ.py" />
         <option value="$PROJECT_DIR$/RabbitMQ/RMQ.py" />
       </list>
     </option>
@@ -176,7 +139,6 @@
       <sortByType />
     </navigator>
     <panes>
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -275,6 +237,7 @@
           </PATH>
         </subPane>
       </pane>
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -294,7 +257,6 @@
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
-      <recent name="C:\Users\Babyburger\PycharmProjects\PENOROODpy\RMQ" />
       <recent name="C:\Users\Babyburger\PycharmProjects\PENOROODpy\RPI\software" />
       <recent name="C:\Users\Babyburger\PycharmProjects\PENOROODpy\RPI\software\recognition" />
     </key>
@@ -446,23 +408,6 @@
     </list>
   </component>
   <component name="ShelveChangesManager" show_recycled="false" />
-  <component name="SvnConfiguration" maxAnnotateRevisions="500" myUseAcceleration="nothing" myAutoUpdateAfterCommit="false" cleanupOnStartRun="false" SSL_PROTOCOLS="all">
-    <option name="USER" value="" />
-    <option name="PASSWORD" value="" />
-    <option name="mySSHConnectionTimeout" value="30000" />
-    <option name="mySSHReadTimeout" value="30000" />
-    <option name="LAST_MERGED_REVISION" />
-    <option name="MERGE_DRY_RUN" value="false" />
-    <option name="MERGE_DIFF_USE_ANCESTRY" value="true" />
-    <option name="UPDATE_LOCK_ON_DEMAND" value="false" />
-    <option name="IGNORE_SPACES_IN_MERGE" value="false" />
-    <option name="CHECK_NESTED_FOR_QUICK_MERGE" value="false" />
-    <option name="IGNORE_SPACES_IN_ANNOTATE" value="true" />
-    <option name="SHOW_MERGE_SOURCES_IN_ANNOTATE" value="true" />
-    <option name="FORCE_UPDATE" value="false" />
-    <option name="IGNORE_EXTERNALS" value="false" />
-    <myIsUseDefaultProxy>false</myIsUseDefaultProxy>
-  </component>
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
       <changelist id="b589891e-741d-4fd8-909e-5035d39e1101" name="Default" comment="" />
@@ -507,8 +452,8 @@
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Structure" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.15446559" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.17715959" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Structure" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.15153733" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.1669107" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3993559" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="1" side_tool="true" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
@@ -548,9 +493,26 @@
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/output2/11.jpg">
+      <provider selected="true" editor-type-id="images">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/RPI/software/recognition/FindColorCode.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="9" column="126" selection-start="330" selection-end="352" vertical-scroll-proportion="0.0" vertical-offset="153" max-vertical-offset="2499" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/RPI/software/recognition/shapeRecognition.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="256" column="60" selection-start="10443" selection-end="10443" vertical-scroll-proportion="0.0" vertical-offset="4352" max-vertical-offset="4692" />
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/RPI/grid.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="158" column="25" selection-start="4881" selection-end="4881" vertical-scroll-proportion="0.0" vertical-offset="2492" max-vertical-offset="6426" />
+        <state line="158" column="25" selection-start="4881" selection-end="4881" vertical-scroll-proportion="0.0" vertical-offset="2492" max-vertical-offset="6426">
+          <folding />
+        </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/positionTester.py">
@@ -587,7 +549,9 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/RPI/grid.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="146" column="4" selection-start="4268" selection-end="4268" vertical-scroll-proportion="0.0" vertical-offset="2482" max-vertical-offset="6307" />
+        <state line="146" column="4" selection-start="4268" selection-end="4268" vertical-scroll-proportion="0.0" vertical-offset="2482" max-vertical-offset="6307">
+          <folding />
+        </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/output2/0.jpg">
@@ -752,7 +716,9 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/OTHER/grid.csv">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="2" column="5" selection-start="47" selection-end="47" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="221" />
+        <state line="2" column="5" selection-start="47" selection-end="47" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="221">
+          <folding />
+        </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/positionTester.py">
@@ -762,61 +728,44 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/RPI/software/camera.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="7" column="45" selection-start="178" selection-end="178" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="340" />
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/RPI/grid.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="23" column="25" selection-start="739" selection-end="739" vertical-scroll-proportion="0.486631" vertical-offset="118" max-vertical-offset="6426" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/RabbitMQ/RMQreceiver.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="14" column="0" selection-start="486" selection-end="486" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="425">
+        <state line="23" column="25" selection-start="739" selection-end="739" vertical-scroll-proportion="0.0" vertical-offset="136" max-vertical-offset="6426">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/RabbitMQ/RMQSender.py">
+    <entry file="file://$PROJECT_DIR$/RPI/software/camera.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="7" column="0" selection-start="195" selection-end="195" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="391">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/RPI/software/locationZeppelin.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="24" column="38" selection-start="734" selection-end="734" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="561">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/RPI/software/main.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="9" column="24" selection-start="209" selection-end="209" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="272">
+        <state line="7" column="45" selection-start="178" selection-end="178" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="340">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/RPI/software/positionHandler.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="11" column="30" selection-start="378" selection-end="378" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="663">
+        <state line="24" column="51" selection-start="952" selection-end="952" vertical-scroll-proportion="0.0" vertical-offset="85" max-vertical-offset="697">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/RPI/hardware/distSensor.py">
+    <entry file="file://$PROJECT_DIR$/RPI/software/locationZeppelin.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="231" column="30" selection-start="6607" selection-end="6607" vertical-scroll-proportion="0.0" vertical-offset="2788" max-vertical-offset="8075">
+        <state line="25" column="21" selection-start="756" selection-end="756" vertical-scroll-proportion="0.6857143" vertical-offset="0" max-vertical-offset="595">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/RPI/software/main.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="10" column="33" selection-start="250" selection-end="250" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="272">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/RabbitMQ/RMQ.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="28" column="12" selection-start="780" selection-end="780" vertical-scroll-proportion="0.74041814" vertical-offset="51" max-vertical-offset="1241">
+        <state line="24" column="28" selection-start="670" selection-end="670" vertical-scroll-proportion="0.51428574" vertical-offset="102" max-vertical-offset="1241">
           <folding>
             <element signature="e#0#37#0" expanded="true" />
           </folding>
