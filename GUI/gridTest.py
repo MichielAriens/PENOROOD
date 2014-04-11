@@ -34,6 +34,7 @@ class GUI:
             lis = listeners[i]
             self.zeplisteners.append(lis)
        
+        self.ipads = []
         
         self.controlFrame = LabelFrame(master, text="Controls")
         self.upbutton= Button(self.controlFrame, text="UP", command=self.moveUpWithButton)
@@ -65,9 +66,8 @@ class GUI:
         self.rs = PhotoImage(file="GUI/rode_ster.gif")#19
         self.ws = PhotoImage(file="GUI/witte_ster.gif")#20
         self.fb = PhotoImage(file="GUI/forbidden_area.gif")#1
+        self.ipadgif = PhotoImage(file="GUI/ipad.gif")#1
         self.images = (self.fb,self.bh,self.yh,self.gh,self.rh, self.wh,self.bc,self.yc,self.gc,self.rc,self.wc,self.br,self.yr,self.gr,self.rr,self.wr,self.bs,self.ys,self.gs,self.rs,self.ws)
-        
-        
         
     #Paints a shape on the grid    
     def paintShape(self, posx, posy, shapeID):
@@ -103,6 +103,8 @@ class GUI:
             self.canvas.create_image(xoffset + x,yoffset + y,image=self.greendot)
             self.canvas.create_text(xoffset + x + 5,yoffset + y+30,text="ZID =" + str(ZID), fill = "red")
             self.canvas.create_text(xoffset + x + 5,yoffset + y+40,text="POS = (" + str(round(posx)) +","+ str(round(posy))+")cm", fill = "red")
+        elif(ZID == 100):
+            self.canvas.create_image(paintx,painty,image=self.ipadgif)
         else:
             self.canvas.create_image(xoffset + x,yoffset + y,image=self.reddot)
             self.canvas.create_text(xoffset + x + 5,yoffset + y+30,text="ZID =" + str(ZID), fill = "red")
@@ -161,6 +163,11 @@ class GUI:
             position_zep = zep[0]
             ZID = zep[1]
             self.paintZeppelin(position_zep[0], position_zep[1], ZID)
+        list_pads = self.ipads
+        for l in range(len(list_pads)):
+            ipad = list_pads[l]
+            ipad_pos = ipad[0]
+            self.paintShape(ipad_pos[0], ipad_pos[1], ipad[1])
         self.updateMessage()
     
     #updates the displayed message
@@ -194,36 +201,32 @@ class GUI:
     #keep updating besides running the tkinter mainloop
     #update canvas after 1000ms
     def task(self):
-        self.checkzeppelins()
+        self.checkzeppelins()                                                       
         self.taskListeners()
         #test
-        shapes = [1,7,5]
-        print(self.grid.calculatePositionFromShapesFlexible(shapes))
         self.updateCanvas()
+        self.readFromFile()
         self.root.after(33,self.task)
     
     def checkzeppelins(self):
-        for i in range(len(self.zeplisteners)):
-            listener = self.zeplisteners[i]
+        for i in range(len(self.zeplisteners)):                                             #check if all listeners aka zeps are represented
+            listener = self.zeplisteners[i]                                                 #on the grid
             id = listener.zepID
-            if(self.grid.getZeppelin(id) == ((-1,-1),-1)):
-                self.grid.addZeppelin(200, 200, id)
+            if(self.grid.getZeppelin(id) == ((-1,-1),-1)):                                  #if not, add a zeppelin with his ID to th grid
+                self.grid.addZeppelin(0, 0, id)
             
             
                     
     def taskListeners(self):
-        for i in range(len(self.zeplisteners)):
-            listener = self.zeplisteners[i]
-            if(listener.zepID > 10): #simulators have an ID > 10
-                if(self.goal != (-1,-1)):
-                    listener.sendGoalDirection(self.updateGoalDirection(listener.zepID))
-                zep = listener.getPosition()
-                zep_pos = zep.asArray()
-                self.grid.setZeppelinPosition(zep_pos[0], zep_pos[1], listener.zepID)
-            else: #not a simulator
-                zep = listener.getPosition()
-                zep_pos = zep.asArray()
-                self.grid.setZeppelinPosition(zep_pos[0], zep_pos[1], listener.zepID)
+        for i in range(len(self.zeplisteners)):                                             #iterate over all listeners
+            listener = self.zeplisteners[i] 
+            if(listener.zepID > 10):                                                        #simulators have an ID > 10
+                if(self.goal != (-1,-1)):                                                   #if there is a goal
+                    listener.sendGoalDirection(self.updateGoalDirection(listener.zepID))    #send the goal to the simulator
+                zep = listener.getPosition()                                                #request position
+                zep_pos = zep.asArray()                                                     #dunno
+                if(zep_pos[0]!=-1 and zep_pos[1]!=-1):                                      #if we received a valid position then
+                    self.grid.setZeppelinPosition(zep_pos[0], zep_pos[1], listener.zepID)   #update it in the grid
     
         
     def getGoalFromInput(self):
@@ -302,6 +305,16 @@ class GUI:
     def setGoal(self):
         goalz = self.getGoalFromInput()
         self.goal = goalz
+        
+    def readFromFile(self):
+        file_object = open("C:\\Users\\simon\\test.txt", "r")
+        lines = file_object.readlines()
+        print(lines)
+        file_object.close()
+        
+    def addIpad(self, x, y, ID):
+        self.ipads.append(((x,y),ID))
+        
 #class that represents the triangular grid
 class GRID:
     
@@ -596,9 +609,7 @@ class GRID:
             if(endpos[0] == x and endpos[1] == y):
                 return True
         return False
-                
-        
-            
+
 #Initiate GUI
 #Gui = GUI(root)
 

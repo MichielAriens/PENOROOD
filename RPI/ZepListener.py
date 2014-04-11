@@ -20,3 +20,7 @@ class ZepListener:
 		
 	def sendGoalDirection(self,direction):
 		self.zeppelin.setMovementZeppelin(direction)
+		
+	#def updatePosition(self,position):
+		
+			

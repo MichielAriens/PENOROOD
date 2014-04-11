@@ -1,11 +1,13 @@
 import RPI.FakeZeppelin as FakeZeppelin
 import GUI.gridTest as gridTest
 import GUI.GuiListener as GuiListener
+import CONNECTION.multithreaded_server as multithreaded_server
 import RPI.ZepListener as ZepListener
 from GUI.GuiListener import *
 from RPI.ZepListener import *
 from GUI.gridTest import *
 from tkinter import *
+from CONNECTION.multithreaded_server import *
 import tkinter as tkinter
 from tkinter import filedialog
 
@@ -14,11 +16,16 @@ from tkinter import filedialog
 
 
 
-
+#server = Server(('localhost', 21567), TCPConnectionHandler)
 
 root = Tk()
 root.title("team ROOD")
 
+#1. zeplistener aanmaken
+#2. fakezeppelin aanmaken
+#3. zeppelin linken aan zeplistener
+#4. guiListener aanmaken en een ID geven
+#5. -- zonder server -- zeplistener nog linken aan gui
 zepl = ZepListener()
 zep = FakeZeppelin.FakeZeppelin(zepl)
 zepl.zeppelin = zep
