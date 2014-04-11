@@ -36,6 +36,9 @@ class PWMMotor:
         else:
             self.thrust = nThrust
         self._actuate()
+
+    def getThrust(self):
+        return self.thrust
         
     def _actuate(self):
         #decide direction
@@ -74,6 +77,9 @@ class PulsedMotor:
             self.thrust = -100.0
         else:
             self.thrust = nThrust
+
+    def getThrust(self):
+        return self.thrust
         
     #Endless loop to control the motors. TimeQuantum decides how fine grained the loop is (ms). The proper value should be found experimentally
     #percent defines the percent of time that the motor should give 100% of its power.

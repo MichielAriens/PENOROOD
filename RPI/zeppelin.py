@@ -56,7 +56,15 @@ class Zeppelin:
     def setDesiredHeight(self,height):
         self.dHeight = height
         self.pid.setPoint(height)
-        
+
+    def getLiftMotor(self):
+        return self.lift
+
+    def getXMotor(self):
+        return self.xMot
+
+    def getYMotor(self):
+        return self.yMot
         
         
     #Algorithm to invoke motors to achieve a certain height

@@ -2,6 +2,7 @@ from RabbitMQ import RMQreceiver as r
 from RabbitMQ import RMQSender as s
 from RPI.software import main
 from RPI.hardware.distSensor import DistanceSensor as ds
+from RPI.zeppelin import Zeppelin as zep
 
 class RMQ:
 
@@ -26,7 +27,31 @@ class RMQ:
         self.sendCommand(command)
 
     def sendHeight(self):
+        height = ds.getHeight()
+        command = self.sendRequest.height()
+        self.sendCommand(command)
+
+    # TODO implement
+    def sendMove(self):
         pass
+
+    # TODO implement
+    def sendElevate(self):
+        pass
+
+    # TODO implement height motor
+    def sendMotor1(self):
+        pass
+
+    def sendMotor2(self):
+        thrust = zep.getXMotor().getThrust()
+        command = self.sendRequest.motor(2,thrust)
+        self.sendCommand(command)
+
+    def sendMotor3(self):
+        thrust = zep.getYMotor().getThrust()
+        command = self.sendRequest.motor(3,thrust)
+        self.sendCommand(command)
 
 
 class SendRequest:
