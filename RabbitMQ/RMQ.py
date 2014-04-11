@@ -1,5 +1,5 @@
-from RabbitMQ import RMQreceiver as r
-from RabbitMQ import RMQSender as s
+import RMQreceiver as r
+import RMQSender as s
 from RPI.software import main
 from RPI.hardware.distSensor import DistanceSensor as ds
 from RPI.zeppelin import Zeppelin as zep
