@@ -1,7 +1,5 @@
-
-import CONNECTION.multithread_client as multithread_client
-from CONNECTION.multithread_client import *
-
+from RabbitMQ import RMQreceiver as r
+from RabbitMQ import RMQSender as s
 
 
 class GuiListener:
@@ -10,11 +8,26 @@ class GuiListener:
         self.gui = None
         self.zepID = None
         self.connected = False
-        self.connect()
+        self.ip = None
+        self.sender = None
+        self.receiver = None
         
         
     def connect(self):
-        pass
+        self.ip = 'localhost'
+        self.sender = s.Sender
+        self.receiver = r.Receiver
+        self.sendRequest = SendRequest
+        self.connected = True
+        
+        self.startRMQ()
+
+    def startRMQ(self):
+        self.receiver.startReceiving()
+
+    def sendCommand(self,command):
+        print('command: ' + command)
+        self.sender.sendCommand(command)
         
     def link(self,zepListener):
         self.zepListener = zepListener

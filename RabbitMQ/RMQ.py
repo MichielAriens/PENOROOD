@@ -17,7 +17,7 @@ class RMQ:
         self.receiver.startReceiving()
 
     def sendCommand(self,command):
-        print 'command: ' + command
+        print('command: ' + command)
         self.sender.sendCommand(command)
 
     def sendLocation(self):

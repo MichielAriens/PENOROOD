@@ -11,9 +11,9 @@ class Receiver:
         channel.basic_consume(self.callback,queue='roodQueue',no_ack=True)
 
     def callback(ch, method, properties, body):
-        print " [x] Received %r" % (body,)
+        print(" [x] Received %r" % (body,))
 
     def startReceiving(self):
-        print ' [*] Waiting for messages. To exit press CTRL+C'
+        print(' [*] Waiting for messages. To exit press CTRL+C')
         self.channel.start_consuming()
 

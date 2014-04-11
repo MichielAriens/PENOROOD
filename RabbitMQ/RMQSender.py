@@ -12,7 +12,7 @@ class Sender:
         self.channel.basic_publish(exchange='server',
                              routing_key='roodQueue',
                              body=command)
-        print "Command sent."    # remove this line after testing.
+        print("Command sent.")    # remove this line after testing.
 
     def closeConnection(self):
         self.connection.close()
