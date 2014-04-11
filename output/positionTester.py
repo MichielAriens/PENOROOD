@@ -1,6 +1,8 @@
-import picamera
 import time
-import RPI.software.shapeRecognition as sr
+
+import picamera
+import RPI.software.recognition.shapeRecognition as sr
+
 
 sf = sr.Analyzer()
 path = "/home/pi/zep2/output/path.jpg"
