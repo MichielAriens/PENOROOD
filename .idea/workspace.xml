@@ -1,9 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="b589891e-741d-4fd8-909e-5035d39e1101" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-    </list>
+    <list default="true" id="b589891e-741d-4fd8-909e-5035d39e1101" name="Default" comment="" />
     <ignored path="PENOROOD.iws" />
     <ignored path=".idea/workspace.xml" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -24,66 +22,7 @@
     <favorites_list name="PENOROOD" />
   </component>
   <component name="FileEditorManager">
-    <leaf>
-      <file leaf-file-name="main.py" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/RPI/software/main.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="10" column="33" selection-start="250" selection-end="250" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="272">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="camera.py" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/RPI/software/camera.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="7" column="45" selection-start="178" selection-end="178" vertical-scroll-proportion="0.0" vertical-offset="119" max-vertical-offset="340">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="positionHandler.py" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/RPI/software/positionHandler.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="24" column="51" selection-start="952" selection-end="952" vertical-scroll-proportion="0.0" vertical-offset="408" max-vertical-offset="697">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="RMQ.py" pinned="false" current="true" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/RabbitMQ/RMQ.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="12" column="9" selection-start="350" selection-end="350" vertical-scroll-proportion="0.34285715" vertical-offset="0" max-vertical-offset="1666">
-              <folding>
-                <element signature="e#0#37#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="zeppelin.py" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/RPI/zeppelin.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="65" column="17" selection-start="2112" selection-end="2112" vertical-scroll-proportion="0.0" vertical-offset="663" max-vertical-offset="3043">
-              <folding>
-                <element signature="e#184#207#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="grid.csv" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/OTHER/grid.csv">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="2" column="5" selection-start="47" selection-end="47" vertical-scroll-proportion="0.0" vertical-offset="34" max-vertical-offset="221">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-    </leaf>
+    <leaf />
   </component>
   <component name="FindManager">
     <FindUsagesManager>
@@ -123,8 +62,8 @@
   <component name="ProjectFrameBounds">
     <option name="x" value="-8" />
     <option name="y" value="-8" />
-    <option name="width" value="1382" />
-    <option name="height" value="754" />
+    <option name="width" value="1936" />
+    <option name="height" value="1056" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="false">
     <OptionsSetting value="true" id="Add" />
@@ -156,95 +95,17 @@
         <subPane>
           <PATH>
             <PATH_ELEMENT>
-              <option name="myItemId" value="PENOROODpy" />
+              <option name="myItemId" value="PENOROOD" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
             </PATH_ELEMENT>
           </PATH>
           <PATH>
             <PATH_ELEMENT>
-              <option name="myItemId" value="PENOROODpy" />
+              <option name="myItemId" value="PENOROOD" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="PENOROODpy" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="PENOROODpy" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="PENOROODpy" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="RabbitMQ" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="PENOROODpy" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="PENOROODpy" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="RPI" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="PENOROODpy" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="PENOROODpy" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="RPI" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="software" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="PENOROODpy" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="PENOROODpy" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="RPI" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="hardware" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="PENOROODpy" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="PENOROODpy" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="OTHER" />
+              <option name="myItemId" value="PENOROOD" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -255,13 +116,13 @@
   </component>
   <component name="PropertiesComponent">
     <property name="options.splitter.main.proportions" value="0.3" />
-    <property name="options.lastSelected" value="com.jetbrains.python.configuration.PythonSdkConfigurable" />
-    <property name="FullScreen" value="false" />
-    <property name="options.splitter.details.proportions" value="0.2" />
-    <property name="options.searchVisible" value="true" />
     <property name="recentsLimit" value="5" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/RPI/software/recognitionTester.py" />
+    <property name="options.lastSelected" value="com.jetbrains.python.configuration.PythonSdkConfigurable" />
     <property name="restartRequiresConfirmation" value="true" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/RPI/software/recognitionTester.py" />
+    <property name="FullScreen" value="false" />
+    <property name="options.searchVisible" value="true" />
+    <property name="options.splitter.details.proportions" value="0.2" />
   </component>
   <component name="PyConsoleOptionsProvider">
     <option name="myPythonConsoleState">
@@ -467,15 +328,14 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1382" height="754" extended-state="6" />
+    <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
     <editor active="false" />
     <layout>
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Structure" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.15153733" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.1669107" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Structure" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.15104167" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.16666667" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3993559" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="1" side_tool="true" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
@@ -483,8 +343,9 @@
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32850242" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32850242" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32850242" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
@@ -514,182 +375,6 @@
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/RPI/software/recognition/shapeRecognition.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="256" column="60" selection-start="10443" selection-end="10443" vertical-scroll-proportion="0.0" vertical-offset="4352" max-vertical-offset="4692" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/RPI/grid.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="158" column="25" selection-start="4881" selection-end="4881" vertical-scroll-proportion="0.0" vertical-offset="2492" max-vertical-offset="6426">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/positionTester.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="44" column="33" selection-start="1538" selection-end="1538" vertical-scroll-proportion="0.0" vertical-offset="748" max-vertical-offset="1224">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/output2/0.jpg">
-      <provider selected="true" editor-type-id="images">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/output2/11.jpg">
-      <provider selected="true" editor-type-id="images">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/RPI/software/recognition/FindColorCode.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="9" column="126" selection-start="330" selection-end="352" vertical-scroll-proportion="0.0" vertical-offset="17" max-vertical-offset="2499" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/RPI/software/recognition/recognitionTester.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="13" column="0" selection-start="307" selection-end="307" vertical-scroll-proportion="0.0" vertical-offset="221" max-vertical-offset="323" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/RPI/software/recognition/shapeRecognition.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="29" column="45" selection-start="1212" selection-end="1212" vertical-scroll-proportion="0.0" vertical-offset="493" max-vertical-offset="4692" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/RPI/grid.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="146" column="4" selection-start="4268" selection-end="4268" vertical-scroll-proportion="0.0" vertical-offset="2482" max-vertical-offset="6307">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/output2/0.jpg">
-      <provider selected="true" editor-type-id="images">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/output2/11.jpg">
-      <provider selected="true" editor-type-id="images">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/RPI/software/recognition/FindColorCode.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="45" column="37" selection-start="1966" selection-end="1966" vertical-scroll-proportion="0.0" vertical-offset="17" max-vertical-offset="2499" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/RPI/software/recognition/recognitionTester.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="6" column="13" selection-start="193" selection-end="193" vertical-scroll-proportion="0.0" vertical-offset="102" max-vertical-offset="323" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/RPI/software/recognition/shapeRecognition.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="55" column="0" selection-start="1928" selection-end="1928" vertical-scroll-proportion="0.0" vertical-offset="935" max-vertical-offset="4692" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/output2/0.jpg">
-      <provider selected="true" editor-type-id="images">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/output2/11.jpg">
-      <provider selected="true" editor-type-id="images">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/RPI/software/recognition/FindColorCode.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="7" column="12" selection-start="224" selection-end="224" vertical-scroll-proportion="0.0" vertical-offset="102" max-vertical-offset="2584" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/RPI/software/recognition/recognitionTester.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="6" column="13" selection-start="193" selection-end="193" vertical-scroll-proportion="0.0" vertical-offset="102" max-vertical-offset="323" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/RPI/software/recognition/shapeRecognition.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="55" column="0" selection-start="1928" selection-end="1928" vertical-scroll-proportion="0.0" vertical-offset="935" max-vertical-offset="4692" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/positionTester.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="37" column="24" selection-start="856" selection-end="856" vertical-scroll-proportion="0.0" vertical-offset="629" max-vertical-offset="1904" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/RPI/software/recognition/shapeRecognition.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="29" column="23" selection-start="1175" selection-end="1190" vertical-scroll-proportion="0.0" vertical-offset="493" max-vertical-offset="4624" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/positionTester.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="31" column="32" selection-start="694" selection-end="694" vertical-scroll-proportion="0.0" vertical-offset="51" max-vertical-offset="1819" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/RPI/software/recognition/shapeRecognition.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="29" column="23" selection-start="1175" selection-end="1190" vertical-scroll-proportion="0.0" vertical-offset="493" max-vertical-offset="4624" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/RPI/software/recognition/colorTester.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="6" column="27" selection-start="271" selection-end="271" vertical-scroll-proportion="0.28977272" vertical-offset="0" max-vertical-offset="352" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/output1/4.jpg">
-      <provider selected="true" editor-type-id="images">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/output1/2.jpg">
-      <provider selected="true" editor-type-id="images">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/output1/9.jpg">
-      <provider selected="true" editor-type-id="images">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/output/4.jpg">
-      <provider selected="true" editor-type-id="images">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/output/8.jpg">
-      <provider selected="true" editor-type-id="images">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/output2/6.jpg">
-      <provider selected="true" editor-type-id="images">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/output2/0.jpg">
-      <provider selected="true" editor-type-id="images">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/run.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="13" column="0" selection-start="317" selection-end="317" vertical-scroll-proportion="0.3148148" vertical-offset="102" max-vertical-offset="1564" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/RPI/software/__init__.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="391" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/output2/11.jpg">
-      <provider selected="true" editor-type-id="images">
-        <state />
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/RPI/software/recognition/FindColorCode.py">
       <provider selected="true" editor-type-id="text-editor">
         <state line="9" column="126" selection-start="330" selection-end="352" vertical-scroll-proportion="0.0" vertical-offset="17" max-vertical-offset="2499" />
@@ -722,23 +407,19 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/OTHER/grid.csv">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="2" column="5" selection-start="47" selection-end="47" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="221">
+        <state line="2" column="5" selection-start="47" selection-end="47" vertical-scroll-proportion="0.037904125" vertical-offset="0" max-vertical-offset="897">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/positionTester.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="28" column="28" selection-start="838" selection-end="838" vertical-scroll-proportion="0.0" vertical-offset="370" max-vertical-offset="1207">
-          <folding />
-        </state>
+        <state line="28" column="28" selection-start="838" selection-end="838" vertical-scroll-proportion="0.0" vertical-offset="370" max-vertical-offset="1207" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/RPI/grid.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="23" column="25" selection-start="739" selection-end="739" vertical-scroll-proportion="0.0" vertical-offset="136" max-vertical-offset="6426">
-          <folding />
-        </state>
+        <state line="23" column="25" selection-start="739" selection-end="739" vertical-scroll-proportion="0.0" vertical-offset="136" max-vertical-offset="6426" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/RPI/software/camera.py">
@@ -757,7 +438,22 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/RPI/software/locationZeppelin.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="25" column="21" selection-start="756" selection-end="756" vertical-scroll-proportion="0.6857143" vertical-offset="0" max-vertical-offset="595">
+        <state line="25" column="21" selection-start="756" selection-end="756" vertical-scroll-proportion="0.6857143" vertical-offset="0" max-vertical-offset="595" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/RPI/redzeppelin.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="26" column="12" selection-start="653" selection-end="653" vertical-scroll-proportion="0.62857145" vertical-offset="0" max-vertical-offset="816" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/RPI/hardware/motor.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="34" column="30" selection-start="1550" selection-end="1550" vertical-scroll-proportion="0.29209623" vertical-offset="408" max-vertical-offset="2244" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/RPI/zeppelin.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="73" column="17" selection-start="2369" selection-end="2369" vertical-scroll-proportion="0.0" vertical-offset="1241" max-vertical-offset="3043">
           <folding />
         </state>
       </provider>
@@ -766,40 +462,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state line="10" column="33" selection-start="250" selection-end="250" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="272">
           <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/RPI/redzeppelin.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="26" column="12" selection-start="653" selection-end="653" vertical-scroll-proportion="0.62857145" vertical-offset="0" max-vertical-offset="816">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/RPI/hardware/motor.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="34" column="30" selection-start="1550" selection-end="1550" vertical-scroll-proportion="0.29209623" vertical-offset="408" max-vertical-offset="2244">
-          <folding>
-            <element signature="e#0#11#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/RPI/zeppelin.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="65" column="17" selection-start="2112" selection-end="2112" vertical-scroll-proportion="0.0" vertical-offset="663" max-vertical-offset="3043">
-          <folding>
-            <element signature="e#184#207#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/RabbitMQ/RMQ.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="12" column="9" selection-start="350" selection-end="350" vertical-scroll-proportion="0.34285715" vertical-offset="0" max-vertical-offset="1666">
-          <folding>
-            <element signature="e#0#37#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
