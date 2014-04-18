@@ -9,53 +9,27 @@ from GUI.gridTest import *
 from tkinter import *
 from CONNECTION.multithreaded_server import *
 import tkinter as tkinter
-from tkinter import filedialog
 
-
-
-
-
-
-#server = Server(('localhost', 21567), TCPConnectionHandler)
-
+def addSimulator(communicator,x,y,z,id):
+    zepl = ZepListener()
+    zep = FakeZeppelin.FakeZeppelin(zepl)
+    zep.setPosition(x,y,z)
+    zepl.zeppelin = zep
+    communicator.addZeppelinListener(zepl,id)
+    
 root = Tk()
 root.title("team ROOD")
 
-#1. zeplistener aanmaken
-#2. fakezeppelin aanmaken
-#3. zeppelin linken aan zeplistener
-#4. guiListener aanmaken en een ID geven
-#5. -- zonder server -- zeplistener nog linken aan gui
-zepl = ZepListener()
-zep = FakeZeppelin.FakeZeppelin(zepl)
-zepl.zeppelin = zep
-guil = GuiListener()
-guil.setZepID(11)
-zepl.link(guil)
+Gui = GUI(root)
 
-zepl55 = ZepListener()
-zep55 = FakeZeppelin.FakeZeppelin(zepl55)
-zep55.setPosition(50,100,100)
-zepl55.zeppelin = zep55
-guil55 = GuiListener()
-guil55.setZepID(55)
-zepl55.link(guil55)
+addSimulator(Gui.communicator, 0,0,0,10)
+addSimulator(Gui.communicator, 100,50,50,11)
 
-listeners = []
-listeners.append(guil)
-listeners.append(guil55)
-
-Gui = GUI(root, listeners)
-
-
-
-
-#pack() is used for positioning/drawing the widgets on the frame
 Gui.canvas.pack(side = LEFT)
 Gui.text.pack()
 Gui.labelframe.pack(expand="yes")
 Gui.controlFrame.pack(expand="yes")
-#grid() positions/draws widget in a grid-like-layout
+
 Gui.label1.grid(row = 0, column = 0)
 Gui.label2.grid(row = 1, column = 0)
 Gui.heightLabel.grid(columnspan = 2)
@@ -79,9 +53,6 @@ if(len(file_path)>0):
 else:
     Gui.grid.initiate("0=0=gh=rs=bc=gr=0=0=0=wr=ys=bc=ws=gr=0=0=0=rr=yr=gh=wc=bh=wr=0=bs=rs=gc=bs=bh=bc=gs=0=0=br=yh=rh=gs=gc=yh=0=0=bh=rh=ws=wr=ys=0=0=0=0=gh=rs=bc=gr")
 
-Gui.grid.addZeppelin(212,77,55)
-Gui.grid.addZeppelin(120, 243, 1)
-Gui.grid.addZeppelin(200, 200, 2)
 Gui.addDisplayedMessage("Nothing to be displayed atm.")
 Gui.setHeightLabel("230cm")
 Gui.updateCanvas()

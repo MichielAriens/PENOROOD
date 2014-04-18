@@ -1,4 +1,4 @@
-import pika
+#import pika
 
 class Sender:
 
