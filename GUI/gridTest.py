@@ -31,6 +31,7 @@ class GUI:
         self.text = Text(master,width = 50, height = 15)
         self.goal = (0,0)
         self.communicator = GuiListener()
+        self.communicator.connect()
         
         self.zeplisteners = []
         for i in range(len(simulator_listeners)):
