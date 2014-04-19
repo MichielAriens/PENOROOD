@@ -6,6 +6,7 @@ class Listener:
     def __init__(self):
         self.simulators = []
         self.zeppelins = []
+        self.color_ids = []
     
     def addZeppelinListener(self, listener, id):
         if(listener is not None):
@@ -18,11 +19,37 @@ class Listener:
                 return simulator_tuple[0]
         return None
     
-    def getZeppelin(self, id):
-        for i in range(len(self.zeppelins)):
-            zeppelin_tuple = self.zeppelins[i]
-            if(zeppelin_tuple[1] == id):
-                return zeppelin_tuple[0]
+    def getColor(self, id):
+        for i in range(len(self.color_ids)):
+            combo = self.color_ids[i]
+            if(combo[0] == id):
+                return combo[1]
+        return None
+    
+    def getZeppelinPosition(self,id):
+        color = self.getColor(id)
+        if(color is not None):
+            command = self.getLocationMQ(0,0,color)
+            self.sendCommand(command)
+            answer = self.receiveAnswer()
+            return answer
+        else:
+            return None
+        
+    def getZeppelinHeight(self,id):
+        color = self.getColor(id)
+        if(color is not None):
+            command = self.getHeightMQ(0, color)
+            elf.sendCommand(command)
+            answer = self.receiveAnswer()
+            return answer
+        else:
+            return None
+            
+    def sendCommand(self, command):
+        pass 
+    
+    def receiveAnswer(self):
         return None
     
     def getLocationMQ(self,x,y,color):
