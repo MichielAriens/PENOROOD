@@ -12,7 +12,7 @@ import thread
 import time
 import random
 import shapeRecognition as sr
-
+import ZepListener
 
 import picamera
 sf = sr.ShapeFinder()
@@ -45,6 +45,7 @@ class Zeppelin:
         self.yPID = PID(1,0,0.1)
         print "loading camera"
         self.camera = camera.Camera()
+        #self.listener = ZepListener.zepListener(self)
         
         self.dHeight = self.altimeter.getHeight()
         self.dPos = (0,0)
