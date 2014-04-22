@@ -21,13 +21,13 @@ class Camera:
             camera.capture(self.path, "jpeg")
                 
         starttime = time.time()
-        found = sf.analyze(self.path)    # found is a list of (color, shape, xcoordinate, ycoordinate)
+        found = self.sf.analyze(self.path)    # found is a list of (color, shape, xcoordinate, ycoordinate)
         print str(time.time() - starttime)
         print str(found)
 
         # vals is a list of ('shape/color value', xcoordinate, ycoordinate)
-        vals = [(myGrid.getShapeID(color[0] + "" +  shape[0]),x,y) for (color,shape,x,y) in found]
-        pos = myGrid.calculatePositionFromShapesFlexible(vals)
+        vals = [(grid.getShapeID(color[0] + "" +  shape[0]),x,y) for (color,shape,x,y) in found]
+        pos = grid.calculatePositionFromShapesFlexible(vals)
         print "found " + str(pos)
         return pos
             
