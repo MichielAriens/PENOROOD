@@ -7,6 +7,9 @@ class Listener:
         self.simulators = []
         self.zeppelins = []
         self.color_ids = []
+        
+    def updateSimulators(self):
+        pass
     
     def addZeppelinListener(self, listener, id):
         if(listener is not None):
