@@ -254,6 +254,7 @@ class GRID:
                     if(j%2 == 0 and self.table[i][j-1]==SID1):
                         return((i+1/2)*40,(j-1/2)*35)
         return (-1,-1)
+
     #!!!!!!!!!!!!!!!!!!!! x and y are in cm !!!!!!!!!!!!!!!!!!!
     def setZeppelinPosition(self, x, y, ZID):
         for i in range (len(self.zeplist)):

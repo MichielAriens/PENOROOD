@@ -1,6 +1,6 @@
 #!/usr/bin/python
 
-import socketserver
+import SocketServer
 import subprocess
 import sys
 from threading import Thread
@@ -54,7 +54,7 @@ class ZepBase():
             print("did update")
         return "updated"
         
-class TCPConnectionHandler(socketserver.BaseRequestHandler):
+class TCPConnectionHandler(SocketServer.BaseRequestHandler):
     
     def handle(self):
         
@@ -75,14 +75,14 @@ class TCPConnectionHandler(socketserver.BaseRequestHandler):
     
 ############################################################################
 
-class Server(socketserver.ThreadingMixIn, socketserver.TCPServer):
+class Server(SocketServer.ThreadingMixIn, SocketServer.TCPServer):
     # Ctrl-C will cleanly kill all spawned threads
     daemon_threads = True
     # much faster rebinding
     allow_reuse_address = True
 
     def __init__(self, server_address, RequestHandlerClass):
-        socketserver.TCPServer.__init__(\
+        SocketServer.TCPServer.__init__(\
         self,\
         server_address,\
         RequestHandlerClass)

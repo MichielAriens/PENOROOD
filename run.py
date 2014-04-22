@@ -1,14 +1,9 @@
-import RPI.FakeZeppelin as FakeZeppelin
-import GUI.gridTest as gridTest
-import GUI.GuiListener as GuiListener
-import CONNECTION.multithreaded_server as multithreaded_server
-import RPI.ZepListener as ZepListener
-from GUI.GuiListener import *
+from RPI import FakeZeppelin as FakeZeppelin
 from RPI.ZepListener import *
 from GUI.gridTest import *
-from tkinter import *
+from Tkinter import *
 from CONNECTION.multithreaded_server import *
-import tkinter as tkinter
+
 
 def addSimulator(communicator,x,y,z,id):
     zepl = ZepListener()
