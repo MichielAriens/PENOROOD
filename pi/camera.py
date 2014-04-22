@@ -12,7 +12,7 @@ class Camera:
         self.res= 250
         self.shape = sr.ShapeFinder()
         self.path = "/home/pi/zep2/output/path.jpg"
-        self.shape.setImage(path)
+        self.shape.setImage(self.path)
         self.sf = sr.Analyzer(self.shape)
     
     #f = open('/home/pi/zep2/output/results.csv','w')
@@ -20,11 +20,11 @@ class Camera:
     
     def analyzePosition(self,grid):
         with picamera.PiCamera() as camera:
-            camera.resolution = (res,res)
-            camera.capture(path, "jpeg")
+            camera.resolution = (self.res,self.res)
+            camera.capture(self.path, "jpeg")
                 
         starttime = time.time()
-        found = sf.analyze(path)    # found is a list of (color, shape, xcoordinate, ycoordinate)
+        found = sf.analyze(self.path)    # found is a list of (color, shape, xcoordinate, ycoordinate)
         print str(time.time() - starttime)
         print str(found)
 
