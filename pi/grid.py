@@ -130,7 +130,7 @@ class GRID:
         for i in range(self.rows):
             for j in range(self.columns):
                 if(SID == self.table[i][j]):
-                    shapes.append(((i,j),SID))
+                    shapes.append(((j,i),SID))
         if(len(shapes)>0):
             return shapes
         else:
