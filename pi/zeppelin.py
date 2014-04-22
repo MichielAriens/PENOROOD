@@ -101,7 +101,9 @@ class Zeppelin:
         while(True):
             #Set the thrust to the PID output.
             pos = self.camera.analyzePosition(self.grid)
-            self.lift.setThrust(self.heightPID.update(self.altimeter.getHeight()))
+            h = self.altimeter.getHeight()
+            print str(h)
+            self.lift.setThrust(self.heightPID.update(h))
             self.xMot.setThrust(self.xPID.update(pos[0]))
             self.xMot.setThrust(self.xPID.update(pos[1]))
             time.sleep(1)       
