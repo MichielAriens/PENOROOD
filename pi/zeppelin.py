@@ -30,6 +30,7 @@ def analyze():
 class Zeppelin:
     #initmethod variables (call start to invoke backround methods)
     def __init__(self):
+        print "loading zeppelin"
         self.grid = self.loadGrid("/home/pi/zep3/PENOROOD/OTHER/new_peno.csv")
         #still requirs grid loading
         self.path = "/home/pi/temp/img.jpg"
@@ -42,6 +43,7 @@ class Zeppelin:
         self.heightPID = PID(5,0.5,5)
         self.xPID = PID(1,0,0.1)
         self.yPID = PID(1,0,0.1)
+        print "loading camera"
         self.camera = camera.Camera()
         
         self.dHeight = self.altimeter.getHeight()
@@ -49,8 +51,10 @@ class Zeppelin:
         
         self.heightPID.setPoint(self.dHeight)
         
-        self.xPID.setPoint(dPos.fst())
-        self.yPID.setPoint(dPos.snd())
+        self.xPID.setPoint(self.dPos[0])
+        self.yPID.setPoint(self.dPos[1])
+        
+        print "zeppelin loaded!"
     
     #Used to set the desired height.
     #Effects will only become apparent after _keepHeight pulls the new info
@@ -97,8 +101,8 @@ class Zeppelin:
             #Set the thrust to the PID output.
             pos = self.camera.analyzePosition(self.grid)
             self.lift.setThrust(self.heightPID.update(self.altimeter.getHeight()) + self.motorOffset)
-            self.xMot.setThrust(self.xPID.update(self.pos.fst()))
-            self.xMot.setThrust(self.xPID.update(self.pos.snd()))
+            self.xMot.setThrust(self.xPID.update(self.pos[0]))
+            self.xMot.setThrust(self.xPID.update(self.pos[1]))
             time.sleep(1)       
     
     #Starts running background threads
