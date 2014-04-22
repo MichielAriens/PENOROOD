@@ -4,16 +4,19 @@
 
 #-------------------------------------
 import grid as gridTest
+import camera
 import hardware.distSensor as ds
 import hardware.motor as motor
 import hardware.camera as cam
 import thread
 import time
 import random
+import RPI.software.recognition.shapeRecognition as sr
+import GUI.gridTest as grid
 
 
 import picamera
-sf = ShapeFinder()
+sf = sr.ShapeFinder()
 path = "/home/pi/zep2/output/data.jpg"
 
 def analyze():
@@ -28,8 +31,7 @@ def analyze():
 class Zeppelin:
     #initmethod variables (call start to invoke backround methods)
     def __init__(self, dists=None):
-        self.grid = gridTest.GRID(8,7)
-        grid.initiate("0=0=gh=rs=bc=gr=0=0=0=wr=ys=bc=ws=gr=0=0=0=rr=yr=gh=wc=bh=wr=0=bs=rs=gc=bs=bh=bc=gs=0=0=br=yh=rh=gs=gc=yh=0=0=bh=rh=ws=wr=ys=0=0=0=0=gh=rs=bc=gr")
+        self.grid = self.loadGrid("/home/pi/grid/grid.csv")
         #still requirs grid loading
         self.path = "cam.jpg"
         #Init PID (0.1,0,0.5) works slightly, (0.1,0.05,3) better P to 0.2 increases responsiveness, I increses overshoot but decreases settletime
@@ -41,10 +43,10 @@ class Zeppelin:
         self.heightPID = PID(5,0.5,5)
         self.xPID = PID(1,0,0.1)
         self.yPID = PID(1,0,0.1)
-        self.camera = cam.Camera(500, self.path)
+        self.camera = camera.Camera()
         
         self.dHeight = self.altimeter.getHeight()
-        self.dPos = camera.getPos()
+        self.dPos = (0,0)
         
         self.heightPID.setPoint(dHeight)
         
@@ -66,13 +68,35 @@ class Zeppelin:
     def getYMotor(self):
         return self.yMot
         
+    def loadGrid(self, path):
+        import csv
+        with open(path) as f:
+            data=[tuple(line) for line in csv.reader(f)]
+        list = []
+        emptyrow = []
+        for i in range(len(data)):
+            list.append(emptyrow)
+            row = data[i]
+            for j in range(len(row)):
+                oldstr = row[j]
+                newstr = oldstr.replace("'", " ")
+                list[i].append(newstr)
+        list[0] = str(list[0]).replace("'", "")
+        list[0] = str(list[0]).replace(" ", "")
+        list[0] = str(list[0]).replace(",", "=")
+        list[0] = str(list[0]).lower()
+        number_of_rows = len(data);
+        number_of_columns = len(data[0])
+        init_string = list[0]
+        self.grid = grid.GRID(number_of_columns, number_of_rows)
+        self.grid.initiate(init_string);
         
     #Algorithm to invoke motors to achieve a certain height
     #Python convention: methods names preceded by '_' should be deemed 'private'
     def _keepHeight(self):
         while(True):
             #Set the thrust to the PID output.
-            pos = analyze(self.grid)
+            pos = self.camera.analyzePosition(self.grid)
             self.lift.setThrust(self.heightPID.update(self.altimeter.getHeight()) + self.motorOffset)
             self.xMot.setThrust(self.xPID.update(self.pos.fst()))
             self.xMot.setThrust(self.xPID.update(self.pos.snd()))
@@ -83,7 +107,9 @@ class Zeppelin:
     def start(self):
         thread.start_new(self._keepHeight, ())
    
-
+    def getPos(self):
+       return self.camera.analyzePosition(self.grid)
+       
 
 class PID:
     """
