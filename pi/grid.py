@@ -1,3 +1,4 @@
+#class that represents the triangular grid
 class GRID:
     
     #defines a matrix with y rows and x columns. Each M(x,y) contains a value, this value represents the Shape-ID (SID)
@@ -7,12 +8,31 @@ class GRID:
         print(self.table)
         self.rows = y
         self.columns = x
-        self.height_cm = 400
-        self.width_cm = 400
+        
         self.zeplist = []
+        self.zepheights = []
+    
+    def getHeight(self, id):
+        for i in range(len(self.zepheights)):
+            zep = self.zepheights[i]
+            if(zep[0] == id):
+                return zep[1]
+            else:
+                return None
+            
+    def updateHeight(self, id, height):
+        for i in range(len(self.zepheights)):
+            zep = self.zepheights[i]
+            if(zep[0] == id):
+                tuple = (id, height)
+                self.zepheights.remove(zep)
+                self.zepheights.append(tuple)
     
     def initiate(self,string):
-        part_strings = string.rsplit("=");
+        print(string)
+        part = string.rsplit("[")
+        parts = part[1].rsplit("]")
+        part_strings = parts[0].rsplit("=");
         value = 0
         x = 0
         y = 0
@@ -68,52 +88,8 @@ class GRID:
                 x = 0
                 y = y + 1 
     
-
-    # returns a value corresponding to the given string (string is based on shape and color)
-    def getShapeID(self, string):
-        if(string == "bh"):
-            value = 1
-        elif(string == "yh"):
-            value = 2
-        elif(string =="gh"):
-            value = 3
-        elif(string =="rh"):
-            value = 4
-        elif(string =="wh"):
-            value = 5
-        elif(string =="bc"):
-            value = 6
-        elif(string =="yc"):
-            value = 7
-        elif(string =="gc"):
-            value = 8
-        elif(string =="rc"):
-            value = 9
-        elif(string =="wc"):
-            value = 10
-        elif(string =="br"):
-            value = 11
-        elif(string =="yr"):
-            value = 12
-        elif(string =="gr"):
-            value = 13
-        elif(string =="rr"):
-            value = 14
-        elif(string =="wr"):
-            value = 15
-        elif(string =="bs"):
-            value = 16
-        elif(string =="ys"):
-            value = 17
-        elif(string =="gs"):
-            value = 18
-        elif(string =="rs"):
-            value = 19
-        elif(string =="ws"):
-            value = 20
-        elif(string =="0"):
-            value = 0
-        return value
+        
+        
 
     #set the value of specified position on the grid.
     def setValue(self, value, x, y ): #value = zeppelin_ID
@@ -172,23 +148,20 @@ class GRID:
     #add zeppelin x and y in cm
     def addZeppelin(self,x,y,ZID):
         self.zeplist.append(((x,y),ZID))
-
-    # returns the calculated position (tuple of x and y coordinates) from given list of shapes
-    # the shapes contain (value for shape and color, xcoordinate, ycoordinate)
+    
     def calculatePositionFromShapesFlexible(self, shapes):
         positions = []
         checked_shapes = []
-        for i in range(len(shapes)):    # looping through all the shapes
-            shape = shapes[i]   # current shape in the for loop
+        for i in range(len(shapes)):
+            shape = shapes[i]
             if not self.checkList(checked_shapes, shape):
                 shape_pos = self.getShape(shape)
-                if(shape_pos != []):
-                    print("Shape: "+str(shape))
-                    print("Shape_Positions: " + str(shape_pos))
-                    for j in range(len(shape_pos)):
-                        new_pos = (shape_pos[j][0][0]*40, shape_pos[j][0][1]*36)
-                        positions.append(new_pos)
-                    checked_shapes.append(shape)
+                print("Shape: "+str(shape))
+                print("Shape_Positions: " + str(shape_pos))
+                for j in range(len(shape_pos)):
+                    new_pos = (shape_pos[j][0][0]*40, shape_pos[j][0][1]*36)
+                    positions.append(new_pos)
+                checked_shapes.append(shape)
         #alle positions van de shapes toegevoegd in positions
         print("positions:" + str(positions))
         x = 0
@@ -201,12 +174,9 @@ class GRID:
         print("x-coord: " + str(x))
         print("y-coord: " + str(y))
         print("count: " + str(count))
-        if count == 0:
-            print("-1,-1")
-        else:
-            x = x/count
-            y = y/count
-            print(x,y)
+        x = x/count
+        y = y/count
+        print(x,y)
             
             
     def checkList(self,list,element):
@@ -216,39 +186,36 @@ class GRID:
         else:
             return False
             
-        print str(aPos)
-                
-    
+        
     #nog afwerken    
     def calculatePositionFromShapes(self, SID1, SID2, SID3):
         for i in range(self.rows-1):
-            #for j in range(self.columns):
-            for j in range(self.columns-1):
+            for j in range(self.columns):
                 if((self.table[i][j]==SID1 and self.table[i+1][j]==SID2) or (self.table[i][j]==SID2 and self.table[i+1][j]==SID1)):
                     if(j%2 == 1 and self.table[i+1][j+1]==SID3):
-                        return((i+1)*40,(j+1/2)*35) #klopt wrs nog ni
+                        return((i+1)*40,(j+1/2)*35) 
                     if(j%2 == 1 and self.table[i+1][j-1]==SID3):
                         return((i+1)*40,(j-1/2)*35)
                     if(j%2 == 0 and self.table[i][j+1]==SID3):
-                        return((i+1/2)*40,(j+1/2)*35) #klopt wrs nog ni
+                        return((i+1/2)*40,(j+1/2)*35) 
                     if(j%2 == 0 and self.table[i][j-1]==SID3):
                         return((i+1/2)*40,(j-1/2)*35)
                 if((self.table[i][j]==SID1 and self.table[i+1][j]==SID3) or (self.table[i][j]==SID3 and self.table[i+1][j]==SID1)):
                     if(j%2 == 1 and self.table[i+1][j+1]==SID2):
-                        return((i+1)*40,(j+1/2)*35) #klopt wrs nog ni
+                        return((i+1)*40,(j+1/2)*35) 
                     if(j%2 == 1 and self.table[i+1][j-1]==SID2):
                         return((i+1)*40,(j-1/2)*35)
                     if(j%2 == 0 and self.table[i][j+1]==SID2):
-                        return((i+1/2)*40,(j+1/2)*35) #klopt wrs nog ni
+                        return((i+1/2)*40,(j+1/2)*35) 
                     if(j%2 == 0 and self.table[i][j-1]==SID2):
                         return((i+1/2)*40,(j-1/2)*35)
                 if((self.table[i][j]==SID2 and self.table[i+1][j]==SID3) or (self.table[i][j]==SID3 and self.table[i+1][j]==SID2)):
                     if(j%2 == 1 and self.table[i+1][j+1]==SID1):
-                        return((i+1)*40,(j+1/2)*35) #klopt wrs nog ni
+                        return((i+1)*40,(j+1/2)*35) 
                     if(j%2 == 1 and self.table[i+1][j-1]==SID1):
                         return((i+1)*40,(j-1/2)*35)
                     if(j%2 == 0 and self.table[i][j+1]==SID1):
-                        return((i+1/2)*40,(j+1/2)*35) #klopt wrs nog ni
+                        return((i+1/2)*40,(j+1/2)*35) 
                     if(j%2 == 0 and self.table[i][j-1]==SID1):
                         return((i+1/2)*40,(j-1/2)*35)
         return (-1,-1)
@@ -286,7 +253,9 @@ class GRID:
                 return False
             else:
                 return True
+            
     
+
     #!!!!!!!!!!
     #NOT TESTED
     #(probably not working, yet)
@@ -343,30 +312,3 @@ class GRID:
             if(endpos[0] == x and endpos[1] == y):
                 return True
         return False
-
-# this method returns the grid from the given path
-def initiateFromFile(path):
-    import csv
-    with open(path) as f:
-        data=[tuple(line) for line in csv.reader(f)]
-    list = []
-    emptyrow = []
-    for i in range(len(data)):
-        list.append(emptyrow)
-        row = data[i]
-        for j in range(len(row)):
-            oldstr = row[j]
-            newstr = oldstr.replace("'", " ")
-            list[i].append(newstr)
-    list[0] = str(list[0]).replace("'", "")
-    list[0] = str(list[0]).replace(" ", "")
-    list[0] = str(list[0]).replace(",", "=")
-    list[0] = str(list[0]).lower()
-    number_of_rows = len(data);
-    number_of_columns = len(data[0])
-    init_string = list[0]
-    retval = GRID(number_of_columns, number_of_rows)
-    print init_string + " rows: " + str(number_of_rows) + " cols: " + str(number_of_columns)
-    retval.initiate(init_string);
-    return retval
-                
