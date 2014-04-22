@@ -30,9 +30,9 @@ def analyze():
 class Zeppelin:
     #initmethod variables (call start to invoke backround methods)
     def __init__(self):
-        self.grid = self.loadGrid("/home/pi/zep2/output/data.jpg")
+        self.grid = self.loadGrid("/home/pi/zep3/PENOROOD/OTHER/new_peno.csv")
         #still requirs grid loading
-        self.path = "cam.jpg"
+        self.path = "/home/pi/temp/img.jpg"
         #Init PID (0.1,0,0.5) works slightly, (0.1,0.05,3) better P to 0.2 increases responsiveness, I increses overshoot but decreases settletime
         #D decreases overshoot but engthens settletime. (slows machine down)
         self.altimeter = ds.DistanceSensor()
