@@ -35,7 +35,7 @@ class Zeppelin:
         self.path = "/home/pi/temp/img.jpg"
         #Init PID (0.1,0,0.5) works slightly, (0.1,0.05,3) better P to 0.2 increases responsiveness, I increses overshoot but decreases settletime
         #D decreases overshoot but engthens settletime. (slows machine down)
-        self.altimeter = ds.DistanceSensor()
+        self.altimeter = ds.BackgroundDistanceSensor()
         self.lift = motor.PWMMotor(24,4)
         self.xMot = motor.PulsedMotor(17,23)
         self.yMot = motor.PulsedMotor(9,7)
