@@ -2,70 +2,58 @@ from RabbitMQ import RMQreceiver as r
 from RabbitMQ import RMQSender as s
 
 
-class GuiListener:
+class Listener:
     def __init__(self):
-        self.zepListener = None
-        self.gui = None
-        self.zepID = None
-        self.connected = False
-        self.ip = None
-        self.sender = None
-        self.receiver = None
+        self.simulators = []
+        self.zeppelins = []
+        self.color_ids = []
         
-        
-    def connect(self):
-        self.ip = 'localhost'
-        self.sender = s.Sender
-        self.receiver = r.Receiver
-        self.sendRequest = SendRequest
-        self.connected = True
-        self.startRMQ()
-
-    def startRMQ(self):
-        self.receiver.startReceiving()
-
-    def sendCommand(self,command):
-        print('command: ' + command)
-        self.sender.sendCommand(command)
-        
-    def link(self,zepListener):
-        self.zepListener = zepListener
-        
-    def getPosition(self):
-        if(not self.connected):
-            pos = self.zepListener.getPosition()
-            
-            #test
-            testpos = self.getPositionMQ()
-            
-            return pos
-        else:
-            print("Could not get position of zep (ID=" + str(self.zepID) + ").")
-        
-    def sendMovementToFakeZep(self, movement): #1 = up ,2 = down, ...
-        if(self.zepListener is not None):
-            self.zepListener.sendMovementToFakeZep(movement)
-        
-    def sendGoalDirection(self,direction):
-        print("Zep " + str(self.zepID) + ", direction: " + str(direction))
-        if(self.zepListener is not None):
-            self.zepListener.sendGoalDirection(direction)
-        else:
-            print("Could not send goal direction.")
-            
-    def setZepID(self, ID):
-        self.zepID = ID
-        
-    def getPositionMQ(self):
-        if(self.connected):
-            try:
-                pass
-            except:
-                print("not working")
-                return (-1,-1)
-    
-    def communicateWithMQ(self):
+    def updateSimulators(self):
         pass
+    
+    def addZeppelinListener(self, listener, id):
+        if(listener is not None):
+            self.simulators.append((listener, id))
+    
+    def getSimulator(self, id):
+        for i in range(len(self.simulators)):
+            simulator_tuple = self.simulators[i]
+            if(simulator_tuple[1] == id):
+                return simulator_tuple[0]
+        return None
+    
+    def getColor(self, id):
+        for i in range(len(self.color_ids)):
+            combo = self.color_ids[i]
+            if(combo[0] == id):
+                return combo[1]
+        return None
+    
+    def getZeppelinPosition(self,id):
+        color = self.getColor(id)
+        if(color is not None):
+            command = self.getLocationMQ(0,0,color)
+            self.sendCommand(command)
+            answer = self.receiveAnswer()
+            return answer
+        else:
+            return None
+        
+    def getZeppelinHeight(self,id):
+        color = self.getColor(id)
+        if(color is not None):
+            command = self.getHeightMQ(0, color)
+            elf.sendCommand(command)
+            answer = self.receiveAnswer()
+            return answer
+        else:
+            return None
+            
+    def sendCommand(self, command):
+        pass 
+    
+    def receiveAnswer(self):
+        return None
     
     def getLocationMQ(self,x,y,color):
         return color + ".info.location" + str(x) + "," + str(y)  
@@ -129,35 +117,4 @@ class GuiListener:
                 pass
             
         except:
-            print("Something wrong happened at decodeResponse() in GuiListener.")
-        
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
+            print("Something wrong happened at decodeResponse() in GuiListener.")   

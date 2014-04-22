@@ -1,6 +1,6 @@
 from tkinter import *
-import GUI.GuiListener as GuiListener
-from GUI.GuiListener import *
+import GUI.listener as listener
+from GUI.listener import *
 
 #initiate tinker, tk() acts as a frame
 #root = Tk()
@@ -17,9 +17,8 @@ class GUI:
     #Text(container, width in characters, height in lines) = widget used for displayed multiple lines of text
     #Greendot & Reddot, images for zeppelins
     #other images are shapes
-    def __init__(self, master, simulator_listeners):
+    def __init__(self, master):
         self.root = master
-        self.listener = simulator_listeners
         self.labelframe = LabelFrame(master, text="Input&Output")
         self.canvas = Canvas(master, bg = "White", width = 1000, height = 1000)
         self.label1 = Label(self.labelframe, text="X")
@@ -30,14 +29,10 @@ class GUI:
         self.grid = GRID(8,7)
         self.text = Text(master,width = 50, height = 15)
         self.goal = (0,0)
-        self.communicator = GuiListener()
-        
-        self.zeplisteners = []
-        for i in range(len(simulator_listeners)):
-            lis = simulator_listeners[i]
-            self.zeplisteners.append(lis)
+        self.communicator = listener.Listener()
        
         self.ipads = []
+        self.addIpad(25, 100, 100)
         
         self.controlFrame = LabelFrame(master, text="Controls")
         self.upbutton= Button(self.controlFrame, text="UP", command=self.moveUpWithButton)
@@ -107,7 +102,7 @@ class GUI:
             self.canvas.create_text(xoffset + x + 5,yoffset + y+30,text="ZID =" + str(ZID), fill = "red")
             self.canvas.create_text(xoffset + x + 5,yoffset + y+40,text="POS = (" + str(round(posx)) +","+ str(round(posy))+")cm", fill = "red")
         elif(ZID == 100):
-            self.canvas.create_image(paintx,painty,image=self.ipadgif)
+            self.canvas.create_image(xoffset + x,yoffset + y,image=self.ipadgif)
         else:
             self.canvas.create_image(xoffset + x,yoffset + y,image=self.reddot)
             self.canvas.create_text(xoffset + x + 5,yoffset + y+30,text="ZID =" + str(ZID), fill = "red")
@@ -170,7 +165,7 @@ class GUI:
         for l in range(len(list_pads)):
             ipad = list_pads[l]
             ipad_pos = ipad[0]
-            self.paintShape(ipad_pos[0], ipad_pos[1], ipad[1])
+            self.paintZeppelin(ipad_pos[0], ipad_pos[1], ipad[1])
         self.updateMessage()
     
     #updates the displayed message
@@ -181,11 +176,16 @@ class GUI:
             zep = zeps[i]
             pos = zep[0]
             if(zep[1] == 1):
-                message = message + "\n" + "Our zeppelin at (" + str(round(pos[0])) + "," + str(round(pos[1])) + ")"
+                message = message + "\n" + "Our zeppelin at (" + str(round(pos[0])) + "," + str(round(pos[1])) + "," + str(self.grid.getHeight(zep[1])) +")"
             else:
-                message = message + "\n" + "Other zeppelin, ID="+ str(zep[1])+ " at ("+ str(round(pos[0])) + "," + str(round(pos[1])) + ")"
+                message = message + "\n" + "Other zeppelin, ID="+ str(zep[1])+ " at ("+ str(round(pos[0])) + "," + str(round(pos[1])) + "," + str(self.grid.getHeight(zep[1])) + ")"
         if(self.goal != (-1,-1)):
             message = message + "\n" + "Current goal = " +  "("+ str(self.goal[0]) + "," + str(self.goal[1]) + ")"
+        for l in range(len(self.ipads)):
+            ipad = self.ipads[l]
+            pos = ipad[0]
+            message = message + "\n" + "iPad at (" + str(round(pos[0])) + "," + str(round(pos[1])) + ")"
+            
         self.clearMessage()
         self.addDisplayedMessage(message)
     
@@ -204,36 +204,50 @@ class GUI:
     #keep updating besides running the tkinter mainloop
     #update canvas after 1000ms
     def task(self):
-        self.taskMQ()
-        self.checkzeppelins()                                                       
-        self.taskListeners()
+        self.checkZeppelins()                                                       
+        self.updateTaskForSimulators()
+        self.updateZeppelins()
         self.updateCanvas()
         self.readFromFile()
         self.root.after(33,self.task)
     
-    def taskMQ(self):
-        self.communicator.communicateWithMQ()
-    
-    def checkzeppelins(self):
-        for i in range(len(self.zeplisteners)):                                             #check if all listeners aka zeps are represented
-            listener = self.zeplisteners[i]                                                 #on the grid
-            id = listener.zepID
-            if(self.grid.getZeppelin(id) == ((-1,-1),-1)):                                  #if not, add a zeppelin with his ID to th grid
-                self.grid.addZeppelin(0, 0, id)
+    def checkZeppelins(self):
+        sims = self.communicator.simulators
+        print("CheckZeps: sims  " + str(sims))
+        for i in range(len(sims)):
+            sim_id = sims[i][1]
+            if(self.grid.getZeppelin(sim_id) == ((-1,-1),-1)):                              
+                self.grid.addZeppelin(0, 0, sim_id)
+                self.grid.updateHeight(sim_id, 0)
+        zeps = self.communicator.zeppelins
+        for i in range(len(zeps)):
+            zep_id = zeps[i]
+            if(self.grid.getZeppelin(zep_id) == ((-1,-1),-1)):                               
+                self.grid.addZeppelin(0, 0, zep_id)
+                self.grid.updateHeight(zep_id, 0)
             
-            
-                    
-    def taskListeners(self):
-        for i in range(len(self.zeplisteners)):                                             #iterate over all listeners
-            listener = self.zeplisteners[i] 
-            if(listener.zepID > 10):                                                        #simulators have an ID > 10
-                if(self.goal != (-1,-1)):                                                   #if there is a goal
-                    listener.sendGoalDirection(self.updateGoalDirection(listener.zepID))    #send the goal to the simulator
-                zep = listener.getPosition()                                                #request position
-                zep_pos = zep.asArray()                                                     #dunno
-                if(zep_pos[0]!=-1 and zep_pos[1]!=-1):                                      #if we received a valid position, then
-                    self.grid.setZeppelinPosition(zep_pos[0], zep_pos[1], listener.zepID)   #update it in the grid
     
+    def updateTaskForSimulators(self):
+        sims = self.communicator.simulators
+        for i in range(len(sims)):
+            sim_tuple = sims[i]
+            zep_listener = sim_tuple[0]
+            zep_id = sim_tuple[1]
+            if(self.goal != (-1,-1)):
+                zep_listener.sendGoalDirection(self.updateGoalDirection(zep_id))
+            zep = zep_listener.getPosition()                                                
+            zep_pos = zep.asArray()
+            if(zep_pos[0]!=-1 and zep_pos[1]!=-1):
+                print("position: "+str(zep_pos[0]) + "," + str(zep_pos[1]))                             
+                self.grid.setZeppelinPosition(zep_pos[0], zep_pos[1], zep_id)   
+
+    def updateZeppelins(self):
+        for i in range(len(self.communicator.zeppelins)):
+            position = self.communicator.getZeppelinPosition(self.communicator.zeppelins[i])
+            if(position is not None):
+                self.grid.setZeppelinPosition(position[0], position[1], self.communicator.zeppelins[i])
+                self.grid.updateHeight(self.communicator.zeppelins[i], self.communicator.getZeppelinHeight(self.communicator.zeppelins[i]))
+                
         
     def getGoalFromInput(self):
         inputx = self.entry1.get()
@@ -333,9 +347,29 @@ class GRID:
         self.columns = x
         
         self.zeplist = []
+        self.zepheights = []
+    
+    def getHeight(self, id):
+        for i in range(len(self.zepheights)):
+            zep = self.zepheights[i]
+            if(zep[0] == id):
+                return zep[1]
+            else:
+                return None
+            
+    def updateHeight(self, id, height):
+        for i in range(len(self.zepheights)):
+            zep = self.zepheights[i]
+            if(zep[0] == id):
+                tuple = (id, height)
+                self.zepheights.remove(zep)
+                self.zepheights.append(tuple)
     
     def initiate(self,string):
-        part_strings = string.rsplit("=");
+        print(string)
+        part = string.rsplit("[")
+        parts = part[1].rsplit("]")
+        part_strings = parts[0].rsplit("=");
         value = 0
         x = 0
         y = 0

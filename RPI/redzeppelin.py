@@ -1,7 +1,6 @@
 
 #!/usr/bin/env python
-import modules.hardware.distSensor as Ids
-import modules.lowLevelController as llcp
+import RPI.hardware.distSensor as Ids
 import os
 import thread
 import time

@@ -5,14 +5,13 @@
 #-------------------------------------
 import grid as gridTest
 import camera
-import hardware.distSensor as ds
-import hardware.motor as motor
-import hardware.camera as cam
+import distSensor as ds
+import motor as motor
+import camera as cam
 import thread
 import time
 import random
-import RPI.software.recognition.shapeRecognition as sr
-import GUI.gridTest as grid
+import shapeRecognition as sr
 
 
 import picamera
@@ -30,14 +29,14 @@ def analyze():
 
 class Zeppelin:
     #initmethod variables (call start to invoke backround methods)
-    def __init__(self, dists=None):
-        self.grid = self.loadGrid("/home/pi/grid/grid.csv")
+    def __init__(self):
+        self.grid = self.loadGrid("/home/pi/zep3/PENOROOD/OTHER/new_peno.csv")
         #still requirs grid loading
-        self.path = "cam.jpg"
+        self.path = "/home/pi/temp/img.jpg"
         #Init PID (0.1,0,0.5) works slightly, (0.1,0.05,3) better P to 0.2 increases responsiveness, I increses overshoot but decreases settletime
         #D decreases overshoot but engthens settletime. (slows machine down)
-        self.altimeter = dists
-        self.lift = motor.VectoredMotor(24,4)
+        self.altimeter = ds.BackgroundDistanceSensor()
+        self.lift = motor.PWMMotor(24,4)
         self.xMot = motor.PulsedMotor(17,23)
         self.yMot = motor.PulsedMotor(9,7)
         self.heightPID = PID(5,0.5,5)
@@ -88,7 +87,7 @@ class Zeppelin:
         number_of_rows = len(data);
         number_of_columns = len(data[0])
         init_string = list[0]
-        self.grid = grid.GRID(number_of_columns, number_of_rows)
+        self.grid = gridTest.GRID(number_of_columns, number_of_rows)
         self.grid.initiate(init_string);
         
     #Algorithm to invoke motors to achieve a certain height
