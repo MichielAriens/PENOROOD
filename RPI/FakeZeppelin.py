@@ -103,7 +103,7 @@ class FakeEnvironment:
             time.sleep(0.033)
             
 
-import thread
+import _thread
  
 class FakeZeppelin:
     
@@ -124,7 +124,7 @@ class FakeZeppelin:
         self.setMovementZeppelin((2,3));
         
         #print(self.fe.force.toString())
-        thread.start_new_thread(self.fe.update, ())
+        _thread.start_new_thread(self.fe.update, ())
         #print(self.fe.force.toString())
         #self.pid = PID(0.2,0.1,5)
         self.camera = None

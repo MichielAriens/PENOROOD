@@ -1,4 +1,4 @@
-from Tkinter import *
+from tkinter import *
 import GUI.listener as listener
 from GUI.listener import *
 
@@ -209,6 +209,7 @@ class GUI:
         self.updateZeppelins()
         self.updateCanvas()
         self.readFromFile()
+        print(self.grid.getShape(12))
         self.root.after(33,self.task)
     
     def checkZeppelins(self):
@@ -464,10 +465,14 @@ class GRID:
     #returns the position and SID of a shape: ((x,y),ZID). If the shape can't be found it returns ((-1,-1),-1)
     def getShape(self, SID):
         shapes = []
+        print("xxxxxxxxxxxxxxxxxxxxxxx")
+        print(self.getShapesAndPositions())
+        print(self.rows)
+        print(self.columns)
         for i in range(self.rows):
             for j in range(self.columns):
-                if(SID == self.table[i][j]):
-                    shapes.append(((i,j),SID))
+                if(SID == self.table[j][i]):
+                    shapes.append(((j,i),SID))
         if(len(shapes)>0):
             return shapes
         else:

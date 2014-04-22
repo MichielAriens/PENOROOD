@@ -1,5 +1,5 @@
 import time
-import thread
+import _thread
 try:
     import RPi.GPIO as GPIO
     GPIO.setmode(GPIO.BCM)                      # choose BCM or BOARD 

@@ -30,7 +30,7 @@ def analyze():
 class Zeppelin:
     #initmethod variables (call start to invoke backround methods)
     def __init__(self):
-        print "loading zeppelin"
+        print("loading zeppelin")
         self.grid = self.loadGrid("/home/pi/zep3/PENOROOD/OTHER/new_peno.csv")
         #still requirs grid loading
         self.path = "/home/pi/temp/img.jpg"
@@ -43,7 +43,7 @@ class Zeppelin:
         self.heightPID = PID(5,0.5,5)
         self.xPID = PID(1,0,0.1)
         self.yPID = PID(1,0,0.1)
-        print "loading camera"
+        print("loading camera")
         self.camera = camera.Camera()
         
         self.dHeight = self.altimeter.getHeight()
@@ -54,7 +54,7 @@ class Zeppelin:
         self.xPID.setPoint(self.dPos[0])
         self.yPID.setPoint(self.dPos[1])
         
-        print "zeppelin loaded!"
+        print("zeppelin loaded!")
     
     #Used to set the desired height.
     #Effects will only become apparent after _keepHeight pulls the new info
