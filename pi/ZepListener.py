@@ -1,27 +1,34 @@
-import GUI.GuiListener
+import pika
 
-class ZepListener:
-	def __init__(self):
-		self.zeppelin = None
-		self.guiListener = None
+class zepListener:
+	def __init__(self, zeppelin):
+		self.zeppelin = zeppelin
 		
-	def link(self,other):
-		self.guiListener = other
-		other.zepListener = self
 		
-	def getPosition(self):
-		print("Returning position" + str(self.zeppelin.getPosition()))
-		return self.zeppelin.getPosition()
-	
-	def getSpeed(self):
-		return self.zeppelin.getSpeed()
 
-	def sendMovementToFakeZep(self,movement):
-		self.zeppelin.acceptMovementFromListener(movement)
+		creds = pika.PlainCredentials('rood','rood')
+		connection = pika.BlockingConnection(pika.ConnectionParameters(host='localhost',credentials=creds ))
+		channel = connection.channel()
+		channel.queue_declare(queue='hellorood')
+		channel.basic_consume(callback,queue='hellorood',no_ack=True)
+		channel.start_consuming()
 		
-	def sendGoalDirection(self,direction):
-		self.zeppelin.setMovementZeppelin(direction)
+	def callback(ch, method, properties, body):
+		print(" [x] Received %r" % (body,))
 		
-	#def updatePosition(self,position):
+				
+	def pushPosition(self,pos):
+		key = "rood.info.location"  
+		myBody = pos[0]*10 + "," + pos[1]*10
+		channel.basic_publish(exchange='server',
+                      routing_key = key,
+                      body = myBody)
+		
+	def pushHeight(self,pos):
+		key = "rood.info.height"  
+		myBody = pos * 10
+		channel.basic_publish(exchange='server',
+		              routing_key = key,
+		              body = myBody)
 		
 			

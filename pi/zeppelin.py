@@ -12,7 +12,7 @@ import thread
 import time
 import random
 import shapeRecognition as sr
-
+import ZepListener
 
 import picamera
 sf = sr.ShapeFinder()
@@ -30,8 +30,13 @@ def analyze():
 class Zeppelin:
     #initmethod variables (call start to invoke backround methods)
     def __init__(self):
+<<<<<<< HEAD
         print("loading zeppelin")
         self.grid = self.loadGrid("/home/pi/zep3/PENOROOD/OTHER/new_peno.csv")
+=======
+        print "loading zeppelin"
+        self.loadGrid("/home/pi/zep3/PENOROOD/OTHER/new_peno.csv")
+>>>>>>> 77453b501b140e597a44a201ca1dce4747acc049
         #still requirs grid loading
         self.path = "/home/pi/temp/img.jpg"
         #Init PID (0.1,0,0.5) works slightly, (0.1,0.05,3) better P to 0.2 increases responsiveness, I increses overshoot but decreases settletime
@@ -45,6 +50,7 @@ class Zeppelin:
         self.yPID = PID(1,0,0.1)
         print("loading camera")
         self.camera = camera.Camera()
+        #self.listener = ZepListener.zepListener(self)
         
         self.dHeight = self.altimeter.getHeight()
         self.dPos = (0,0)
@@ -100,9 +106,11 @@ class Zeppelin:
         while(True):
             #Set the thrust to the PID output.
             pos = self.camera.analyzePosition(self.grid)
-            self.lift.setThrust(self.heightPID.update(self.altimeter.getHeight()) + self.motorOffset)
-            self.xMot.setThrust(self.xPID.update(self.pos[0]))
-            self.xMot.setThrust(self.xPID.update(self.pos[1]))
+            h = self.altimeter.getHeight()
+            print "height = " + str(h)
+            self.lift.setThrust(self.heightPID.update(h))
+            self.xMot.setThrust(self.xPID.update(pos[0]))
+            self.xMot.setThrust(self.xPID.update(pos[1]))
             time.sleep(1)       
     
     #Starts running background threads
