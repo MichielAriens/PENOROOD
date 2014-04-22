@@ -87,7 +87,7 @@ class Zeppelin:
         number_of_rows = len(data);
         number_of_columns = len(data[0])
         init_string = list[0]
-        self.grid = grid.GRID(number_of_columns, number_of_rows)
+        self.grid = gridTest.GRID(number_of_columns, number_of_rows)
         self.grid.initiate(init_string);
         
     #Algorithm to invoke motors to achieve a certain height
