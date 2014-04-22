@@ -49,8 +49,8 @@ class Zeppelin:
         
         self.heightPID.setPoint(self.dHeight)
         
-        self.xPID.setPoint(self.dPos.fst())
-        self.yPID.setPoint(self.dPos.snd())
+        self.xPID.setPoint(self.dPos[0])
+        self.yPID.setPoint(self.dPos[1])
     
     #Used to set the desired height.
     #Effects will only become apparent after _keepHeight pulls the new info
@@ -97,8 +97,8 @@ class Zeppelin:
             #Set the thrust to the PID output.
             pos = self.camera.analyzePosition(self.grid)
             self.lift.setThrust(self.heightPID.update(self.altimeter.getHeight()) + self.motorOffset)
-            self.xMot.setThrust(self.xPID.update(self.pos.fst()))
-            self.xMot.setThrust(self.xPID.update(self.pos.snd()))
+            self.xMot.setThrust(self.xPID.update(self.pos[0]))
+            self.xMot.setThrust(self.xPID.update(self.pos[1]))
             time.sleep(1)       
     
     #Starts running background threads
