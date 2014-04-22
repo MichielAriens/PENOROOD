@@ -268,5 +268,5 @@ class Analyzer:
                     else:
                         x,y = self.shape.findCoordinate(blob,width,height)
                         colorshapes.append((color,"heart",x,y))
-                    
+
         return colorshapes
