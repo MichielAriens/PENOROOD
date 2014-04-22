@@ -1,6 +1,7 @@
 import time
 
 import shapeRecognition as sr
+import picamera
 
 with picamera.PiCamera() as camera:
         camera.resolution = (res,res)
