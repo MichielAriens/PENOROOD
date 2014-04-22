@@ -19,6 +19,17 @@ Gui = GUI(root)
 
 addSimulator(Gui.communicator, 0,0,0,10)
 addSimulator(Gui.communicator, 100,50,50,11)
+addSimulator(Gui.communicator, 100,50,50,12)
+addSimulator(Gui.communicator, 100,250,50,13)
+addSimulator(Gui.communicator, 141,233,50,14)
+addSimulator(Gui.communicator, 177,5,50,15)
+addSimulator(Gui.communicator, 440,300,50,16)
+addSimulator(Gui.communicator, 87,50,50,17)
+addSimulator(Gui.communicator, 100,250,50,18)
+addSimulator(Gui.communicator, 357,50,50,19)
+addSimulator(Gui.communicator, 100,50,50,20)
+
+
 
 Gui.canvas.pack(side = LEFT)
 Gui.text.pack()

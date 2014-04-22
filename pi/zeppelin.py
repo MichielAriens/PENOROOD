@@ -31,7 +31,7 @@ class Zeppelin:
     #initmethod variables (call start to invoke backround methods)
     def __init__(self):
         print "loading zeppelin"
-        self.grid = self.loadGrid("/home/pi/zep3/PENOROOD/OTHER/new_peno.csv")
+        self.loadGrid("/home/pi/zep3/PENOROOD/OTHER/new_peno.csv")
         #still requirs grid loading
         self.path = "/home/pi/temp/img.jpg"
         #Init PID (0.1,0,0.5) works slightly, (0.1,0.05,3) better P to 0.2 increases responsiveness, I increses overshoot but decreases settletime
@@ -91,6 +91,7 @@ class Zeppelin:
         number_of_rows = len(data);
         number_of_columns = len(data[0])
         init_string = list[0]
+        print init_string
         self.grid = gridTest.GRID(number_of_columns, number_of_rows)
         self.grid.initiate(init_string);
         
@@ -100,9 +101,11 @@ class Zeppelin:
         while(True):
             #Set the thrust to the PID output.
             pos = self.camera.analyzePosition(self.grid)
-            self.lift.setThrust(self.heightPID.update(self.altimeter.getHeight()) + self.motorOffset)
-            self.xMot.setThrust(self.xPID.update(self.pos[0]))
-            self.xMot.setThrust(self.xPID.update(self.pos[1]))
+            h = self.altimeter.getHeight()
+            print str(h)
+            self.lift.setThrust(self.heightPID.update(h))
+            self.xMot.setThrust(self.xPID.update(pos[0]))
+            self.xMot.setThrust(self.xPID.update(pos[1]))
             time.sleep(1)       
     
     #Starts running background threads

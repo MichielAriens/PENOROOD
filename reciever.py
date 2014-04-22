@@ -1,4 +1,4 @@
-import pika
+#import pika
 
 creds = pika.PlainCredentials('rood','rood')
 connection = pika.BlockingConnection(pika.ConnectionParameters(host='localhost',credentials=creds ))
