@@ -49,8 +49,8 @@ class Zeppelin:
         
         self.heightPID.setPoint(self.dHeight)
         
-        self.xPID.setPoint(dPos.fst())
-        self.yPID.setPoint(dPos.snd())
+        self.xPID.setPoint(self.dPos.fst())
+        self.yPID.setPoint(self.dPos.snd())
     
     #Used to set the desired height.
     #Effects will only become apparent after _keepHeight pulls the new info
