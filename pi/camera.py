@@ -3,12 +3,9 @@ import time
 import shapeRecognition as sr
 import picamera
 
-with picamera.PiCamera() as camera:
-        camera.resolution = (res,res)
-        camera.capture(path, "jpeg")
-
 class Camera:
     def __init__(self):
+        print "test"
         self.res= 250
         self.shape = sr.ShapeFinder()
         self.path = "/home/pi/zep2/output/path.jpg"
