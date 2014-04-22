@@ -47,7 +47,7 @@ class Zeppelin:
         self.dHeight = self.altimeter.getHeight()
         self.dPos = (0,0)
         
-        self.heightPID.setPoint(dHeight)
+        self.heightPID.setPoint(self.dHeight)
         
         self.xPID.setPoint(dPos.fst())
         self.yPID.setPoint(dPos.snd())
