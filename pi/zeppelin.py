@@ -93,6 +93,7 @@ class Zeppelin:
         init_string = list[0]
         self.grid = gridTest.GRID(number_of_columns, number_of_rows)
         self.grid.initiate(init_string);
+        print str(self.grid)
         
     #Algorithm to invoke motors to achieve a certain height
     #Python convention: methods names preceded by '_' should be deemed 'private'
