@@ -92,7 +92,6 @@ class Zeppelin:
         number_of_rows = len(data);
         number_of_columns = len(data[0])
         init_string = list[0]
-        print init_string
         self.grid = gridTest.GRID(number_of_columns, number_of_rows)
         self.grid.initiate(init_string);
         
@@ -103,7 +102,7 @@ class Zeppelin:
             #Set the thrust to the PID output.
             pos = self.camera.analyzePosition(self.grid)
             h = self.altimeter.getHeight()
-            print "height = " + h
+            print "height = " + str(h)
             self.lift.setThrust(self.heightPID.update(h))
             self.xMot.setThrust(self.xPID.update(pos[0]))
             self.xMot.setThrust(self.xPID.update(pos[1]))
