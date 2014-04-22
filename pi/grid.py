@@ -174,9 +174,11 @@ class GRID:
         print("x-coord: " + str(x))
         print("y-coord: " + str(y))
         print("count: " + str(count))
-        x = x/count
-        y = y/count
+        if(count != 0):
+            x = x/count
+            y = y/count
         print(x,y)
+        return (x,y)
             
             
     def checkList(self,list,element):
