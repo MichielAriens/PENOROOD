@@ -1,6 +1,6 @@
-import COMMON.enum as enum
+from COMMON.enum import Enum
 import GUI.gridTest as gridTest
-class Axis(enum.Enum):
+class Axis(Enum):
   x = 1
   y = 2
   z = 3
@@ -84,7 +84,7 @@ class FakeEnvironment:
     def update(self):
         lastTime = time.time()
         while True:
-            #print(self.pos.toString() + " | " + self.force.toString())
+            print(self.pos.toString() + " | " + self.force.toString())
             timeNow = time.time()
             scale = timeNow - lastTime
             lastTime = timeNow
@@ -103,7 +103,7 @@ class FakeEnvironment:
             time.sleep(0.033)
             
 
-import _thread as thread
+import thread
  
 class FakeZeppelin:
     

@@ -1,11 +1,15 @@
-from positionHandler import Handler as handler
+from positionHandler import Handler
+
 
 class userInterface:
 
     def __init__(self):
-        True
+        self.handler = Handler()
 
-
-    def findZeppelinLocation(self, path = "/home/pi/zep2/output/path.jpg"):
-        pos = handler.run(path)
+    def findZeppelinLocation(self, path = "C:\Users\Babyburger\PycharmProjects\PENOROODpy\output\path.jpg"):
+        pos = self.handler.run(path)
         print "found " + str(pos)
+
+
+ui = userInterface()
+ui.findZeppelinLocation()

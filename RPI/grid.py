@@ -10,7 +10,9 @@ class GRID:
         self.height_cm = 400
         self.width_cm = 400
         self.zeplist = []
-    
+
+
+
     def initiate(self,string):
         part_strings = string.rsplit("=");
         value = 0
