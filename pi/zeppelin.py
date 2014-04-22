@@ -45,7 +45,7 @@ class Zeppelin:
         self.yPID = PID(1,0,0.1)
         print "loading camera"
         self.camera = camera.Camera()
-        #self.listener = ZepListener.zepListener(self)
+        self.listener = ZepListener.zepListener(self)
         
         self.dHeight = self.altimeter.getHeight()
         self.dPos = (0,0)
@@ -106,7 +106,7 @@ class Zeppelin:
             self.lift.setThrust(self.heightPID.update(h))
             self.xMot.setThrust(self.xPID.update(pos[0]))
             self.xMot.setThrust(self.xPID.update(pos[1]))
-            time.sleep(1)       
+            self.listener.pushHeight(h)
     
     #Starts running background threads
     # _keepHeight
