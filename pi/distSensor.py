@@ -429,7 +429,6 @@ class BackgroundDistanceSensor :
     #Perform one instantaneous measurement (not accurate)
     #Timeout places bounds on the wait. If -1 is returned regularly consider increasing the timeout
     def measure(self, timeout = TIMEOUT):
-        
         global echo_gpio, trig_gpio, TRIG_DURATION, SPEED_OF_SOUND, TIMEOUT
         GPIO.output(trig_gpio, True)
         time.sleep(TRIG_DURATION)
