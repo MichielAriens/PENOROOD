@@ -111,7 +111,9 @@ class Zeppelin:
     #Starts running background threads
     # _keepHeight
     def start(self):
+        print "222"
         self.listener.start()
+        print "333"
         thread.start_new(self._keepHeight, ())
         
    
