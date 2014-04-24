@@ -30,13 +30,8 @@ def analyze():
 class Zeppelin:
     #initmethod variables (call start to invoke backround methods)
     def __init__(self):
-<<<<<<< HEAD
-        print("loading zeppelin")
-        self.grid = self.loadGrid("/home/pi/zep3/PENOROOD/OTHER/new_peno.csv")
-=======
         print "loading zeppelin"
         self.loadGrid("/home/pi/zep3/PENOROOD/OTHER/new_peno.csv")
->>>>>>> 77453b501b140e597a44a201ca1dce4747acc049
         #still requirs grid loading
         self.path = "/home/pi/temp/img.jpg"
         #Init PID (0.1,0,0.5) works slightly, (0.1,0.05,3) better P to 0.2 increases responsiveness, I increses overshoot but decreases settletime
