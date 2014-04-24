@@ -20,7 +20,7 @@ class zepListener:
 	def pushPosition(self,pos):
 		print "pushing pos: " + str(pos)
 		key = "rood.info.location"  
-		myBody = pos[0]*10 + "," + pos[1]*10
+		myBody = str(pos[0]*10) + "," + str(pos[1]*10)
 		self.channel.basic_publish(exchange='server',routing_key = key,body = myBody)
 		
 	def pushHeight(self,pos):
