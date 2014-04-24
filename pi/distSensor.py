@@ -405,6 +405,8 @@ class BackgroundDistanceSensor :
         offset = 0
         scalefactor = 1
         
+        self.points = [0] * size  
+        
         thread.start_new(self.monitorHeight,(buffersize,resolution))
         
     def monitorHeight(self,buffersize, resolution):
