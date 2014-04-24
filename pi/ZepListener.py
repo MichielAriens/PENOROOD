@@ -1,6 +1,10 @@
 import pika
 
 class zepListener:
+	
+	def callback(ch, method, properties, body):
+		print(" [x] Received %r" % (body,))
+	
 	def __init__(self, zeppelin):
 		self.zeppelin = zeppelin
 		
@@ -10,11 +14,10 @@ class zepListener:
 		connection = pika.BlockingConnection(pika.ConnectionParameters(host='localhost',credentials=creds ))
 		channel = connection.channel()
 		channel.queue_declare(queue='hellorood')
-		channel.basic_consume(callback,queue='hellorood',no_ack=True)
+		channel.basic_consume(self.callback,queue='hellorood',no_ack=True)
 		channel.start_consuming()
 		
-	def callback(ch, method, properties, body):
-		print(" [x] Received %r" % (body,))
+	
 		
 				
 	def pushPosition(self,pos):
