@@ -1,4 +1,5 @@
 import pika
+import thread
 
 class zepListener:
 	
@@ -15,7 +16,8 @@ class zepListener:
 		channel = connection.channel()
 		channel.queue_declare(queue='hellorood')
 		channel.basic_consume(self.callback,queue='hellorood',no_ack=True)
-		channel.start_consuming()
+		thread.start_new(channel.start_consuming())
+		
 		
 	
 		
