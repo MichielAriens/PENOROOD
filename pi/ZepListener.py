@@ -12,10 +12,11 @@ class zepListener:
 		self.creds = pika.PlainCredentials('rood','rood')
 		self.connection = pika.BlockingConnection(pika.ConnectionParameters(host='localhost',credentials=self.creds ))
 		self.channel = self.connection.channel()
-		self.channel.queue_declare(queue='hellorood')
-		self.channel.basic_consume(self.callback,queue='hellorood',no_ack=True)
-		self.channel.start_consuming()
-		print "listener listening"
+        self.channel.exchange_declare(exchange='server',
+                         type='topic')
+		#self.channel.basic_consume(self.callback,queue='hellorood',no_ack=True)
+		#self.channel.start_consuming()
+		#print "listener listening"
 				
 	def pushPosition(self,pos):
 		print "pushing pos: " + str(pos)
