@@ -111,7 +111,9 @@ class Zeppelin:
     #Starts running background threads
     # _keepHeight
     def start(self):
+        self.listener.start()
         thread.start_new(self._keepHeight, ())
+        
    
     def getPos(self):
        return self.camera.analyzePosition(self.grid)
