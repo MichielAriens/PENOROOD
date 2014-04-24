@@ -414,7 +414,6 @@ class BackgroundDistanceSensor :
         self.points = [0] * size        
         while True:
             height = self.measure()
-            print "Single measure result : " + str(height)
             if (height != -1):
                 self.points.pop(0)
                 self.points.append(height)
