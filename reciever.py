@@ -4,7 +4,7 @@ import sys
 
 creds = pika.PlainCredentials('rood','rood')
 connection = pika.BlockingConnection(pika.ConnectionParameters(
-        host='localhost'), credentials = creds)
+        host='localhost', credentials = creds))
 channel = connection.channel()
 
 channel.exchange_declare(exchange='topic_logs',
