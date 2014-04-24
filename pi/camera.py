@@ -5,7 +5,6 @@ import picamera
 
 class Camera:
     def __init__(self):
-        print "test"
         self.res= 250
         self.shape = sr.ShapeFinder()
         self.path = "/home/pi/zep2/output/path.jpg"
@@ -22,13 +21,13 @@ class Camera:
                 
         starttime = time.time()
         found = self.sf.analyze(self.path)    # found is a list of (color, shape, xcoordinate, ycoordinate)
-        print str(time.time() - starttime)
-        print str(found)
+        #print str(time.time() - starttime)
+        #print str(found)
 
         # vals is a list of ('shape/color value', xcoordinate, ycoordinate)
         vals = [(grid.getShapeID(color[0] + "" +  shape[0]),x,y) for (color,shape,x,y) in found]
         pos = grid.calculatePositionFromShapesFlexible(vals)
-        print "found " + str(pos)
+        #print "found " + str(pos)
         return pos
             
     
