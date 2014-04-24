@@ -385,7 +385,7 @@ class BackgroundDistanceSensor :
     offset = 0
     
     #Constructor resolution refers to time delay between measurements
-    def __init__(self,buffersize = 10, resolution = 0.1):   
+    def __init__(self,buffersize = 10, resolution = 0.2):   
         global echo_gpio, trig_gpio, TRIG_DURATION, SPEED_OF_SOUND, TIMEOUT, offset, scalefactor
         echo_gpio = 27
         trig_gpio = 22
