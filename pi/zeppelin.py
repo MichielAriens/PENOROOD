@@ -112,7 +112,7 @@ class Zeppelin:
     # _keepHeight
     def start(self):
         print "222"
-        self.listener.start()
+        thread.start_new(self.listener.start, ())
         print "333"
         thread.start_new(self._keepHeight, ())
         
