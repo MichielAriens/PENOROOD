@@ -2,6 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="b589891e-741d-4fd8-909e-5035d39e1101" name="Default" comment="t">
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/OTHER/grid25-04.csv" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/pi/gridtest.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/pi/grid.py" afterPath="$PROJECT_DIR$/pi/grid.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="PENOROOD.iws" />
@@ -25,30 +28,37 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="reciever.py" pinned="false" current="true" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/reciever.py">
+      <file leaf-file-name="grid.py" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/pi/grid.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="29" column="0" selection-start="841" selection-end="841" vertical-scroll-proportion="0.6914191" vertical-offset="57" max-vertical-offset="663">
+            <state line="397" column="38" selection-start="13832" selection-end="13832" vertical-scroll-proportion="0.85973597" vertical-offset="6228" max-vertical-offset="7123">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="ZepListener.py" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/pi/ZepListener.py">
+      <file leaf-file-name="grid25-04.csv" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/OTHER/grid25-04.csv">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="32" column="8" selection-start="1185" selection-end="1185" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="663">
-              <folding>
-                <element signature="e#0#11#0" expanded="true" />
-              </folding>
+            <state line="5" column="1" selection-start="181" selection-end="181" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="340">
+              <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="reciever2.py" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/reciever2.py">
+      <file leaf-file-name="gridtest.py" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/pi/gridtest.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="2" column="0" selection-start="13" selection-end="57" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="340">
+            <state line="30" column="0" selection-start="1007" selection-end="1021" vertical-scroll-proportion="0.0" vertical-offset="202" max-vertical-offset="731">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="zeppelin.py" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/pi/zeppelin.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="73" column="8" selection-start="2220" selection-end="2220" vertical-scroll-proportion="0.0" vertical-offset="2267" max-vertical-offset="3485">
               <folding />
             </state>
           </provider>
@@ -72,9 +82,6 @@
   <component name="IdeDocumentHistory">
     <option name="changedFiles">
       <list>
-        <option value="$PROJECT_DIR$/RPI/software/recognitionTester.py" />
-        <option value="$PROJECT_DIR$/RPI/software/FindColorCode.py" />
-        <option value="$PROJECT_DIR$/RPI/software/shapeRecognition.py" />
         <option value="$PROJECT_DIR$/RPI/software/recognition/main.py" />
         <option value="$PROJECT_DIR$/positionTester.py" />
         <option value="$PROJECT_DIR$/RPI/software/recognition/nearestFigures.py" />
@@ -88,6 +95,9 @@
         <option value="$PROJECT_DIR$/RPI/grid.py" />
         <option value="$PROJECT_DIR$/reciever.py" />
         <option value="$PROJECT_DIR$/pi/ZepListener.py" />
+        <option value="$PROJECT_DIR$/OTHER/newGrid.csv" />
+        <option value="$PROJECT_DIR$/pi/gridtest.py" />
+        <option value="$PROJECT_DIR$/pi/grid.py" />
       </list>
     </option>
   </component>
@@ -123,7 +133,6 @@
       <sortByType />
     </navigator>
     <panes>
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -156,19 +165,34 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="PENOROOD" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="PENOROOD" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="OTHER" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
         </subPane>
       </pane>
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
     <property name="options.splitter.main.proportions" value="0.3" />
-    <property name="options.lastSelected" value="com.jetbrains.python.configuration.PythonSdkConfigurable" />
     <property name="recentsLimit" value="5" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/RPI/software/recognitionTester.py" />
+    <property name="options.lastSelected" value="com.jetbrains.python.configuration.PythonSdkConfigurable" />
     <property name="restartRequiresConfirmation" value="true" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/RPI/software/recognitionTester.py" />
     <property name="FullScreen" value="false" />
-    <property name="options.splitter.details.proportions" value="0.2" />
     <property name="options.searchVisible" value="true" />
+    <property name="options.splitter.details.proportions" value="0.2" />
   </component>
   <component name="PyConsoleOptionsProvider">
     <option name="myPythonConsoleState">
@@ -177,6 +201,7 @@
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\Michiel\Documents\GitHub\PENOROOD\OTHER" />
       <recent name="C:\Users\Michiel\Documents\GitHub\PENOROOD" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
@@ -184,7 +209,7 @@
       <recent name="C:\Users\Babyburger\PycharmProjects\PENOROODpy\RPI\software\recognition" />
     </key>
   </component>
-  <component name="RunManager" selected="Python.reciever">
+  <component name="RunManager" selected="Python.gridtest">
     <configuration default="false" name="reciever" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -200,6 +225,44 @@
       <option name="SCRIPT_NAME" value="$PROJECT_DIR$/reciever.py" />
       <option name="PARAMETERS" value="" />
       <RunnerSettings RunnerId="PythonRunner" />
+      <ConfigurationWrapper RunnerId="PythonRunner" />
+      <method />
+    </configuration>
+    <configuration default="false" name="Fieldbuilder" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/OTHER" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <module name="PENOROODpy" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/OTHER/Fieldbuilder.py" />
+      <option name="PARAMETERS" value="" />
+      <RunnerSettings RunnerId="PythonRunner" />
+      <ConfigurationWrapper RunnerId="PythonRunner" />
+      <method />
+    </configuration>
+    <configuration default="false" name="gridtest" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/pi" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <module name="PENOROODpy" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/pi/gridtest.py" />
+      <option name="PARAMETERS" value="" />
+      <RunnerSettings RunnerId="PyDebugRunner" />
+      <RunnerSettings RunnerId="PythonRunner" />
+      <ConfigurationWrapper RunnerId="PyDebugRunner" />
       <ConfigurationWrapper RunnerId="PythonRunner" />
       <method />
     </configuration>
@@ -344,13 +407,17 @@
       <ConfigurationWrapper RunnerId="PythonRunner" />
       <method />
     </configuration>
-    <list size="2">
+    <list size="4">
       <item index="0" class="java.lang.String" itemvalue="Python.recognition" />
       <item index="1" class="java.lang.String" itemvalue="Python.reciever" />
+      <item index="2" class="java.lang.String" itemvalue="Python.Fieldbuilder" />
+      <item index="3" class="java.lang.String" itemvalue="Python.gridtest" />
     </list>
     <recent_temporary>
-      <list size="1">
-        <item index="0" class="java.lang.String" itemvalue="Python.reciever" />
+      <list size="3">
+        <item index="0" class="java.lang.String" itemvalue="Python.gridtest" />
+        <item index="1" class="java.lang.String" itemvalue="Python.Fieldbuilder" />
+        <item index="2" class="java.lang.String" itemvalue="Python.reciever" />
       </list>
     </recent_temporary>
   </component>
@@ -410,7 +477,7 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
+    <frame x="-8" y="-8" width="1936" height="1056" extended-state="7" />
     <editor active="true" />
     <layout>
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
@@ -418,10 +485,10 @@
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.15104167" sideWeight="0.68472373" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.16666667" sideWeight="0.68472373" order="0" side_tool="false" content_ui="combo" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3993559" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.39869988" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="1" side_tool="true" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
-      <window_info id="Run" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.31527627" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.31527627" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32850242" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
@@ -450,97 +517,137 @@
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="python-line">
+          <url>file://$PROJECT_DIR$/pi/gridtest.py</url>
+          <line>28</line>
+          <option name="timeStamp" value="10" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="python-line">
+          <url>file://$PROJECT_DIR$/pi/grid.py</url>
+          <line>374</line>
+          <option name="timeStamp" value="11" />
+        </line-breakpoint>
+      </breakpoints>
       <breakpoints-dialog>
         <breakpoints-dialog />
       </breakpoints-dialog>
-      <option name="time" value="4" />
+      <option name="time" value="19" />
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/positionTester.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="28" column="28" selection-start="838" selection-end="838" vertical-scroll-proportion="0.0" vertical-offset="370" max-vertical-offset="1207" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/RPI/software/main.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="10" column="33" selection-start="297" selection-end="297" vertical-scroll-proportion="0.0" vertical-offset="170" max-vertical-offset="340" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/RPI/software/camera.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="7" column="45" selection-start="178" selection-end="178" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="340" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/output2/7.jpg">
-      <provider selected="true" editor-type-id="images">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/output2/0.jpg">
-      <provider selected="true" editor-type-id="images">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/output/path.jpg">
-      <provider selected="true" editor-type-id="images">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/RPI/software/positionHandler.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="33" column="44" selection-start="1246" selection-end="1246" vertical-scroll-proportion="0.515873" vertical-offset="332" max-vertical-offset="731" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/RPI/software/recognition/FindColorCode.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="79" column="42" selection-start="3520" selection-end="3520" vertical-scroll-proportion="0.4611399" vertical-offset="1148" max-vertical-offset="2482" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/RPI/software/recognition/main.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="5" column="42" selection-start="162" selection-end="162" vertical-scroll-proportion="0.21303259" vertical-offset="0" max-vertical-offset="399" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/RPI/software/recognition/shapeRecognition.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="266" column="48" selection-start="10981" selection-end="10981" vertical-scroll-proportion="0.5932642" vertical-offset="4293" max-vertical-offset="4709" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/RPI/software/recognition/recognitionTester.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="7" column="0" selection-start="241" selection-end="241" vertical-scroll-proportion="0.0" vertical-offset="119" max-vertical-offset="323" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/RPI/software/locationZeppelin.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="57" column="40" selection-start="2070" selection-end="2070" vertical-scroll-proportion="0.0" vertical-offset="969" max-vertical-offset="1071" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/RPI/grid.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="202" column="3" selection-start="6465" selection-end="6465" vertical-scroll-proportion="0.32218507" vertical-offset="3145" max-vertical-offset="6477" />
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/pi/ZepListener.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="32" column="8" selection-start="1185" selection-end="1185" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="663">
-          <folding>
-            <element signature="e#0#11#0" expanded="true" />
-          </folding>
+        <state line="32" column="8" selection-start="1185" selection-end="1185" vertical-scroll-proportion="0.5875139" vertical-offset="0" max-vertical-offset="897">
+          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/reciever2.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="2" column="0" selection-start="13" selection-end="57" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="340">
+        <state line="2" column="0" selection-start="13" selection-end="57" vertical-scroll-proportion="0.037904125" vertical-offset="0" max-vertical-offset="897">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/reciever.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="29" column="0" selection-start="841" selection-end="841" vertical-scroll-proportion="0.6914191" vertical-offset="57" max-vertical-offset="663">
+        <state line="31" column="38" selection-start="912" selection-end="912" vertical-scroll-proportion="0.0" vertical-offset="4" max-vertical-offset="663">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/OTHER/grid.csv">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="606">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/OTHER/example_grid2.csv">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="606">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/OTHER/new_peno.csv">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="11" column="29" selection-start="359" selection-end="359" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="289">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/OTHER/Fieldbuilder.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="16" column="27" selection-start="374" selection-end="374" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="3570">
+          <folding>
+            <element signature="e#0#16#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/OTHER/field.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="606">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/OTHER/field.csv">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="11" column="29" selection-start="359" selection-end="359" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="289">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/OTHER/newGrid.csv">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="14" column="0" selection-start="504" selection-end="504" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="340">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/pi/camera.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="36" column="30" selection-start="1200" selection-end="1200" vertical-scroll-proportion="0.5891089" vertical-offset="255" max-vertical-offset="935">
+          <folding>
+            <element signature="e#0#11#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/pi/distSensor.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="13" column="13" selection-start="444" selection-end="444" vertical-scroll-proportion="0.028052805" vertical-offset="204" max-vertical-offset="8092">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/pi/zeppelin.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="73" column="8" selection-start="2220" selection-end="2220" vertical-scroll-proportion="0.0" vertical-offset="51" max-vertical-offset="3485">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/OTHER/grid25-04.csv">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="5" column="1" selection-start="181" selection-end="181" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="340">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/pi/gridtest.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="30" column="0" selection-start="1007" selection-end="1021" vertical-scroll-proportion="0.0" vertical-offset="202" max-vertical-offset="731">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/pi/grid.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="397" column="38" selection-start="13832" selection-end="13832" vertical-scroll-proportion="0.85973597" vertical-offset="6228" max-vertical-offset="7123">
           <folding />
         </state>
       </provider>

@@ -361,3 +361,53 @@ class GRID:
             if(endpos[0] == x and endpos[1] == y):
                 return True
         return False
+
+
+    #@Param: shapes     is a list of tuples in the form: ("id",<x>,<y>)
+    def getPos(self, shapes, sorted = False):
+        if not sorted:
+            vals = [(a,x^2 + y^2) for (a,x,y) in shapes]
+            vals = sorted(vals, key=lambda tup: tup[1])
+
+        #Now the shapes are sorted so that the closest to the center is first
+        shapeslist = []   #(<i>,<j>)
+        for (currID,x,y) in shapes:
+            templist = []
+            for ((yf,xf),_) in self.getShape(self.getShapeID(currID)):
+                if len(shapeslist) == 0:
+                    templist.append([(xf,yf)])
+
+                for minilist in shapeslist:
+                    areAllNeigh = True
+                    for (xg,yg) in minilist:
+                        if not self.neighbours((xf,yf),(xg,yg)):
+                            areAllNeigh = False
+                    if areAllNeigh:
+                        templist.append(minilist + [(xf,yf)])
+            shapeslist = templist
+        if len(shapeslist) == 0:
+            return (-1,-1)
+        else:
+            avX = 0
+            avY = 0
+            for (x,y) in shapeslist[0]
+                avX += x
+                avY += y
+
+            avX = avX / len(shapeslist)
+            avY = avY / len(shapeslist)
+
+    #Checks whether two positions are neighbours
+    def neighbours(self, t1, t2):
+        (x1,y1) = t1
+        (x2,y2) = t2
+        if x1 % 2 == 0:
+            if (abs(y2 - y1) <= 1) and (-0 <= (x2 - x1) <= 1):
+                return True
+            else:
+                return False
+        else:
+            if (abs(y2 - y1) <= 1) and (-1 <= (x2 - x1) <= 0):
+                return True
+            else:
+                return False
