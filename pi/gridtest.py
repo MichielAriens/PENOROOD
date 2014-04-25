@@ -26,11 +26,11 @@ def loadGrid(path):
         return grid
 
 grid = loadGrid("C:\Users\Michiel\Documents\GitHub\PENOROOD\OTHER\grid25-04.csv")
-pos = grid.getPos([("ys",0,0),("rr",0,0),("gs",0,0)],sorted = True)
+pos = grid.getPos([("ys",3,3),("rr",2,3),("gs",1,1)],needsSorting = True)
 
 print str(pos)
 
-pos = grid.getPos([("bc",0,0),("bc",0,0),("wr",0,0)],sorted = True)
+pos = grid.getPos([("bc",0,0),("bc",0,0),("wr",0,0)])
 
 print str(pos)
 

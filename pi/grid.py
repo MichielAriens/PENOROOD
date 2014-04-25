@@ -364,10 +364,11 @@ class GRID:
 
 
     #@Param: shapes     is a list of tuples in the form: ("id",<x>,<y>)
-    def getPos(self, shapes, sorted = False):
-        if not sorted:
-            vals = [(a,x^2 + y^2) for (a,x,y) in shapes]
-            vals = sorted(vals, key=lambda tup: tup[1])
+    def getPos(self, shapes, needsSorting = True):
+        if needsSorting:
+            vals = [(a,x,y,x*x + y*y) for (a,x,y) in shapes]
+            vals = sorted(vals, key=lambda tup: tup[3])
+            shapes = [(a,x,y) for (a,x,y,_) in vals]
 
         #Now the shapes are sorted so that the closest to the center is first
         shapeslist = []   #(<i>,<j>)
