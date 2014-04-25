@@ -25,7 +25,7 @@ class Camera:
         #print str(found)
 
         # vals is a list of ('shape/color value', xcoordinate, ycoordinate)
-        vals = [(grid.getShapeID(color[0] + "" +  shape[0]),x,y) for (color,shape,x,y) in found]
+        vals = [(color[0] + "" +  shape[0],x,y) for (color,shape,x,y) in found]
         #pos = grid.calculatePositionFromShapesFlexible(vals)
         pos = grid.getPos(vals)
         #print "found " + str(pos)

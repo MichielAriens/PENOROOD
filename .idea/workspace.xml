@@ -2,6 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="b589891e-741d-4fd8-909e-5035d39e1101" name="Default" comment="t">
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/pi/camera.py" afterPath="$PROJECT_DIR$/pi/camera.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/pi/grid.py" afterPath="$PROJECT_DIR$/pi/grid.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/pi/gridtest.py" afterPath="$PROJECT_DIR$/pi/gridtest.py" />
     </list>
@@ -29,16 +30,16 @@
       <file leaf-file-name="grid.py" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/pi/grid.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="370" column="52" selection-start="12902" selection-end="12902" vertical-scroll-proportion="0.0" vertical-offset="6207" max-vertical-offset="7174">
+            <state line="183" column="21" selection-start="5592" selection-end="5592" vertical-scroll-proportion="0.0" vertical-offset="2620" max-vertical-offset="7208">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="gridtest.py" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="gridtest.py" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/pi/gridtest.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="32" column="52" selection-start="1081" selection-end="1081" vertical-scroll-proportion="0.71947193" vertical-offset="108" max-vertical-offset="765">
+            <state line="32" column="52" selection-start="1081" selection-end="1081" vertical-scroll-proportion="0.0" vertical-offset="108" max-vertical-offset="765">
               <folding />
             </state>
           </provider>
@@ -53,10 +54,10 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="camera.py" pinned="false" current="false" current-in-tab="false">
+      <file leaf-file-name="camera.py" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/pi/camera.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="10" column="20" selection-start="230" selection-end="230" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="901">
+            <state line="24" column="25" selection-start="825" selection-end="825" vertical-scroll-proportion="0.5891089" vertical-offset="0" max-vertical-offset="901">
               <folding />
             </state>
           </provider>
@@ -91,11 +92,11 @@
         <option value="$PROJECT_DIR$/reciever.py" />
         <option value="$PROJECT_DIR$/pi/ZepListener.py" />
         <option value="$PROJECT_DIR$/OTHER/newGrid.csv" />
-        <option value="$PROJECT_DIR$/pi/camera.py" />
         <option value="$PROJECT_DIR$/pi/shapeRecognition.py" />
         <option value="$PROJECT_DIR$/pi/zeppelin.py" />
         <option value="$PROJECT_DIR$/pi/gridtest.py" />
         <option value="$PROJECT_DIR$/pi/grid.py" />
+        <option value="$PROJECT_DIR$/pi/camera.py" />
       </list>
     </option>
   </component>
@@ -486,7 +487,7 @@
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.39869988" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="1" side_tool="true" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
-      <window_info id="Run" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.31527627" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.31527627" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32850242" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
@@ -518,7 +519,7 @@
       <breakpoints>
         <line-breakpoint enabled="true" type="python-line">
           <url>file://$PROJECT_DIR$/pi/grid.py</url>
-          <line>375</line>
+          <line>377</line>
           <option name="timeStamp" value="11" />
         </line-breakpoint>
       </breakpoints>
@@ -617,9 +618,16 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/pi/camera.py">
+    <entry file="file://$PROJECT_DIR$/pi/grid.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="10" column="20" selection-start="230" selection-end="230" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="901">
+        <state line="183" column="21" selection-start="5592" selection-end="5592" vertical-scroll-proportion="0.0" vertical-offset="2620" max-vertical-offset="7208">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/pi/gridtest.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="32" column="52" selection-start="1081" selection-end="1081" vertical-scroll-proportion="0.0" vertical-offset="108" max-vertical-offset="765">
           <folding />
         </state>
       </provider>
@@ -631,16 +639,9 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/pi/grid.py">
+    <entry file="file://$PROJECT_DIR$/pi/camera.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="370" column="52" selection-start="12902" selection-end="12902" vertical-scroll-proportion="0.0" vertical-offset="6207" max-vertical-offset="7174">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/pi/gridtest.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="32" column="52" selection-start="1081" selection-end="1081" vertical-scroll-proportion="0.71947193" vertical-offset="108" max-vertical-offset="765">
+        <state line="24" column="25" selection-start="825" selection-end="825" vertical-scroll-proportion="0.5891089" vertical-offset="0" max-vertical-offset="901">
           <folding />
         </state>
       </provider>

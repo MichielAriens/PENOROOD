@@ -180,6 +180,8 @@ class GRID:
             value = 20
         elif(string =="0"):
             value = 0
+        else:
+            value = 0
         return value
 
         
