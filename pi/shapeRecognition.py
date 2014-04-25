@@ -135,7 +135,7 @@ class ShapeFinder:
         if blobs is not None:
             for blob in blobs:
                 blob.draw()
-                print blob
+                #print blob
 
                 rectangleDistance = blob.rectangleDistance()
                 if (rectangleDistance < 0.07): print "rectangle"

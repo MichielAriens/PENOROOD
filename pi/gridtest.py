@@ -30,7 +30,9 @@ pos = grid.getPos([("ys",0,0),("rr",0,0),("gs",0,0)],sorted = True)
 
 print str(pos)
 
+pos = grid.getPos([("bc",0,0),("bc",0,0),("wr",0,0)],sorted = True)
 
+print str(pos)
 
 
 for ((x,y),id) in grid.getShape(grid.getShapeID('ys')):

@@ -388,14 +388,16 @@ class GRID:
         if len(shapeslist) == 0:
             return (-1,-1)
         else:
+            return shapeslist
             avX = 0
             avY = 0
-            for (x,y) in shapeslist[0]
+            for (x,y) in shapeslist[0]:
                 avX += x
                 avY += y
 
             avX = avX / len(shapeslist)
             avY = avY / len(shapeslist)
+            return (avX,avY)
 
     #Checks whether two positions are neighbours
     def neighbours(self, t1, t2):
