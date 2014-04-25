@@ -390,17 +390,22 @@ class GRID:
             shapeslist = templist
         if len(shapeslist) == 0:
             return (-1,-1)
-        else:
-            return shapeslist
+
+        templist = []
+        for minilist in shapeslist:
+            templist.append([(x*40 + (x%2 * 20), y*35) for (x,y) in minilist])
+
+        positions = []
+        for minilist in templist:
             avX = 0
             avY = 0
-            for (x,y) in shapeslist[0]:
+            for (x,y) in minilist:
                 avX += x
                 avY += y
+            positions.append((avX/len(minilist),avY/len(minilist)))
 
-            avX = avX / len(shapeslist)
-            avY = avY / len(shapeslist)
-            return (avX,avY)
+        print positions
+        return positions[0]
 
     #Checks whether two positions are neighbours
     def neighbours(self, t1, t2):

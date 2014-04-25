@@ -33,7 +33,3 @@ print str(pos)
 pos = grid.getPos([("bc",0,0),("bc",0,0),("wr",0,0)])
 
 print str(pos)
-
-
-for ((x,y),id) in grid.getShape(grid.getShapeID('ys')):
-    print str(x) + "," + str(y)
