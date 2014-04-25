@@ -4,14 +4,19 @@ from RabbitMQ import RMQSender as s
 
 class Listener:
     def __init__(self):
-        self.simulators = []
-        self.zeppelins = []
-        self.color_ids = []
-
-        
+        self.simulators = []#tuple (ID, ZepListener)
+        self.zeppelins = [] #tuple (ID, x, y, z)
+        self.color_ids = [] #tuple (ID, color)
+     
     def updateSimulators(self):
         pass
     
+    def copyList(self, list):
+        for i in range(len(list)):
+            copy = []
+            copy.append((list[i]))
+        return copy
+            
     def addZeppelinListener(self, listener, id):
         if(listener is not None):
             self.simulators.append((listener, id))
@@ -38,27 +43,42 @@ class Listener:
         return None
     
     def getZeppelinPosition(self,id):
-        color = self.getColor(id)
-        if(color is not None):
-            command = self.getLocationMQ(0,0,color)
-            self.sendCommand(command)
-            answer = self.receiveAnswer()
-            return answer
-        else:
-            return None
-        
+        for i in range(len(self.zeppelins)):
+            tuple = self.zeppelins[i]
+            if(tuple[0] == id):
+                return ((tuple[1], tuple[2]))
+        return None
+    
     def getZeppelinHeight(self,id):
-        color = self.getColor(id)
-        if(color is not None):
-            command = self.getHeightMQ(0, color)
-            elf.sendCommand(command)
-            answer = self.receiveAnswer()
-            return answer
-        else:
-            return None
-            
+        for i in range(len(self.zeppelins)):
+            tuple = self.zeppelins[i]
+            if(tuple[0] == id):
+                return (tuple[3])
+        return None
+    
+    def updateHeight(self, id, value):
+        match = False
+        for i in range(len(self.zeppelins)):
+            zep = self.zeppelins[i]
+            if(zep[0] == id):
+                self.zeppelins.remove(zep)
+                self.zeppelins.append((id, zep[1], zep[2], value))
+        if(match == False):
+            self.zeppelins.append((id, 0, 0, value))
+        
+    def updateLocation(self, id, value):
+        match = False
+        for i in range(len(self.zeppelins)):
+            zep = self.zeppelins[i]
+            if(zep[0] == id):
+                self.zeppelins.remove(zep)
+                self.zeppelins.append((id, value[0], value[1], zep[3]))
+                match = True;
+        if(match == False):
+            self.zeppelins.append((id, value[0], value[1], 0))
+    
     def sendCommand(self, command):
-        pass 
+        pass
     
     def receiveAnswer(self):
         return None
@@ -92,21 +112,6 @@ class Listener:
         command = method.routing_key
         values = body
         self.decodeResponse(command, values)
-    
-    def updateHeight(self, id, value):
-        for i in range(len(self.zeppelins)):
-            zep = self.zeppelins[i]
-            if(zep[0] == id):
-                self.zeppelins.remove(zep)
-                self.zeppelins.append((id, zep[1], zep[2], value))
-    
-    def updateLocation(self, id, value):
-        for i in range(len(self.zeppelins)):
-            zep = self.zeppelins[i]
-            if(zep[0] == id):
-                self.zeppelins.remove(zep)
-                self.zeppelins.append((id, value[0], value[1], zep[3]))
-                
     
     def decodeResponse(self, command, value):
         split = command.string.rsplit(".");

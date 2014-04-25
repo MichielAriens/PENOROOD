@@ -38,10 +38,12 @@ Gui.controlFrame.pack(expand="yes")
 
 Gui.label1.grid(row = 0, column = 0)
 Gui.label2.grid(row = 1, column = 0)
-Gui.heightLabel.grid(columnspan = 2)
+Gui.label3.grid(row = 2, column = 0)
 Gui.entry1.grid(row = 0, column = 1)
 Gui.entry2.grid(row = 1, column = 1)
-Gui.gobutton.grid(row = 2, column = 0)
+Gui.entry3.grid(row = 2, column = 1)
+Gui.gobutton.grid(row = 3, column = 0)
+Gui.sendbutton.grid(row = 3, column = 1)
 
 Gui.upbutton.grid(row = 0, column = 1)
 Gui.downbutton.grid(row = 2, column = 1)
@@ -60,7 +62,6 @@ else:
     Gui.grid.initiate("0=0=gh=rs=bc=gr=0=0=0=wr=ys=bc=ws=gr=0=0=0=rr=yr=gh=wc=bh=wr=0=bs=rs=gc=bs=bh=bc=gs=0=0=br=yh=rh=gs=gc=yh=0=0=bh=rh=ws=wr=ys=0=0=0=0=gh=rs=bc=gr")
 
 Gui.addDisplayedMessage("Nothing to be displayed atm.")
-Gui.setHeightLabel("230cm")
 Gui.updateCanvas()
 
 #loop that registers action in the frame

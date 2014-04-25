@@ -23,14 +23,15 @@ class GUI:
         self.canvas = Canvas(master, bg = "White", width = 1000, height = 1000)
         self.label1 = Label(self.labelframe, text="X")
         self.label2 = Label(self.labelframe, text="Y")
-        self.heightLabel = Label(self.labelframe, text="Height = n.a.")
         self.entry1 = Entry(self.labelframe)
         self.entry2 = Entry(self.labelframe)
+        self.label3 = Label(self.labelframe, text="command")
+        self.entry3 = Entry(self.labelframe)
         self.grid = GRID(8,7)
         self.text = Text(master,width = 50, height = 15)
         self.goal = (0,0)
         self.communicator = listener.Listener()
-       
+
         self.ipads = []
         self.addIpad(25, 100, 100)
         
@@ -40,6 +41,7 @@ class GUI:
         self.leftbutton= Button(self.controlFrame, text="LEFT", command=self.moveLeftWithButton)
         self.rightbutton= Button(self.controlFrame, text="RIGHT", command=self.moveRightWithButton)
         self.gobutton= Button(self.labelframe, text="GO", command=self.setGoal)
+        self.sendbutton= Button(self.labelframe, text="send", command=self.sendCommand)
         
         self.greendot = PhotoImage(file="GUI/goodzep.gif")
         self.reddot = PhotoImage(file="GUI/badzep.gif")
@@ -196,10 +198,7 @@ class GUI:
     #clear message
     def clearMessage(self):
         self.text.delete(1.0, END)
-    
-    #set the height parameter
-    def setHeightLabel(self, text):
-        self.heightLabel.textvariable = text
+
         
     #keep updating besides running the tkinter mainloop
     #update canvas after 1000ms
@@ -270,6 +269,11 @@ class GUI:
 
     def setGoal(self,goalposition):
         self.goal = goalposition;
+        
+    def sendCommand(self):
+        command = self.entry3.get()
+        self.communicator.sendCommand(command)
+        print("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
         
     def updateGoalDirection(self, zepID):
         currentpos = self.grid.getZeppelin(zepID)[0]
