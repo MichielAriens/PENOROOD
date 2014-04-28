@@ -1,12 +1,10 @@
-from RabbitMQ import RMQreceiver as r
-from RabbitMQ import RMQSender as s
-
+import pika
 
 class Listener:
     def __init__(self):
         self.simulators = []#tuple (ID, ZepListener)
         self.zeppelins = [] #tuple (ID, x, y, z)
-        self.color_ids = [] #tuple (ID, color)
+        self.color_ids = [(1, "rood"), (2, "ijzer"), (3, "paars"), (4, "blauw")] #tuple (ID, color)
      
     def updateSimulators(self):
         pass
@@ -40,7 +38,17 @@ class Listener:
             combo = self.color_ids[i]
             if(combo[1] == color):
                 return combo[0]
-        return None
+
+    def createZep(self, id):
+        match = False
+        for j in range(len(self.zeppelins)):
+            zep = self.zeppelins[j]
+            if(zep[0] == id):
+                match = True
+        if(match == False):
+            self.zeppelins.append((id, 0, 0, 0))
+
+
     
     def getZeppelinPosition(self,id):
         for i in range(len(self.zeppelins)):
@@ -58,6 +66,7 @@ class Listener:
     
     def updateHeight(self, id, value):
         match = False
+        print(value)
         for i in range(len(self.zeppelins)):
             zep = self.zeppelins[i]
             if(zep[0] == id):
@@ -68,11 +77,12 @@ class Listener:
         
     def updateLocation(self, id, value):
         match = False
+        print(value)
         for i in range(len(self.zeppelins)):
             zep = self.zeppelins[i]
             if(zep[0] == id):
                 self.zeppelins.remove(zep)
-                self.zeppelins.append((id, value[0], value[1], zep[3]))
+                self.zeppelins.append((id, int(value[0])/10, int(value[1])/10, zep[3]))
                 match = True;
         if(match == False):
             self.zeppelins.append((id, value[0], value[1], 0))
@@ -107,52 +117,43 @@ class Listener:
     def privateMQ(self, command, color):
         return color + "." + command
     
-    def callback(ch, method, properties, body):
+    def callback(self, ch, method, properties, body):
         print(" [x] %r:%r" % (method.routing_key, body,))
-        command = method.routing_key
+        command = str(method.routing_key)
         values = body
         self.decodeResponse(command, values)
     
     def decodeResponse(self, command, value):
-        split = command.string.rsplit(".");
+        split = command.rsplit(".");
         color = split[0]
-        try:
-            id = self.getID(color)
-            if(id is not None):
-                if(split[1] == "info"):
-                    if(split[2] == "height"):
-                        height = split[3]
-                        print(color + ".info.height."+height)
-                        self.updateHeight(self, id, value)
-                    elif(split[2] == "location"):
-                        location = split[3]
-                        print(color + ".info.height."+location)
-                        self.updateLocation(self,id, value)
-                    else:
-                        pass
-                elif(split[1] == "hcommand"):
-                    if(split[2] == "move"):
-                        move = split[3]
-                        print(color + ".hcommand.move."+ move)
-                    elif(split[2] == "elevate"):
-                        elevate = split[3]
-                        print(color + ".hcommand.elevate."+ elevate)
-                    else:
-                        pass
-                elif(split[1] == "lcommand"):
-                    if(split[2] == "motor1"):
-                        power = split[3]
-                        print(color + ".lcommand.motor1."+ power)
-                    elif(split[2] == "motor2"):
-                        power = split[3]
-                        print(color + ".lcommand.motor2."+ power)
-                    elif(split[2] == "motor3"):
-                        power = split[3]
-                        print(color + ".lcommand.motor3."+ power)
-                elif(split[1] == "private"):
+        id = self.getID(color)
+        self.createZep(id)
+        if(id is not None):
+            if(split[1] == "info"):
+                if(split[2] == "height"):
+                    print(str(value))
+                    self.updateHeight(id, int(value))
+                elif(split[2] == "location"):
+                    print(str(value))
+                    values = value.rsplit(",")
+                    self.updateLocation(id, values)
+                else:
+                    pass
+            elif(split[1] == "hcommand"):
+                if(split[2] == "move"):
+                    pass
+                elif(split[2] == "elevate"):
                     pass
                 else:
                     pass
-            
-        except:
-            print("Something wrong happened at decodeResponse() in GuiListener.")   
+            elif(split[1] == "lcommand"):
+                if(split[2] == "motor1"):
+                    pass
+                elif(split[2] == "motor2"):
+                    pass
+                elif(split[2] == "motor3"):
+                    pass
+            elif(split[1] == "private"):
+                pass
+            else:
+                pass

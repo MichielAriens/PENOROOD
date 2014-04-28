@@ -84,7 +84,7 @@ class FakeEnvironment:
     def update(self):
         lastTime = time.time()
         while True:
-            print(self.pos.toString() + " | " + self.force.toString())
+            #print(self.pos.toString() + " | " + self.force.toString())
             timeNow = time.time()
             scale = timeNow - lastTime
             lastTime = timeNow
@@ -103,7 +103,7 @@ class FakeEnvironment:
             time.sleep(0.033)
             
 
-import _thread
+import thread
  
 class FakeZeppelin:
     
@@ -124,7 +124,7 @@ class FakeZeppelin:
         self.setMovementZeppelin((2,3));
         
         #print(self.fe.force.toString())
-        _thread.start_new_thread(self.fe.update, ())
+        thread.start_new_thread(self.fe.update, ())
         #print(self.fe.force.toString())
         #self.pid = PID(0.2,0.1,5)
         self.camera = None

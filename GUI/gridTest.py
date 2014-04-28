@@ -1,6 +1,5 @@
-from tkinter import *
-import GUI.listener as listener
-from GUI.listener import *
+from Tkinter import *
+#from GUI.listener import *
 
 #initiate tinker, tk() acts as a frame
 #root = Tk()
@@ -17,7 +16,7 @@ class GUI:
     #Text(container, width in characters, height in lines) = widget used for displayed multiple lines of text
     #Greendot & Reddot, images for zeppelins
     #other images are shapes
-    def __init__(self, master):
+    def __init__(self, master, listener):
         self.root = master
         self.labelframe = LabelFrame(master, text="Input&Output")
         self.canvas = Canvas(master, bg = "White", width = 1000, height = 1000)
@@ -30,7 +29,7 @@ class GUI:
         self.grid = GRID(8,7)
         self.text = Text(master,width = 50, height = 15)
         self.goal = (0,0)
-        self.communicator = listener.Listener()
+        self.communicator = listener
 
         self.ipads = []
         self.addIpad(25, 100, 100)
@@ -207,13 +206,13 @@ class GUI:
         self.updateTaskForSimulators()
         self.updateZeppelins()
         self.updateCanvas()
-        self.readFromFile()
-        print(self.grid.getShape(12))
+#        self.readFromFile()
+        #(self.grid.getShape(12))
         self.root.after(33,self.task)
     
     def checkZeppelins(self):
         sims = self.communicator.simulators
-        print("CheckZeps: sims  " + str(sims))
+        #print("CheckZeps: sims  " + str(sims))
         for i in range(len(sims)):
             sim_id = sims[i][1]
             if(self.grid.getZeppelin(sim_id) == ((-1,-1),-1)):                              
@@ -221,7 +220,8 @@ class GUI:
                 self.grid.updateHeight(sim_id, 0)
         zeps = self.communicator.zeppelins
         for i in range(len(zeps)):
-            zep_id = zeps[i]
+            zepper = zeps[i]
+            zep_id = zepper[0]
             if(self.grid.getZeppelin(zep_id) == ((-1,-1),-1)):                               
                 self.grid.addZeppelin(0, 0, zep_id)
                 self.grid.updateHeight(zep_id, 0)
@@ -238,7 +238,7 @@ class GUI:
             zep = zep_listener.getPosition()                                                
             zep_pos = zep.asArray()
             if(zep_pos[0]!=-1 and zep_pos[1]!=-1):
-                print("position: "+str(zep_pos[0]) + "," + str(zep_pos[1]))                             
+                #print("position: "+str(zep_pos[0]) + "," + str(zep_pos[1]))
                 self.grid.setZeppelinPosition(zep_pos[0], zep_pos[1], zep_id)   
 
     def updateZeppelins(self):
@@ -273,7 +273,7 @@ class GUI:
     def sendCommand(self):
         command = self.entry3.get()
         self.communicator.sendCommand(command)
-        print("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+        #("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
         
     def updateGoalDirection(self, zepID):
         currentpos = self.grid.getZeppelin(zepID)[0]
@@ -334,7 +334,7 @@ class GUI:
     def readFromFile(self):
         file_object = open("C:\\Users\\simon\\test.txt", "r")
         lines = file_object.readlines()
-        print(lines)
+        #(lines)
         file_object.close()
         
     def addIpad(self, x, y, ID):
@@ -345,9 +345,9 @@ class GRID:
     
     #defines a matrix with y rows and x columns. Each M(x,y) contains a value, this value represents the Shape-ID (SID)
     def __init__(self,x,y):
-        print(str(range(x)))
+        #print(str(range(x)))
         self.table = [ [ 0 for i in range(y) ] for j in range(x) ]
-        print(self.table)
+        #print(self.table)
         self.rows = y
         self.columns = x
         
@@ -371,7 +371,7 @@ class GRID:
                 self.zepheights.append(tuple)
     
     def initiate(self,string):
-        print(string)
+        #print(string)
         part = string.rsplit("[")
         parts = part[1].rsplit("]")
         part_strings = parts[0].rsplit("=");
@@ -469,10 +469,10 @@ class GRID:
     #returns the position and SID of a shape: ((x,y),ZID). If the shape can't be found it returns ((-1,-1),-1)
     def getShape(self, SID):
         shapes = []
-        print("xxxxxxxxxxxxxxxxxxxxxxx")
-        print(self.getShapesAndPositions())
-        print(self.rows)
-        print(self.columns)
+        #print("xxxxxxxxxxxxxxxxxxxxxxx")
+        #print(self.getShapesAndPositions())
+        #print(self.rows)
+        #print(self.columns)
         for i in range(self.rows):
             for j in range(self.columns):
                 if(SID == self.table[j][i]):
@@ -502,14 +502,14 @@ class GRID:
             shape = shapes[i]
             if not self.checkList(checked_shapes, shape):
                 shape_pos = self.getShape(shape)
-                print("Shape: "+str(shape))
-                print("Shape_Positions: " + str(shape_pos))
+                #print("Shape: "+str(shape))
+                #print("Shape_Positions: " + str(shape_pos))
                 for j in range(len(shape_pos)):
                     new_pos = (shape_pos[j][0][0]*40, shape_pos[j][0][1]*36)
                     positions.append(new_pos)
                 checked_shapes.append(shape)
         #alle positions van de shapes toegevoegd in positions
-        print("positions:" + str(positions))
+        #print("positions:" + str(positions))
         x = 0
         y = 0
         count = 0
@@ -517,12 +517,12 @@ class GRID:
             x += positions[k][0]
             y += positions[k][1]
             count += 1
-        print("x-coord: " + str(x))
-        print("y-coord: " + str(y))
-        print("count: " + str(count))
+        #print("x-coord: " + str(x))
+        #print("y-coord: " + str(y))
+        #print("count: " + str(count))
         x = x/count
         y = y/count
-        print(x,y)
+        #print(x,y)
             
             
     def checkList(self,list,element):

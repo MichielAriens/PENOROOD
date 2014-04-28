@@ -1,7 +1,45 @@
+import thread
 from RPI import FakeZeppelin as FakeZeppelin
 from RPI.ZepListener import *
 from GUI.gridTest import *
-from tkinter import *
+from Tkinter import *
+from GUI.listener import *
+
+listener = Listener()
+
+creds = pika.PlainCredentials('rood','rood')
+connection = pika.BlockingConnection(pika.ConnectionParameters(
+        host='localhost', credentials = creds))
+channel = connection.channel()
+
+channel.exchange_declare(exchange='topic_logs',
+                         type='topic')
+
+result = channel.queue_declare(exclusive=True)
+queue_name = result.method.queue
+
+#binding_keys = sys.argv[1:]
+#if not binding_keys:
+#    print >> sys.stderr, "Usage: %s [binding_key]..." % (sys.argv[0],)
+#    sys.exit(1)
+
+#for binding_key in binding_keys:
+channel.queue_bind(exchange='server',
+                   queue=queue_name,
+                   routing_key="#")
+
+print ' [*] Waiting for logs. To exit press CTRL+C'
+
+def callback(ch, method, properties, body):
+    global listener
+    listener.callback(ch,method,properties,body)
+
+channel.basic_consume(callback,
+                      queue=queue_name,
+                      no_ack=True)
+
+
+
 
 
 
@@ -15,9 +53,9 @@ def addSimulator(communicator,x,y,z,id):
 root = Tk()
 root.title("team ROOD")
 
-Gui = GUI(root)
+Gui = GUI(root, listener)
 
-addSimulator(Gui.communicator, 0,0,0,10)
+#addSimulator(Gui.communicator, 0,0,0,10)
 addSimulator(Gui.communicator, 100,50,50,11)
 #addSimulator(Gui.communicator, 100,50,50,12)
 #addSimulator(Gui.communicator, 100,250,50,13)
@@ -51,21 +89,21 @@ Gui.leftbutton.grid(row = 1, column = 0)
 Gui.rightbutton.grid(row = 1, column = 2)
 
 
-#<<<<<<< HEAD
-#file_path = 'C:\\Users\\Michiel\\Documents\\GitHub\\PENOROOD\\OTHER\\example_grid2.csv'
-#=======
-file_path = 'C:\\Users\\simon\\Desktop\\peno-1314-zeppelin-frame-master\\new_peno.csv'
-#>>>>>>> check
+file_path = "C:\\Users\\Michiel\\Documents\\GitHub\\PENOROOD\\OTHER\\grid25-04.csv"
 if(len(file_path)>0):
     Gui.initiateFromFile(file_path)
 else:
     Gui.grid.initiate("0=0=gh=rs=bc=gr=0=0=0=wr=ys=bc=ws=gr=0=0=0=rr=yr=gh=wc=bh=wr=0=bs=rs=gc=bs=bh=bc=gs=0=0=br=yh=rh=gs=gc=yh=0=0=bh=rh=ws=wr=ys=0=0=0=0=gh=rs=bc=gr")
 
+thread.start_new_thread(channel.start_consuming,())
+
 Gui.addDisplayedMessage("Nothing to be displayed atm.")
 Gui.updateCanvas()
 
 #loop that registers action in the frame
-#keep calling Gui.task every 1000ms
+#keep calling Gui.task every 33ms
 root.after(33,Gui.task)
 root.grab_set()
 root.mainloop()
+while True:
+    pass
