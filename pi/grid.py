@@ -367,6 +367,7 @@ class GRID:
 
     #@Param: shapes     is a list of tuples in the form: ("id",<x>,<y>)
     def getPos(self, shapes, needsSorting = True):
+        print str(shapes)
         if needsSorting:
             vals = [(a,x,y,x*x + y*y) for (a,x,y) in shapes]
             vals = sorted(vals, key=lambda tup: tup[3])

@@ -112,7 +112,6 @@ class GUI:
         
     #Draw grid on canvas
     def drawGrid(self):
-        print "start"
         can_width = int(self.canvas.winfo_reqwidth())
         can_height = int(self.canvas.winfo_reqheight())
         position_width = int(can_width/(self.grid.columns+2))
@@ -146,7 +145,7 @@ class GUI:
                         y1 = position_height+position_height*j
                         x2 = (3/2)*position_width-position_width*(1/2)+position_width*i/2
                         y2 = 2*position_height+position_height*j
-                    print str(x1) + ", " + str(y1) + ", " + str(x2) + ", " + str(y2)
+                    #print str(x1) + ", " + str(y1) + ", " + str(x2) + ", " + str(y2)
                     self.canvas.create_line(x1,y1,x2,y2)
             else:
                 for i in range(max_horizontal_triangles*2-1):
@@ -225,12 +224,10 @@ class GUI:
     #keep updating besides running the tkinter mainloop
     #update canvas after 1000ms
     def task(self):
-        #self.checkZeppelins()
-        #self.updateTaskForSimulators()
-        #self.updateZeppelins()
+        self.checkZeppelins()
+        self.updateTaskForSimulators()
+        self.updateZeppelins()
         self.updateCanvas()
-#        self.readFromFile()
-        #(self.grid.getShape(12))
         self.root.after(33,self.task)
     
     def checkZeppelins(self):
