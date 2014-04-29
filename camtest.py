@@ -10,6 +10,7 @@ with picamera.PiCamera() as camera:
     camera.resolution = (250,250)
     i = 0
     while (i < 20):
-        camera.capture("/home/pi/zep3/output/" + str(i) + ".jpg", "jpeg")
+        print "taking pic " + str(i)
+        camera.capture("/home/pi/PENOROOD/zep3/output/" + str(i) + ".jpg", "jpeg")
         i += 1
         time.sleep(1)
