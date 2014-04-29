@@ -29,23 +29,29 @@ class ColorRange:
             if(S < 0.2 and V > 0.9):    # white condition
                 whitelst.append((H,S,V))
             else:
+                """
                 if(S < 0.1 and V > 0.25 and V < 0.6):    #indicates background
                     True
                 else:
-                    if(H < 50 and H > 25 and S > 0.45 and V > 0.75):   # yellow condition
-                        yellowlst.append((H,S,V))
+                """
+                if(H < 55 and H > 25 and S > 0.45 and V > 0.80):   # yellow condition
+                    yellowlst.append((H,S,V))
+                else:
+                    if((H < 13 or H > 335) and S > 0.60 and V > 0.60):   # red condition
+                        redlst.append((H,S,V))
                     else:
-                        if((H < 13 or H > 335) and S > 0.60 and V > 0.60):   # red condition
-                            redlst.append((H,S,V))
+                        if(H < 260 and H > 200 and S > 0.15 and V > 0.2 and V < 0.65):   # blue condition
+                            bluelst.append((H,S,V))
                         else:
-                            if(H < 260 and H > 205 and S > 0.15 and V > 0.2 and V < 0.65):   # blue condition
-                                bluelst.append((H,S,V))
+                            if(H > 80 and H < 200 and S > 0.20 and S < 0.60 and  V < 0.6):     # green condition
+                                greenlst.append((H,S,V))
+                            """
+                            if(brightness == "light" and H > 100 and H < 200 and S > 0.25 and S < 0.60 and  V < 0.6):     # green condition
+                                greenlst.append((H,S,V))
                             else:
-                                if(brightness == "light" and H > 100 and H < 200 and S > 0.25 and S < 0.60 and  V < 0.6):     # green condition
+                                if(brightness == "dark" and H > 60 and H < 200 and S > 0.25 and V < 0.35):     # green secondary condition (dark environment)
                                     greenlst.append((H,S,V))
-                                else:
-                                    if(brightness == "dark" and H > 60 and H < 200 and S > 0.25 and V < 0.35):     # green secondary condition (dark environment)
-                                        greenlst.append((H,S,V))
+                            """
 
         # set several conditions depending on the color to retrieve and put it in the corresponding list.
         # then find the average for each of those lists so 1 list of 5 tuples are returned. (one for each determined color)
