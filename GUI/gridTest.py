@@ -1,3 +1,4 @@
+from __future__ import division
 from Tkinter import *
 #from GUI.listener import *
 
@@ -28,6 +29,7 @@ class GUI:
         self.entry3 = Entry(self.labelframe)
         self.grid = GRID(8,7)
         self.text = Text(master,width = 50, height = 15)
+        self.debugtext = Text(master,width = 50, height = 15)
         self.goal = (0,0)
         self.communicator = listener
 
