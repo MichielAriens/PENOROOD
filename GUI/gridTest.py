@@ -108,37 +108,60 @@ class GUI:
             self.canvas.create_image(xoffset + x,yoffset + y,image=self.reddot)
             self.canvas.create_text(xoffset + x + 5,yoffset + y+30,text="ZID =" + str(ZID), fill = "red")
             self.canvas.create_text(xoffset + x + 5,yoffset + y+40,text="POS = (" + str(round(posx)) +","+ str(round(posy))+")cm", fill = "red")
-        
-    
+
         
     #Draw grid on canvas
     def drawGrid(self):
-        can_width = self.canvas.winfo_reqwidth()
-        can_height = self.canvas.winfo_reqheight()
-        position_width = can_width/(self.grid.columns+2)
-        position_height = can_height/(self.grid.rows+2)
-        max_horizontal_triangles = self.grid.columns
-        max_vertical_triangles = self.grid.rows
+        print "start"
+        can_width = int(self.canvas.winfo_reqwidth())
+        can_height = int(self.canvas.winfo_reqheight())
+        position_width = int(can_width/(self.grid.columns+2))
+        position_height = int(can_height/(self.grid.rows+2))
+        max_horizontal_triangles = int(self.grid.columns)
+        max_vertical_triangles = int(self.grid.rows)
         #horizontal lines
         for i in range(max_vertical_triangles):
-            if((i%2)==0):
-                self.canvas.create_line(position_width,position_height*(i+1),can_width-position_width*2,position_height*(i+1))
-            else:
-                self.canvas.create_line(position_width*(3/2),position_height*(i+1),can_width-position_width*(3/2),position_height*(i+1))
+            x1 = position_width
+            y1 = position_height*(i+1)
+            x2 = can_width-position_width*2
+            y2 = position_height*(i+1)
+            if((i%2)==1):
+                x1 += position_width/2
+                x2 += position_width/2
+
+            self.canvas.create_line(x1,y1,x2,y2)
+
         #diagonal lines
         for j in range(max_vertical_triangles-1):
             if((j%2)==0):
                 for i in range(max_horizontal_triangles*2-1):
                     if((i%2)==0):
-                        self.canvas.create_line(position_width+position_width*i/2, position_height+position_height*j,position_width+position_width*(1/2)+position_width*i/2,2*position_height+position_height*j)
+                        x1 = position_width+position_width*i/2
+                        y1 = position_height+position_height*j
+                        x2 = position_width+position_width*(1/2)+position_width*i/2
+                        y2 = 2*position_height+position_height*j
+
                     else:
-                        self.canvas.create_line((3/2)*position_width+position_width*i/2, position_height+position_height*j,(3/2)*position_width-position_width*(1/2)+position_width*i/2,2*position_height+position_height*j)
+                        x1 = (3/2)*position_width+position_width*i/2
+                        y1 = position_height+position_height*j
+                        x2 = (3/2)*position_width-position_width*(1/2)+position_width*i/2
+                        y2 = 2*position_height+position_height*j
+                    print str(x1) + ", " + str(y1) + ", " + str(x2) + ", " + str(y2)
+                    self.canvas.create_line(x1,y1,x2,y2)
             else:
                 for i in range(max_horizontal_triangles*2-1):
                     if((i%2)==0):
-                        self.canvas.create_line(position_width+position_width*i/2,2*position_height+position_height*j,position_width+position_width*(1/2)+position_width*i/2,position_height+position_height*j)
+                        x1 = position_width+position_width*i/2
+                        y1 = 2*position_height+position_height*j
+                        x2 = x1 + position_width*(1/2)
+                        y2 = position_height+position_height*j
+                        self.canvas.create_line(x1,y1,x2,y2)
                     else:
-                        self.canvas.create_line((3/2)*position_width+position_width*i/2,2*position_height+position_height*j,(3/2)*position_width-position_width*(1/2)+position_width*i/2,position_height+position_height*j)
+                        x1 = (3/2)*position_width+position_width*i/2
+                        y1 = 2*position_height+position_height*j
+                        x2 = (3/2)*position_width-position_width*(1/2)+position_width*i/2
+                        y2 = position_height+position_height*j
+                        self.canvas.create_line(x1,y1,x2,y2)
     
     #requests all zeppelins and refreshes them on canvas
     def updateCanvas(self):
@@ -202,9 +225,9 @@ class GUI:
     #keep updating besides running the tkinter mainloop
     #update canvas after 1000ms
     def task(self):
-        self.checkZeppelins()                                                       
-        self.updateTaskForSimulators()
-        self.updateZeppelins()
+        #self.checkZeppelins()
+        #self.updateTaskForSimulators()
+        #self.updateZeppelins()
         self.updateCanvas()
 #        self.readFromFile()
         #(self.grid.getShape(12))
