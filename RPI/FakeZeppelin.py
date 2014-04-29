@@ -67,6 +67,7 @@ class Vector3:
            
            
 import time
+
 class FakeEnvironment:
     
     def __init__(self):
@@ -104,14 +105,16 @@ class FakeEnvironment:
             
 
 import thread
+import pi.ZepListener as zeplistener
  
 class FakeZeppelin:
     
-    def __init__(self, listener):
+    def __init__(self):
         #self.grid = gridTest.GRID(12,13)
         #self.updateGrid()
         self.height = 0
-        self.zepListener = listener 
+        self.zepListener = zeplistener.zepListener(self)
+        self.zepListener.start()
         self.motorOffset = 50
         self.fe = FakeEnvironment()
         self.motorX = motor.FakeMotor(self.fe,Axis.x)
@@ -128,12 +131,19 @@ class FakeZeppelin:
         #print(self.fe.force.toString())
         #self.pid = PID(0.2,0.1,5)
         self.camera = None
+        while True:
+            self.zepListener.pushPosition(self.getPositionXY())
+            time.sleep(0.5)
+
         
     def setPosition(self,x,y,z):
         self.fe.pos = Vector3(x,y,z)
         
     def getPosition(self):
         return self.fe.pos
+
+    def getPositionXY(self):
+        return (int(self.fe.pos.x),int(self.fe.pos.y))
     
     def getSpeed(self):
         return self.fe.speed

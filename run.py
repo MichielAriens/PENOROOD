@@ -5,6 +5,8 @@ from GUI.gridTest import *
 from Tkinter import *
 from GUI.listener import *
 
+sim = True
+
 listener = Listener()
 
 creds = pika.PlainCredentials('rood','rood')
