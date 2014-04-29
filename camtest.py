@@ -11,6 +11,6 @@ with picamera.PiCamera() as camera:
     i = 0
     while (i < 20):
         print "taking pic " + str(i)
-        camera.capture("/home/pi/PENOROOD/zep3/output/" + str(i) + ".jpg", "jpeg")
+        camera.capture("/home/pi/zep3/PENOROOD/output/" + str(i) + ".jpg", "jpeg")
         i += 1
         time.sleep(1)
