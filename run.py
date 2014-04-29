@@ -5,40 +5,42 @@ from GUI.gridTest import *
 from Tkinter import *
 from GUI.listener import *
 
+served = False
 sim = True
-
 listener = Listener()
 
-creds = pika.PlainCredentials('rood','rood')
-connection = pika.BlockingConnection(pika.ConnectionParameters(
-        host='localhost', credentials = creds))
-channel = connection.channel()
+if(served):
 
-channel.exchange_declare(exchange='topic_logs',
-                         type='topic')
+    creds = pika.PlainCredentials('rood','rood')
+    connection = pika.BlockingConnection(pika.ConnectionParameters(
+            host='localhost', credentials = creds))
+    channel = connection.channel()
 
-result = channel.queue_declare(exclusive=True)
-queue_name = result.method.queue
+    channel.exchange_declare(exchange='topic_logs',
+                             type='topic')
 
-#binding_keys = sys.argv[1:]
-#if not binding_keys:
-#    print >> sys.stderr, "Usage: %s [binding_key]..." % (sys.argv[0],)
-#    sys.exit(1)
+    result = channel.queue_declare(exclusive=True)
+    queue_name = result.method.queue
 
-#for binding_key in binding_keys:
-channel.queue_bind(exchange='server',
-                   queue=queue_name,
-                   routing_key="#")
+    #binding_keys = sys.argv[1:]
+    #if not binding_keys:
+    #    print >> sys.stderr, "Usage: %s [binding_key]..." % (sys.argv[0],)
+    #    sys.exit(1)
 
-print ' [*] Waiting for logs. To exit press CTRL+C'
+    #for binding_key in binding_keys:
+    channel.queue_bind(exchange='server',
+                       queue=queue_name,
+                       routing_key="#")
 
-def callback(ch, method, properties, body):
-    global listener
-    listener.callback(ch,method,properties,body)
+    print ' [*] Waiting for logs. To exit press CTRL+C'
 
-channel.basic_consume(callback,
-                      queue=queue_name,
-                      no_ack=True)
+    def callback(ch, method, properties, body):
+        global listener
+        listener.callback(ch,method,properties,body)
+
+    channel.basic_consume(callback,
+                          queue=queue_name,
+                          no_ack=True)
 
 
 
@@ -92,12 +94,15 @@ Gui.rightbutton.grid(row = 1, column = 2)
 
 
 file_path = "C:\\Users\\Michiel\\Documents\\GitHub\\PENOROOD\\OTHER\\grid25-04.csv"
+if(not served):
+    file_path = "C:\Users\simon\Documents\GitHub\PENOROOD\OTHER\grid25-04.csv"
 if(len(file_path)>0):
     Gui.initiateFromFile(file_path)
 else:
     Gui.grid.initiate("0=0=gh=rs=bc=gr=0=0=0=wr=ys=bc=ws=gr=0=0=0=rr=yr=gh=wc=bh=wr=0=bs=rs=gc=bs=bh=bc=gs=0=0=br=yh=rh=gs=gc=yh=0=0=bh=rh=ws=wr=ys=0=0=0=0=gh=rs=bc=gr")
 
-thread.start_new_thread(channel.start_consuming,())
+if(served):
+    thread.start_new_thread(channel.start_consuming,())
 
 Gui.addDisplayedMessage("Nothing to be displayed atm.")
 Gui.updateCanvas()
