@@ -45,20 +45,20 @@ channel.basic_consume(callback,
 
 
 
-def addSimulator(communicator,x,y,z,id):
+"""def addSimulator(communicator,x,y,z,id):
     zepl = ZepListener()
     zep = FakeZeppelin.FakeZeppelin(zepl)
     zep.setPosition(x,y,z)
     zepl.zeppelin = zep
     communicator.addZeppelinListener(zepl,id)
-    
+   """
 root = Tk()
 root.title("team ROOD")
 
 Gui = GUI(root, listener)
 
 #addSimulator(Gui.communicator, 0,0,0,10)
-addSimulator(Gui.communicator, 100,50,50,11)
+#addSimulator(Gui.communicator, 100,50,50,11)
 #addSimulator(Gui.communicator, 100,50,50,12)
 #addSimulator(Gui.communicator, 100,250,50,13)
 #addSimulator(Gui.communicator, 141,233,50,14)
