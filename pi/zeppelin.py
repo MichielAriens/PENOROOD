@@ -104,9 +104,14 @@ class Zeppelin:
             h = self.altimeter.getHeight()
             self.listener.pushHeight(h)
             self.listener.pushPosition(pos)
-            self.lift.setThrust(self.heightPID.update(h))
-            self.xMot.setThrust(self.xPID.update(pos[0]))
-            self.xMot.setThrust(self.xPID.update(pos[1]))
+            #self.lift.setThrust(self.heightPID.update(h))
+            self.lift.setThrust(0)
+            thrustx = self.xPID.update(pos[0])
+            thrusty = self.xPID.update(pos[1])
+            print "thrust vector: " + str(thrustx) + ", " + str(thrusty)
+
+            self.xMot.setThrust(thrustx)
+            self.xMot.setThrust(thrusty)
             time.sleep(1)       
     
     #Starts running background threads

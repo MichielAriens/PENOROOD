@@ -26,7 +26,7 @@ def loadGrid(path):
         return grid
 
 grid = loadGrid("C:\Users\Michiel\Documents\GitHub\PENOROOD\OTHER\grid25-04.csv")
-pos = grid.getPos([("ys",3,3),("rr",2,3),("gs",1,1)],needsSorting = True)
+pos = grid.getPos([("wh",3,3),("ws",2,3),("ws",1,1)],needsSorting = True)
 
 print str(pos)
 
