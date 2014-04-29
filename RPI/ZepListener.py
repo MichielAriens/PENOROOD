@@ -10,7 +10,7 @@ class ZepListener:
 		other.zepListener = self
 		
 	def getPosition(self):
-		print("Returning position" + str(self.zeppelin.getPosition()))
+		#print("Returning position" + str(self.zeppelin.getPosition()))
 		return self.zeppelin.getPosition()
 	
 	def getSpeed(self):

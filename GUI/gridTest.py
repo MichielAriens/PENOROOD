@@ -243,10 +243,9 @@ class GUI:
 
     def updateZeppelins(self):
         for i in range(len(self.communicator.zeppelins)):
-            position = self.communicator.getZeppelinPosition(self.communicator.zeppelins[i])
-            if(position is not None):
-                self.grid.setZeppelinPosition(position[0], position[1], self.communicator.zeppelins[i])
-                self.grid.updateHeight(self.communicator.zeppelins[i], self.communicator.getZeppelinHeight(self.communicator.zeppelins[i]))
+            tup = self.communicator.zeppelins[i]
+            self.grid.setZeppelinPosition(tup[1], tup[2], tup[0])
+            self.grid.updateHeight(tup[0],tup[3])
                 
         
     def getGoalFromInput(self):

@@ -124,36 +124,39 @@ class Listener:
         self.decodeResponse(command, values)
     
     def decodeResponse(self, command, value):
-        split = command.rsplit(".");
-        color = split[0]
-        id = self.getID(color)
-        self.createZep(id)
-        if(id is not None):
-            if(split[1] == "info"):
-                if(split[2] == "height"):
-                    print(str(value))
-                    self.updateHeight(id, int(value))
-                elif(split[2] == "location"):
-                    print(str(value))
-                    values = value.rsplit(",")
-                    self.updateLocation(id, values)
+        try:
+            split = command.rsplit(".");
+            color = split[0]
+            id = self.getID(color)
+            self.createZep(id)
+            if(id is not None):
+                if(split[1] == "info"):
+                    if(split[2] == "height"):
+                        print(str(value))
+                        self.updateHeight(id, int(value))
+                    elif(split[2] == "location"):
+                        print(str(value))
+                        values = value.rsplit(",")
+                        self.updateLocation(id, values)
+                    else:
+                        pass
+                elif(split[1] == "hcommand"):
+                    if(split[2] == "move"):
+                        pass
+                    elif(split[2] == "elevate"):
+                        pass
+                    else:
+                        pass
+                elif(split[1] == "lcommand"):
+                    if(split[2] == "motor1"):
+                        pass
+                    elif(split[2] == "motor2"):
+                        pass
+                    elif(split[2] == "motor3"):
+                        pass
+                elif(split[1] == "private"):
+                    pass
                 else:
                     pass
-            elif(split[1] == "hcommand"):
-                if(split[2] == "move"):
-                    pass
-                elif(split[2] == "elevate"):
-                    pass
-                else:
-                    pass
-            elif(split[1] == "lcommand"):
-                if(split[2] == "motor1"):
-                    pass
-                elif(split[2] == "motor2"):
-                    pass
-                elif(split[2] == "motor3"):
-                    pass
-            elif(split[1] == "private"):
-                pass
-            else:
-                pass
+        except:
+            print "command not parsed: " + command + ":" + value
