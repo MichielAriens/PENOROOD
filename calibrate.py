@@ -14,4 +14,8 @@ c.setImage(path)
 
 c.calibrate()
 
-print str(c.analyze())
+print str(c.shape.blue)
+print str(c.shape.green)
+print str(c.shape.red)
+print str(c.shape.white)
+print str(c.shape.yellow)
