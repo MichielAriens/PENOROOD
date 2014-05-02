@@ -1,4 +1,5 @@
 from COMMON.enum import Enum
+import 
 import GUI.gridTest as gridTest
 class Axis(Enum):
   x = 1
@@ -121,7 +122,9 @@ class FakeZeppelin:
         self.motorY = motor.FakeMotor(self.fe,Axis.y)
         self.motorZ = motor.FakeMotor(self.fe,Axis.z)
         #self.altimeter = ds.FakeDistanceSensor2(self.fe)
-       
+
+        #next goal
+
         #old self.fe.force = Vector3(0.1,0.2,0)
         #new SimonOveride
         self.setMovementZeppelin((2,3));
@@ -135,7 +138,6 @@ class FakeZeppelin:
             self.zepListener.pushPosition(self.getPositionXY())
             time.sleep(0.5)
 
-        
     def setPosition(self,x,y,z):
         self.fe.pos = Vector3(x,y,z)
         
