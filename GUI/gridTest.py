@@ -1,4 +1,6 @@
+from __future__ import division
 from Tkinter import *
+
 #from GUI.listener import *
 
 #initiate tinker, tk() acts as a frame
