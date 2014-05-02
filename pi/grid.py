@@ -11,7 +11,14 @@ class GRID:
         
         self.zeplist = []
         self.zepheights = []
-    
+        self.ipads = [] #(id, (x,y))
+
+    def getIpad(self, id):
+        for i in range(len(self.ipads)):
+            pad = self.ipads[i]
+            if(pad[0] == id):
+                return pad[1]
+
     def getHeight(self, id):
         for i in range(len(self.zepheights)):
             zep = self.zepheights[i]
