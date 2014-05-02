@@ -223,6 +223,8 @@ class GUI:
         self.text.delete(1.0, END)
 
     def updateListenerMessage(self):
+        if(len(self.communicator.messages) > 10):
+            self.communicator.messages = []
         for i in range(len(self.communicator.messages)):
             message = self.communicator.messages[i]
             self.debugtext.insert(INSERT, message)
