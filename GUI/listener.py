@@ -5,6 +5,7 @@ class Listener:
         self.simulators = []#tuple (ID, ZepListener)
         self.zeppelins = [] #tuple (ID, x, y, z)
         self.color_ids = [(1, "rood"), (2, "ijzer"), (3, "paars"), (4, "blauw")] #tuple (ID, color)
+        self.messages = []
      
     def updateSimulators(self):
         pass

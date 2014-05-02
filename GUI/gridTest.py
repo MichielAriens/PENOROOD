@@ -213,7 +213,7 @@ class GUI:
             
         self.clearMessage()
         self.addDisplayedMessage(message)
-    
+
     #set the message in the text-widget          
     def addDisplayedMessage(self, text):
         self.text.insert(INSERT, text)
@@ -222,7 +222,12 @@ class GUI:
     def clearMessage(self):
         self.text.delete(1.0, END)
 
-        
+    def updateListenerMessage(self):
+        for i in range(len(self.communicator.messages)):
+            message = self.communicator.messages[i]
+            self.debugtext.insert(INSERT, message)
+
+
     #keep updating besides running the tkinter mainloop
     #update canvas after 1000ms
     def task(self):
@@ -230,6 +235,7 @@ class GUI:
         self.updateTaskForSimulators()
         self.updateZeppelins()
         self.updateCanvas()
+        self.updateListenerMessage()
         self.root.after(33,self.task)
     
     def checkZeppelins(self):
