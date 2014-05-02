@@ -15,7 +15,7 @@ class ShapeFinder:
     def __init__(self):
         self.imagePath = 'C:\\Users\\Babyburger\\PycharmProjects\\PENOROODpy\\output\\7.jpg'
         self.calibrate = fc.ColorRange()
-        self.whitey = (239,239,220)
+        self.white = (239,239,220)
         self.yellow = (241,200,36)
         self.red = (190,45,60)
         self.blue = (84,96,118)
@@ -32,7 +32,7 @@ class ShapeFinder:
     def calibrateColors(self, brightness = "light"):
         w, y, r, g, b = self.calibrate.getColorRanges(self.imagePath, brightness)
         if(self.colorFound(w)):
-            self.whitey = w
+            self.white = w
         if(self.colorFound(y)):
             self.yellow = y
         if(self.colorFound(r)):
@@ -41,8 +41,6 @@ class ShapeFinder:
             self.blue = b
         if(self.colorFound(g)):
             self.green = g
-
-
 
     def colorFound(self,(a,b,c)):
         if(a == 0 and b == 0 and c == 0):
@@ -69,7 +67,7 @@ class ShapeFinder:
             fig = image.colorDistance(self.blue)
             filteredFigure = image - fig - fig - fig
         elif color.lower() == "white":
-            fig = image.colorDistance(self.whitey)
+            fig = image.colorDistance(self.white)
             filteredFigure = image - fig - fig
         else: print "Bad color input, this should never have happened!"
 
