@@ -1,5 +1,6 @@
 from COMMON.enum import Enum
-import 
+from pi.grid import GRID
+
 import GUI.gridTest as gridTest
 class Axis(Enum):
   x = 1
@@ -111,8 +112,6 @@ import pi.ZepListener as zeplistener
 class FakeZeppelin:
     
     def __init__(self):
-        #self.grid = gridTest.GRID(12,13)
-        #self.updateGrid()
         self.height = 0
         self.zepListener = zeplistener.zepListener(self)
         self.zepListener.start()
@@ -122,8 +121,7 @@ class FakeZeppelin:
         self.motorY = motor.FakeMotor(self.fe,Axis.y)
         self.motorZ = motor.FakeMotor(self.fe,Axis.z)
         #self.altimeter = ds.FakeDistanceSensor2(self.fe)
-
-        #next goal
+        self.loadGrid("/home/pi/zep3/PENOROOD/OTHER/grid25-04.csv")
 
         #old self.fe.force = Vector3(0.1,0.2,0)
         #new SimonOveride
@@ -196,4 +194,26 @@ class FakeZeppelin:
         
     def stop(self):
         self.fe.speed = Vector3(0,0,0)
-    
+
+    def loadGrid(self, path):
+        import csv
+        with open(path) as f:
+            data=[tuple(line) for line in csv.reader(f)]
+        list = []
+        emptyrow = []
+        for i in range(len(data)):
+            list.append(emptyrow)
+            row = data[i]
+            for j in range(len(row)):
+                oldstr = row[j]
+                newstr = oldstr.replace("'", " ")
+                list[i].append(newstr)
+        list[0] = str(list[0]).replace("'", "")
+        list[0] = str(list[0]).replace(" ", "")
+        list[0] = str(list[0]).replace(",", "=")
+        list[0] = str(list[0]).lower()
+        number_of_rows = len(data);
+        number_of_columns = len(data[0])
+        init_string = list[0]
+        self.grid = gridTest.GRID(number_of_columns, number_of_rows)
+        self.grid.initiate(init_string);
