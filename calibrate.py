@@ -12,10 +12,17 @@ c = imp.main()
 
 c.setImage(path)
 
+print "blue  : " + str(c.shape.blue)
+print "green : " + str(c.shape.green)
+print "red   : " + str(c.shape.red)
+print "white : " + str(c.shape.white)
+print "yellow: " + str(c.shape.yellow)
+print "---"
+
 c.calibrate()
 
-print str(c.shape.blue)
-print str(c.shape.green)
-print str(c.shape.red)
-print str(c.shape.white)
-print str(c.shape.yellow)
+print "blue  : " + str(c.shape.blue)
+print "green : " + str(c.shape.green)
+print "red   : " + str(c.shape.red)
+print "white : " + str(c.shape.white)
+print "yellow: " + str(c.shape.yellow)
