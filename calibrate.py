@@ -8,7 +8,7 @@ with picamera.PiCamera() as camera:
         camera.resolution = (res,res)
         camera.capture(path, "jpeg")
 
-c = imp.main
+c = imp.main()
 
 c.setImage(path)
 
