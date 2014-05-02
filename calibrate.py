@@ -1,4 +1,5 @@
 import RPI.software.recognition.main as imp
+import picamera
 
 path = "/home/pi/zep2/output/path.jpg"
 
