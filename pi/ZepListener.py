@@ -1,6 +1,4 @@
 import pika
-import thread
-
 
 class zepListener:
     def __init__(self, zeppelin):

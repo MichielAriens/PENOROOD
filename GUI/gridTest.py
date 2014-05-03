@@ -1,5 +1,6 @@
 from __future__ import division
 from Tkinter import *
+
 #from GUI.listener import *
 
 #initiate tinker, tk() acts as a frame
@@ -213,7 +214,7 @@ class GUI:
             
         self.clearMessage()
         self.addDisplayedMessage(message)
-    
+
     #set the message in the text-widget          
     def addDisplayedMessage(self, text):
         self.text.insert(INSERT, text)
@@ -222,7 +223,14 @@ class GUI:
     def clearMessage(self):
         self.text.delete(1.0, END)
 
-        
+    def updateListenerMessage(self):
+        if(len(self.communicator.messages) > 10):
+            self.communicator.messages = []
+        for i in range(len(self.communicator.messages)):
+            message = self.communicator.messages[i]
+            self.debugtext.insert(INSERT, message)
+
+
     #keep updating besides running the tkinter mainloop
     #update canvas after 1000ms
     def task(self):
@@ -230,6 +238,7 @@ class GUI:
         self.updateTaskForSimulators()
         self.updateZeppelins()
         self.updateCanvas()
+        self.updateListenerMessage()
         self.root.after(33,self.task)
     
     def checkZeppelins(self):

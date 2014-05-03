@@ -5,7 +5,7 @@ from GUI.gridTest import *
 from Tkinter import *
 from GUI.listener import *
 
-served = False
+served = True
 sim = True
 listener = Listener()
 

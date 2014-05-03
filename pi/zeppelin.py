@@ -112,14 +112,13 @@ class Zeppelin:
 
             self.xMot.setThrust(thrustx)
             self.xMot.setThrust(thrusty)
-            time.sleep(1)       
+            #time.sleep(1)
     
     #Starts running background threads
     # _keepHeight
     def start(self):
-        print "222"
+        print "Starting zeppelin main loop."
         thread.start_new(self.listener.start, ())
-        print "333"
         thread.start_new(self._keepHeight, ())
         
    

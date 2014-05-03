@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 import pika
 import sys
+import time
 
 creds = pika.PlainCredentials('rood','rood')
 connection = pika.BlockingConnection(pika.ConnectionParameters(
@@ -26,7 +27,8 @@ channel.queue_bind(exchange='server',
 print ' [*] Waiting for logs. To exit press CTRL+C'
 
 def callback(ch, method, properties, body):
-    print " [x] %r:%r" % (method.routing_key, body,)
+    string = time.strftime("%d-%m-%Y %H:%M:%S") + ": %r:%r" % (method.routing_key, body,)
+    print string
 
 channel.basic_consume(callback,
                       queue=queue_name,

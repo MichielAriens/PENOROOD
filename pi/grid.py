@@ -11,7 +11,14 @@ class GRID:
         
         self.zeplist = []
         self.zepheights = []
-    
+        self.ipads = [] #(id, (x,y))
+
+    def getIpad(self, id):
+        for i in range(len(self.ipads)):
+            pad = self.ipads[i]
+            if(pad[0] == id):
+                return pad[1]
+
     def getHeight(self, id):
         for i in range(len(self.zepheights)):
             zep = self.zepheights[i]
@@ -375,12 +382,14 @@ class GRID:
 
         #Now the shapes are sorted so that the closest to the center is first
         shapeslist = []   #(<i>,<j>)
+        #For all shapes in the params
         for (currID,x,y) in shapes:
             templist = []
+            #for all instances of currshape on the grid
             for ((yf,xf),_) in self.getShape(self.getShapeID(currID)):
                 if len(shapeslist) == 0:
                     templist.append([(xf,yf)])
-
+                #for every group of shapes in shapeslist defining a position.
                 for minilist in shapeslist:
                     areAllNeigh = True
                     for (xg,yg) in minilist:
@@ -412,6 +421,8 @@ class GRID:
     def neighbours(self, t1, t2):
         (x1,y1) = t1
         (x2,y2) = t2
+        if(x1 == x2 and y1 == y2):
+            return False;
         if x1 % 2 == 0:
             if (abs(y2 - y1) <= 1) and (-0 <= (x2 - x1) <= 1):
                 return True
