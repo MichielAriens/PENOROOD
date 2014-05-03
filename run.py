@@ -38,6 +38,8 @@ if(served):
         global listener
         listener.callback(ch,method,properties,body)
 
+    listener.setChannel(channel)
+
     channel.basic_consume(callback,
                           queue=queue_name,
                           no_ack=True)
