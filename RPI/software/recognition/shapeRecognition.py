@@ -42,6 +42,21 @@ class ShapeFinder:
         if(self.colorFound(g)):
             self.green = g
 
+    def printCalibrate(self):
+        w, y, r, g, b = self.calibrate.getColorRanges(self.imagePath)
+        print "white: " + str(w)
+        print "yellow: " + str(y)
+        print "red: " + str(r)
+        print "blue: " + str(b)
+        print "green: " + str(g)
+
+    def printRGB(self):
+        print "white: " + str(self.white)
+        print "yellow: " + str(self.yellow)
+        print "red: " + str(self.red)
+        print "blue: " + str(self.blue)
+        print "green: " + str(self.green)
+
     def colorFound(self,(a,b,c)):
         if(a == 0 and b == 0 and c == 0):
             return False
