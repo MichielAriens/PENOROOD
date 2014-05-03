@@ -35,7 +35,7 @@ class JoyStick:
     #   Z axis from joystick (throttle slider).
     #   @return z = [-1.0,1.0] positive for forwards. 0 in center
     #
-    def getY(self):
+    def getZ(self):
         return -1 * self.js.get_axis(0)
 
 

@@ -88,6 +88,7 @@ Gui.entry2.grid(row = 1, column = 1)
 Gui.entry3.grid(row = 2, column = 1)
 Gui.gobutton.grid(row = 3, column = 0)
 Gui.sendbutton.grid(row = 3, column = 1)
+Gui.overrideButton.grid(row = 3, column = 2)
 
 Gui.upbutton.grid(row = 0, column = 1)
 Gui.downbutton.grid(row = 2, column = 1)

@@ -1,5 +1,6 @@
 from __future__ import division
 from Tkinter import *
+import time
 
 #from GUI.listener import *
 
@@ -44,6 +45,7 @@ class GUI:
         self.rightbutton= Button(self.controlFrame, text="RIGHT", command=self.moveRightWithButton)
         self.gobutton= Button(self.labelframe, text="GO", command=self.setGoal)
         self.sendbutton= Button(self.labelframe, text="send", command=self.sendCommand)
+        self.overrideButton = Button(self.labelframe, text="Override", command=self.override)
         
         self.greendot = PhotoImage(file="GUI/goodzep.gif")
         self.reddot = PhotoImage(file="GUI/badzep.gif")
@@ -303,14 +305,28 @@ class GUI:
             a = 1 #random
         else:
             self.setGoal(goal)
-
     def setGoal(self,goalposition):
         self.goal = goalposition;
         
     def sendCommand(self):
-        command = self.entry3.get()
-        self.communicator.sendCommand(command)
+        command = self.entry3.get().split(" ")
+        if len(command) == 2:
+            self.communicator.sendCommand("rood." + command[0],command[1])
         #("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+
+    def override(self):
+        import joystickListener
+        import thread
+        self.js = joystickListener.JoyStick()
+        thread.start_new(self.updateJoyStick,())
+
+    def updateJoyStick(self):
+        while True:
+            self.communicator.sendCommand("rood.lcommand.motor1", str(int(self.js.getX() * 100)))
+            self.communicator.sendCommand("rood.lcommand.motot2", str(int(self.js.getY() * 100)))
+            time.sleep(1)
+
+
         
     def updateGoalDirection(self, zepID):
         currentpos = self.grid.getZeppelin(zepID)[0]

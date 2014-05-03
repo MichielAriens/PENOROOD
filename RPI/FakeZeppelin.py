@@ -11,7 +11,6 @@ class Axis(Enum):
 
 import RPI.hardware.motor as motor
 
-   #//TODO PID's for all axis. 
 class Vector3:
     
     def __init__(self,x,y,z):
