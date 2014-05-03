@@ -16,10 +16,10 @@ class ShapeFinder:
         self.imagePath = 'C:\\Users\\Babyburger\\PycharmProjects\\PENOROODpy\\output\\7.jpg'
         self.calibrate = fc.ColorRange()
         self.whitey = (239,239,220)
-        self.yellow = (241,200,36)
-        self.red = (190,45,60)
-        self.blue = (84,96,118)
-        self.green = (64,88,62)
+        self.yellow = (230, 182, 68)
+        self.red = (184, 55, 70)
+        self.blue = (71, 81, 113)
+        self.green = (60, 84, 63)
 
     # Load picture here
     def renewImage(self):

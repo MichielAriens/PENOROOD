@@ -6,6 +6,10 @@ class Listener:
         self.zeppelins = [] #tuple (ID, x, y, z)
         self.color_ids = [(1, "rood"), (2, "ijzer"), (3, "paars"), (4, "blauw"), (5,"geel"), (6,"zilver"), (7,"paars"), (8,"indigo"), (9, "wit")] #tuple (ID, color)
         self.messages = []
+        self.channel = None
+
+    def setChannel(self, ch):
+        self.channel = ch
 
      
     def updateSimulators(self):
@@ -89,8 +93,8 @@ class Listener:
         if(match == False):
             self.zeppelins.append((id, value[0], value[1], 0))
     
-    def sendCommand(self, command):
-        pass
+    def sendCommand(self, key, cbody):
+        self.channel.basic_publish(exchange='server', routing_key=key, body=cbody)
     
     def receiveAnswer(self):
         return None
