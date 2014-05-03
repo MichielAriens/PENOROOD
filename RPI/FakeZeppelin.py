@@ -130,12 +130,13 @@ class FakeZeppelin:
         #print(self.fe.force.toString())
         #self.pid = PID(0.2,0.1,5)
         self.camera = None
-        self.goal = (250,150)
-        self.targets = [] # tuple = (x,y,boolean)
+        self.goal = (0,0,0) #tuple = (volgnummer,x,y)
+        self.ipads = [(1,20,70,"bleep",False,False),(2,220,300,"bleep",False,False)] # tuple = (ipadID,x,y,qr,ipad_boolean,qr_boolean) ipad_boolean/qr_boolean = false if zep hasnt been there yet
+        self.targets = [(1,0,0),(2,100,0),(3,200,200)] #tuple = (volgnummer,x,y)
+        self.targetcount = len(self.targets) #increase this when you add a target
+        self.goalnumber = 0 #increase this when you reached goal
         while True:
-            print("here")
-            self.updateGoal()
-            self.setMovementZeppelin(self.updateGoalDirection())
+            self.doAction()
             self.zepListener.pushPosition(self.getPositionXY())
             time.sleep(0.5)
 
@@ -155,22 +156,68 @@ class FakeZeppelin:
         pos = self.grid.calculatePositionFromShapes()
         return pos
 
-    #not used atm
-    def updateTargets(self):
+    def doAction(self):
+        print("debug info: goalnumber + targetcount + target")
+        print(self.goalnumber)
+        print(self.targetcount)
+        print(self.targets)
+        if(self.checkGoal() == True):
+            self.checkTargets()
+        self.setMovementZeppelin(self.updateGoalDirection())
+
+    def checkTargets(self):
+        hasNew = False
+        if(self.goalnumber == 0):
+            nextgoalnumber = 1
+        else:
+            nextgoalnumber = self.goal[0] + 1
         for i in range(len(self.targets)):
             tup = self.targets[i]
-            if(tup[2] == True):
-                self.goal = (tup[0], tup[1])
+            if(tup[0] == nextgoalnumber):
+                self.goal = tup
+                hasNew = True
+                self.goalnumber = nextgoalnumber
+        if(hasNew == False):
+            self.checkIpad()
 
-    def updateGoal(self):
+    def checkGoal(self):
         currentpos = (self.fe.pos.x, self.fe.pos.y)
-        goals = [ (250, 150), (0,0)]
-        if( (((currentpos[0] > (self.goal[0]-2))) and ((currentpos[0] < (self.goal[0]+2)))) and (((currentpos[1] > (self.goal[1]-2))) and ((currentpos[1] < (self.goal[1]+2))))):
-            if(self.goal == goals[0]):
-                self.goal = goals[1]
-            else:
-                self.goal = goals[0]
+        if(( (((currentpos[0] > (self.goal[1]-2))) and ((currentpos[0] < (self.goal[1]+2)))) and (((currentpos[1] > (self.goal[2]-2))) and ((currentpos[1] < (self.goal[2]+2)))))):
+            return True
+        return False
 
+    def getNextIpad(self):
+        for i in range(len(self.ipads)):
+            pad = self.ipads[i]
+            if(pad[4] == False):
+                return (pad[1], pad[2])
+        return None
+
+    def checkIpad(self):
+        addedQR = False
+        addedipad = False
+        for j in range(len(self.ipads)):
+            pad = self.ipads[j]
+            if(pad[4] == True and pad[5] == False and addedQR == False):
+                qr = pad[3]
+                self.completeQR(qr)
+                self.ipads.remove(pad)
+                self.ipads.append((pad[0],pad[1],pad[2],pad[3],pad[4],True))
+                addedQR = True
+        for i in range(len(self.ipads)):
+            pad = self.ipads[i]
+            if(pad[4] == False and addedQR == False and addedipad == False):
+                print("added ipad")
+                self.targets.append((self.targetcount+1, pad[1], pad[2]))
+                self.targetcount += 1
+                self.ipads.remove(pad)
+                self.ipads.append((pad[0],pad[1],pad[2],pad[3],True,pad[5]))
+                addedipad = True
+
+
+    def completeQR(self,qr):
+        self.targets.append((self.targetcount+1,150,150))
+        self.targetcount += 1
 
     def updateGoalDirection(self):
         currentpos = (self.fe.pos.x, self.fe.pos.y)
@@ -178,8 +225,8 @@ class FakeZeppelin:
             self.goal = (-1,-1)
             return(0,0)
         else:
-            direction_x = self.goal[0] - currentpos[0];
-            direction_y = self.goal[1] - currentpos[1];
+            direction_x = self.goal[1] - currentpos[0];
+            direction_y = self.goal[2] - currentpos[1];
             return(direction_x, direction_y)
 
     def setMovementZeppelin(self,direction):
