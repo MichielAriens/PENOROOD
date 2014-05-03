@@ -5,6 +5,7 @@ import thread
 class zepListener:
     def __init__(self, zeppelin):
         self.zeppelin = zeppelin
+        self.channel = None
 
     #def callback(ch, method, properties, body):
     #    print(" [x] Received %r" % (body,))

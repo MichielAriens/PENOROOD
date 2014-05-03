@@ -202,9 +202,9 @@ class GUI:
             zep = zeps[i]
             pos = zep[0]
             if(zep[1] == 1):
-                message = message + "\n" + "Our zeppelin at (" + str(round(pos[0])) + "," + str(round(pos[1])) + "," + str(self.grid.getHeight(zep[1])) +")"
+                message = message + "\n" + "Our zeppelin at (" + str(round(pos[0])) + "," + str(round(pos[1])) + "," + str(self.getHeight(zep[1])) +")"
             else:
-                message = message + "\n" + "Other zeppelin, ID="+ str(zep[1])+ " at ("+ str(round(pos[0])) + "," + str(round(pos[1])) + "," + str(self.grid.getHeight(zep[1])) + ")"
+                message = message + "\n" + "Other zeppelin, Color="+ str(self.communicator.getColor(zep[1]))+ " at ("+ str(round(pos[0])) + "," + str(round(pos[1])) + "," + str(self.getHeight(zep[1])) + ")"
         if(self.goal != (-1,-1)):
             message = message + "\n" + "Current goal = " +  "("+ str(self.goal[0]) + "," + str(self.goal[1]) + ")"
         for l in range(len(self.ipads)):
@@ -214,6 +214,13 @@ class GUI:
             
         self.clearMessage()
         self.addDisplayedMessage(message)
+
+    def getHeight(self, id):
+        for i in range(len(self.communicator.zeppelins)):
+            tup = self.communicator.zeppelins[i]
+            if(tup[0] == id):
+                return tup[3]
+        return None
 
     #set the message in the text-widget          
     def addDisplayedMessage(self, text):

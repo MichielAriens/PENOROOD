@@ -114,25 +114,29 @@ class FakeZeppelin:
     def __init__(self):
         self.height = 0
         self.zepListener = zeplistener.zepListener(self)
-        self.zepListener.start()
+        thread.start_new(self.zepListener.start, ())
+        time.sleep(1)
         self.motorOffset = 50
         self.fe = FakeEnvironment()
         self.motorX = motor.FakeMotor(self.fe,Axis.x)
         self.motorY = motor.FakeMotor(self.fe,Axis.y)
         self.motorZ = motor.FakeMotor(self.fe,Axis.z)
         #self.altimeter = ds.FakeDistanceSensor2(self.fe)
-        self.loadGrid("/home/pi/zep3/PENOROOD/OTHER/grid25-04.csv")
-
+        self.loadGrid("C:\Users\simon\Documents\GitHub\PENOROOD\OTHER\grid25-04.csv")
         #old self.fe.force = Vector3(0.1,0.2,0)
         #new SimonOveride
         self.setMovementZeppelin((2,3));
-        
         #print(self.fe.force.toString())
         thread.start_new_thread(self.fe.update, ())
         #print(self.fe.force.toString())
         #self.pid = PID(0.2,0.1,5)
         self.camera = None
+        self.goal = (250,150)
+        self.targets = [] # tuple = (x,y,boolean)
         while True:
+            print("here")
+            self.updateGoal()
+            self.setMovementZeppelin(self.updateGoalDirection())
             self.zepListener.pushPosition(self.getPositionXY())
             time.sleep(0.5)
 
@@ -151,6 +155,33 @@ class FakeZeppelin:
     def getZeppelinPositionFromShapes(self):
         pos = self.grid.calculatePositionFromShapes()
         return pos
+
+    #not used atm
+    def updateTargets(self):
+        for i in range(len(self.targets)):
+            tup = self.targets[i]
+            if(tup[2] == True):
+                self.goal = (tup[0], tup[1])
+
+    def updateGoal(self):
+        currentpos = (self.fe.pos.x, self.fe.pos.y)
+        goals = [ (250, 150), (0,0)]
+        if( (((currentpos[0] > (self.goal[0]-2))) and ((currentpos[0] < (self.goal[0]+2)))) and (((currentpos[1] > (self.goal[1]-2))) and ((currentpos[1] < (self.goal[1]+2))))):
+            if(self.goal == goals[0]):
+                self.goal = goals[1]
+            else:
+                self.goal = goals[0]
+
+
+    def updateGoalDirection(self):
+        currentpos = (self.fe.pos.x, self.fe.pos.y)
+        if(currentpos[0] == self.goal):
+            self.goal = (-1,-1)
+            return(0,0)
+        else:
+            direction_x = self.goal[0] - currentpos[0];
+            direction_y = self.goal[1] - currentpos[1];
+            return(direction_x, direction_y)
 
     def setMovementZeppelin(self,direction):
         if(direction == (-1,-1)):

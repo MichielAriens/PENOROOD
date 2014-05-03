@@ -5,7 +5,8 @@ from GUI.gridTest import *
 from Tkinter import *
 from GUI.listener import *
 
-served = False
+served = True
+simon = True
 sim = True
 listener = Listener()
 
@@ -95,7 +96,7 @@ Gui.rightbutton.grid(row = 1, column = 2)
 
 
 file_path = "C:\\Users\\Michiel\\Documents\\GitHub\\PENOROOD\\OTHER\\grid25-04.csv"
-if(not served):
+if(simon):
     file_path = "C:\Users\simon\Documents\GitHub\PENOROOD\OTHER\grid25-04.csv"
 if(len(file_path)>0):
     Gui.initiateFromFile(file_path)

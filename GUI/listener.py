@@ -4,7 +4,7 @@ class Listener:
     def __init__(self):
         self.simulators = []#tuple (ID, ZepListener)
         self.zeppelins = [] #tuple (ID, x, y, z)
-        self.color_ids = [(1, "rood"), (2, "ijzer"), (3, "paars"), (4, "blauw"), (5,"geel"), (6,"zilver"), (7,"paars"), (8,"indigo")] #tuple (ID, color)
+        self.color_ids = [(1, "rood"), (2, "ijzer"), (3, "paars"), (4, "blauw"), (5,"geel"), (6,"zilver"), (7,"paars"), (8,"indigo"), (9, "wit")] #tuple (ID, color)
         self.messages = []
 
      
@@ -67,15 +67,15 @@ class Listener:
         return None
     
     def updateHeight(self, id, value):
-        match = False
         print(value)
         for i in range(len(self.zeppelins)):
             zep = self.zeppelins[i]
             if(zep[0] == id):
+                print("yes")
                 self.zeppelins.remove(zep)
-                self.zeppelins.append((id, zep[1], zep[2], value))
-        if(match == False):
-            self.zeppelins.append((id, 0, 0, value))
+                val = int(float(value)/float(10))
+                self.zeppelins.append((id, zep[1], zep[2], val))
+                print(self.zeppelins)
         
     def updateLocation(self, id, value):
         match = False
