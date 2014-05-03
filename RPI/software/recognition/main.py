@@ -17,6 +17,7 @@ class main:
         self.shape = shape
         self.analyzer = sr.Analyzer(shape)
 
+    # Set the image path for self.shape. Any calibration or analyzation will depend on the image set for self.shape.
     def setImage(self, path):
         self.shape.setImage(path)
 
