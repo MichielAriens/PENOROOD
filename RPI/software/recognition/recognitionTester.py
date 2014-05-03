@@ -5,6 +5,7 @@ analyzer = sr.Analyzer(shapes)
 path = 'C:\\Users\\Babyburger\\PycharmProjects\\PENOROODpy\\output\\12.jpg'
 shapes.setImage(path)
 
+"""
 print shapes.blue
 print shapes.green
 print shapes.red
@@ -18,6 +19,7 @@ print shapes.green
 print shapes.red
 print shapes.white
 print shapes.yellow
+"""
 
 # tests a given color
 shapes.generalTest('green')
