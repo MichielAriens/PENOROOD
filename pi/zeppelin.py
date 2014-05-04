@@ -49,6 +49,7 @@ class Zeppelin:
         self.listener = ZepListener.zepListener(self)
         
         self.dHeight = self.altimeter.getHeight()
+        self.dHeight = 70
         self.dPos = (0,0)
         
         self.heightPID.setPoint(self.dHeight)
@@ -109,11 +110,12 @@ class Zeppelin:
                 print "thrust vector: " + str(self.thrustx) + ", " + str(self.thrusty)
                 self.xMot.setThrust(self.thrustx)
                 self.xMot.setThrust(self.thrusty)
+            else:
+                time.sleep(0.33)
 
             h = self.altimeter.getHeight()
             self.listener.pushHeight(h)
             #self.lift.setThrust(self.heightPID.update(h))
-            self.lift.setThrust(0)
 
 
             #time.sleep(1)
