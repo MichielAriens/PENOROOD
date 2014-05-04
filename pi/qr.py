@@ -38,4 +38,6 @@ def testRSA():
     dec_mes = decrypt_message(enc_mes, privkey)
     print(dec_mes)
 
-testRSA()
+(pubkey,privkey) = create_keys()
+print(pubkey)
+print(privkey)
