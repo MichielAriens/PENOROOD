@@ -31,7 +31,7 @@ class Zeppelin:
     #initmethod variables (call start to invoke backround methods)
     def __init__(self):
         print "loading zeppelin"
-        self.override = True
+        self.override = False
         self.loadGrid("/home/pi/zep3/PENOROOD/OTHER/grid25-04.csv")
         #still requirs grid loading
         self.path = "/home/pi/temp/img.jpg"
@@ -109,20 +109,15 @@ class Zeppelin:
     #Python convention: methods names preceded by '_' should be deemed 'private'
     def _keepHeight(self):
         time.sleep(1)
-        while(True):
+        while(not self.override):
             #Set the thrust to the PID output.
-            if not self.override:
-                pos = self.camera.analyzePosition(self.grid)
-                self.listener.pushPosition(pos)
-                thrustx = self.xPID.update(pos[0])
-                thrusty = self.xPID.update(pos[1])
-                self.xMot.setThrust(thrustx)
-                self.yMot.setThrust(thrusty)
-                print "thrust vector: " + str(self.thrustx) + ", " + str(self.thrusty)
-
-            else:
-                time.sleep(1)
-
+            pos = self.camera.analyzePosition(self.grid)
+            self.listener.pushPosition(pos)
+            thrustx = self.xPID.update(pos[0])
+            thrusty = self.xPID.update(pos[1])
+            self.xMot.setThrust(thrustx)
+            self.yMot.setThrust(thrusty)
+            print "thrust vector: " + str(self.thrustx) + ", " + str(self.thrusty)
             h = self.altimeter.getHeight()
             self.listener.pushHeight(h)
             #self.lift.setThrust(self.heightPID.update(h))
