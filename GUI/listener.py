@@ -4,13 +4,12 @@ class Listener:
     def __init__(self):
         self.simulators = []#tuple (ID, ZepListener)
         self.zeppelins = [] #tuple (ID, x, y, z)
-        self.color_ids = [(1, "rood"), (2, "ijzer"), (3, "paars"), (4, "blauw"), (5,"geel"), (6,"zilver"), (7,"paars"), (8,"indigo"), (9, "wit"), (10, "koper")] #tuple (ID, color)
+        self.color_ids = [(1, "rood"), (2, "ijzer"), (3, "paars"), (4, "blauw"), (5,"geel"), (6,"zilver"), (7,"paars"), (8,"indigo"), (9, "wit"), (10, "koper"), (11, "goud"),(12,"brons")] #tuple (ID, color)(
         self.messages = []
         self.channel = None
 
     def setChannel(self, ch):
         self.channel = ch
-
      
     def updateSimulators(self):
         pass
@@ -71,15 +70,17 @@ class Listener:
         return None
     
     def updateHeight(self, id, value):
-        print(value)
+        match = False
         for i in range(len(self.zeppelins)):
             zep = self.zeppelins[i]
             if(zep[0] == id):
-                print("yes")
                 self.zeppelins.remove(zep)
-                val = int(float(value)/float(10))
+                val = int(float(self.roundNumber(value))/float(10))
                 self.zeppelins.append((id, zep[1], zep[2], val))
                 print(self.zeppelins)
+                match = True
+        if(match == False):
+            self.zeppelins.append((id, 0, 0, value))
         
     def updateLocation(self, id, value):
         match = False
@@ -88,11 +89,16 @@ class Listener:
             zep = self.zeppelins[i]
             if(zep[0] == id):
                 self.zeppelins.remove(zep)
-                self.zeppelins.append((id, int(value[0])/10, int(value[1])/10, zep[3]))
+                self.zeppelins.append((id, int(self.roundNumber(value[0]))/10, int(self.roundNumber(value[1]))/10, zep[3]))
                 match = True;
         if(match == False):
             self.zeppelins.append((id, value[0], value[1], 0))
-    
+
+    def roundNumber(self, number):
+        value = number.rsplit(".")
+        first = value[0]
+        return first
+
     def sendCommand(self, key, cbody):
         self.channel.basic_publish(exchange='server', routing_key=key, body=cbody)
     
@@ -138,8 +144,7 @@ class Listener:
             if(id is not None):
                 if(split[1] == "info"):
                     if(split[2] == "height"):
-                        print(str(value))
-                        self.updateHeight(id, int(value))
+                        self.updateHeight(id, value)
                     elif(split[2] == "location"):
                         print(str(value))
                         values = value.rsplit(",")
