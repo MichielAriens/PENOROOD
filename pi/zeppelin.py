@@ -108,6 +108,7 @@ class Zeppelin:
     #Algorithm to invoke motors to achieve a certain height
     #Python convention: methods names preceded by '_' should be deemed 'private'
     def _keepHeight(self):
+        time.sleep(1)
         while(True):
             #Set the thrust to the PID output.
             if not self.override:
