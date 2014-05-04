@@ -318,6 +318,7 @@ class GUI:
         import joystickListener
         import thread
         self.js = joystickListener.JoyStick()
+        self.communicator.sendCommand("rood.private.override", "true")
         thread.start_new(self.updateJoyStick,())
 
     def updateJoyStick(self):
