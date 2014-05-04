@@ -1,12 +1,12 @@
 import thread
-from RPI import FakeZeppelin as FakeZeppelin
-from RPI.ZepListener import *
+#from RPI import FakeZeppelin as FakeZeppelin
+#from RPI.ZepListener import *
 from GUI.gridTest import *
 from Tkinter import *
 from GUI.listener import *
 
 served = True
-simon = True
+simon = False
 sim = True
 listener = Listener()
 
@@ -39,6 +39,7 @@ if(served):
         global listener
         listener.callback(ch,method,properties,body)
 
+    listener.setChannel(channel)
     channel.basic_consume(callback,
                           queue=queue_name,
                           no_ack=True)

@@ -77,12 +77,12 @@ class FakeEnvironment:
         self.force = Vector3(0,0,0)
         #pull of gravity somewhere around 1 m/s^2.
         import random
-        self.mass = random.gauss(1,0.05)
+        self.mass = random.gauss(100,0.05)
         print("mass of the fake zeppelin is " + str(self.mass))
         self.gravity = Vector3(0,0,self.mass * 9.81)
         self.lift = Vector3(0,0,self.mass * 8)
     
-    
+
     def update(self):
         lastTime = time.time()
         while True:
@@ -92,25 +92,28 @@ class FakeEnvironment:
             lastTime = timeNow
             
             #simon
-            actuatedForce = self.force.add(self.gravity.inverse()).add(self.lift)
-            self.speed = self.speed.add(actuatedForce.scale(scale))
+            actuatedForce = self.force #.add(self.gravity.inverse()).add(self.lift)
+            self.speed = self.speed.add(actuatedForce.scale(1/self.mass).scale(scale))
             self.pos = self.pos.add(self.speed)
-            
+            time.sleep(0.01)
+
             #if(self.pos.thrd() < 0):
              #   self.pos = 0
               #  self.vSpeed = 0
             #else:
             #    self.vSpeed += force/self.mass
             #    self.height += self.vSpeed
-            time.sleep(0.033)
+
             
 
 import thread
 import pi.ZepListener as zeplistener
+import pid
  
 class FakeZeppelin:
     
     def __init__(self):
+        self.override = False;
         self.height = 0
         self.zepListener = zeplistener.zepListener(self)
         thread.start_new(self.zepListener.start, ())
@@ -120,8 +123,12 @@ class FakeZeppelin:
         self.motorX = motor.FakeMotor(self.fe,Axis.x)
         self.motorY = motor.FakeMotor(self.fe,Axis.y)
         self.motorZ = motor.FakeMotor(self.fe,Axis.z)
+
+        self.pidX = pid.PID(0.1,0,5)
+        self.pidY = pid.PID(0.1,0,5)
+
         #self.altimeter = ds.FakeDistanceSensor2(self.fe)
-        self.loadGrid("C:\Users\simon\Documents\GitHub\PENOROOD\OTHER\grid25-04.csv")
+        self.loadGrid("C:\Users\michiel\Documents\GitHub\PENOROOD\OTHER\grid25-04.csv")
         #old self.fe.force = Vector3(0.1,0.2,0)
         #new SimonOveride
         self.setMovementZeppelin((2,3));
@@ -130,6 +137,8 @@ class FakeZeppelin:
         #print(self.fe.force.toString())
         #self.pid = PID(0.2,0.1,5)
         self.camera = None
+        self.pidX.setPoint(200.0)
+        self.pidY.setPoint(300.0)
         self.goal = (0,0,0) #tuple = (volgnummer,x,y)
         self.ipads = [(1,20,70,"bleep",False,False),(2,220,300,"bleep",False,False)] # tuple = (ipadID,x,y,qr,ipad_boolean,qr_boolean) ipad_boolean/qr_boolean = false if zep hasnt been there yet
         self.targets = [(1,0,0),(2,100,0),(3,200,200)] #tuple = (volgnummer,x,y)
@@ -138,7 +147,7 @@ class FakeZeppelin:
         while True:
             self.doAction()
             self.zepListener.pushPosition(self.getPositionXY())
-            time.sleep(0.5)
+            time.sleep(0.33)
 
     def setPosition(self,x,y,z):
         self.fe.pos = Vector3(x,y,z)
@@ -157,13 +166,17 @@ class FakeZeppelin:
         return pos
 
     def doAction(self):
-        print("debug info: goalnumber + targetcount + target")
-        print(self.goalnumber)
-        print(self.targetcount)
-        print(self.targets)
+        #print("debug info: goalnumber + targetcount + target")
+        #print(self.goalnumber)
+        #print(self.targetcount)
+        #print(self.targets)
+        if not self.override:
+            self.motorX.setThrust(self.pidX.update(self.fe.pos.x))
+            self.motorY.setThrust(self.pidY.update(self.fe.pos.y))
+
         if(self.checkGoal() == True):
             self.checkTargets()
-        self.setMovementZeppelin(self.updateGoalDirection())
+        #self.setMovementZeppelin(self.updateGoalDirection())
 
     def checkTargets(self):
         hasNew = False

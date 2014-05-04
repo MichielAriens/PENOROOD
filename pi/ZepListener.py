@@ -27,7 +27,22 @@ class zepListener:
 
     def callback(self, ch, method, properties, body ):
         #print " [x] %r:%r" % (method.routing_key, body,)
-        pass
+        parts = str(method.routing_key).split(".")
+        try:
+            if parts[0] == "rood":
+                if parts[1] == "private":
+                    if parts[2] == "override":
+                        if str(body) == "true":
+                            self.zeppelin.override = True
+                if parts[1] == "lcommand":
+                    if parts[2] == "motor1" and self.zeppelin.override == True:
+                        self.zeppelin.motorX.setThrust(int(body))
+                    if parts[2] == "motor2" and self.zeppelin.override == True:
+                        self.zeppelin.motorY.setThrust(int(body))
+
+
+        except:
+            print "bad request to zeppelin"
 
     def pushPosition(self, pos):
         print "pushing pos: " + str(pos)
