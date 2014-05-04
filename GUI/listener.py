@@ -4,7 +4,7 @@ class Listener:
     def __init__(self):
         self.simulators = []#tuple (ID, ZepListener)
         self.zeppelins = [] #tuple (ID, x, y, z)
-        self.color_ids = [(1, "rood"), (2, "ijzer"), (3, "paars"), (4, "blauw"), (5,"geel"), (6,"zilver"), (7,"paars"), (8,"indigo"), (9, "wit")] #tuple (ID, color)
+        self.color_ids = [(1, "rood"), (2, "ijzer"), (3, "paars"), (4, "blauw"), (5,"geel"), (6,"zilver"), (7,"paars"), (8,"indigo"), (9, "wit"), (10, "koper")] #tuple (ID, color)
         self.messages = []
         self.channel = None
 

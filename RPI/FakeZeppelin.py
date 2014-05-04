@@ -130,7 +130,7 @@ class FakeZeppelin:
         self.pidY = pid.PID(1,0,100)
 
         #self.altimeter = ds.FakeDistanceSensor2(self.fe)
-        self.loadGrid("C:\Users\michiel\Documents\GitHub\PENOROOD\OTHER\grid25-04.csv")
+        self.loadGrid("C:\PENO\grid25-04.csv")
         #old self.fe.force = Vector3(0.1,0.2,0)
         #new SimonOveride
         #self.setMovementZeppelin((2,3));
