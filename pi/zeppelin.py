@@ -99,7 +99,7 @@ class Zeppelin:
         list[0] = str(list[0]).replace(" ", "")
         list[0] = str(list[0]).replace(",", "=")
         list[0] = str(list[0]).lower()
-        number_of_rows = len(data);
+        number_of_rows = len(data)
         number_of_columns = len(data[0])
         init_string = list[0]
         self.grid = gridTest.GRID(number_of_columns, number_of_rows)
