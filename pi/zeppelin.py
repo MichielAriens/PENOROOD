@@ -46,8 +46,8 @@ class Zeppelin:
         self.xMot = motor.PulsedMotor(17,23)
         self.lift = motor.PulsedMotor(9,7)
 
-        self.xMot.setThrust(100)
-        self.yMot.setThrust(100)
+        #self.xMot.setThrust(100)
+        #self.yMot.setThrust(100)
 
         self.heightPID = PID(5,0.5,5)
         self.xPID = PID(1,0,0.1)
@@ -113,13 +113,15 @@ class Zeppelin:
             if not self.override:
                 pos = self.camera.analyzePosition(self.grid)
                 self.listener.pushPosition(pos)
-                self.thrustx = self.xPID.update(pos[0])
-                self.thrusty = self.xPID.update(pos[1])
+                thrustx = self.xPID.update(pos[0])
+                thrusty = self.xPID.update(pos[1])
                 print "thrust vector: " + str(self.thrustx) + ", " + str(self.thrusty)
-                self.xMot.setThrust(self.thrustx)
-                self.xMot.setThrust(self.thrusty)
+
             else:
                 time.sleep(0.33)
+
+            self.xMot.setThrust(thrustx)
+            self.yMot.setThrust(thrusty)
 
             h = self.altimeter.getHeight()
             self.listener.pushHeight(h)

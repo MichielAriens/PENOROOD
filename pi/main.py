@@ -1,7 +1,7 @@
 import zeppelin
 
 zep = zeppelin.Zeppelin()
-#zep.start()
+zep.start()
 
 while(True):
     pass
