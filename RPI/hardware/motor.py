@@ -108,7 +108,7 @@ class PulsedMotor:
 class FakeMotor:
     
     def __init__(self,env,axis):
-        self.MAXFORCE = 20
+        self.MAXFORCE = 5
         self.env = env
         self.axis = axis
         self.thrust = 0

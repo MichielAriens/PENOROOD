@@ -2,6 +2,7 @@ from COMMON.enum import Enum
 from pi.grid import GRID
 
 import GUI.gridTest as gridTest
+import math
 class Axis(Enum):
   x = 1
   y = 2
@@ -52,7 +53,8 @@ class Vector3:
         else:
             pass
         
-            
+    def size(self):
+        return math.sqrt(self.x*self.x + self.y*self.y + self.z*self.z)
     
     def fst(self):
         return self.x
@@ -124,21 +126,19 @@ class FakeZeppelin:
         self.motorY = motor.FakeMotor(self.fe,Axis.y)
         self.motorZ = motor.FakeMotor(self.fe,Axis.z)
 
-        self.pidX = pid.PID(0.1,0,5)
-        self.pidY = pid.PID(0.1,0,5)
+        self.pidX = pid.PID(1,0,100)
+        self.pidY = pid.PID(1,0,100)
 
         #self.altimeter = ds.FakeDistanceSensor2(self.fe)
         self.loadGrid("C:\Users\michiel\Documents\GitHub\PENOROOD\OTHER\grid25-04.csv")
         #old self.fe.force = Vector3(0.1,0.2,0)
         #new SimonOveride
-        self.setMovementZeppelin((2,3));
+        #self.setMovementZeppelin((2,3));
         #print(self.fe.force.toString())
         thread.start_new_thread(self.fe.update, ())
         #print(self.fe.force.toString())
         #self.pid = PID(0.2,0.1,5)
         self.camera = None
-        self.pidX.setPoint(200.0)
-        self.pidY.setPoint(300.0)
         self.goal = (0,0,0) #tuple = (volgnummer,x,y)
         self.ipads = [(1,20,70,"bleep",False,False),(2,220,300,"bleep",False,False)] # tuple = (ipadID,x,y,qr,ipad_boolean,qr_boolean) ipad_boolean/qr_boolean = false if zep hasnt been there yet
         self.targets = [(1,0,0),(2,100,0),(3,200,200)] #tuple = (volgnummer,x,y)
@@ -176,6 +176,7 @@ class FakeZeppelin:
         if(self.checkGoal() == True):
             self.checkTargets()
         #self.setMovementZeppelin(self.updateGoalDirection())
+        self.gotoPoint((self.goal[1],self.goal[2]))
 
     def checkTargets(self):
         hasNew = False
@@ -195,7 +196,8 @@ class FakeZeppelin:
     def checkGoal(self):
         currentpos = (self.fe.pos.x, self.fe.pos.y)
         if(( (((currentpos[0] > (self.goal[1]-2))) and ((currentpos[0] < (self.goal[1]+2)))) and (((currentpos[1] > (self.goal[2]-2))) and ((currentpos[1] < (self.goal[2]+2)))))):
-            return True
+            if(self.fe.speed.size() <= 0.1):
+                return True
         return False
 
     def getNextIpad(self):
@@ -231,6 +233,10 @@ class FakeZeppelin:
         self.targets.append((self.targetcount+1,150,150))
         self.targetcount += 1
 
+    def gotoPoint(self,point):
+        self.pidX.setPoint(point[0])
+        self.pidY.setPoint(point[1])
+
     def updateGoalDirection(self):
         currentpos = (self.fe.pos.x, self.fe.pos.y)
         if(currentpos[0] == self.goal):
@@ -242,6 +248,7 @@ class FakeZeppelin:
             return(direction_x, direction_y)
 
     def setMovementZeppelin(self,direction):
+
         if(direction == (-1,-1)):
             self.fe.force = Vector3(0,0,0)
             self.fe.speed = Vector3(0,0,0)
