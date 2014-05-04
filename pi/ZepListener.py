@@ -36,9 +36,9 @@ class zepListener:
                             self.zeppelin.override = True
                 if parts[1] == "lcommand":
                     if parts[2] == "motor1" and self.zeppelin.override == True:
-                        self.zeppelin.motorX.setThrust(int(body))
+                        self.zeppelin.xMot.setThrust(int(body))
                     if parts[2] == "motor2" and self.zeppelin.override == True:
-                        self.zeppelin.motorY.setThrust(int(body))
+                        self.zeppelin.yMot.setThrust(int(body))
 
 
         except:

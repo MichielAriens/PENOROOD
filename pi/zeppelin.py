@@ -31,16 +31,20 @@ class Zeppelin:
     #initmethod variables (call start to invoke backround methods)
     def __init__(self):
         print "loading zeppelin"
-        self.override = False
+        self.override = True
         self.loadGrid("/home/pi/zep3/PENOROOD/OTHER/grid25-04.csv")
         #still requirs grid loading
         self.path = "/home/pi/temp/img.jpg"
         #Init PID (0.1,0,0.5) works slightly, (0.1,0.05,3) better P to 0.2 increases responsiveness, I increses overshoot but decreases settletime
         #D decreases overshoot but engthens settletime. (slows machine down)
         self.altimeter = ds.BackgroundDistanceSensor()
-        self.lift = motor.PWMMotor(24,4)
+        #self.lift = motor.PWMMotor(24,4)
+        #self.xMot = motor.PulsedMotor(17,23)
+        #self.yMot = motor.PulsedMotor(9,7)
+
+        self.yMot = motor.PulsedMotor(24,4)
         self.xMot = motor.PulsedMotor(17,23)
-        self.yMot = motor.PulsedMotor(9,7)
+        #self.yMot = motor.PulsedMotor(9,7)
         self.heightPID = PID(5,0.5,5)
         self.xPID = PID(1,0,0.1)
         self.yPID = PID(1,0,0.1)
