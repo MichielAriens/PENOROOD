@@ -1,14 +1,10 @@
 import os
 import rsa
 
-def decodeQR(self):
+def decodeQR(path = "data/cam/QR"):
     result = None
     try:
-        pathname = "data/cam/QR"
-        os.system("java -jar resources/read_qr_zep.jar > " + pathname)
-        #p = subprocess.Popen("java -jar resources/QR_decoder.jar")
-        #out, err = p.communicate()
-        #Try to open the file
+        os.system("java -jar OTHER/read_qr_zep.jar > " + path)
         result = readQRstring()
     except:
         pass

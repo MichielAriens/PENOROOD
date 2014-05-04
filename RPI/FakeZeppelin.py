@@ -1,5 +1,6 @@
 from COMMON.enum import Enum
 from pi.grid import GRID
+import urllib2
 
 import GUI.gridTest as gridTest
 import math
@@ -230,8 +231,14 @@ class FakeZeppelin:
 
 
     def completeQR(self,qr):
-        self.targets.append((self.targetcount+1,150,150))
-        self.targetcount += 1
+        file = urllib2.urlopen("http://localhost:54322/static/rood0.png")
+        output = open('OTHER/qr.png','wb')
+        output.write(file.read())
+        output.close()
+
+        import pi.qr
+        qr.
+
 
     def gotoPoint(self,point):
         self.pidX.setPoint(point[0])
