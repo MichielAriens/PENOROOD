@@ -324,7 +324,7 @@ class GUI:
     def updateJoyStick(self):
         while True:
             self.communicator.sendCommand("rood.lcommand.motor1", str(int(self.js.getX() * 100)))
-            self.communicator.sendCommand("rood.lcommand.motot2", str(int(self.js.getY() * 100)))
+            self.communicator.sendCommand("rood.lcommand.motor2", str(int(self.js.getY() * 100)))
             time.sleep(1)
 
 

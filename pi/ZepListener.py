@@ -42,7 +42,7 @@ class zepListener:
                         print "      setMX: " + str(int(body))
                         self.zeppelin.xMot.setThrust(int(body))
                     if parts[2] == "motor2" and self.zeppelin.override == True:
-                        print "      setMX: " + str(int(body))
+                        print "      setMY: " + str(int(body))
                         self.zeppelin.yMot.setThrust(int(body))
 
 
