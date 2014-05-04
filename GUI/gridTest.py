@@ -20,7 +20,6 @@ class GUI:
     #Greendot & Reddot, images for zeppelins
     #other images are shapes
     def __init__(self, master, listener):
-        self.override = False
         self.root = master
         self.labelframe = LabelFrame(master, text="Input&Output")
         self.canvas = Canvas(master, bg = "White", width = 1000, height = 1000)
@@ -320,8 +319,7 @@ class GUI:
         import thread
         self.js = joystickListener.JoyStick()
         self.communicator.sendCommand("rood.private.override", "true")
-        if(self.override):
-            thread.start_new(self.updateJoyStick,())
+        thread.start_new(self.updateJoyStick,())
 
     def updateJoyStick(self):
         while True:

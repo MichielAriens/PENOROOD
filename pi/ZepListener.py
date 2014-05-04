@@ -30,14 +30,19 @@ class zepListener:
         parts = str(method.routing_key).split(".")
         try:
             if parts[0] == "rood":
+                print "got a message"
                 if parts[1] == "private":
                     if parts[2] == "override":
                         if str(body) == "true":
+                            print "   override: switching to manual."
                             self.zeppelin.override = True
                 if parts[1] == "lcommand":
+                    print "   lcommand"
                     if parts[2] == "motor1" and self.zeppelin.override == True:
+                        print "      setMX: " + str(int(body))
                         self.zeppelin.xMot.setThrust(int(body))
                     if parts[2] == "motor2" and self.zeppelin.override == True:
+                        print "      setMX: " + str(int(body))
                         self.zeppelin.yMot.setThrust(int(body))
 
 
