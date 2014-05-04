@@ -157,10 +157,6 @@ class FakeZeppelin:
         return pos
 
     def doAction(self):
-        print("debug info: goalnumber + targetcount + target")
-        print(self.goalnumber)
-        print(self.targetcount)
-        print(self.targets)
         if(self.checkGoal() == True):
             self.checkTargets()
         self.setMovementZeppelin(self.updateGoalDirection())
