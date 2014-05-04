@@ -121,7 +121,7 @@ class Zeppelin:
                 print "thrust vector: " + str(self.thrustx) + ", " + str(self.thrusty)
 
             else:
-                time.sleep(0.33)
+                time.sleep(1)
 
             h = self.altimeter.getHeight()
             self.listener.pushHeight(h)
