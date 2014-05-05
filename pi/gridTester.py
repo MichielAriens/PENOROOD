@@ -100,7 +100,7 @@ class Main:
     def getPosition(self,path="C:/Users/Babyburger/PycharmProjects/PENOROODpy/output/5.jpg"):
         shapes = main.userInterface().findZeppelinLocation(path)
 
-        #print g.grid.table
+        #print self.g.grid.table
         table = self.g.grid.table
         m = numpy.matrix(table)
         m2 = m.transpose()
