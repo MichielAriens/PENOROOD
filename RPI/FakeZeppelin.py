@@ -263,11 +263,13 @@ class FakeZeppelin:
         print("hellloooow")
         print(decoded)
         values = decoded.rsplit(":")
+        print(values[0])
         if(values[0]=="tablet"):
             id = values[1]
+            print("id:" + str(id))
             for i in range(len(self.ipads)):
                 pad = self.ipads[i]
-                if(pad[0] == id):
+                if(pad[0] == int(id)):
                     print("added target:" + str(pad[1]) + "," +str(pad[2]))
                     self.addTarget(pad[1], pad[2])
         elif(values[0]=="position"):
