@@ -139,7 +139,8 @@ class Zeppelin:
         if(self.checkGoal() == True):
             self.checkTargets()
         #self.setMovementZeppelin(self.updateGoalDirection())
-        self.gotoPoint((self.goal[1],self.goal[2]))
+        ##TODO fix this.
+        #self.gotoPoint((self.goal[1],self.goal[2]))
 
     
     #Starts running background threads
