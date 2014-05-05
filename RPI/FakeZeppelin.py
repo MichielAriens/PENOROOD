@@ -243,20 +243,36 @@ class FakeZeppelin:
         self.zepListener.pushPublicKey(ipadID)
         import urllib
         time.sleep(1)
-        urllib.urlretrieve("http://192.168.2.134:5000/static/rood" +str(1) + ".png", "C:\PENO\pic.png")
+        urllib.urlretrieve("http://192.168.2.134:5000/static/rood" +str(ipadID) + ".png", "C:\PENO\pic.png")
         os.system("java -jar C:\PENO\qread_qr_zep.jar > C:\PENO\qrresults.txt")
         file = open("C:\PENO\qrresults.txt","r")
         results = file.read()
         print "*********************"
         print str(results)
         print "*********************"
+        self.zepListener.pushMessage("QR encoded: " + str(results))
         import rsa.decription
         decoded = rsa.decription.decode(str(results))
+        self.zepListener.pushMessage("QR decoded: " + str(decoded))
         print "*********************"
         print decoded
         print "*********************"
-        self.targets.append((self.targetcount+1, 300, 300))
-        self.targetcount += 1
+        self.fixqr(decoded)
+
+    def fixqr(self, decoded):
+        print("hellloooow")
+        print(decoded)
+        values = decoded.rsplit(":")
+        if(values[0]=="tablet"):
+            id = values[1]
+            for i in range(len(self.ipads)):
+                pad = self.ipads[i]
+                if(pad[0] == id):
+                    print("added target:" + str(pad[1]) + "," +str(pad[2]))
+                    self.addTarget(pad[1], pad[2])
+        elif(values[0]=="position"):
+            coords = values[1].rsplit(",")
+            self.addTarget(coords[0], coords[1])
 
     def gotoPoint(self,point):
         self.pidX.setPoint(point[0])
