@@ -50,7 +50,7 @@ class FindPosition:
             b = shapes.pop()
             shapes.insert(0,b)
             a = a+1
-        print possiblePositions
+        return possiblePositions
 
     def triangle(self,position,shapes,possiblePositions):
         (x,y) = position
@@ -92,26 +92,31 @@ class FindPosition:
         pos = (xx,yy)
         return pos
 
-g = GridLoader()
-g.loadGrid()
+class Main:
+    def __init__(self):
+        self.g = GridLoader()
+        self.g.loadGrid()
 
-shapes = main.userInterface().findZeppelinLocation("C:/Users/Babyburger/PycharmProjects/PENOROODpy/output/5.jpg")
+    def getPosition(self,path="C:/Users/Babyburger/PycharmProjects/PENOROODpy/output/5.jpg"):
+        shapes = main.userInterface().findZeppelinLocation(path)
 
-#print g.grid.table
-table = g.grid.table
-m = numpy.matrix(table)
-m2 = m.transpose()
-#print m2
+        #print g.grid.table
+        table = self.g.grid.table
+        m = numpy.matrix(table)
+        m2 = m.transpose()
+        #print m2
 
-newshapes = []
-#g.grid.getPosAlternative([('blue','rectangle'),('green','rectangle'),('yellow','heart')])
-for (color,shape) in shapes:
-    c = color[0]
-    s = shape[0]
-    id = g.grid.getShapeID(c+s)
-    newshapes.append(id)
+        newshapes = []
+        #g.grid.getPosAlternative([('blue','rectangle'),('green','rectangle'),('yellow','heart')])
+        for (color,shape) in shapes:
+            c = color[0]
+            s = shape[0]
+            id = self.g.grid.getShapeID(c+s)
+            newshapes.append(id)
 
-print newshapes
-fPosition = FindPosition(m2)
+        print newshapes
+        fPosition = FindPosition(m2)
 
-fPosition.findPosition(newshapes)
+        pos = fPosition.findPosition(newshapes)
+        print pos
+        return pos
