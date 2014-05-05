@@ -33,6 +33,7 @@ class GUI:
         self.grid = GRID(8,7)
         self.text = Text(master,width = 50, height = 15)
         self.debugtext = Text(master,width = 50, height = 15)
+        self.redtext = Text(master,width = 50, height = 15)
         self.goal = (0,0)
         self.communicator = listener
 
@@ -208,8 +209,6 @@ class GUI:
                 message = message + "\n" + "Our zeppelin at (" + str(round(pos[0])) + "," + str(round(pos[1])) + "," + str(self.getHeight(zep[1])) +")"
             else:
                 message = message + "\n" + "Other zeppelin, Color="+ str(self.communicator.getColor(zep[1]))+ " at ("+ str(round(pos[0])) + "," + str(round(pos[1])) + "," + str(self.getHeight(zep[1])) + ")"
-        if(self.goal != (-1,-1)):
-            message = message + "\n" + "Current goal = " +  "("+ str(self.goal[0]) + "," + str(self.goal[1]) + ")"
         for l in range(len(self.ipads)):
             ipad = self.ipads[l]
             pos = ipad[0]
@@ -244,6 +243,16 @@ class GUI:
             message = message + "\n" + messages[i]
         self.debugtext.insert(INSERT, message)
 
+    def updateRedMessage(self):
+        self.redtext.delete(1.0, END)
+        messages = self.communicator.redmessages
+        if(len(messages) > 10):
+            self.communicator.redmessages = []
+            self.redtext.delete(1.0, END)
+        message = "incoming:"
+        for i in range(len(messages)):
+            message = message + "\n" + messages[i]
+        self.redtext.insert(INSERT, message)
 
     #keep updating besides running the tkinter mainloop
     #update canvas after 1000ms
@@ -316,6 +325,14 @@ class GUI:
     def sendCommand(self):
         key = self.entry3.get()
         body = self.entry4.get()
+        try:
+            if(key == "ipad"):
+                values = body.split(",")
+                self.addIpad(int(values[0]), int(values[1]), 100)
+            elif(key == "ripad"):
+                self.ipads = []
+        except:
+            pass
         self.communicator.sendCommand("rood." + key,body)
         #("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
 

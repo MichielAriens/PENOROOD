@@ -1,5 +1,4 @@
-import pi.grid as gridTest
-import RPI.software.main as main
+import software.main as main
 import numpy
 
 class GridLoader:
@@ -103,7 +102,6 @@ class Main:
     def __init__(self,grid):
         #self.g = GridLoader()
         self.g = grid
-        self.g.loadGrid()
 
     def getPosition(self,path="C:/Users/Babyburger/PycharmProjects/PENOROODpy/output/5.jpg"):
         print 'start looking for shapes'
@@ -111,7 +109,7 @@ class Main:
         print 'end looking for shapes'
 
         #print self.g.grid.table
-        table = self.g.grid.table
+        table = self.g.table
         m = numpy.matrix(table)
         m2 = m.transpose()
         #print m2
@@ -121,7 +119,7 @@ class Main:
         for (color,shape) in shapes:
             c = color[0]
             s = shape[0]
-            id = self.g.grid.getShapeID(c+s)
+            id = self.g.getShapeID(c+s)
             newshapes.append(id)
 
         # print newshapes

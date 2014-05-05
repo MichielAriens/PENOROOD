@@ -6,6 +6,7 @@ class Listener:
         self.zeppelins = [] #tuple (ID, x, y, z)
         self.color_ids = [(1, "rood"), (2, "ijzer"), (3, "paars"), (4, "blauw"), (5,"geel"), (6,"zilver"), (7,"paars"), (8,"indigo"), (9, "wit"), (10, "koper"), (11, "goud"),(12,"brons"),(13,"platinum"), (14,"oranje")] #tuple (ID, color)(
         self.messages = []
+        self.redmessages = []
         self.channel = None
 
     def setChannel(self, ch):
@@ -167,6 +168,8 @@ class Listener:
                     elif(split[2] == "motor3"):
                         pass
                 elif(split[1] == "private"):
+                    if(split[0] == "rood"):
+                        self.redmessages.append(command+value)
                     pass
                 else:
                     pass

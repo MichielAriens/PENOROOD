@@ -34,7 +34,7 @@ class Zeppelin:
     def __init__(self):
         print "loading zeppelin"
         self.override = False
-        self.loadGrid("/home/pi/zep3/PENOROOD/OTHER/grid25-04.csv")
+        self.loadGrid("/home/pi/PENOROOD/OTHER/grid25-04.csv")
         #still requirs grid loading
         self.path = "/home/pi/temp/img.jpg"
         #Init PID (0.1,0,0.5) works slightly, (0.1,0.05,3) better P to 0.2 increases responsiveness, I increses overshoot but decreases settletime
@@ -72,7 +72,7 @@ class Zeppelin:
         self.goalnumber = 0 #increase this when you reached goal
 
         self.lastQRRead = time.time() - 5
-        self.posAnalyzer = gridTester.Main()
+        self.posAnalyzer = gridTester.Main(self.grid)
 
         print("zeppelin loaded!")
     
@@ -132,14 +132,14 @@ class Zeppelin:
     def _keepPos(self):
         time.sleep(1)
         while(True):
-            try:
+
                 if not self.override:
                     self.camera.click()
                     self.pos = self.posAnalyzer.getPosition("/home/pi/temp/img.jpg")
                     self.listener.pushPosition(self.pos)
                     self.doAction()
-            except:
-                print "network can't keep up"
+
+                #print "network can't keep up"
 
 
     def doAction(self):
@@ -158,7 +158,7 @@ class Zeppelin:
     def start(self):
         print "Starting zeppelin main loop."
         thread.start_new(self.listener.start, ())
-        thread.start_new(self._keepHeight, ())
+        #thread.start_new(self._keepHeight, ())
         thread.start_new(self._keepPos, ())
 
     def checkTargets(self):
