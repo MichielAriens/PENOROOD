@@ -106,7 +106,9 @@ class Main:
         self.g.loadGrid()
 
     def getPosition(self,path="C:/Users/Babyburger/PycharmProjects/PENOROODpy/output/5.jpg"):
+        print 'start looking for shapes'
         shapes = main.userInterface().findZeppelinLocation(path)
+        print 'end looking for shapes'
 
         #print self.g.grid.table
         table = self.g.grid.table
