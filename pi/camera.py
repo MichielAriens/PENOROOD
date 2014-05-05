@@ -4,10 +4,10 @@ import shapeRecognition as sr
 import picamera
 
 class Camera:
-    def __init__(self):
+    def __init__(self, path = "/home/pi/temp/img.jpg"):
         self.res= 250
         self.shape = sr.ShapeFinder()
-        self.path = "/home/pi/zep2/output/path.jpg"
+        self.path = path
         self.shape.setImage(self.path)
         self.sf = sr.Analyzer(self.shape)
     

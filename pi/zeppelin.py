@@ -13,6 +13,7 @@ import time
 import random
 import shapeRecognition as sr
 import ZepListener
+import os
 
 import picamera
 sf = sr.ShapeFinder()
@@ -31,7 +32,7 @@ class Zeppelin:
     #initmethod variables (call start to invoke backround methods)
     def __init__(self):
         print "loading zeppelin"
-        self.override = True
+        self.override = False
         self.loadGrid("/home/pi/zep3/PENOROOD/OTHER/grid25-04.csv")
         #still requirs grid loading
         self.path = "/home/pi/temp/img.jpg"
@@ -42,12 +43,9 @@ class Zeppelin:
         #self.xMot = motor.PulsedMotor(17,23)
         #self.yMot = motor.PulsedMotor(9,7)
 
-        self.yMot = motor.PulsedMotor(24,4)
-        self.xMot = motor.PulsedMotor(17,23)
-        self.lift = motor.PulsedMotor(9,7)
-
-        #self.xMot.setThrust(100)
-        #self.yMot.setThrust(100)
+        self.motorY = motor.PulsedMotor(24,4)
+        self.motorX = motor.PulsedMotor(17,23)
+        self.lift = motor.PWMMotor(9,7)
 
         self.heightPID = PID(5,0.5,5)
         self.xPID = PID(1,0,0.1)
@@ -59,12 +57,21 @@ class Zeppelin:
         self.dHeight = self.altimeter.getHeight()
         self.dHeight = 70
         self.dPos = (0,0)
+        self.pos = (0,0)
+        self.height = 0
         
         self.heightPID.setPoint(self.dHeight)
-        
         self.xPID.setPoint(self.dPos[0])
         self.yPID.setPoint(self.dPos[1])
-        
+
+        self.goal = (0,0,0) #tuple = (volgnummer,x,y)
+        self.ipads = [(1,0,0,"bleep",False,False),(2,220,300,"bleep",False,False)] # tuple = (ipadID,x,y,qr,ipad_boolean,qr_boolean) ipad_boolean/qr_boolean = false if zep hasnt been there yet
+        self.targets = [(1,0,0),(2,100,0),(3,200,200)] #tuple = (volgnummer,x,y)
+        self.targetcount = len(self.targets) #increase this when you add a target
+        self.goalnumber = 0 #increase this when you reached goal
+
+        self.lastQRRead = time.time() - 5
+
         print("zeppelin loaded!")
     
     #Used to set the desired height.
@@ -77,10 +84,10 @@ class Zeppelin:
         return self.lift
 
     def getXMotor(self):
-        return self.xMot
+        return self.motorX
 
     def getYMotor(self):
-        return self.yMot
+        return self.motorY
         
     def loadGrid(self, path):
         import csv
@@ -108,26 +115,32 @@ class Zeppelin:
     #Algorithm to invoke motors to achieve a certain height
     #Python convention: methods names preceded by '_' should be deemed 'private'
     def _keepHeight(self):
+        time.sleep(1)
         while(True):
             #Set the thrust to the PID output.
+            self.height = self.altimeter.getHeight()
+            self.listener.pushHeight(self.height)
+            self.lift.setThrust(self.yPID.setPoint(self.height))
+            time.sleep(0.5)
+
+    def _keepPos(self):
+        time.sleep(1)
+        while(True):
             if not self.override:
-                pos = self.camera.analyzePosition(self.grid)
-                self.listener.pushPosition(pos)
-                thrustx = self.xPID.update(pos[0])
-                thrusty = self.xPID.update(pos[1])
-                self.xMot.setThrust(thrustx)
-                self.yMot.setThrust(thrusty)
-                print "thrust vector: " + str(self.thrustx) + ", " + str(self.thrusty)
-
-            else:
-                time.sleep(0.33)
-
-            h = self.altimeter.getHeight()
-            self.listener.pushHeight(h)
-            #self.lift.setThrust(self.heightPID.update(h))
+                self.pos = self.camera.analyzePosition(self.grid)
+                self.listener.pushPosition(self.pos)
+                self.doAction()
 
 
-            #time.sleep(1)
+    def doAction(self):
+        if not self.override:
+            self.motorX.setThrust(self.xPID.update(self.pos[0]))
+            self.motorY.setThrust(self.yPID.update(self.pos[1]))
+        if(self.checkGoal() == True):
+            self.checkTargets()
+        #self.setMovementZeppelin(self.updateGoalDirection())
+        self.gotoPoint((self.goal[1],self.goal[2]))
+
     
     #Starts running background threads
     # _keepHeight
@@ -135,10 +148,77 @@ class Zeppelin:
         print "Starting zeppelin main loop."
         thread.start_new(self.listener.start, ())
         thread.start_new(self._keepHeight, ())
+        thread.start_new(self._keepPos, ())
+
+    def checkTargets(self):
+        hasNew = False
+        if(self.goalnumber == 0):
+            nextgoalnumber = 1
+        else:
+            nextgoalnumber = self.goal[0] + 1
+        for i in range(len(self.targets)):
+            tup = self.targets[i]
+            if(tup[0] == nextgoalnumber):
+                self.goal = tup
+                hasNew = True
+                self.goalnumber = nextgoalnumber
+        if(hasNew == False):
+            self.checkIpad()
+
+    def checkGoal(self):
+        currentpos = self.pos
+        range = 10
+        if(( (((currentpos[0] > (self.goal[1]-range))) and ((currentpos[0] < (self.goal[1]+range)))) and (((currentpos[1] > (self.goal[2]-range))) and ((currentpos[1] < (self.goal[2]+range)))))):
+            return True
+        return False
+
+    def getNextIpad(self):
+        for i in range(len(self.ipads)):
+            pad = self.ipads[i]
+            if(pad[4] == False):
+                return (pad[1], pad[2])
+        return None
+
+    def checkIpad(self):
+        addedQR = False
+        addedipad = False
+        for j in range(len(self.ipads)):
+            pad = self.ipads[j]
+            if(pad[4] == True and pad[5] == False and addedQR == False):
+                qr = pad[3]
+                self.completeQR(qr)
+                self.ipads.remove(pad)
+                self.ipads.append((pad[0],pad[1],pad[2],pad[3],pad[4],True))
+                addedQR = True
+        for i in range(len(self.ipads)):
+            pad = self.ipads[i]
+            if(pad[4] == False and addedQR == False and addedipad == False):
+                print("added ipad")
+                self.targets.append((self.targetcount+1, pad[1], pad[2]))
+                self.targetcount += 1
+                self.ipads.remove(pad)
+                self.ipads.append((pad[0],pad[1],pad[2],pad[3],True,pad[5]))
+                addedipad = True
         
    
     def getPos(self):
        return self.camera.analyzePosition(self.grid)
+
+    def completeQR(self):
+        print "READING QR"
+        #Pic in memory.
+        now = time.time()
+        if self.lastQRRead <= now - 5:
+            #tablet numbering starts with 1
+            self.listener.pushPublicKey(self.goal[0] + 1)
+            os.system("java -jar read_qr_zep.jar /home/pi/zep2/output/path.jpg > /home/pi/temp/qrresults.txt")
+            file = open("/home/pi/temp/qrresults.txt","r")
+            results = file.read()
+            print str(results)
+
+        else:
+            self.listener.pushMessage("qr not read, too early to try again.")
+
        
 
 class PID:

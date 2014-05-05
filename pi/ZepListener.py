@@ -30,15 +30,23 @@ class zepListener:
         parts = str(method.routing_key).split(".")
         try:
             if parts[0] == "rood":
+                #print "got a message"
                 if parts[1] == "private":
                     if parts[2] == "override":
                         if str(body) == "true":
+                            #print "   override: switching to manual."
                             self.zeppelin.override = True
+                    elif parts[2] == "goal":
+                        values = body.split(",")
+                        self.zeppelin.addTarget(int(values[0]),int(values[1]))
                 if parts[1] == "lcommand":
+                    #print "   lcommand"
                     if parts[2] == "motor1" and self.zeppelin.override == True:
-                        self.zeppelin.xMot.setThrust(int(body))
+                        #print "      setMX: " + str(int(body))
+                        self.zeppelin.motorX.setThrust(int(body))
                     if parts[2] == "motor2" and self.zeppelin.override == True:
-                        self.zeppelin.yMot.setThrust(int(body))
+                        #print "      setMY: " + str(int(body))
+                        self.zeppelin.motorY.setThrust(int(body))
 
 
         except:
@@ -56,5 +64,13 @@ class zepListener:
         key = "rood.info.height"
         myBody = str(pos * 10)
         self.channel.basic_publish(exchange='server', routing_key=key, body=myBody)
-		
-			
+
+    def pushMessage(self, message):
+        print str(message)
+        self.channel.basic_publish(exchange='server', routing_key="rood.private.message", body=str(message))
+
+    def pushPublicKey(self, tabnr):
+        publicKeyFile = open("../rsa/public","r")
+        publickey = publicKeyFile.read()
+
+        self.channel.basic_publish(exchange='server', routing_key="rood.lcommand.motor" + str(tabnr), body=publickey)

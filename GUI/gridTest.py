@@ -20,7 +20,6 @@ class GUI:
     #Greendot & Reddot, images for zeppelins
     #other images are shapes
     def __init__(self, master, listener):
-        self.override = False
         self.root = master
         self.labelframe = LabelFrame(master, text="Input&Output")
         self.canvas = Canvas(master, bg = "White", width = 1000, height = 1000)
@@ -30,6 +29,7 @@ class GUI:
         self.entry2 = Entry(self.labelframe)
         self.label3 = Label(self.labelframe, text="command")
         self.entry3 = Entry(self.labelframe)
+        self.entry4 = Entry(self.labelframe)
         self.grid = GRID(8,7)
         self.text = Text(master,width = 50, height = 15)
         self.debugtext = Text(master,width = 50, height = 15)
@@ -234,11 +234,15 @@ class GUI:
         self.text.delete(1.0, END)
 
     def updateListenerMessage(self):
-        if(len(self.communicator.messages) > 10):
+        self.debugtext.delete(1.0, END)
+        messages = self.communicator.messages
+        if(len(messages) > 10):
             self.communicator.messages = []
-        for i in range(len(self.communicator.messages)):
-            message = self.communicator.messages[i]
-            self.debugtext.insert(INSERT, message)
+            self.debugtext.delete(1.0, END)
+        message = "incoming:"
+        for i in range(len(messages)):
+            message = message + "\n" + messages[i]
+        self.debugtext.insert(INSERT, message)
 
 
     #keep updating besides running the tkinter mainloop
@@ -310,9 +314,9 @@ class GUI:
         self.goal = goalposition;
         
     def sendCommand(self):
-        command = self.entry3.get().split(" ")
-        if len(command) == 2:
-            self.communicator.sendCommand("rood." + command[0],command[1])
+        key = self.entry3.get()
+        body = self.entry4.get()
+        self.communicator.sendCommand("rood." + key,body)
         #("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
 
     def override(self):
@@ -320,13 +324,12 @@ class GUI:
         import thread
         self.js = joystickListener.JoyStick()
         self.communicator.sendCommand("rood.private.override", "true")
-        if(self.override):
-            thread.start_new(self.updateJoyStick,())
+        thread.start_new(self.updateJoyStick,())
 
     def updateJoyStick(self):
         while True:
             self.communicator.sendCommand("rood.lcommand.motor1", str(int(self.js.getX() * 100)))
-            self.communicator.sendCommand("rood.lcommand.motot2", str(int(self.js.getY() * 100)))
+            self.communicator.sendCommand("rood.lcommand.motor2", str(int(self.js.getY() * 100)))
             time.sleep(1)
 
 
