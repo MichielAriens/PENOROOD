@@ -26,7 +26,7 @@ class GridLoader:
         number_of_rows = len(data);
         number_of_columns = len(data[0])
         init_string = list[0]
-        print 's: ' + str(init_string)
+        # print 's: ' + str(init_string)
         self.grid = gridTest.GRID(number_of_columns, number_of_rows)
         self.grid.initiate(init_string);
 
@@ -114,9 +114,12 @@ class Main:
             id = self.g.grid.getShapeID(c+s)
             newshapes.append(id)
 
-        print newshapes
+        # print newshapes
         fPosition = FindPosition(m2)
 
         pos = fPosition.findPosition(newshapes)
         print pos
         return pos
+
+ma = Main()
+ma.getPosition()

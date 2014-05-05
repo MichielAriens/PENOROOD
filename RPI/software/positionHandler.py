@@ -11,12 +11,11 @@ class Handler:
     # takes an image, finds all the figures and returns the coordinate of the zeppelin based on the 3 nearest figures
     def run(self, path = "/home/pi/zep2/output/path.jpg"):
         newpath = self.captureImage(path)
-        print "camera has taken a picture"
-        #newpath = path  # TEMPORARY PATH
+        # print "camera has taken a picture"
         figureList = self.processFigures(newpath)
         print "found list " + str(figureList)
         figures = self.findNearestFigures(figureList)
-        print "3 nearest figures " + str(figures)
+        # print "3 nearest figures " + str(figures)
         #return self.findCoordinate(figures)
         return figures
 
