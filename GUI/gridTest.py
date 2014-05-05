@@ -33,7 +33,6 @@ class GUI:
         self.grid = GRID(8,7)
         self.text = Text(master,width = 50, height = 15)
         self.debugtext = Text(master,width = 50, height = 15)
-        self.debugtext.insert(INSERT, "incomming:")
         self.goal = (0,0)
         self.communicator = listener
 
@@ -235,12 +234,14 @@ class GUI:
         self.text.delete(1.0, END)
 
     def updateListenerMessage(self):
-        self.text.delete(1.0, END)
-        if(len(self.communicator.messages) > 10):
+        self.debugtext.delete(1.0, END)
+        messages = self.communicator.messages
+        if(len(messages) > 10):
             self.communicator.messages = []
-        message = ""
-        for i in range(len(self.communicator.messages)):
-            message = message + "\n" + self.communicator.messages[i]
+            self.debugtext.delete(1.0, END)
+        message = "incoming:"
+        for i in range(len(messages)):
+            message = message + "\n" + messages[i]
         self.debugtext.insert(INSERT, message)
 
 
