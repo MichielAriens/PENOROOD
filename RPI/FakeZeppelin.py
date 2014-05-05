@@ -243,16 +243,18 @@ class FakeZeppelin:
         self.zepListener.pushPublicKey(ipadID)
         import urllib
         time.sleep(1)
-        urllib.urlretrieve("http://192.168.2.134:5000/static/rood" +str(ipadID) + ".png", "tablet" + str(ipadID) +".png")
-        os.system("java -jar C:\PENO\qread_qr_zep.jar tablet" + str(ipadID) + ".png+" + "> C:\PENO\qrresults.txt")
+        urllib.urlretrieve("http://192.168.2.134:5000/static/rood" +str(1) + ".png", "C:\PENO\pic.png")
+        os.system("java -jar C:\PENO\qread_qr_zep.jar > C:\PENO\qrresults.txt")
         file = open("C:\PENO\qrresults.txt","r")
         results = file.read()
         print "*********************"
         print str(results)
         print "*********************"
         import rsa.decription
-        rsa.decription.b64decode(results, )
-
+        decoded = rsa.decription.decode(str(results))
+        print "*********************"
+        print decoded
+        print "*********************"
         self.targets.append((self.targetcount+1, 300, 300))
         self.targetcount += 1
 
