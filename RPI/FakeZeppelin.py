@@ -171,13 +171,13 @@ class FakeZeppelin:
         #print(self.goalnumber)
         #print(self.targetcount)
         #print(self.targets)
-        if not self.override:
-            self.motorX.setThrust(self.pidX.update(self.fe.pos.x))
-            self.motorY.setThrust(self.pidY.update(self.fe.pos.y))
+        #if not self.override:
+           # self.motorX.setThrust(self.pidX.update(self.fe.pos.x))
+           # self.motorY.setThrust(self.pidY.update(self.fe.pos.y))
         if(self.checkGoal() == True):
             self.checkTargets()
-        #self.setMovementZeppelin(self.updateGoalDirection())
-        self.gotoPoint((self.goal[1],self.goal[2]))
+        self.setMovementZeppelin(self.updateGoalDirection())
+        #self.gotoPoint((self.goal[1],self.goal[2]))
 
     def checkTargets(self):
         hasNew = False
@@ -197,8 +197,7 @@ class FakeZeppelin:
     def checkGoal(self):
         currentpos = (self.fe.pos.x, self.fe.pos.y)
         if(( (((currentpos[0] > (self.goal[1]-2))) and ((currentpos[0] < (self.goal[1]+2)))) and (((currentpos[1] > (self.goal[2]-2))) and ((currentpos[1] < (self.goal[2]+2)))))):
-            if(self.fe.speed.size() <= 0.1):
-                return True
+            return True
         return False
 
     def getNextIpad(self):
@@ -231,13 +230,17 @@ class FakeZeppelin:
 
 
     def completeQR(self,qr):
-        file = urllib2.urlopen("http://localhost:54322/static/rood0.png")
-        output = open('OTHER/qr.png','wb')
-        output.write(file.read())
-        output.close()
 
-        import pi.qr
-        #qr.
+        try:
+            file = urllib2.urlopen("http://localhost:54322/static/rood0.png")
+            output = open('OTHER/qr.png','wb')
+            output.write(file.read())
+            output.close()
+            import pi.qr
+        except:
+             self.targets.append((self.targetcount+1, 300, 300))
+             self.targetcount += 1
+
 
 
     def gotoPoint(self,point):
