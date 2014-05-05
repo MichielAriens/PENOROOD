@@ -107,7 +107,7 @@ class Main:
         shapes = main.userInterface().findZeppelinLocation(path)
 
         #print self.g.grid.table
-        table = self.g.table
+        table = self.g.grid.table
         m = numpy.matrix(table)
         m2 = m.transpose()
         #print m2
