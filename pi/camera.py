@@ -13,6 +13,11 @@ class Camera:
     
     #f = open('/home/pi/zep2/output/results.csv','w')
     #f.write('hi there\n') # python will convert \n to os.linesep
+
+    def click(self):
+        with picamera.PiCamera() as camera:
+            camera.resolution = (self.res,self.res)
+            camera.capture(self.path, "jpeg")
     
     def analyzePosition(self,grid):
         with picamera.PiCamera() as camera:

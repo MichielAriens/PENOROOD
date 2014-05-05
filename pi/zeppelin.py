@@ -14,6 +14,7 @@ import random
 import shapeRecognition as sr
 import ZepListener
 import os
+import gridTester
 
 import picamera
 sf = sr.ShapeFinder()
@@ -71,6 +72,7 @@ class Zeppelin:
         self.goalnumber = 0 #increase this when you reached goal
 
         self.lastQRRead = time.time() - 5
+        self.posAnalyzer = gridTester.Main()
 
         print("zeppelin loaded!")
     
@@ -117,19 +119,27 @@ class Zeppelin:
     def _keepHeight(self):
         time.sleep(1)
         while(True):
-            #Set the thrust to the PID output.
-            self.height = self.altimeter.getHeight()
-            self.listener.pushHeight(self.height)
-            self.lift.setThrust(self.yPID.setPoint(self.height))
-            time.sleep(0.5)
+            try:
+                #Set the thrust to the PID output.
+                self.height = self.altimeter.getHeight()
+                self.listener.pushHeight(self.height)
+                self.lift.setThrust(self.yPID.setPoint(self.height))
+                time.sleep(0.5)
+            except:
+                print "network can't keep up"
+
 
     def _keepPos(self):
         time.sleep(1)
         while(True):
-            if not self.override:
-                self.pos = self.camera.analyzePosition(self.grid)
-                self.listener.pushPosition(self.pos)
-                self.doAction()
+            try:
+                if not self.override:
+                    self.camera.click()
+                    self.pos = self.posAnalyzer.getPosition("/home/pi/temp/img.jpg")
+                    self.listener.pushPosition(self.pos)
+                    self.doAction()
+            except:
+                print "network can't keep up"
 
 
     def doAction(self):
