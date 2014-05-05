@@ -33,10 +33,12 @@ class GridLoader:
 class FindPosition:
     def __init__(self,grid):
         self.grid = grid
+        self.p = (0,0)
 
     def findPosition(self,shapes):
         #iterate through matrix rows and perform triangle/reverseTriangle to add to possiblePositions
-        possiblePositions = []
+        #possiblePositions = []
+        possiblePositions = None
         a = 0
         while(a<3):
             i = 0
@@ -50,9 +52,10 @@ class FindPosition:
             b = shapes.pop()
             shapes.insert(0,b)
             a = a+1
-        return possiblePositions
+        #return possiblePositions
+        return self.p
 
-    def triangle(self,position,shapes,possiblePositions):
+    def triangle(self,position,shapes,possiblePositions = []):
         (x,y) = position
         try:
             if self.grid.item((x,y)) == shapes[0]:
@@ -60,16 +63,18 @@ class FindPosition:
                     if (self.grid.item((x+1,y-1)) == shapes[1] and self.grid.item((x+1,y)) == shapes[2]) or (self.grid.item((x+1,y-1)) == shapes[2] and self.grid.item((x+1,y)) == shapes[1]):
                         pos = self.getPosition(x+0.5,y)
                         print position
-                        possiblePositions.append(pos)
+                        self.p = pos
+                        #possiblePositions.append(pos)
                 else:
                     if (self.grid.item((x+1,y)) == shapes[1] and self.grid.item((x+1,y+1)) == shapes[2]) or (self.grid.item((x+1,y)) == shapes[2] and self.grid.item((x+1,y+1)) == shapes[1]):
                         pos = self.getPosition(x+0.5,y+0.5)
                         print position
-                        possiblePositions.append(pos)
+                        self.p = pos
+                        #possiblePositions.append(pos)
         except ValueError, e:
             pass
 
-    def reverseTriangle(self,position,shapes,possiblePositions):
+    def reverseTriangle(self,position,shapes,possiblePositions = []):
         (x,y) = position
         try:
             if self.grid.item((x,y)) == shapes[0]:
@@ -77,12 +82,14 @@ class FindPosition:
                     if (self.grid.item((x-1,y-1)) == shapes[1] and self.grid.item((x-1,y)) == shapes[2]) or (self.grid.item((x-1,y-1)) == shapes[2] and self.grid.item((x-1,y)) == shapes[1]):
                         pos = self.getPosition(x-0.5,y)
                         print position
-                        possiblePositions.append(pos)
+                        self.p = pos
+                        #possiblePositions.append(pos)
                 else:
                     if (self.grid.item((x-1,y)) == shapes[1] and self.grid.item((x-1,y+1)) == shapes[2]) or (self.grid.item((x-1,y)) == shapes[2] and self.grid.item((x-1,y+1)) == shapes[1]):
                         pos = self.getPosition(x-0.5,y+0.5)
                         print position
-                        possiblePositions.append(pos)
+                        self.p = pos
+                        #possiblePositions.append(pos)
         except ValueError, e:
             pass
 
