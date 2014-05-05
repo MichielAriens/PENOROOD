@@ -158,7 +158,7 @@ class Zeppelin:
     def start(self):
         print "Starting zeppelin main loop."
         thread.start_new(self.listener.start, ())
-        thread.start_new(self._keepHeight, ())
+        #thread.start_new(self._keepHeight, ())
         thread.start_new(self._keepPos, ())
 
     def checkTargets(self):
