@@ -250,7 +250,9 @@ class FakeZeppelin:
         print "*********************"
         print str(results)
         print "*********************"
-        
+        import rsa.decription
+        rsa.decription.b64decode(results, )
+
         self.targets.append((self.targetcount+1, 300, 300))
         self.targetcount += 1
 
