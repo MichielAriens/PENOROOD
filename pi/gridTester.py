@@ -92,6 +92,7 @@ class FindPosition:
         pos = (xx,yy)
         return pos
 
+"""
 g = GridLoader()
 g.loadGrid()
 
@@ -115,3 +116,5 @@ print newshapes
 fPosition = FindPosition(m2)
 
 fPosition.findPosition(newshapes)
+
+"""
