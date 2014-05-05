@@ -121,6 +121,7 @@ class Zeppelin:
             self.height = self.altimeter.getHeight()
             self.listener.pushHeight(self.height)
             self.lift.setThrust(self.yPID.setPoint(self.height))
+            time.sleep(0.5)
 
     def _keepPos(self):
         time.sleep(1)
@@ -204,6 +205,7 @@ class Zeppelin:
        return self.camera.analyzePosition(self.grid)
 
     def completeQR(self):
+        print "READING QR"
         #Pic in memory.
         now = time.time()
         if self.lastQRRead <= now - 5:
