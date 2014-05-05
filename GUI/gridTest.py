@@ -262,6 +262,7 @@ class GUI:
         self.updateZeppelins()
         self.updateCanvas()
         self.updateListenerMessage()
+        self.updateRedMessage()
         self.root.after(33,self.task)
     
     def checkZeppelins(self):

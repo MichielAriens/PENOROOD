@@ -240,7 +240,7 @@ class FakeZeppelin:
         import os
         self.zepListener.pushMessage("Reading QR-code")
         self.zepListener.pushPublicKey(self.goal[0] + 1)
-        os.system("java -jar read_qr_zep.jar C:\PENO\path.jpg > C:\PENO\qrresults.txt")
+        os.system("java -jar C:\PENO\qread_qr_zep.jar C:\PENO\path.jpg > C:\PENO\qrresults.txt")
         file = open("C:\PENO\qrresults.txt","r")
         results = file.read()
         print str(results)

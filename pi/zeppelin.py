@@ -246,7 +246,6 @@ class Zeppelin:
             file = open("/home/pi/temp/qrresults.txt","r")
             results = file.read()
             print str(results)
-
         else:
             self.listener.pushMessage("qr not read, too early to try again.")
 
