@@ -138,8 +138,9 @@ class Zeppelin:
             self.motorY.setThrust(self.yPID.update(self.pos[1]))
         if(self.checkGoal() == True):
             self.checkTargets()
-        #self.setMovementZeppelin(self.updateGoalDirection())
-        self.gotoPoint((self.goal[1],self.goal[2]))
+            self.xPID.setPoint(self.goal[0])
+            self.yPID.setPoint(self.goal[1])
+
 
     
     #Starts running background threads
