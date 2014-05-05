@@ -100,8 +100,9 @@ class FindPosition:
         return pos
 
 class Main:
-    def __init__(self):
-        self.g = GridLoader()
+    def __init__(self,grid):
+        #self.g = GridLoader()
+        self.g = grid
         self.g.loadGrid()
 
     def getPosition(self,path="C:/Users/Babyburger/PycharmProjects/PENOROODpy/output/5.jpg"):
@@ -128,5 +129,7 @@ class Main:
         print pos
         return pos
 
+"""
 ma = Main()
 ma.getPosition()
+"""
