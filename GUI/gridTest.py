@@ -363,6 +363,7 @@ class GUI:
             val = int(self.entry5.get())
             file = open("rsa/public","r")
             pubkey = file.read()
+            print len(pubkey)
             self.communicator.sendCommand("rood.tablets.tablet" + str(val), pubkey)
         except:
             pass

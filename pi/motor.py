@@ -67,21 +67,20 @@ class simpleMotor:
     def setThrust(self,nThrust):
         GPIO.output(self.negativePin,False)
         GPIO.output(self.positivePin,False)
-        while(True):
-            percent = nThrust
-            if abs(percent) < 5: #cuttoff
-                GPIO.output(self.negativePin,False)
-                GPIO.output(self.positivePin,False)
+        percent = nThrust
+        if abs(percent) < 5: #cuttoff
+            GPIO.output(self.negativePin,False)
+            GPIO.output(self.positivePin,False)
+        else:
+            if percent > 0:
+                direction = self.positivePin
+                otherDir = self.negativePin
             else:
-                if percent > 0:
-                    direction = self.positivePin
-                    otherDir = self.negativePin
-                else:
-                    direction = self.negativePin
-                    otherDir = self.positivePin
+                direction = self.negativePin
+                otherDir = self.positivePin
 
-                GPIO.output(otherDir,False)
-                GPIO.output(direction,True)
+            GPIO.output(otherDir,False)
+            GPIO.output(direction,True)
 
 
 
