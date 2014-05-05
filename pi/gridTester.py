@@ -72,6 +72,8 @@ class FindPosition:
                         #possiblePositions.append(pos)
         except ValueError, e:
             pass
+        except IndexError, e:
+            pass
 
     def reverseTriangle(self,position,shapes,possiblePositions = []):
         (x,y) = position
@@ -90,6 +92,8 @@ class FindPosition:
                         self.p = pos
                         #possiblePositions.append(pos)
         except ValueError, e:
+            pass
+        except IndexError, e:
             pass
 
     def getPosition(self,x,y):

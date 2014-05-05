@@ -134,8 +134,9 @@ class Zeppelin:
         while(True):
 
                 if not self.override:
-                    self.camera.click()
-                    self.pos = self.posAnalyzer.getPosition("/home/pi/temp/img.jpg")
+                    #self.camera.click()
+                    #self.pos = self.posAnalyzer.getPosition("/home/pi/temp/img.jpg")
+                    self.camera.analyzePosition(self.grid)
                     self.listener.pushPosition(self.pos)
                     self.doAction()
 
