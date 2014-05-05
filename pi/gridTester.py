@@ -102,7 +102,6 @@ class Main:
     def __init__(self,grid):
         #self.g = GridLoader()
         self.g = grid
-        self.g.loadGrid()
 
     def getPosition(self,path="C:/Users/Babyburger/PycharmProjects/PENOROODpy/output/5.jpg"):
         shapes = main.userInterface().findZeppelinLocation(path)
