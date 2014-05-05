@@ -34,7 +34,7 @@ class Zeppelin:
     def __init__(self):
         print "loading zeppelin"
         self.override = False
-        self.loadGrid("/home/pi/zep3/PENOROOD/OTHER/grid25-04.csv")
+        self.grid = self.loadGrid("/home/pi/PENOROOD/OTHER/grid25-04.csv")
         #still requirs grid loading
         self.path = "/home/pi/temp/img.jpg"
         #Init PID (0.1,0,0.5) works slightly, (0.1,0.05,3) better P to 0.2 increases responsiveness, I increses overshoot but decreases settletime
@@ -72,7 +72,7 @@ class Zeppelin:
         self.goalnumber = 0 #increase this when you reached goal
 
         self.lastQRRead = time.time() - 5
-        self.posAnalyzer = gridTester.Main()
+        self.posAnalyzer = gridTester.Main(self.grid)
 
         print("zeppelin loaded!")
     
