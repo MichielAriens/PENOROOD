@@ -52,6 +52,42 @@ class PWMMotor:
         #decide power of thrust
         self.thrustPin.ChangeDutyCycle(abs(self.thrust))
 
+class simpleMotor:
+    def __init__(self,postivePin,negativePin):
+        #Instantiate pin objects
+
+        self.positivePin = postivePin
+        self.negativePin = negativePin
+
+        GPIO.setup(self.positivePin,GPIO.OUT)
+        GPIO.setup(self.negativePin,GPIO.OUT)
+        GPIO.output(self.positivePin,False)
+        GPIO.output(self.negativePin,False)
+
+        def setThrust(self,nThrust):
+
+            GPIO.output(self.negativePin,False)
+            GPIO.output(self.positivePin,False)
+            while(True):
+                percent = nThrust
+                if abs(percent) < 5: #cuttoff
+                    GPIO.output(self.negativePin,False)
+                    GPIO.output(self.positivePin,False)
+                else:
+                    if percent > 0:
+                        direction = self.positivePin
+                        otherDir = self.negativePin
+                    else:
+                        direction = self.negativePin
+                        otherDir = self.positivePin
+
+                    GPIO.output(otherDir,False)
+                    GPIO.output(direction,True)
+
+
+
+
+
 #A pysical implementation of a motor. Uses fixed pins but still provides a way to pass real numbers to setThrust()
 #Runs a thread in the background and runs the motors on max power for abs(thrust) percent of the time.
 #Cool note: PWM works on the exact same principle!
