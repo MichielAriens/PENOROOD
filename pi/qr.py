@@ -38,6 +38,14 @@ def testRSA():
     dec_mes = decrypt_message(enc_mes, privkey)
     print(dec_mes)
 
-(pubkey,privkey) = create_keys()
-print(pubkey)
-print(privkey)
+def getImageFromSite():
+    import urllib
+    urllib.urlretrieve("http://192.168.2.134:5000/static/rood" +str(1) + ".png", "C:\PENO\pic.png")
+    os.system("java -jar C:\PENO\qread_qr_zep.jar > C:\PENO\qrresults.txt")
+    file = open("C:\PENO\qrresults.txt","r")
+    results = file.read()
+    print "*********************"
+    print str(results)
+    print "*********************"
+
+getImageFromSite()

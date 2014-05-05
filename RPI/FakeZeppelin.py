@@ -218,7 +218,7 @@ class FakeZeppelin:
             pad = self.ipads[j]
             if(pad[4] == True and pad[5] == False and addedQR == False):
                 qr = pad[3]
-                self.completeQR()
+                self.completeQR(pad[0])
                 self.ipads.remove(pad)
                 self.ipads.append((pad[0],pad[1],pad[2],pad[3],pad[4],True))
                 addedQR = True
@@ -236,14 +236,21 @@ class FakeZeppelin:
         self.targets.append((self.targetcount+1, x, y))
         self.targetcount += 1
 
-    def completeQR(self):
+    def completeQR(self, ipadID):
         import os
-        self.zepListener.pushMessage("Reading QR-code")
-        self.zepListener.pushPublicKey(self.goal[0] + 1)
-        os.system("java -jar C:\PENO\qread_qr_zep.jar C:\PENO\path.jpg > C:\PENO\qrresults.txt")
+        self.zepListener.pushMessage("Start QR-code request")
+        self.zepListener.pushMessage("Sending Public Key")
+        self.zepListener.pushPublicKey(ipadID)
+        import urllib
+        time.sleep(1)
+        urllib.urlretrieve("http://192.168.2.134:5000/static/rood" +str(ipadID) + ".png", "tablet" + str(ipadID) +".png")
+        os.system("java -jar C:\PENO\qread_qr_zep.jar tablet" + str(ipadID) + ".png+" + "> C:\PENO\qrresults.txt")
         file = open("C:\PENO\qrresults.txt","r")
         results = file.read()
+        print "*********************"
         print str(results)
+        print "*********************"
+        
         self.targets.append((self.targetcount+1, 300, 300))
         self.targetcount += 1
 

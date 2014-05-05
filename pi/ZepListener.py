@@ -10,7 +10,7 @@ class zepListener:
 
     def start(self):
         self.creds = pika.PlainCredentials('rood', 'rood')
-        self.connection = pika.BlockingConnection(pika.ConnectionParameters(host='localhost', credentials=self.creds))
+        self.connection = pika.BlockingConnection(pika.ConnectionParameters(host='192.168.2.134', credentials=self.creds))
         self.channel = self.connection.channel()
         self.channel.exchange_declare(exchange='topic_logs',
                          type='topic')
@@ -73,4 +73,4 @@ class zepListener:
         publicKeyFile = open("rsa/public","r")
         publickey = publicKeyFile.read()
 
-        self.channel.basic_publish(exchange='server', routing_key="rood.lcommand.motor" + str(tabnr), body=publickey)
+        self.channel.basic_publish(exchange='server', routing_key="rood.tablets.tablet" + str(tabnr), body=publickey)
