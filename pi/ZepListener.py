@@ -64,5 +64,13 @@ class zepListener:
         key = "rood.info.height"
         myBody = str(pos * 10)
         self.channel.basic_publish(exchange='server', routing_key=key, body=myBody)
-		
-			
+
+    def pushMessage(self, message):
+        print str(message)
+        self.channel.basic_publish(exchange='server', routing_key="rood.private.message", body=str(message))
+
+    def pushPublicKey(self, motnr):
+        publicKeyFile = open("../rsa/public")
+        publickey = publicKeyFile.read()
+
+        self.channel.basic_publish(exchange='server', routing_key="rood.lcommand.motor" + str(motnr), body=publickey)

@@ -232,8 +232,7 @@ class FakeZeppelin:
         self.targets.append((self.targetcount+1, x, y))
         self.targetcount += 1
 
-    def completeQR(self,qr):
-
+    def completeQR(self):
         try:
             file = urllib2.urlopen("http://localhost:54322/static/rood0.png")
             output = open('OTHER/qr.png','wb')

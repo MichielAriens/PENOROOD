@@ -13,6 +13,7 @@ import time
 import random
 import shapeRecognition as sr
 import ZepListener
+import os
 
 import picamera
 sf = sr.ShapeFinder()
@@ -68,6 +69,8 @@ class Zeppelin:
         self.targets = [(1,0,0),(2,100,0),(3,200,200)] #tuple = (volgnummer,x,y)
         self.targetcount = len(self.targets) #increase this when you add a target
         self.goalnumber = 0 #increase this when you reached goal
+
+        self.lastQRRead = time.time() - 5
 
         print("zeppelin loaded!")
     
@@ -199,6 +202,16 @@ class Zeppelin:
    
     def getPos(self):
        return self.camera.analyzePosition(self.grid)
+
+    def completeQR(self):
+        #Pic in memory.
+        now = time.time()
+        if self.lastQRRead <= now - 5:
+
+            os.system("java -jar read_qr_zep.jar /home/pi/zep2/output/path.jpg > /home/pi/temp/qrresults.txt")
+        else:
+            self.listener.pushMessage("qr not read, too early to try again.")
+
        
 
 class PID:
