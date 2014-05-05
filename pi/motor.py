@@ -68,7 +68,7 @@ class PulsedMotor:
         GPIO.output(self.negativePin,False)
         self.thrust = 0
         
-        thread.start_new(self.pulse, (100,1))
+        thread.start_new(self.pulse, (1000,1))
         
     def setThrust(self,nThrust):
         if(nThrust > 100):
