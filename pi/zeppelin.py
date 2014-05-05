@@ -48,6 +48,21 @@ class Zeppelin:
         self.motorX = motor.PulsedMotor(17,23)
         self.lift = motor.PWMMotor(9,7)
 
+        self.motorX.setThrust(100.0)
+        self.motorY.setThrust(100.0)
+        time.sleep(5)
+        self.motorX.setThrust(-100.0)
+        self.motorY.setThrust(-100.0)
+        time.sleep(5)
+        self.motorX.setThrust(50.0)
+        self.motorY.setThrust(50.0)
+        time.sleep(5)
+        self.motorX.setThrust(0)
+        self.motorY.setThrust(0)
+
+
+
+
         self.heightPID = PID(5,0.5,5)
         self.xPID = PID(1,0,0.1)
         self.yPID = PID(1,0,0.1)
