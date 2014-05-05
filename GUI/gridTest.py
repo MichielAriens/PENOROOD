@@ -7,6 +7,8 @@ import time
 #initiate tinker, tk() acts as a frame
 #root = Tk()
 #root.title("team ROOD")
+from Crypto.PublicKey.pubkey import pubkey
+
 
 class GUI:
     
@@ -30,6 +32,8 @@ class GUI:
         self.label3 = Label(self.labelframe, text="command")
         self.entry3 = Entry(self.labelframe)
         self.entry4 = Entry(self.labelframe)
+        self.entry5 = Entry(self.labelframe)
+
         self.grid = GRID(8,7)
         self.text = Text(master,width = 50, height = 15)
         self.debugtext = Text(master,width = 50, height = 15)
@@ -39,8 +43,11 @@ class GUI:
 
         self.ipads = []
         self.addIpad(25, 100, 100)
+
+
         
         self.controlFrame = LabelFrame(master, text="Controls")
+
         self.upbutton= Button(self.controlFrame, text="UP", command=self.moveUpWithButton)
         self.downbutton= Button(self.controlFrame, text="DOWN", command=self.moveDownWithButton)
         self.leftbutton= Button(self.controlFrame, text="LEFT", command=self.moveLeftWithButton)
@@ -48,6 +55,7 @@ class GUI:
         self.gobutton= Button(self.labelframe, text="GO", command=self.setGoal)
         self.sendbutton= Button(self.labelframe, text="send", command=self.sendCommand)
         self.overrideButton = Button(self.labelframe, text="Override", command=self.override)
+        self.rsaButton = Button(self.labelframe, text="Send PublicKey", command= self.sendPub)
         
         self.greendot = PhotoImage(file="GUI/goodzep.gif")
         self.reddot = PhotoImage(file="GUI/badzep.gif")
@@ -350,7 +358,14 @@ class GUI:
             self.communicator.sendCommand("rood.lcommand.motor2", str(int(self.js.getY() * 100)))
             time.sleep(1)
 
-
+    def sendPub(self):
+        try:
+            val = int(self.entry5.get())
+            file = open("rsa/public","r")
+            pubkey = file.read()
+            self.communicator.sendCommand("rood.tablets.tablet" + str(val), pubkey)
+        except:
+            pass
         
     def updateGoalDirection(self, zepID):
         currentpos = self.grid.getZeppelin(zepID)[0]

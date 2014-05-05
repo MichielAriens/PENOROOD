@@ -1,3 +1,4 @@
+from bsddb.dbtables import _columns_key
 import thread
 #from RPI import FakeZeppelin as FakeZeppelin
 #from RPI.ZepListener import *
@@ -91,11 +92,15 @@ Gui.entry4.grid(row = 3, column = 1)
 Gui.gobutton.grid(row = 4, column = 0)
 Gui.sendbutton.grid(row = 4, column = 1)
 Gui.overrideButton.grid(row = 4, column = 2)
+Gui.entry5.grid(row = 5, column = 0)
+Gui.rsaButton.grid(row = 5, column = 1)
 
 Gui.upbutton.grid(row = 0, column = 1)
 Gui.downbutton.grid(row = 2, column = 1)
 Gui.leftbutton.grid(row = 1, column = 0)
 Gui.rightbutton.grid(row = 1, column = 2)
+
+
 
 
 file_path = "C:\\PENO\\grid25-04.csv"
