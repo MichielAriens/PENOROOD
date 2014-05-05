@@ -29,6 +29,7 @@ class GUI:
         self.entry2 = Entry(self.labelframe)
         self.label3 = Label(self.labelframe, text="command")
         self.entry3 = Entry(self.labelframe)
+        self.entry4 = Entry(self.labelframe)
         self.grid = GRID(8,7)
         self.text = Text(master,width = 50, height = 15)
         self.debugtext = Text(master,width = 50, height = 15)
@@ -309,9 +310,9 @@ class GUI:
         self.goal = goalposition;
         
     def sendCommand(self):
-        command = self.entry3.get().split(" ")
-        if len(command) == 2:
-            self.communicator.sendCommand("rood." + command[0],command[1])
+        key = self.entry3.get()
+        body = self.entry4.get()
+        self.communicator.sendCommand("rood." + key,body)
         #("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
 
     def override(self):
