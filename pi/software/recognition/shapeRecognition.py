@@ -8,7 +8,7 @@
 from SimpleCV import Image
 
 # Color values can easily be found by right clicking the picture and use color picker!  (in pycharm anyway)
-from RPI.software.recognition import FindColorCode as fc
+import FindColorCode as fc
 
 
 class ShapeFinder:
