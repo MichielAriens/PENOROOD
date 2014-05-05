@@ -43,8 +43,8 @@ class Zeppelin:
         #self.xMot = motor.PulsedMotor(17,23)
         #self.yMot = motor.PulsedMotor(9,7)
 
-        self.yMot = motor.PulsedMotor(24,4)
-        self.xMot = motor.PulsedMotor(17,23)
+        self.motorY = motor.PulsedMotor(24,4)
+        self.motorX = motor.PulsedMotor(17,23)
         self.lift = motor.PWMMotor(9,7)
 
         self.heightPID = PID(5,0.5,5)
@@ -84,10 +84,10 @@ class Zeppelin:
         return self.lift
 
     def getXMotor(self):
-        return self.xMot
+        return self.motorX
 
     def getYMotor(self):
-        return self.yMot
+        return self.motorY
         
     def loadGrid(self, path):
         import csv
