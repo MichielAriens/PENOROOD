@@ -132,14 +132,14 @@ class Zeppelin:
     def _keepPos(self):
         time.sleep(1)
         while(True):
-            try:
+
                 if not self.override:
                     self.camera.click()
                     self.pos = self.posAnalyzer.getPosition("/home/pi/temp/img.jpg")
                     self.listener.pushPosition(self.pos)
                     self.doAction()
-            except:
-                print "network can't keep up"
+
+                #print "network can't keep up"
 
 
     def doAction(self):
