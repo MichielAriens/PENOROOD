@@ -115,7 +115,7 @@ import pid
  
 class FakeZeppelin:
     
-    def __init__(self):
+    def __init__(self, startgoal, ipads, targets):
         self.override = False;
         self.height = 0
         self.zepListener = zeplistener.zepListener(self)
@@ -140,9 +140,9 @@ class FakeZeppelin:
         #print(self.fe.force.toString())
         #self.pid = PID(0.2,0.1,5)
         self.camera = None
-        self.goal = (0,0,0) #tuple = (volgnummer,x,y)
-        self.ipads = [(1,20,70,"bleep",False,False),(2,220,300,"bleep",False,False)] # tuple = (ipadID,x,y,qr,ipad_boolean,qr_boolean) ipad_boolean/qr_boolean = false if zep hasnt been there yet
-        self.targets = [(1,0,0),(2,100,0),(3,200,200)] #tuple = (volgnummer,x,y)
+        self.goal = (0,startgoal[0], startgoal[1]) #tuple = (volgnummer,x,y)
+        self.ipads = ipads # tuple = (ipadID,x,y,qr,ipad_boolean,qr_boolean) ipad_boolean/qr_boolean = false if zep hasnt been there yet
+        self.targets = targets #tuple = (volgnummer,x,y)
         self.targetcount = len(self.targets) #increase this when you add a target
         self.goalnumber = 0 #increase this when you reached goal
         while True:
@@ -228,6 +228,9 @@ class FakeZeppelin:
                 self.ipads.append((pad[0],pad[1],pad[2],pad[3],True,pad[5]))
                 addedipad = True
 
+    def addTarget(self,x,y):
+        self.targets.append((self.targetcount+1, x, y))
+        self.targetcount += 1
 
     def completeQR(self,qr):
 

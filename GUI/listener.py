@@ -136,6 +136,7 @@ class Listener:
         self.decodeResponse(command, values)
     
     def decodeResponse(self, command, value):
+        self.messages.append(command + value)
         try:
             split = command.rsplit(".");
             color = split[0]

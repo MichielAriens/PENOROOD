@@ -36,6 +36,9 @@ class zepListener:
                         if str(body) == "true":
                             print "   override: switching to manual."
                             self.zeppelin.override = True
+                    elif parts[2] == "goal":
+                        values = body.split(",")
+                        self.zeppelin.addTarget(int(values[0]),int(values[1]))
                 if parts[1] == "lcommand":
                     print "   lcommand"
                     if parts[2] == "motor1" and self.zeppelin.override == True:
