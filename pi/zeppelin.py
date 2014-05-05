@@ -134,8 +134,8 @@ class Zeppelin:
 
     def doAction(self):
         if not self.override:
-            self.motorX.setThrust(self.pidX.update(self.pos[0]))
-            self.motorY.setThrust(self.pidY.update(self.pos[1]))
+            self.motorX.setThrust(self.xPID.update(self.pos[0]))
+            self.motorY.setThrust(self.yPID.update(self.pos[1]))
         if(self.checkGoal() == True):
             self.checkTargets()
         #self.setMovementZeppelin(self.updateGoalDirection())
