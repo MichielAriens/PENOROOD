@@ -65,7 +65,7 @@ class Zeppelin:
         self.yPID.setPoint(self.dPos[1])
 
         self.goal = (0,0,0) #tuple = (volgnummer,x,y)
-        self.ipads = [(1,20,70,"bleep",False,False),(2,220,300,"bleep",False,False)] # tuple = (ipadID,x,y,qr,ipad_boolean,qr_boolean) ipad_boolean/qr_boolean = false if zep hasnt been there yet
+        self.ipads = [(1,0,0,"bleep",False,False),(2,220,300,"bleep",False,False)] # tuple = (ipadID,x,y,qr,ipad_boolean,qr_boolean) ipad_boolean/qr_boolean = false if zep hasnt been there yet
         self.targets = [(1,0,0),(2,100,0),(3,200,200)] #tuple = (volgnummer,x,y)
         self.targetcount = len(self.targets) #increase this when you add a target
         self.goalnumber = 0 #increase this when you reached goal
@@ -207,8 +207,13 @@ class Zeppelin:
         #Pic in memory.
         now = time.time()
         if self.lastQRRead <= now - 5:
-
+            #tablet numbering starts with 1
+            self.listener.pushPublicKey(self.goal[0] + 1)
             os.system("java -jar read_qr_zep.jar /home/pi/zep2/output/path.jpg > /home/pi/temp/qrresults.txt")
+            file = open("/home/pi/temp/qrresults.txt","r")
+            results = file.read()
+            print str(results)
+
         else:
             self.listener.pushMessage("qr not read, too early to try again.")
 

@@ -69,8 +69,8 @@ class zepListener:
         print str(message)
         self.channel.basic_publish(exchange='server', routing_key="rood.private.message", body=str(message))
 
-    def pushPublicKey(self, motnr):
-        publicKeyFile = open("../rsa/public")
+    def pushPublicKey(self, tabnr):
+        publicKeyFile = open("../rsa/public","r")
         publickey = publicKeyFile.read()
 
-        self.channel.basic_publish(exchange='server', routing_key="rood.lcommand.motor" + str(motnr), body=publickey)
+        self.channel.basic_publish(exchange='server', routing_key="rood.lcommand.motor" + str(tabnr), body=publickey)
