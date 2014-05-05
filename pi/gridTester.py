@@ -1,5 +1,4 @@
-import pi.grid as gridTest
-import RPI.software.main as main
+import software.main as main
 import numpy
 
 class GridLoader:
