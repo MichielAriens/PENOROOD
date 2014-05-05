@@ -139,11 +139,11 @@ class Zeppelin:
         time.sleep(1)
         while(True):
             try:
+                time.sleep(0.5)
                 #Set the thrust to the PID output.
                 self.height = self.altimeter.getHeight()
                 self.listener.pushHeight(self.height)
                 self.lift.setThrust(self.yPID.setPoint(self.height))
-                time.sleep(0.5)
             except:
                 print "network can't keep up"
 
@@ -151,13 +151,12 @@ class Zeppelin:
     def _keepPos(self):
         time.sleep(1)
         while(True):
-
-                if not self.override:
-                    self.camera.click()
-                    self.pos = self.posAnalyzer.getPosition("/home/pi/temp/img.jpg")
-                    #self.pos = self.camera.analyzePosition(self.grid)
-                    self.listener.pushPosition(self.pos)
-                    self.doAction()
+            if not self.override:
+                self.camera.click()
+                self.pos = self.posAnalyzer.getPosition("/home/pi/temp/img.jpg")
+                #self.pos = self.camera.analyzePosition(self.grid)
+                self.listener.pushPosition(self.pos)
+                self.doAction()
 
                 #print "network can't keep up"
 
@@ -235,21 +234,23 @@ class Zeppelin:
     def getPos(self):
        return self.camera.analyzePosition(self.grid)
 
-    def completeQR(self):
-        print "READING QR"
-        #Pic in memory.
-        now = time.time()
-        if self.lastQRRead <= now - 5:
-            #tablet numbering starts with 1
-            self.listener.pushPublicKey(self.goal[0] + 1)
-            os.system("java -jar read_qr_zep.jar /home/pi/zep2/output/path.jpg > /home/pi/temp/qrresults.txt")
-            file = open("/home/pi/temp/qrresults.txt","r")
-            results = file.read()
-            print str(results)
-        else:
-            self.listener.pushMessage("qr not read, too early to try again.")
+    def click(self):
+        self.camera.click()
 
-       
+    def completeQR(self, ipadID):
+        import os
+        self.zepListener.pushMessage("Start QR-code request")
+        self.zepListener.pushMessage("Sending Public Key")
+        self.zepListener.pushPublicKey(ipadID)
+        time.sleep(1)
+        self.click()
+        os.system("java -jar /home/pi/PENOROOD/OTHER/read_qr_forzep.jar > /home/pi/PENOROOD/OTHER/results.txt")
+        file = open("C:\PENO\qrresults.txt","r")
+        results = file.read()
+        print str(results)
+        import rsa.decription
+        decoded = rsa.decription.decode(str(results))
+        print decoded
 
 class PID:
     """
