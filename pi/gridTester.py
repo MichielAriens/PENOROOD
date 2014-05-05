@@ -117,7 +117,7 @@ class Main:
         for (color,shape) in shapes:
             c = color[0]
             s = shape[0]
-            id = self.g.grid.getShapeID(c+s)
+            id = self.g.getShapeID(c+s)
             newshapes.append(id)
 
         # print newshapes
