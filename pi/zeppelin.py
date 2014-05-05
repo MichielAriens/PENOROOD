@@ -136,7 +136,7 @@ class Zeppelin:
                 if not self.override:
                     #self.camera.click()
                     #self.pos = self.posAnalyzer.getPosition("/home/pi/temp/img.jpg")
-                    self.camera.analyzePosition(self.grid)
+                    self.pos = self.camera.analyzePosition(self.grid)
                     self.listener.pushPosition(self.pos)
                     self.doAction()
 
@@ -159,7 +159,7 @@ class Zeppelin:
     def start(self):
         print "Starting zeppelin main loop."
         thread.start_new(self.listener.start, ())
-        #thread.start_new(self._keepHeight, ())
+        thread.start_new(self._keepHeight, ())
         thread.start_new(self._keepPos, ())
 
     def checkTargets(self):
