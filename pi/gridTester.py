@@ -1,4 +1,4 @@
-import GUI.gridTest as gridTest
+import pi.grid as gridTest
 import RPI.software.main as main
 import numpy
 
