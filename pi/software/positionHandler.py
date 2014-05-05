@@ -31,7 +31,7 @@ class Handler:
     # finds a list of the color, shape and coordinates of all the found figures.
     def processFigures(self, path):
         self.main.setImage(path)
-        self.main.calibrate()
+        #self.main.calibrate()
         return self.main.analyze()
 
     # finds the 3 nearest figures and returns their color and shape in a list
