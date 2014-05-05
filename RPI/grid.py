@@ -14,6 +14,7 @@ class GRID:
 
 
     def initiate(self,string):
+        print string
         part_strings = string.rsplit("=");
         value = 0
         x = 0

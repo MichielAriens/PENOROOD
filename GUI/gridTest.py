@@ -427,7 +427,7 @@ class GRID:
                 self.zepheights.append(tuple)
     
     def initiate(self,string):
-        #print(string)
+        print(string)
         part = string.rsplit("[")
         parts = part[1].rsplit("]")
         part_strings = parts[0].rsplit("=");
@@ -714,6 +714,89 @@ class GRID:
             if(endpos[0] == x and endpos[1] == y):
                 return True
         return False
+
+    #@Param: shapes     is a list of tuples in the form: ("id",<x>,<y>)
+    def getPos(self, shapes, needsSorting = True):
+        print str(shapes)
+        if needsSorting:
+            vals = [(a,x,y,x*x + y*y) for (a,x,y) in shapes]
+            vals = sorted(vals, key=lambda tup: tup[3])
+            shapes = [(a,x,y) for (a,x,y,_) in vals]
+
+        #Now the shapes are sorted so that the closest to the center is first
+        shapeslist = []   #(<i>,<j>)
+        #For all shapes in the params
+        for (currID,x,y) in shapes:
+            templist = []
+            #for all instances of currshape on the grid
+            for ((yf,xf),_) in self.getShape(self.getShapeID(currID)):
+                if len(shapeslist) == 0:
+                    templist.append([(xf,yf)])
+                #for every group of shapes in shapeslist defining a position.
+                for minilist in shapeslist:
+                    areAllNeigh = True
+                    for (xg,yg) in minilist:
+                        if not self.neighbours((xf,yf),(xg,yg)):
+                            areAllNeigh = False
+                    if areAllNeigh:
+                        templist.append(minilist + [(xf,yf)])
+            shapeslist = templist
+        if len(shapeslist) == 0:
+            return (-1,-1)
+
+    # returns a value corresponding to the given string (string is based on shape and color)
+    def getShapeID(self, string):
+        if(string == "bh"):
+            value = 1
+        elif(string == "yh"):
+            value = 2
+        elif(string =="gh"):
+            value = 3
+        elif(string =="rh"):
+            value = 4
+        elif(string =="wh"):
+            value = 5
+        elif(string =="bc"):
+            value = 6
+        elif(string =="yc"):
+            value = 7
+        elif(string =="gc"):
+            value = 8
+        elif(string =="rc"):
+            value = 9
+        elif(string =="wc"):
+            value = 10
+        elif(string =="br"):
+            value = 11
+        elif(string =="yr"):
+            value = 12
+        elif(string =="gr"):
+            value = 13
+        elif(string =="rr"):
+            value = 14
+        elif(string =="wr"):
+            value = 15
+        elif(string =="bs"):
+            value = 16
+        elif(string =="ys"):
+            value = 17
+        elif(string =="gs"):
+            value = 18
+        elif(string =="rs"):
+            value = 19
+        elif(string =="ws"):
+            value = 20
+        elif(string =="0"):
+            value = 0
+        else:
+            value = 0
+        return value
+
+    # shapes is the list of 3 tuples (tuple: (color, shape))
+    # ie: [('blue','rectangle'),('green','rectangle'),('yellow','heart')]
+    def getPosAlternative(self,shapes):
+        pass
+
 
 #Initiate GUI
 #Gui = GUI(root)

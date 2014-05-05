@@ -5,7 +5,7 @@ class NearbyFigures:
 
     def __init__(self):
         True
-        self.initiateFromFile() # load the actual grid here.
+        #self.initiateFromFile() # load the actual grid here.
 
     # Finds and returns the color and shape of the 3 closest figures to the zeppelin.
     def findFigures(self, figList):
@@ -34,7 +34,7 @@ class NearbyFigures:
         self.grid.calculatePositionFromShapes(SID1,SID2,SID3)
 
 
-    def initiateFromFile(self, path= "C:\Users\Babyburger\PycharmProjects\PENOROODpy\OTHER\example_grid2.csv"):
+    def initiateFromFile(self, path= "C:\Users\Babyburger\PycharmProjects\PENOROODpy\OTHER\grid25-04.csv"):
         import csv
         with open(path) as f:
             data=[tuple(line) for line in csv.reader(f)]

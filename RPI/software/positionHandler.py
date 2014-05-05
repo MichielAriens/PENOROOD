@@ -1,6 +1,6 @@
 from recognition.main import main
 from locationZeppelin import NearbyFigures
-from camera import camera as cam
+#from camera import camera as cam
 
 class Handler:
 
@@ -17,13 +17,17 @@ class Handler:
         print "found list " + str(figureList)
         figures = self.findNearestFigures(figureList)
         print "3 nearest figures " + str(figures)
-        return self.findCoordinate(figures)
+        #return self.findCoordinate(figures)
+        return figures
 
 
     # captures an image and returns the path to which the image is saved
     def captureImage(self, path = "/home/pi/zep2/output/path.jpg"):
+        """
         print "camera is taking a picture"
         return cam.captureImage(path)
+        """
+        return path
 
     # finds a list of the color, shape and coordinates of all the found figures.
     def processFigures(self, path):

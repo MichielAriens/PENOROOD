@@ -36,7 +36,8 @@ class GRID:
                 self.zepheights.append(tuple)
     
     def initiate(self,string):
-        print(string)
+        print 'sssssss'
+        print string
         part = string.rsplit("[")
         parts = part[1].rsplit("]")
         part_strings = parts[0].rsplit("=");
