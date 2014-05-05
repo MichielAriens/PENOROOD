@@ -1,5 +1,5 @@
 import heapq
-from RPI.grid import GRID
+
 
 class NearbyFigures:
 
@@ -26,6 +26,7 @@ class NearbyFigures:
                 list.append((color,shape,z))
         return list
 
+"""
     def locateZeppelin(self,list):
         [(c,s),(c2,s2),(c3,s3)] = list
         SID1 = self.grid.getShapeID(c[0] + "" + s[0])
@@ -55,4 +56,4 @@ class NearbyFigures:
         number_of_columns = len(data[0])
         init_string = list[0]
         self.grid = GRID(number_of_columns, number_of_rows)
-        self.grid.initiate(init_string);
+        self.grid.initiate(init_string);"""
