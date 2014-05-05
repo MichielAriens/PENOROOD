@@ -145,10 +145,14 @@ class FakeZeppelin:
         self.targets = targets #tuple = (volgnummer,x,y)
         self.targetcount = len(self.targets) #increase this when you add a target
         self.goalnumber = 0 #increase this when you reached goal
+        self.lasttime = time.time()
         while True:
             self.doAction()
-            self.zepListener.pushPosition(self.getPositionXY())
+            if((time.time()-self.lasttime) > 1):
+                self.lasttime = time.time()
+                self.zepListener.pushPosition(self.getPositionXY())
             time.sleep(0.33)
+
 
     def setPosition(self,x,y,z):
         self.fe.pos = Vector3(x,y,z)
@@ -233,18 +237,15 @@ class FakeZeppelin:
         self.targetcount += 1
 
     def completeQR(self):
+        import os
         self.zepListener.pushMessage("Reading QR-code")
-        try:
-            file = urllib2.urlopen("http://localhost:54322/static/rood0.png")
-            output = open('OTHER/qr.png','wb')
-            output.write(file.read())
-            output.close()
-            import pi.qr
-        except:
-             self.targets.append((self.targetcount+1, 300, 300))
-             self.targetcount += 1
-
-
+        self.zepListener.pushPublicKey(self.goal[0] + 1)
+        os.system("java -jar read_qr_zep.jar C:\PENO\path.jpg > C:\PENO\qrresults.txt")
+        file = open("C:\PENO\qrresults.txt","r")
+        results = file.read()
+        print str(results)
+        self.targets.append((self.targetcount+1, 300, 300))
+        self.targetcount += 1
 
     def gotoPoint(self,point):
         self.pidX.setPoint(point[0])
