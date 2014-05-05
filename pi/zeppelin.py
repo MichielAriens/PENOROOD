@@ -34,7 +34,7 @@ class Zeppelin:
     def __init__(self):
         print "loading zeppelin"
         self.override = False
-        self.grid = self.loadGrid("/home/pi/PENOROOD/OTHER/grid25-04.csv")
+        self.loadGrid("/home/pi/PENOROOD/OTHER/grid25-04.csv")
         #still requirs grid loading
         self.path = "/home/pi/temp/img.jpg"
         #Init PID (0.1,0,0.5) works slightly, (0.1,0.05,3) better P to 0.2 increases responsiveness, I increses overshoot but decreases settletime
