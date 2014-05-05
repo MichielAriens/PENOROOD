@@ -237,7 +237,7 @@ class FakeZeppelin:
         output.close()
 
         import pi.qr
-        qr.
+        #qr.
 
 
     def gotoPoint(self,point):
