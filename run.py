@@ -13,7 +13,7 @@ if(served):
 
     creds = pika.PlainCredentials('rood','rood')
     connection = pika.BlockingConnection(pika.ConnectionParameters(
-            host='localhost', credentials = creds))
+            host='192.168.2.134', credentials = creds))
     channel = connection.channel()
 
     channel.exchange_declare(exchange='topic_logs',
