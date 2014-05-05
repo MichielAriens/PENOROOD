@@ -48,15 +48,19 @@ class Zeppelin:
         self.motorX = motor.PulsedMotor(17,23)
         self.lift = motor.PWMMotor(9,7)
 
+        print "100"
         self.motorX.setThrust(100.0)
         self.motorY.setThrust(100.0)
         time.sleep(5)
+        print "-100"
         self.motorX.setThrust(-100.0)
         self.motorY.setThrust(-100.0)
         time.sleep(5)
+        print "50"
         self.motorX.setThrust(50.0)
         self.motorY.setThrust(50.0)
         time.sleep(5)
+        print "0"
         self.motorX.setThrust(0)
         self.motorY.setThrust(0)
 
