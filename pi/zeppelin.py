@@ -166,7 +166,7 @@ class Zeppelin:
             self.checkIpad()
 
     def checkGoal(self):
-        currentpos = (self.fe.pos.x, self.fe.pos.y)
+        currentpos = self.pos
         range = 10
         if(( (((currentpos[0] > (self.goal[1]-range))) and ((currentpos[0] < (self.goal[1]+range)))) and (((currentpos[1] > (self.goal[2]-range))) and ((currentpos[1] < (self.goal[2]+range)))))):
             return True
