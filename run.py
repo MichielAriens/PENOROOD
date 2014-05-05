@@ -77,6 +77,7 @@ Gui = GUI(root, listener)
 Gui.canvas.pack(side = LEFT)
 Gui.text.pack()
 Gui.debugtext.pack()
+Gui.redtext.pack()
 Gui.labelframe.pack(expand="yes")
 Gui.controlFrame.pack(expand="yes")
 

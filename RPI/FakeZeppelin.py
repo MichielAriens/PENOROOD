@@ -214,14 +214,14 @@ class FakeZeppelin:
             pad = self.ipads[j]
             if(pad[4] == True and pad[5] == False and addedQR == False):
                 qr = pad[3]
-                self.completeQR(qr)
+                self.completeQR()
                 self.ipads.remove(pad)
                 self.ipads.append((pad[0],pad[1],pad[2],pad[3],pad[4],True))
                 addedQR = True
         for i in range(len(self.ipads)):
             pad = self.ipads[i]
             if(pad[4] == False and addedQR == False and addedipad == False):
-                print("added ipad")
+                self.zepListener.pushMessage("Added tablets id=" + str(pad[0]) +" to goals:")
                 self.targets.append((self.targetcount+1, pad[1], pad[2]))
                 self.targetcount += 1
                 self.ipads.remove(pad)
@@ -233,6 +233,7 @@ class FakeZeppelin:
         self.targetcount += 1
 
     def completeQR(self):
+        self.zepListener.pushMessage("Reading QR-code")
         try:
             file = urllib2.urlopen("http://localhost:54322/static/rood0.png")
             output = open('OTHER/qr.png','wb')
@@ -260,7 +261,6 @@ class FakeZeppelin:
             return(direction_x, direction_y)
 
     def setMovementZeppelin(self,direction):
-
         if(direction == (-1,-1)):
             self.fe.force = Vector3(0,0,0)
             self.fe.speed = Vector3(0,0,0)
