@@ -32,6 +32,7 @@ def analyze():
 class Zeppelin:
     #initmethod variables (call start to invoke backround methods)
     def __init__(self):
+        self.calibrate = False
         print "loading zeppelin"
         self.override = False
         self.loadGrid("/home/pi/PENOROOD/OTHER/grid25-04.csv")
@@ -151,6 +152,9 @@ class Zeppelin:
     def _keepPos(self):
         time.sleep(1)
         while(True):
+            if self.calibrate:
+                self.posAnalyzer.
+
             if not self.override:
                 self.camera.click()
                 self.pos = self.posAnalyzer.getPosition("/home/pi/temp/img.jpg")
@@ -245,7 +249,7 @@ class Zeppelin:
         time.sleep(1)
         self.click()
         os.system("java -jar /home/pi/PENOROOD/OTHER/read_qr_forzep.jar > /home/pi/PENOROOD/OTHER/results.txt")
-        file = open("C:\PENO\qrresults.txt","r")
+        file = open("/home/pi/PENOROOD/OTHER/results.txt","r")
         results = file.read()
         print str(results)
         import rsa.decription
