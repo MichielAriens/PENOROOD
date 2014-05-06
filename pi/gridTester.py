@@ -108,12 +108,13 @@ class Main:
     def __init__(self,grid):
         #self.g = GridLoader()
         self.g = grid
+        self.interface = main.userInterface()
 
     def calibrate(self,path="C:/Users/Babyburger/PycharmProjects/PENOROODpy/output/5.jpg"):
-        main.userInterface().calibrate(path)
+        self.interface.calibrate(path)
 
     def getPosition(self,path="C:/Users/Babyburger/PycharmProjects/PENOROODpy/output/5.jpg"):
-        shapes = main.userInterface().findZeppelinLocation(path)
+        shapes = self.interface.findZeppelinLocation(path)
 
         #print self.g.grid.table
         table = self.g.table
