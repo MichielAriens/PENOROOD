@@ -103,7 +103,7 @@ Gui.rightbutton.grid(row = 1, column = 2)
 
 
 
-file_path = "C:\\PENO\\grid25-04.csv"
+file_path = "C:\\PENO\\final.csv"
 if(len(file_path)>0):
     Gui.initiateFromFile(file_path)
 else:

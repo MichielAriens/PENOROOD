@@ -42,8 +42,9 @@ class GUI:
         self.communicator = listener
 
         self.ipads = []
-        self.addIpad(25, 100, 100)
-
+        self.addIpad(160,156,100)
+        self.addIpad(440,156,100)
+        self.addIpad(240,329,100)
 
         
         self.controlFrame = LabelFrame(master, text="Controls")
