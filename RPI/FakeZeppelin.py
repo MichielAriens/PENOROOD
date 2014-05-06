@@ -260,7 +260,6 @@ class FakeZeppelin:
         self.fixqr(decoded)
 
     def fixqr(self, decoded):
-        print("hellloooow")
         print(decoded)
         values = decoded.rsplit(":")
         print(values[0])
@@ -272,9 +271,13 @@ class FakeZeppelin:
                 if(pad[0] == int(id)):
                     print("added target:" + str(pad[1]) + "," +str(pad[2]))
                     self.addTarget(pad[1], pad[2])
+                    self.ipads.remove(pad)
+                    self.ipads.append((pad[0],pad[1],pad[2],pad[3],True,pad[5]))
         elif(values[0]=="position"):
             coords = values[1].rsplit(",")
-            self.addTarget(coords[0], coords[1])
+            print(coords[0])
+            print(coords[1])
+            self.addTarget(int(coords[0]), int(coords[1]))
 
     def gotoPoint(self,point):
         self.pidX.setPoint(point[0])
