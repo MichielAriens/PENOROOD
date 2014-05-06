@@ -32,6 +32,8 @@ class zepListener:
             if parts[0] == "rood":
                 #print "got a message"
                 if parts[1] == "private":
+                    if parts[2] == "qr"
+                        self.zeppelin.completeQR(int(body))
                     if parts[2] == "override":
                         if str(body) == "true":
                             #print "   override: switching to manual."

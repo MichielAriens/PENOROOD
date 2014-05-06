@@ -91,6 +91,7 @@ class Zeppelin:
 
     def getYMotor(self):
         return self.motorY
+
         
     def loadGrid(self, path):
         import csv
@@ -223,9 +224,9 @@ class Zeppelin:
 
     def completeQR(self, ipadID):
         import os
-        self.zepListener.pushMessage("Start QR-code request")
-        self.zepListener.pushMessage("Sending Public Key")
-        self.zepListener.pushPublicKey(ipadID)
+        self.listener.pushMessage("Start QR-code request")
+        self.listener.pushMessage("Sending Public Key")
+        self.listener.pushPublicKey(ipadID)
         time.sleep(1)
         self.click()
         os.system("java -jar /home/pi/PENOROOD/OTHER/read_qr_forzep.jar > /home/pi/PENOROOD/OTHER/results.txt")
@@ -234,6 +235,7 @@ class Zeppelin:
         print str(results)
         import rsa.decription
         decoded = rsa.decription.decode(str(results))
+        self.listener.pushMessage("got: " + decoded)
         print decoded
 
 class PID:
