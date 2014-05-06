@@ -228,8 +228,9 @@ class Zeppelin:
         self.listener.pushMessage("Sending Public Key")
         self.listener.pushPublicKey(ipadID)
         time.sleep(1)
+
         self.click()
-        os.system("java -jar /home/pi/PENOROOD/OTHER/read_qr_forzep.jar > /home/pi/PENOROOD/OTHER/results.txt")
+        os.system("java -jar /home/pi/PENOROOD/OTHER/qread_qr_forzep.jar > /home/pi/PENOROOD/OTHER/results.txt")
         file = open("/home/pi/PENOROOD/OTHER/results.txt","r")
         results = file.read()
         print str(results)
