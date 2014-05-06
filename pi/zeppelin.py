@@ -140,7 +140,7 @@ class Zeppelin:
         time.sleep(1)
         while(True):
             try:
-                time.sleep(0.5)
+                time.sleep(1)
                 #Set the thrust to the PID output.
                 self.height = self.altimeter.getHeight()
                 self.listener.pushHeight(self.height)
@@ -152,18 +152,20 @@ class Zeppelin:
     def _keepPos(self):
         time.sleep(1)
         while(True):
-            if self.calibrate:
-                self.camera.click()
-                self.posAnalyzer.calibrate("/home/pi/temp/img.jpg")
-                self.calibrate = False
+            try:
+                if self.calibrate:
+                    self.camera.click()
+                    self.posAnalyzer.calibrate("/home/pi/temp/img.jpg")
+                    self.calibrate = False
 
-            if not self.override:
-                self.camera.click()
-                self.pos = self.posAnalyzer.getPosition("/home/pi/temp/img.jpg")
-                #self.pos = self.camera.analyzePosition(self.grid)
-                self.listener.pushPosition(self.pos)
-                self.doAction()
-
+                if not self.override:
+                    self.camera.click()
+                    self.pos = self.posAnalyzer.getPosition("/home/pi/temp/img.jpg")
+                    #self.pos = self.camera.analyzePosition(self.grid)
+                    self.listener.pushPosition(self.pos)
+                    self.doAction()
+            except:
+                pass
                 #print "network can't keep up"
 
 
