@@ -32,7 +32,6 @@ def analyze():
 class Zeppelin:
     #initmethod variables (call start to invoke backround methods)
     def __init__(self):
-        self.calibrate = False
         print "loading zeppelin"
         self.override = False
         self.loadGrid("/home/pi/PENOROOD/OTHER/grid25-04.csv")
@@ -48,24 +47,6 @@ class Zeppelin:
         self.motorY = motor.simpleMotor(9,7)
         self.motorX = motor.simpleMotor(17,23)
         self.lift = motor.PWMMotor(24,4)
-
-        print "100"
-        self.motorX.setThrust(100.0)
-        self.motorY.setThrust(100.0)
-        time.sleep(5)
-        print "-100"
-        self.motorX.setThrust(-100.0)
-        self.motorY.setThrust(-100.0)
-        time.sleep(5)
-        print "50"
-        self.motorX.setThrust(50.0)
-        self.motorY.setThrust(50.0)
-        time.sleep(5)
-        print "0"
-        self.motorX.setThrust(0)
-        self.motorY.setThrust(0)
-
-
 
 
         self.heightPID = PID(5,0.5,5)
@@ -153,15 +134,10 @@ class Zeppelin:
         time.sleep(1)
         while(True):
             try:
-                if self.calibrate:
-                    self.camera.click()
-                    self.posAnalyzer.calibrate("/home/pi/temp/img.jpg")
-                    self.calibrate = False
-
                 if not self.override:
-                    self.camera.click()
-                    self.pos = self.posAnalyzer.getPosition("/home/pi/temp/img.jpg")
-                    #self.pos = self.camera.analyzePosition(self.grid)
+                    #self.camera.click()
+                    #self.pos = self.posAnalyzer.getPosition("/home/pi/temp/img.jpg")
+                    self.pos = self.camera.analyzePosition(self.grid)
                     self.listener.pushPosition(self.pos)
                     self.doAction()
             except:
