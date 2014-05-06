@@ -32,6 +32,8 @@ class zepListener:
             if parts[0] == "rood":
                 #print "got a message"
                 if parts[1] == "private":
+                    if parts[2] == "callibrate":
+                        self.zeppelin.calibrate = True
                     if parts[2] == "override":
                         if str(body) == "true":
                             #print "   override: switching to manual."
