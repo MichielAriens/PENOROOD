@@ -153,7 +153,9 @@ class Zeppelin:
         time.sleep(1)
         while(True):
             if self.calibrate:
-                self.posAnalyzer.
+                self.camera.click()
+                self.posAnalyzer.calibrate("/home/pi/temp/img.jpg")
+                self.calibrate = False
 
             if not self.override:
                 self.camera.click()
