@@ -1,6 +1,7 @@
 import software.main as main
 import numpy
 
+"""
 class GridLoader:
     def __init__(self):
         pass
@@ -28,6 +29,7 @@ class GridLoader:
         # print 's: ' + str(init_string)
         self.grid = gridTest.GRID(number_of_columns, number_of_rows)
         self.grid.initiate(init_string);
+"""
 
 class FindPosition:
     def __init__(self,grid):
