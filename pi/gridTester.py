@@ -107,6 +107,9 @@ class Main:
         #self.g = GridLoader()
         self.g = grid
 
+    def calibrate(self,path="C:/Users/Babyburger/PycharmProjects/PENOROODpy/output/5.jpg"):
+        main.userInterface().calibrate(path)
+
     def getPosition(self,path="C:/Users/Babyburger/PycharmProjects/PENOROODpy/output/5.jpg"):
         print 'start looking for shapes'
         shapes = main.userInterface().findZeppelinLocation(path)

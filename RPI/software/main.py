@@ -1,6 +1,5 @@
 from positionHandler import Handler
 
-
 class userInterface:
 
     def __init__(self):

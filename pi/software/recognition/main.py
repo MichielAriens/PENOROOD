@@ -23,7 +23,8 @@ class main:
 
     # Changes the default rgb values using HSV.  Note that if a color is not found, that color will
     # keep its previous rgb value.
-    def calibrate(self):
+    def calibrate(self,path="C:/Users/Babyburger/PycharmProjects/PENOROODpy/output/5.jpg"):
+        self.shape.setImage(path)
         self.shape.calibrateColors()
 
     # Prints the rgb values found by calibration WITHOUT changing the default rgb values.  If a color is not found,
